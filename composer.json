@@ -22,4 +22,7 @@
       "Ohio\\Base\\": "src/"
     }
   },
+  "require-dev": {
+    "raveren/kint": "0.9.*@dev"
+  }
 }
