@@ -14,21 +14,9 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=5.5.9",
-    "laravel/framework": ">=5.2.31",
-    "guzzlehttp/guzzle": "~5.0",
-    "illuminate/html": "5.*",
-    "intervention/image": "2.*",
-    "kalnoy/nestedset": "3.1.*",
-    "league/fractal": "^0.13.0"
+    "laravel/framework": ">=5.2.31"
   },
   "require-dev": {
-    "barryvdh/laravel-ide-helper": "~2.0",
-    "barryvdh/laravel-debugbar": "^2.0",
-    "fzaninotto/faker": "~1.4",
-    "mockery/mockery": "0.9.*",
-    "phpunit/phpunit": "~4.0",
-    "raveren/kint": "0.9.*@dev",
-    "symfony/css-selector": "2.8.*|3.0.*",
-    "symfony/dom-crawler": "2.8.*|3.0.*"
+    "raveren/kint": "0.9.*@dev"
   }
 }
