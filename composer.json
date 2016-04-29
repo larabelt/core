@@ -1,10 +1,10 @@
 {
   "name": "ohiocms/base",
-  "description": "Base package for all other Ohio CMS packages.",
+  "description": "Baseline package for all Ohio CMS packages.",
   "authors": [
     {
       "name": "Matt Crowe",
-      "email": "matt@zym.me"
+      "email": "github.mpc@zym.me"
     },
     {
       "name": "Rob LaSota",
@@ -21,8 +21,5 @@
     "psr-4": {
       "Ohio\\Base\\": "src/"
     }
-  },
-  "require-dev": {
-    "raveren/kint": "0.9.*@dev"
   }
 }
