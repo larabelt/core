@@ -10,7 +10,7 @@ class Hello
 
     public static function run()
     {
-        return 'world 222';
+        return 'world 333';
     }
 
 }
