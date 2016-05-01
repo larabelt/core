@@ -14,7 +14,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/routes.php';
+        include __DIR__ . '/Http/routes.php';
     }
 
     /**
@@ -24,7 +24,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'base');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'base');
     }
     
 }
