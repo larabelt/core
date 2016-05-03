@@ -1,0 +1,148 @@
+/*
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ *
+ * https://github.com/IronSummitMedia/startbootstrap-simple-sidebar
+ * http://ironsummitmedia.github.io/startbootstrap-simple-sidebar
+ */
+
+.admin {
+
+  &.shop {
+    padding-top: 0;
+    background-color: #f9f9f9;
+  }
+
+  /* Toggle Styles */
+
+  #wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    &.toggled {
+      padding-left: 200px;
+    }
+  }
+
+  #sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 200px;
+    width: 0;
+    height: 100%;
+    margin-left: -200px;
+    overflow-y: auto;
+    background-color: #545456;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: 200px;
+  }
+
+  #page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -200px;
+  }
+
+  /* Sidebar Styles */
+
+  .sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    i {
+      margin:0 7px 0 0;
+      display: inline;
+    }
+    li {
+      text-indent: 20px;
+      line-height: 30px;
+      color: #fff;
+      font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      text-transform: uppercase;
+      font-weight: 700;
+      a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 700;
+        &:hover {
+          text-decoration: none;
+          color: #fff;
+          background: rgba(255, 255, 255, 0.2);
+        }
+        &:active, &:focus {
+          text-decoration: none;
+        }
+      }
+      &.sidebar-brand {
+        height: 65px;
+        line-height: 60px;
+        margin-top:10px;
+        a {
+          color: #F4F1E0;
+          font-size: 17px;
+          &:hover {
+            color: #fff;
+            background: none;
+          }
+        }
+      }
+      &.divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #A7A7A7;
+      }
+    }
+
+  }
+
+  @media(min-width: 768px) {
+    #wrapper {
+      padding-left: 200px;
+    }
+
+    #wrapper.toggled {
+      padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+      width: 200px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+      width: 0;
+    }
+
+    #page-content-wrapper {
+      position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+      position: relative;
+      margin-right: 0;
+    }
+  }
+}

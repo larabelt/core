@@ -9,7 +9,7 @@
 use Auth;
 use Illuminate\Http\Request;
 
-class AdminController extends BaseController
+class AdminUserController extends BaseController
 {
 
     /**
@@ -19,7 +19,7 @@ class AdminController extends BaseController
      */
     public function getIndex()
     {
-        return view('base::admin.index');
+        return view('base::admin-user.index');
     }
 
 }

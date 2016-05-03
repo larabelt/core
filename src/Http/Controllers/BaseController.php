@@ -6,15 +6,10 @@ use Input, Redirect, Request, Response, Session;
 use Illuminate\Routing\Controller;
 //use Illuminate\Support;
 //use Symfony\Component\HttpFoundation;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+
 
 class BaseController extends Controller
 {
-
-    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     protected $mode = 'api';
 
@@ -46,6 +41,7 @@ class BaseController extends Controller
 
     public function __construct()
     {
+
         //$this->setInput();
 
 //        $this->flash = new Support\MessageBag();

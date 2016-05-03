@@ -28,7 +28,7 @@
 </head>
 <body class="admin">
 
-@include('base::admin.partials.menu')
+@include('base::admin-user.partials.menu')
 
 @yield('main')
 
