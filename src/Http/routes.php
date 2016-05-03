@@ -1,17 +1,13 @@
 <?php
 
-Route::get('/', function () {
-    return view('base::front.home');
+Route::group(['middleware' => 'web'], function () {
+    Route::get('/', function () {
+        return view('base::front.home');
+    });
 });
 
-Route::group(
-    [
-        //'middleware' => 'auth.admin',
-        'prefix' => 'admin',
-    ],
+Route::group(['prefix' => 'admin', ['middleware' => 'web']],
     function () {
-        Route::get('/', function () {
-            return view('base::admin.home');
-        });
+        Route::get('/', \Ohio\Base\Http\Controllers\AdminController::class . '@getIndex');
     }
 );

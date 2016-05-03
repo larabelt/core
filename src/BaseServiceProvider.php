@@ -2,6 +2,7 @@
 
 namespace Ohio\Base;
 
+//use Ohio\Base\Console\Commands;
 use Illuminate\Support\ServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
@@ -15,6 +16,10 @@ class BaseServiceProvider extends ServiceProvider
     public function register()
     {
         include __DIR__ . '/Http/routes.php';
+
+        $this->commands([
+            Console\Commands\ClearCommand::class,
+        ]);
     }
 
     /**
@@ -26,5 +31,5 @@ class BaseServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'base');
     }
-    
+
 }
