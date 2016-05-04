@@ -6,7 +6,7 @@
 //use SOM\Core\Helper\ConfigHelper;
 //use SOM\User\Model\User;
 
-use Auth;
+use Auth, Gate;
 use Illuminate\Http\Request;
 
 class AdminController extends BaseController
@@ -19,6 +19,12 @@ class AdminController extends BaseController
      */
     public function getIndex()
     {
+
+        if (Gate::denies('admin-index')) {
+            //abort(403);
+            //s(403);
+        }
+
         return view('base::admin.index');
     }
 

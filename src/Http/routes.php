@@ -6,7 +6,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['web']],
+Route::group(['prefix' => 'admin', 'middleware' => ['web', 'auth.admin']],
     function () {
         Route::get('/', \Ohio\Base\Http\Controllers\AdminController::class . '@getIndex');
     }
