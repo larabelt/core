@@ -16,7 +16,10 @@
     "php": ">=5.5.9",
     "laravel/framework": ">=5.2.31",
     "illuminate/html": ">=5.0",
-    "laravelcollective/html": ">=5.2.4",
+    "laravelcollective/html": ">=5.2.4"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "~2.0",
     "raveren/kint": "0.9.*@dev"
   },
   "autoload": {
