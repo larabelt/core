@@ -35,7 +35,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            @include('base::shared.partials.nav-right')
+            @include('layout::shared.partials.nav-right')
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

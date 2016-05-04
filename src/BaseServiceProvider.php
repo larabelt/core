@@ -29,6 +29,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewsFrom(__DIR__ . '/../resources/layouts', 'layout');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'base');
 
         $this->publishes([
