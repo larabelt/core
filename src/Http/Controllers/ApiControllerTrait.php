@@ -17,19 +17,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
-class BaseController extends Controller
+class ApiControllerTrait
 {
 
-    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
-
-    /**
-     * @var BaseRepository
-     */
-    protected $repository;
-
-    /**
-     * @var BaseValidator
-     */
-    protected $validator;
+    
 
 }
