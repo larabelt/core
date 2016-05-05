@@ -4,6 +4,7 @@ namespace Ohio\Base;
 
 //use Ohio\Base\Console\Commands;
 use Illuminate\Support\ServiceProvider;
+use Prettus\Repository\Providers\RepositoryServiceProvider;
 
 class BaseServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,11 @@ class BaseServiceProvider extends ServiceProvider
         $this->commands([
             Console\Commands\ClearCommand::class,
         ]);
+
+        /*
+         * Register other vendor providers
+         */
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**

@@ -30,7 +30,7 @@ class BaseController extends Controller
     /**
      * @var Entity\BaseRepository
      */
-    public $repository;
+    //public $repository;
     protected $repository_class;
 
     /**
