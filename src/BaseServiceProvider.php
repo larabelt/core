@@ -25,7 +25,9 @@ class BaseServiceProvider extends ServiceProvider
         /*
          * Register other vendor providers
          */
-        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class, [
+            
+        ]);
     }
 
     /**
