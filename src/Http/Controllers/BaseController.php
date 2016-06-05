@@ -32,4 +32,9 @@ class BaseController extends Controller
      */
     protected $validator;
 
+    /**
+     * @var mixed
+     */
+    protected $data;
+
 }
