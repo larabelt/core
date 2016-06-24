@@ -6,7 +6,7 @@ namespace Ohio\Base;
 use Illuminate\Support\ServiceProvider;
 use Prettus\Repository\Providers\RepositoryServiceProvider;
 
-class BaseServiceProvider extends ServiceProvider
+class OhioBaseServiceProvider extends ServiceProvider
 {
 
     /**
