@@ -65,6 +65,14 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
         return abs($limit);
     }
 
+    public function update(array $attributes, $id)
+    {
+        unset($attributes['created_at']);
+        unset($attributes['updated_at']);
+
+        return parent::update($attributes, $id);
+    }
+
     /**
      * Boot up the repository, pushing criteria
      */
