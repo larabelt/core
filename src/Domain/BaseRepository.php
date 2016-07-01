@@ -2,21 +2,22 @@
 
 namespace Ohio\Base\Domain;
 
-use Request;
+use DB, Request;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Entities\Post;
-use App\Validators\PostValidator;
+use Ohio\Base\Domain\Criteria\BasePaginateCriteria;
 
-/**
- * Class PostRepositoryEloquent
- * @package namespace App\Repositories;
- */
+//use App\Entities\Post;
+//use App\Validators\PostValidator;
+
 class BaseRepository extends PrettusRepository implements BaseRepositoryInterface
 {
 
-    protected $domain;
-    protected $limit;
+    protected $model_class;
+
+    /**
+     * @var BasePaginateCriteria
+     */
+    public $page_criteria;
 
     /**
      * Specify Model class name
@@ -25,17 +26,17 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
      */
     public function model()
     {
-        return $this->domain;
+        return $this->model_class;
     }
 
     /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
     public function validator()
     {
-        return $this->domain . 'Validator';
+        return $this->model() . 'Validator';
     }
 
     /**
@@ -45,15 +46,41 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
      */
     public function presenter()
     {
-        return $this->domain . 'Presenter';
+        return $this->model() . 'Presenter';
     }
 
     public function paginate($limit = null, $columns = ['*'], $method = "paginate")
     {
 
-        $limit = $limit ?: $this->getPaginateLimit();
+//        \Ohio\Base\Helper\DebugHelper::enableQueryLog();
 
-        return parent::paginate($limit, $columns, $method);
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $per_page = $limit ?: $this->page_criteria->getPerPage();
+        $current_page = $this->page_criteria->getCurrentPage();
+
+        $results = $this->model->paginate($per_page, $columns, 'current_page', $current_page);
+
+//        $query = \Ohio\Base\Helper\DebugHelper::getLastQuery();
+//        s($query);
+//        foreach ($results as $n => $result) {
+//            s([
+//                'id' => $result->id,
+//                'email' => $result->email,
+//            ]);
+//        }
+//        exit;
+
+
+        $results->appends(request()->query());
+        $this->resetModel();
+
+        $results = $this->parserResult($results);
+
+        $results['meta']['request'] = $this->page_criteria->toArray();
+
+        return $results;
     }
 
     public function getPaginateLimit()
