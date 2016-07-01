@@ -17,51 +17,51 @@ class BasePaginateCriteria implements CriteriaInterface
 //     * @var array
 //     */
 //    public $defaults = [
-//        'per_page' => 20,
-//        'current_page' => 20,
-//        'order_by' => 'id',
-//        'sorted_by' => 'asc',
+//        'perPage' => 20,
+//        'currentPage' => 20,
+//        'orderBy' => 'id',
+//        'sortBy' => 'asc',
 //    ];
 
     /**
      * @var integer
      */
-    public $per_page = 20;
+    public $perPage = 20;
 
     /**
      * @var integer
      */
-    public $current_page = 1;
+    public $currentPage = 1;
 
     /**
      * @var string
      */
-    public $order_by = 'id';
+    public $orderBy = 'id';
 
     /**
      * @var string
      */
-    public $sorted_by = 'asc';
+    public $sortBy = 'asc';
 
     public function __construct(array $input)
     {
 
         //$this->setDefaults();
 
-        if (array_get($input, 'current_page')) {
-            $this->setCurrentPage(array_get($input, 'current_page'));
+        if (array_get($input, 'currentPage')) {
+            $this->setCurrentPage(array_get($input, 'currentPage'));
         }
 
-        if (array_get($input, 'per_page')) {
-            $this->setPerPage(array_get($input, 'per_page'));
+        if (array_get($input, 'perPage')) {
+            $this->setPerPage(array_get($input, 'perPage'));
         }
 
-        if (array_get($input, 'order_by')) {
-            $this->setOrderBy(array_get($input, 'order_by'));
+        if (array_get($input, 'orderBy')) {
+            $this->setOrderBy(array_get($input, 'orderBy'));
         }
 
-        if (array_get($input, 'sorted_by')) {
-            $this->setSortedBy(array_get($input, 'sorted_by'));
+        if (array_get($input, 'sortBy')) {
+            $this->setSortedBy(array_get($input, 'sortBy'));
         }
     }
 
@@ -69,10 +69,10 @@ class BasePaginateCriteria implements CriteriaInterface
 //    {
 //        $defaults = $this->defaults;
 //
-//        $this->setCurrentPage(array_get($defaults, 'current_page', 1));
-//        $this->setPerPage(array_get($defaults, 'per_page', 20));
-//        $this->setOrderBy(array_get($defaults, 'order_by', 'id'));
-//        $this->setSortedBy(array_get($defaults, 'sorted_by', 'asc'));
+//        $this->setCurrentPage(array_get($defaults, 'currentPage', 1));
+//        $this->setPerPage(array_get($defaults, 'perPage', 20));
+//        $this->setOrderBy(array_get($defaults, 'orderBy', 'id'));
+//        $this->setSortedBy(array_get($defaults, 'sortBy', 'asc'));
 //    }
 
     /**
@@ -80,19 +80,19 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public function getPerPage()
     {
-        return $this->per_page;
+        return $this->perPage;
     }
 
     /**
-     * @param int $per_page
+     * @param int $perPage
      */
-    public function setPerPage($per_page)
+    public function setPerPage($perPage)
     {
-        if (!is_numeric($per_page) || $per_page < 1) {
-            $per_page = 20;
+        if (!is_numeric($perPage) || $perPage < 1) {
+            $perPage = 20;
         }
 
-        $this->per_page = $per_page;
+        $this->perPage = $perPage;
     }
 
     /**
@@ -100,19 +100,19 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public function getCurrentPage()
     {
-        return $this->current_page;
+        return $this->currentPage;
     }
 
     /**
-     * @param int $current_page
+     * @param int $currentPage
      */
-    public function setCurrentPage($current_page)
+    public function setCurrentPage($currentPage)
     {
-        if (!is_numeric($current_page) || $current_page < 1) {
-            $current_page = 1;
+        if (!is_numeric($currentPage) || $currentPage < 1) {
+            $currentPage = 1;
         }
 
-        $this->current_page = $current_page;
+        $this->currentPage = $currentPage;
     }
 
     /**
@@ -120,15 +120,15 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public function getOrderBy()
     {
-        return $this->order_by;
+        return $this->orderBy;
     }
 
     /**
-     * @param string $order_by
+     * @param string $orderBy
      */
-    public function setOrderBy($order_by)
+    public function setOrderBy($orderBy)
     {
-        $this->order_by = $order_by;
+        $this->orderBy = $orderBy;
     }
 
     /**
@@ -136,21 +136,21 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public function getSortedBy()
     {
-        return $this->sorted_by;
+        return $this->sortBy;
     }
 
     /**
-     * @param string $sorted_by
+     * @param string $sortBy
      */
-    public function setSortedBy($sorted_by)
+    public function setSortedBy($sortBy)
     {
-        $sorted_by = strtolower($sorted_by);
+        $sortBy = strtolower($sortBy);
 
-        if (!in_array($sorted_by, ['asc', 'desc'])) {
-            $sorted_by = 'asc';
+        if (!in_array($sortBy, ['asc', 'desc'])) {
+            $sortBy = 'asc';
         }
 
-        $this->sorted_by = $sorted_by;
+        $this->sortBy = $sortBy;
     }
 
     /**
@@ -177,10 +177,10 @@ class BasePaginateCriteria implements CriteriaInterface
     public function toArray()
     {
         return [
-            'current_page' => $this->getCurrentPage(),
-            'per_page' => $this->getPerPage(),
-            'order_by' => $this->getOrderBy(),
-            'sorted_by' => $this->getSortedBy(),
+            'currentPage' => $this->getCurrentPage(),
+            'perPage' => $this->getPerPage(),
+            'orderBy' => $this->getOrderBy(),
+            'sortBy' => $this->getSortedBy(),
         ];
     }
 
