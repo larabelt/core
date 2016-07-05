@@ -18,7 +18,7 @@ class BasePaginateCriteria implements CriteriaInterface
 //     */
 //    public $defaults = [
 //        'perPage' => 20,
-//        'currentPage' => 20,
+//        'page' => 20,
 //        'orderBy' => 'id',
 //        'sortBy' => 'asc',
 //    ];
@@ -31,7 +31,7 @@ class BasePaginateCriteria implements CriteriaInterface
     /**
      * @var integer
      */
-    public $currentPage = 1;
+    public $page = 1;
 
     /**
      * @var string
@@ -48,8 +48,8 @@ class BasePaginateCriteria implements CriteriaInterface
 
         //$this->setDefaults();
 
-        if (array_get($input, 'currentPage')) {
-            $this->setCurrentPage(array_get($input, 'currentPage'));
+        if (array_get($input, 'page')) {
+            $this->setCurrentPage(array_get($input, 'page'));
         }
 
         if (array_get($input, 'perPage')) {
@@ -69,7 +69,7 @@ class BasePaginateCriteria implements CriteriaInterface
 //    {
 //        $defaults = $this->defaults;
 //
-//        $this->setCurrentPage(array_get($defaults, 'currentPage', 1));
+//        $this->setCurrentPage(array_get($defaults, 'page', 1));
 //        $this->setPerPage(array_get($defaults, 'perPage', 20));
 //        $this->setOrderBy(array_get($defaults, 'orderBy', 'id'));
 //        $this->setSortedBy(array_get($defaults, 'sortBy', 'asc'));
@@ -100,19 +100,19 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public function getCurrentPage()
     {
-        return $this->currentPage;
+        return $this->page;
     }
 
     /**
-     * @param int $currentPage
+     * @param int $page
      */
-    public function setCurrentPage($currentPage)
+    public function setCurrentPage($page)
     {
-        if (!is_numeric($currentPage) || $currentPage < 1) {
-            $currentPage = 1;
+        if (!is_numeric($page) || $page < 1) {
+            $page = 1;
         }
 
-        $this->currentPage = $currentPage;
+        $this->page = $page;
     }
 
     /**
@@ -177,7 +177,7 @@ class BasePaginateCriteria implements CriteriaInterface
     public function toArray()
     {
         return [
-            'currentPage' => $this->getCurrentPage(),
+            'page' => $this->getCurrentPage(),
             'perPage' => $this->getPerPage(),
             'orderBy' => $this->getOrderBy(),
             'sortBy' => $this->getSortedBy(),

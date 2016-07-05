@@ -58,9 +58,9 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
         $this->applyScope();
 
         $perPage = $limit ?: $this->page_criteria->getPerPage();
-        $currentPage = $this->page_criteria->getCurrentPage();
+        $page = $this->page_criteria->getCurrentPage();
 
-        $results = $this->model->paginate($perPage, $columns, 'currentPage', $currentPage);
+        $results = $this->model->paginate($perPage, $columns, 'page', $page);
 
 //        $query = \Ohio\Base\Helper\DebugHelper::getLastQuery();
 //        s($query);
