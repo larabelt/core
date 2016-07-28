@@ -41,7 +41,7 @@ class OhioBaseServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'base');
 
         $this->publishes([
-            __DIR__ . '/../resources/assets/sass/' => resource_path('assets/sass')
+            __DIR__ . '/../resources/sass/' => resource_path('sass')
         ], 'sass');
 
     }
