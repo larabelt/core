@@ -5,9 +5,7 @@ namespace Ohio\Base\Domain;
 use DB, Request;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepository;
 use Ohio\Base\Domain\Criteria\BasePaginateCriteria;
-
-//use App\Entities\Post;
-//use App\Validators\PostValidator;
+use Ohio\Base\Helper\DebugHelper;
 
 class BaseRepository extends PrettusRepository implements BaseRepositoryInterface
 {
@@ -52,7 +50,7 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
     public function paginate($limit = null, $columns = ['*'], $method = "paginate")
     {
 
-//        \Ohio\Base\Helper\DebugHelper::enableQueryLog();
+//        DebugHelper::enableQueryLog();
 
         $this->applyCriteria();
         $this->applyScope();
@@ -62,7 +60,7 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
 
         $results = $this->model->paginate($perPage, $columns, 'page', $page);
 
-//        $query = \Ohio\Base\Helper\DebugHelper::getLastQuery();
+//        $query = DebugHelper::getLastQuery();
 //        s($query);
 //        foreach ($results as $n => $result) {
 //            s([
@@ -71,7 +69,6 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
 //            ]);
 //        }
 //        exit;
-
 
         $results->appends(request()->query());
         $this->resetModel();
@@ -94,6 +91,7 @@ class BaseRepository extends PrettusRepository implements BaseRepositoryInterfac
 
     public function update(array $attributes, $id)
     {
+        unset($attributes['id']);
         unset($attributes['created_at']);
         unset($attributes['updated_at']);
 
