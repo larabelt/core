@@ -51,6 +51,7 @@ class OhioCoreServiceProvider extends ServiceProvider
     public function boot(GateContract $gate, Router $router)
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/layouts', 'layout');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/core', 'core');
         $this->loadViewsFrom(__DIR__ . '/../resources/views/users', 'users');
         $this->loadViewsFrom(__DIR__ . '/../resources/views/roles', 'roles');
 

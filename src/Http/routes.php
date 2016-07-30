@@ -5,6 +5,6 @@
  */
 Route::group(['middleware' => ['web']], function () {
     Route::get('/', function () {
-        return view('base::front.home');
+        return view('core::front.home');
     });
 });

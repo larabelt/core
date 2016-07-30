@@ -12,15 +12,15 @@ angular.module('usersApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'usersApp.user
             $locationProvider.hashPrefix('!');
             $routeProvider
                 .when('/users/index', {
-                    templateUrl: '/ng/users/views/index.html',
+                    templateUrl: '/ohio/users/views/index.html',
                     controller: 'usersIndexController'
                 })
                 .when('/users/create', {
-                    templateUrl: '/ng/users/views/create.html',
+                    templateUrl: '/ohio/users/views/create.html',
                     controller: 'usersCreateController'
                 })
                 .when('/users/edit/:user_id', {
-                    templateUrl: '/ng/users/views/edit.html',
+                    templateUrl: '/ohio/users/views/edit.html',
                     controller: 'usersEditController'
                 })
                 .otherwise('/');
