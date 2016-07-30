@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Domain\Criteria;
+namespace Ohio\Core\Domain\Criteria;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

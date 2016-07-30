@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Helper;
+namespace Ohio\Core\Helper;
 
 use DB;
 

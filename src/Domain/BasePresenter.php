@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Domain;
+namespace Ohio\Core\Domain;
 
 use Prettus\Repository\Presenter\FractalPresenter;
 

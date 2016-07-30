@@ -1,0 +1,30 @@
+<div class="checkbox">
+    <label>
+        <input type="checkbox"> Is Active
+    </label>
+</div>
+<div class="form-group" ng-class="{'has-error': hasError('email')}">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" ng-model="user.email" id="user-email" placeholder="email">
+    <span class="help-block" ng-show="hasError('email')">{{ getError('email') }}</span>
+</div>
+<div class="form-group" ng-class="{'has-error': hasError('password')}">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" ng-model="user.password" id="user-password" placeholder="password">
+    <span class="help-block" ng-show="hasError('password')">{{ getError('password') }}</span>
+</div>
+<div class="form-group" ng-class="{'has-error': hasError('first_name')}">
+    <label for="first_name">First Name</label>
+    <input type="text" class="form-control" ng-model="user.first_name" id="user-first_name" placeholder="first name">
+    <span class="help-block" ng-show="hasError('first_name')">{{ getError('first_name') }}</span>
+</div>
+<div class="form-group" ng-class="{'has-error': hasError('mi')}">
+    <label for="mi">MI</label>
+    <input type="text" class="form-control" ng-model="user.mi" id="user-mi" placeholder="mi">
+    <span class="help-block" ng-show="hasError('mi')">{{ getError('mi') }}</span>
+</div>
+<div class="form-group" ng-class="{'has-error': hasError('last_name')}">
+    <label for="last_name">Last Name</label>
+    <input type="text" class="form-control" ng-model="user.last_name" id="user-last_name" placeholder="last name">
+    <span class="help-block" ng-show="hasError('last_name')">{{ getError('last_name') }}</span>
+</div>

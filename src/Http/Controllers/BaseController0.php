@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Http\Controllers;
+namespace Ohio\Core\Http\Controllers;
 
 use Input, Redirect, Request, Response, Session;
 //use Illuminate\Database\Eloquent;

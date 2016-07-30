@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Base\Console\Commands;
+namespace Ohio\Core\Console\Commands;
 
 use Artisan, Storage;
 use Illuminate\Console\Command;

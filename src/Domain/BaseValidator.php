@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Base\Domain;
+namespace Ohio\Core\Domain;
 
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\LaravelValidator;

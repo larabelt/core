@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Domain;
+namespace Ohio\Core\Domain;
 
 use League\Fractal\TransformerAbstract;
 

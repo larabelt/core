@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Ohio\Base\Http\Exception;
+namespace Ohio\Core\Http\Exception;
 
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 

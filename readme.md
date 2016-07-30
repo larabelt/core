@@ -1,6 +1,21 @@
-# OhioCMS Base Package
+# OhioCMS User Package
+
+wysiwyg
+admin action buttons
+slideouts
+headings
+pagination
 
 ## Migrations / Seeds / Factories
 
-```php artisan vendor:publish --provider="Ohio\Base\BaseServiceProvider" --force
+```sudo composer dumpautoload
+```
+
+```php artisan vendor:publish --provider="Ohio\Core\OhioAdminServiceProvider" --force
+```
+
+```php artisan cache:clear; sudo service php5-fpm restart;
+```
+
+```php artisan migrate:refresh --seed #re-run all migrations with seeds
 ```

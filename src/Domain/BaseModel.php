@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Base\Domain;
+namespace Ohio\Core\Domain;
 
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;

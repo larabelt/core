@@ -1,4 +1,4 @@
-<?php namespace Ohio\Base\Domain;
+<?php namespace Ohio\Core\Domain;
 
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use League\Fractal\Pagination\PaginatorInterface;

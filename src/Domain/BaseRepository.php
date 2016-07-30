@@ -1,11 +1,11 @@
 <?php
 
-namespace Ohio\Base\Domain;
+namespace Ohio\Core\Domain;
 
 use DB, Request;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepository;
-use Ohio\Base\Domain\Criteria\BasePaginateCriteria;
-use Ohio\Base\Helper\DebugHelper;
+use Ohio\Core\Domain\Criteria\BasePaginateCriteria;
+use Ohio\Core\Helper\DebugHelper;
 
 class BaseRepository extends PrettusRepository implements BaseRepositoryInterface
 {

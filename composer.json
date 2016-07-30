@@ -1,6 +1,6 @@
 {
-  "name": "ohiocms/base",
-  "description": "Baseline package for all OhioCMS packages.",
+  "name": "ohiocms/core",
+  "description": "Core package for any OhioCMS app.",
   "authors": [
     {
       "name": "Matt Crowe",
@@ -25,7 +25,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Base\\": "src/"
+      "Ohio\\Core\\": "src/"
     }
   }
 }
