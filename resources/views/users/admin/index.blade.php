@@ -6,7 +6,7 @@
 
 @section('scripts-body-close')
     @parent
-    <script src="/ng/users/app.js"></script>
+    <script src="/ohio/users/app.js"></script>
 @endsection
 
 @section('main')
