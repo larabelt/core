@@ -1,0 +1,16 @@
+.admin {
+  .box-body {
+    .btn-group {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.ohio-column-sorter {
+  a {
+    color: black;
+  }
+  &.active a {
+    color: blue;
+  }
+}

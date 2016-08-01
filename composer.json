@@ -24,7 +24,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Core\\": "src/"
+      "Ohio\\Core\\Base": "base/src/",
+      "Ohio\\Core\\Role": "role/src/",
+      "Ohio\\Core\\User": "user/src/",
+      "Ohio\\Core\\UserRole": "user-role/src/"
     }
   }
 }
