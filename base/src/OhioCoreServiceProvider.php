@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Base;
 
-use Ohio, View;
+use Ohio\Core, View;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\ServiceProvider;
@@ -25,13 +25,13 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/Base/Http/routes.php';
-        include __DIR__ . '/User/Http/routes.php';
-        include __DIR__ . '/Role/Http/routes.php';
-        include __DIR__ . '/UserRole/Http/routes.php';
+        include __DIR__ . '/Http/routes.php';
+        include __DIR__ . '/../../role/src/Http/routes.php';
+        include __DIR__ . '/../../user/src/Http/routes.php';
+        include __DIR__ . '/../../user-role/src/Http/routes.php';
 
         $this->commands([
-            Base\Console\Commands\ClearCommand::class,
+            Core\Base\Console\Commands\ClearCommand::class,
         ]);
 
         /*
@@ -49,21 +49,35 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate, Router $router)
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/layouts', 'layout');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/core', 'core');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/users', 'users');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/roles', 'roles');
+        $this->loadViewsFrom(__DIR__ . '/../resources/layouts', 'layouts');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
+        $this->loadViewsFrom(__DIR__ . '/../../role/resources/views', 'roles');
+        $this->loadViewsFrom(__DIR__ . '/../../user/resources/views', 'users');
 
-        $this->publishes([__DIR__ . '/../resources/sass/' => resource_path('sass')], 'sass');
-        $this->publishes([__DIR__ . '/../database/factories/' => database_path('factories')], 'factories');
-        $this->publishes([__DIR__ . '/../database/migrations/' => database_path('migrations')], 'migrations');
-        $this->publishes([__DIR__ . '/../database/seeds/' => database_path('seeds')], 'seeds');
+        $this->publishes([
+            __DIR__ . '/../resources/sass/' => resource_path('sass'),
+        ], 'sass');
+        $this->publishes([
+            __DIR__ . '/../../role/database/factories/' => database_path('factories'),
+            __DIR__ . '/../../user/database/factories/' => database_path('factories'),
+            __DIR__ . '/../../user-role/database/factories/' => database_path('factories'),
+        ], 'factories');
+        $this->publishes([
+            __DIR__ . '/../../role/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/../../user/database/migrations/' => database_path('migrations'),
+            __DIR__ . '/../../user-role/database/migrations/' => database_path('migrations'),
+        ], 'migrations');
+        $this->publishes([
+            __DIR__ . '/../../role/database/seeds/' => database_path('seeds'),
+            __DIR__ . '/../../user/database/seeds/' => database_path('seeds'),
+            __DIR__ . '/../../user-role/database/seeds/' => database_path('seeds'),
+        ], 'seeds');
 
         $this->registerPolicies($gate);
 
-        $router->middleware('auth.admin', Base\Http\Middleware\AdminAuthenticate::class);
+        $router->middleware('auth.admin', Core\Base\Http\Middleware\AdminAuthenticate::class);
 
-        View::composer(['layout::admin.partials.scripts-body-close'], Base\Composer\NgComposer::class);
+        View::composer(['layout::admin.partials.scripts-body-close'], Core\Base\Composer\NgComposer::class);
 
     }
 
@@ -85,7 +99,7 @@ class OhioCoreServiceProvider extends ServiceProvider
             $gate->policy($key, $value);
         }
 
-        $this->app->singleton(Base\Service\NgService::class);
+        $this->app->singleton(Core\Base\Service\NgService::class);
     }
 
 }

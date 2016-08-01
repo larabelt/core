@@ -11,7 +11,7 @@ pagination
 ```sudo composer dumpautoload
 ```
 
-```php artisan vendor:publish --provider="Ohio\Core\OhioCoreServiceProvider" --force
+```php artisan vendor:publish --provider="Ohio\Core\Base\OhioCoreServiceProvider" --force
 ```
 
 ```php artisan cache:clear; sudo service php5-fpm restart;
