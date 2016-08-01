@@ -77,7 +77,7 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         $router->middleware('auth.admin', Core\Base\Http\Middleware\AdminAuthenticate::class);
 
-        View::composer(['layout::admin.partials.scripts-body-close'], Core\Base\Composer\NgComposer::class);
+        View::composer(['layouts::admin.partials.scripts-body-close'], Core\Base\Composer\NgComposer::class);
 
     }
 

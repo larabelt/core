@@ -1,4 +1,4 @@
-@extends('layout::admin-user.main')
+@extends('layouts::admin-user.main')
 
 @section('main')
 

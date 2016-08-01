@@ -36,7 +36,7 @@ class AdminController extends ApiController
 //            array_get($this->data, 'meta.pagination.page')
 //        );
 
-        //app(Ohio\Core\Service\NgService::class)->push('/ng/roles.js');
+        //app(Ohio\Core\Base\Service\NgService::class)->push('/ng/roles.js');
 
         return View::make('roles::admin.index');
     }

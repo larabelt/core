@@ -1,4 +1,4 @@
-@extends('layout::admin.main')
+@extends('layouts::admin.main')
 
 @section('heading-title', 'tmp')
 @section('heading-subtitle', 'tmp')
@@ -14,7 +14,7 @@
     <p><a href="/admin/ohio/core/#!/users/index">hello world</a></p>
 
     <div ng-app="ohioApp" style="min-height: 500px;">
-        @include('layout::admin.partials.loading')
+        @include('layouts::admin.partials.loading')
         <div ng-view></div>
     </div>
 

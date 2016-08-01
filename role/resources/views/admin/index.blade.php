@@ -1,4 +1,4 @@
-@extends('layout::admin.main')
+@extends('layouts::admin.main')
 
 @section('heading-title', 'Roles')
 @section('heading-subtitle', 'control panel')
@@ -12,7 +12,7 @@
 @section('main')
 
     <div ng-app="rolesApp" style="min-height: 500px;">
-        @include('layout::admin.partials.loading')
+        @include('layouts::admin.partials.loading')
         <div ng-view></div>
     </div>
 

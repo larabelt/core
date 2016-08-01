@@ -8,22 +8,22 @@
     @endif
     @if(Session::has('success'))
         <div class="alert alert-success">
-            @include('layout::shared.partials._flash', ['msgs' => Session::get('success')])
+            @include('layouts::shared.partials._flash', ['msgs' => Session::get('success')])
         </div>
     @endif
     @if(Session::has('info'))
         <div class="alert alert-success">
-            @include('layout::shared.partials._flash', ['msgs' => Session::get('info')])
+            @include('layouts::shared.partials._flash', ['msgs' => Session::get('info')])
         </div>
     @endif
     @if(Session::has('warning'))
         <div class="alert alert-warning">
-            @include('layout::shared.partials._flash', ['msgs' => Session::get('warning')])
+            @include('layouts::shared.partials._flash', ['msgs' => Session::get('warning')])
         </div>
     @endif
     @if(Session::has('danger'))
         <div class="alert alert-danger">
-            @include('layout::shared.partials._flash', ['msgs' => Session::get('danger')])
+            @include('layouts::shared.partials._flash', ['msgs' => Session::get('danger')])
         </div>
     @endif
 </div>

@@ -1,4 +1,4 @@
-@extends('layout::admin.main')
+@extends('layouts::admin.main')
 
 {{--@section('heading')--}}
 {{--<div class="heading clearfix">--}}
@@ -11,7 +11,7 @@
 {{--@stop--}}
 
 @section('main')
-    {{--@include('layout::admin.partials.fluff')--}}
+    {{--@include('layouts::admin.partials.fluff')--}}
     <div class="box" ng-app="userApp" zng-controller="usersController">
         <div ng-view></div>
     </div>

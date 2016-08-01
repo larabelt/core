@@ -14,7 +14,7 @@ class AdminUserController extends BaseController
      */
     public function getIndex()
     {
-        return view('layout::admin-user.index');
+        return view('layouts::admin-user.index');
     }
 
 }

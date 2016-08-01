@@ -27,10 +27,10 @@
 </head>
 <body class="front">
 
-@include('layout::front.partials.menu')
+@include('layouts::front.partials.menu')
 
 <div id="main" role="main">
-    @include('layout::shared.partials.flash')
+    @include('layouts::shared.partials.flash')
     @yield('main')
 </div>
 

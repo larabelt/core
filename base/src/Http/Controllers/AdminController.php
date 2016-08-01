@@ -20,7 +20,7 @@ class AdminController extends BaseController
             //s(403);
         }
 
-        return view('layout::admin.dashboard');
+        return view('layouts::admin.dashboard');
     }
 
 }

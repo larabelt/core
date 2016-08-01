@@ -14,7 +14,7 @@ class NgComposer
      */
     public function compose(View $view)
     {
-        $view->with('ng', app(Ohio\Core\Service\NgService::class)->all());
+        $view->with('ng', app(Ohio\Core\Base\Service\NgService::class)->all());
     }
 
 }

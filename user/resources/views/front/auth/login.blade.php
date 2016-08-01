@@ -1,4 +1,4 @@
-@extends('layout::front.main')
+@extends('layouts::front.main')
 
 @section('main')
 
