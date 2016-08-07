@@ -14,15 +14,15 @@ angular.module('rolesApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'rolesApp.role
             $locationProvider.hashPrefix('!');
             $routeProvider
                 .when('/index', {
-                    templateUrl: '/ohio/admin/roles/views/index.html',
+                    templateUrl: '/ng/core/role/admin/views/index.html',
                     controller: 'rolesIndexController'
                 })
                 .when('/create', {
-                    templateUrl: '/ohio/admin/roles/views/create.html',
+                    templateUrl: '/ng/core/role/admin/views/create.html',
                     controller: 'rolesCreateController'
                 })
                 .when('/edit/:role_id', {
-                    templateUrl: '/ohio/admin/roles/views/edit.html',
+                    templateUrl: '/ng/core/role/admin/views/edit.html',
                     controller: 'rolesEditController'
                 })
                 .otherwise('/');

@@ -1,10 +1,10 @@
-//=include ./base/app.js
+//=include ./app.js
 
-//=include ./users/service.js
-//=include ./users/controllers/usersController.js
-//=include ./users/controllers/usersCreateController.js
-//=include ./users/controllers/usersEditController.js
-//=include ./users/controllers/usersIndexController.js
+//=include ../../../user/ng/admin/service.js
+//=include ../../../user/ng/admin/controllers/usersController.js
+//=include ../../../user/ng/admin/controllers/usersCreateController.js
+//=include ../../../user/ng/admin/controllers/usersEditController.js
+//=include ../../../user/ng/admin/controllers/usersIndexController.js
 
 angular.module('usersApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'usersApp.usersController', 'usersApp.service'])
     .config(['$locationProvider', '$routeProvider',
@@ -12,15 +12,15 @@ angular.module('usersApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'usersApp.user
             $locationProvider.hashPrefix('!');
             $routeProvider
                 .when('/users/index', {
-                    templateUrl: '/ohio/admin/users/views/index.html',
+                    templateUrl: '/ng/core/user/admin/views/index.html',
                     controller: 'usersIndexController'
                 })
                 .when('/users/create', {
-                    templateUrl: '/ohio/admin/users/views/create.html',
+                    templateUrl: '/ng/core/user/admin/views/create.html',
                     controller: 'usersCreateController'
                 })
                 .when('/users/edit/:user_id', {
-                    templateUrl: '/ohio/admin/users/views/edit.html',
+                    templateUrl: '/ng/core/user/admin/views/edit.html',
                     controller: 'usersEditController'
                 })
                 .otherwise('/');

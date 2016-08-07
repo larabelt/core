@@ -38,6 +38,6 @@ angular.module('baseApp')
                 sortBy: '@',
                 sortByClass: '@'
             },
-            templateUrl: "/ohio/admin/base/views/column-sorter.html"
+            templateUrl: "/ng/core/base/admin/views/column-sorter.html"
         };
     });
