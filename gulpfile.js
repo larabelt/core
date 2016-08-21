@@ -32,7 +32,7 @@ function mix_js(input, output, filename) {
 }
 
 gulp.task('copy', function () {
-    copy_files('../../../node_modules/angular-ui-bootstrap/template/**/*', '../../../public/ng/vendor/angular-ui-bootstrap/template/');
+    copy_files('../../../node_modules/angular-ui-bootstrap/template/**/*', '../../../public/client/vendor/angular-ui-bootstrap/template/');
     copy_files('../../../node_modules/font-awesome/fonts/**/*', '../../../public/fonts/');
 });
 
@@ -50,14 +50,14 @@ gulp.task('sass', function () {
     mix_sass(['./resources/assets/sass/admin.scss'], '../../../public/css', 'admin.css');
 });
 
-gulp.task('ng', function () {
+gulp.task('client', function () {
 
-    copy_files('./base/ng/**/*', '../../../public/ng/core/base');
-    copy_files('./role/ng/**/*', '../../../public/ng/core/role');
-    copy_files('./user/ng/**/*', '../../../public/ng/core/user');
-    copy_files('./user-role/ng/**/*', '../../../public/ng/core/user-role');
+    copy_files('./base/client/**/*', '../../../public/client/core/base');
+    copy_files('./role/client/**/*', '../../../public/client/core/role');
+    copy_files('./user/client/**/*', '../../../public/client/core/user');
+    copy_files('./user-role/client/**/*', '../../../public/client/core/user-role');
 
-    mix_js(['./base/ng/admin/core-gulp.js'], '../../../public/ng/core/base/admin', 'core.js');
+    mix_js(['./base/client/admin/core-gulp.js'], '../../../public/client/core/base/admin', 'core.js');
 });
 
 gulp.task('js', function () {
@@ -80,12 +80,12 @@ gulp.task('js', function () {
     ], '../../../public/js/', 'admin-footer-lib.js');
 });
 
-gulp.task('default', ['copy', 'sass', 'ng', 'js']);
+gulp.task('default', ['copy', 'sass', 'client', 'js']);
 
 gulp.task('watch', function () {
     gulp.watch('./base/resources/sass/**/*', ['sass']);
-    gulp.watch('./base/ng/**/*', ['ng']);
-    gulp.watch('./role/ng/**/*', ['ng']);
-    gulp.watch('./user/ng/**/*', ['ng']);
-    gulp.watch('./user-role/ng/**/*', ['ng']);
+    gulp.watch('./base/client/**/*', ['client']);
+    gulp.watch('./role/client/**/*', ['client']);
+    gulp.watch('./user/client/**/*', ['client']);
+    gulp.watch('./user-role/client/**/*', ['client']);
 });

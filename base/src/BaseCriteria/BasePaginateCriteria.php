@@ -1,27 +1,20 @@
 <?php
 namespace Ohio\Core\Base\BaseCriteria;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\CriteriaInterface;
-use Prettus\Repository\Contracts\RepositoryInterface;
-use Prettus\Repository\Criteria\RequestCriteria;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class RequestCriteria
  * @package Prettus\Repository\Criteria
  */
-class BasePaginateCriteria implements CriteriaInterface
+class BasePaginateCriteria
 {
-//    /**
-//     * @var array
-//     */
-//    public $defaults = [
-//        'perPage' => 20,
-//        'page' => 20,
-//        'orderBy' => 'id',
-//        'sortBy' => 'asc',
-//    ];
+
+    /**
+     * @var array
+     */
+    public $input = [];
 
     /**
      * @var integer
@@ -43,11 +36,10 @@ class BasePaginateCriteria implements CriteriaInterface
      */
     public $sortBy = 'asc';
 
+    public $searchable = [];
+
     public function __construct(array $input)
     {
-
-        //$this->setDefaults();
-
         if (array_get($input, 'page')) {
             $this->setCurrentPage(array_get($input, 'page'));
         }
@@ -65,22 +57,20 @@ class BasePaginateCriteria implements CriteriaInterface
         }
     }
 
-//    public function setDefaults()
-//    {
-//        $defaults = $this->defaults;
-//
-//        $this->setCurrentPage(array_get($defaults, 'page', 1));
-//        $this->setPerPage(array_get($defaults, 'perPage', 20));
-//        $this->setOrderBy(array_get($defaults, 'orderBy', 'id'));
-//        $this->setSortedBy(array_get($defaults, 'sortBy', 'asc'));
-//    }
-
     /**
      * @return int
      */
     public function getPerPage()
     {
         return $this->perPage;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return ($this->perPage * $this->page) - $this->perPage;
     }
 
     /**
@@ -153,35 +143,17 @@ class BasePaginateCriteria implements CriteriaInterface
         $this->sortBy = $sortBy;
     }
 
-    /**
-     * Apply criteria in query repository
-     *
-     * @param         Builder|Model $model
-     * @param RepositoryInterface $repository
-     *
-     * @return mixed
-     * @throws \Exception
-     */
-    public function apply($model, RepositoryInterface $repository)
-    {
-
-        $model = $model instanceof Builder ?: $model->query();
-
-        $repository->page_criteria = $this;
-
-        $model->orderBy($this->getOrderBy(), $this->getSortedBy());
-
-        return $model;
-    }
-
     public function toArray()
     {
         return [
-            'page' => $this->getCurrentPage(),
-            'perPage' => $this->getPerPage(),
-            'orderBy' => $this->getOrderBy(),
-            'sortBy' => $this->getSortedBy(),
+          'orderBy' => $this->getOrderBy(),
+          'sortedBy' => $this->getSortedBy(),
         ];
+    }
+
+    public function also($qb)
+    {
+        return $qb;
     }
 
 }

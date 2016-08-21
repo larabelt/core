@@ -1,11 +1,5 @@
 # OhioCMS User Package
 
-wysiwyg
-admin action buttons
-slideouts
-headings
-pagination
-
 ## Migrations / Seeds / Factories
 
 ```sudo composer dumpautoload
