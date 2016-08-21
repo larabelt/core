@@ -1,5 +1,5 @@
 <div class="box box-primary">
-    <div class="box-body">
+    <div class="box-body" ng-controller="usersIndexController">
         <div class="btn-group">
             <a href="/admin/ohio/core/#!/users/create" class="btn btn-primary">add user</a>
         </div>
@@ -41,12 +41,23 @@
         <div class="row">
             <div class="col-xs-5">
                 <div class="dataTables_info" role="status" aria-live="polite">
-                    Showing {{ users.meta.pagination.from }} to {{ users.meta.pagination.to }} of {{ users.meta.pagination.total }} entries
+                    Showing {{ users.from }} to {{ users.to }} of {{ users.total }} entries
                 </div>
             </div>
             <div class="col-xs-7">
                 <div class="dataTables_paginate paging_simple_numbers">
-                    <uib-pagination ng-change="pageChanged()" template-url="/ohio/vendor/angular-ui-bootstrap/template/pagination/pagination.html" boundary-links="true" total-items="users.meta.pagination.total" items-per-page="criteria.perPage" ng-model="criteria.page" class="pagination-sm"></uib-pagination>
+                    <ul uib-pagination
+                        class="pagination-sm"
+                        ng-change="pageChanged()"
+                        ng-model="criteria.page"
+                        force-ellipses="true"
+                        max-size="5"
+                        boundary-links="true"
+                        template-url="/client/vendor/angular-ui-bootstrap/template/pagination/pagination.html"
+                        total-items="users.total"
+                        items-per-page="criteria.perPage"
+                    >
+                    </ul>
                 </div>
             </div>
         </div>

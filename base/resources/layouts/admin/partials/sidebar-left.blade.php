@@ -31,10 +31,8 @@
                     <i class="fa fa-user"></i> <span>User Admin</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/admin/users/#!/index"><i class="fa fa-users"></i> <span>Users</span></a></li>
-                    <li><a href="/admin/roles/#!/index"><i class="fa fa-user-plus"></i> <span>Roles</span></a></li>
-                    <li><a href="/admin/ohio/core/#!/users/index"><i class="fa fa-users"></i> <span>Users 2</span></a></li>
-                    <li><a href="/admin/ohio/core/#!/roles/index"><i class="fa fa-users"></i> <span>Roles 2</span></a></li>
+                    <li><a href="/admin/ohio/core/#!/users/index"><i class="fa fa-users"></i> <span>Users</span></a></li>
+                    <li><a href="/admin/ohio/core/#!/roles/index"><i class="fa fa-users"></i> <span>Roles</span></a></li>
                 </ul>
             </li>
             <li class="header">LABELS</li>

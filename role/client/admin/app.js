@@ -1,7 +1,5 @@
 //=include ../base/app.js
 
-//var roleApp = angular.module('rolesApp', []);
-
 //=include ./service.js
 //=include ./controllers/rolesController.js
 //=include ./controllers/rolesCreateController.js

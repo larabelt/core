@@ -11,8 +11,6 @@
 
 @section('main')
 
-    <p><a href="/admin/ohio/core/#!/users/index">hello world</a></p>
-
     <div ng-app="ohioApp" style="min-height: 500px;">
         @include('layouts::admin.partials.loading')
         <div ng-view></div>

@@ -9,8 +9,6 @@ class User extends BaseModel implements Authenticatable
 
     protected $morphClass = 'User';
 
-    protected $paginateCriteriaClass = Criteria\PaginateCriteria::class;
-
     protected $table = 'users';
 
     protected $guarded = ['id'];

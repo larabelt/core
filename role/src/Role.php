@@ -2,6 +2,7 @@
 namespace Ohio\Core\Role;
 
 use Ohio\Core\Base\BaseModel;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class Role extends BaseModel
 {
@@ -16,12 +17,10 @@ class Role extends BaseModel
     {
         return (string) $this->name;
     }
-
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper(trim($value));
     }
-
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = str_slug(trim($value));

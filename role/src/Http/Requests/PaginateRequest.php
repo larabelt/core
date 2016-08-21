@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\User\Http\Requests;
+namespace Ohio\Core\Role\Http\Requests;
 
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 
@@ -7,17 +7,15 @@ class PaginateRequest extends BasePaginateRequest
 {
     public $perPage = 5;
 
-    public $orderBy = 'users.id';
+    public $orderBy = 'roles.id';
 
     public $sortable = [
-        'users.id',
-        'users.email',
-        'users.first_name',
-        'users.last_name',
+        'roles.id',
+        'roles.name',
     ];
 
     public $searchable = [
-        'users.email',
+        'roles.name',
     ];
 
 }

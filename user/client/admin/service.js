@@ -16,10 +16,7 @@ angular.module('usersApp.service')
             // get all the users
             get: function (id) {
                 return $http.get('/api/v1/users/' + id)
-
                     .success(function (data) {
-                        console.log(111);
-                        console.log(data);
                         return data;
                     });
                 ;

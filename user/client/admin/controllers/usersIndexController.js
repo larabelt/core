@@ -39,8 +39,8 @@ angular.module('usersApp.usersController')
                     angular.extend($scope.criteria, {
                         page: data.current_page,
                         perPage: data.per_page,
-                        //orderBy: data.meta.request.orderBy,
-                        //sortBy: data.meta.request.sortBy
+                        orderBy: data.meta.request.orderBy,
+                        sortBy: data.meta.request.sortBy
                     });
 
                     for (var i = 0; i < $scope.sorters.length; i++) {

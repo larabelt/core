@@ -27,7 +27,7 @@ class BaseModel extends Model
 
         //$qb = $criteria->also($qb);
 
-        $query->orderBy($request->orderBy(), $request->sortedBy());
+        $query->orderBy($request->orderBy(), $request->sortBy());
 
         return $query;
     }

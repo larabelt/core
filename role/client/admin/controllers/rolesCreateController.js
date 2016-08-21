@@ -17,22 +17,22 @@ angular.module('rolesApp.rolesController')
             // use the function we created in our service
             Role.store($scope.role)
                 .success(function (data) {
-                    $location.url('/edit/' + data.id)
+                    $location.url('/roles/edit/' + data.id)
                 })
                 .error(function (data) {
                     $scope.setErrors(data);
-                    // angular.forEach(data.message, function (value, key) {
-                    //     $scope.errors[key] = value;
-                    // });
-                    // console.log($scope.errors);
-                    // angular.forEach(data.message, function (value, key) {
-                    //     $scope.errors[key] = value;
-                    //     console.log(key + ': ' + value);
-                    //     angular.forEach(value, function (value, key) {
-                    //         console.log(key + ': ' + value);
-                    //     });
-                    // });
-                    // console.log($scope.errors);
+                    angular.forEach(data.message, function (value, key) {
+                        $scope.errors[key] = value;
+                    });
+                    console.log($scope.errors);
+                    angular.forEach(data.message, function (value, key) {
+                        $scope.errors[key] = value;
+                        console.log(key + ': ' + value);
+                        angular.forEach(value, function (value, key) {
+                            console.log(key + ': ' + value);
+                        });
+                    });
+                    console.log($scope.errors);
                 });
         };
 

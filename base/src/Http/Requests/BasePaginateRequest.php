@@ -21,7 +21,7 @@ class BasePaginateRequest extends Request
     /**
      * @var string
      */
-    public $sortedBy = 'asc';
+    public $sortBy = 'asc';
 
     /**
      * @var array
@@ -108,15 +108,15 @@ class BasePaginateRequest extends Request
     /**
      * @return string
      */
-    public function sortedBy()
+    public function sortBy()
     {
-        $sortedBy = strtolower($this->query('sortedBy'));
+        $sortBy = strtolower($this->query('sortBy'));
 
-        if ($sortedBy && in_array($sortedBy, ['asc', 'desc'])) {
-            return (string) $sortedBy;
+        if ($sortBy && in_array($sortBy, ['asc', 'desc'])) {
+            return (string) $sortBy;
         }
 
-        return (string) $this->sortedBy;
+        return (string) $this->sortBy;
     }
 
     public function diff()
@@ -126,7 +126,7 @@ class BasePaginateRequest extends Request
 
     public function meta()
     {
-        return $this->meta;
+        return ['request' => $this->query()];
     }
 
 }

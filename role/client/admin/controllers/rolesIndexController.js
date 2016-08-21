@@ -37,8 +37,8 @@ angular.module('rolesApp.rolesController')
                     $scope.loading = false;
 
                     angular.extend($scope.criteria, {
-                        page: data.meta.request.page,
-                        perPage: data.meta.request.perPage,
+                        page: data.current_page,
+                        perPage: data.per_page,
                         orderBy: data.meta.request.orderBy,
                         sortBy: data.meta.request.sortBy
                     });

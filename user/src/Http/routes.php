@@ -25,6 +25,5 @@ Route::group([
     function () {
             Route::get('/users/{id}', User\Http\Controllers\AdminController::class . '@show');
             Route::get('/users', User\Http\Controllers\AdminController::class . '@index');
-            Route::get('/users-vue', User\Http\Controllers\AdminController::class . '@indexVue');
     }
 );

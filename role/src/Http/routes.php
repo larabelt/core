@@ -25,6 +25,5 @@ Route::group([
     function () {
             Route::get('/roles/{id}', Role\Http\Controllers\AdminController::class . '@show');
             Route::get('/roles', Role\Http\Controllers\AdminController::class . '@index');
-            Route::get('/roles-vue', Role\Http\Controllers\AdminController::class . '@indexVue');
     }
 );
