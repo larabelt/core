@@ -1,25 +1,25 @@
-//=include ../base/app.js
+//=require ../../../base/client/admin/app.js
 
-//=include ./service.js
-//=include ./controllers/rolesController.js
-//=include ./controllers/rolesCreateController.js
-//=include ./controllers/rolesEditController.js
-//=include ./controllers/rolesIndexController.js
+//=require ./service.js
+//=require ./controllers/rolesController.js
+//=require ./controllers/rolesCreateController.js
+//=require ./controllers/rolesEditController.js
+//=require ./controllers/rolesIndexController.js
 
 angular.module('rolesApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'rolesApp.rolesController', 'rolesApp.service'])
     .config(['$locationProvider', '$routeProvider',
         function ($locationProvider, $routeProvider) {
             $locationProvider.hashPrefix('!');
             $routeProvider
-                .when('/index', {
+                .when('/roles/index', {
                     templateUrl: '/client/core/role/admin/views/index.html',
                     controller: 'rolesIndexController'
                 })
-                .when('/create', {
+                .when('/roles/create', {
                     templateUrl: '/client/core/role/admin/views/create.html',
                     controller: 'rolesCreateController'
                 })
-                .when('/edit/:role_id', {
+                .when('/roles/edit/:role_id', {
                     templateUrl: '/client/core/role/admin/views/edit.html',
                     controller: 'rolesEditController'
                 })

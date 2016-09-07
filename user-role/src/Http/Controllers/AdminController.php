@@ -19,7 +19,7 @@ class AdminController extends ApiController
     public function index(Request $request)
     {
 
-        return View::make('users-roles::admin.index');
+        return View::make('user-roles::admin.index');
 
 //        $response = parent::index($request);
 //
@@ -36,9 +36,9 @@ class AdminController extends ApiController
 //            array_get($this->data, 'meta.pagination.page')
 //        );
 
-        //app(Ohio\Core\Base\Service\NgService::class)->push('/client/users-roles.js');
+        //app(Ohio\Core\Base\Service\NgService::class)->push('/client/user-roles.js');
 
-        return View::make('users-roles::admin.index');
+        return View::make('user-roles::admin.index');
     }
 
     /**
@@ -50,7 +50,7 @@ class AdminController extends ApiController
     public function indexVue(Request $request)
     {
 
-        return View::make('users-roles::admin.index-vue');
+        return View::make('user-roles::admin.index-vue');
     }
 
     public function show($id)
@@ -63,7 +63,7 @@ class AdminController extends ApiController
 
         $userRole = json_decode(json_encode($this->data))->data;
 
-        return View::make('users-roles::admin.show', compact('userRole'));
+        return View::make('user-roles::admin.show', compact('userRole'));
     }
 
 }

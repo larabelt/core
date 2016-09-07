@@ -1,21 +1,21 @@
-angular.module('usersApp.service', []);
+angular.module('userRolesApp.service', []);
 
-angular.module('usersApp.service')
-    .factory('User', function ($http, $httpParamSerializer, $location) {
+angular.module('userRolesApp.service')
+    .factory('UserRole', function ($http, $httpParamSerializer, $location) {
 
         return {
 
             // get all the users
-            index: function () {
+            index: function (user_id) {
 
                 var qs = $httpParamSerializer($location.search());
 
-                return $http.get('/api/v1/users?' + qs);
+                return $http.get('/api/v1/user-roles?user_id=' + user_id + qs);
             },
 
             // get all the users
             get: function (id) {
-                return $http.get('/api/v1/users/' + id)
+                return $http.get('/api/v1/user-roles/' + id)
                     .success(function (data) {
                         return data;
                     });
@@ -26,7 +26,7 @@ angular.module('usersApp.service')
             store: function (data) {
                 return $http({
                     method: 'POST',
-                    url: '/api/v1/users',
+                    url: '/api/v1/user-roles',
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param(data)
                 });
@@ -36,7 +36,7 @@ angular.module('usersApp.service')
             update: function (id, data) {
                 return $http({
                     method: 'PUT',
-                    url: '/api/v1/users/' + id,
+                    url: '/api/v1/user-roles/' + id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param(data)
                 });
@@ -44,7 +44,7 @@ angular.module('usersApp.service')
 
             // destroy a user
             destroy: function (id) {
-                return $http.delete('/api/v1/users/' + id);
+                return $http.delete('/api/v1/user-roles/' + id);
             }
         }
 

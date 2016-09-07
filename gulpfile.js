@@ -57,7 +57,7 @@ gulp.task('client', function () {
     copy_files('./user/client/**/*', '../../../public/client/core/user');
     copy_files('./user-role/client/**/*', '../../../public/client/core/user-role');
 
-    mix_js(['./base/client/admin/core-gulp.js'], '../../../public/client/core/base/admin', 'core.js');
+    mix_js(['./base/client/admin/uncompiled.js'], '../../../public/client/core/base/admin', 'compiled.js');
 });
 
 gulp.task('js', function () {

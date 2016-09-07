@@ -1,6 +1,6 @@
 
-angular.module('usersApp.usersController')
-    .controller('usersCreateController', function ($scope, $controller, $location, User) {
+angular.module('userRolesApp.userRolesController')
+    .controller('userRolesCreateController', function ($scope, $controller, $location, User) {
 
         $controller('BaseController', {$scope: $scope});
 

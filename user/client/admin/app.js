@@ -1,25 +1,25 @@
-//=include ../base/app.js
+//=require ../../../base/client/admin/app.js
 
-//=include ./service.js
-//=include ./controllers/usersController.js
-//=include ./controllers/usersCreateController.js
-//=include ./controllers/usersEditController.js
-//=include ./controllers/usersIndexController.js
+//=require ./service.js
+//=require ./controllers/usersController.js
+//=require ./controllers/usersCreateController.js
+//=require ./controllers/usersEditController.js
+//=require ./controllers/usersIndexController.js
 
 angular.module('usersApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'usersApp.usersController', 'usersApp.service'])
     .config(['$locationProvider', '$routeProvider',
         function ($locationProvider, $routeProvider) {
             $locationProvider.hashPrefix('!');
             $routeProvider
-                .when('/index', {
+                .when('/users/index', {
                     templateUrl: '/client/core/user/admin/views/index.html',
                     controller: 'usersIndexController'
                 })
-                .when('/create', {
+                .when('/users/create', {
                     templateUrl: '/client/core/user/admin/views/create.html',
                     controller: 'usersCreateController'
                 })
-                .when('/edit/:user_id', {
+                .when('/users/edit/:user_id', {
                     templateUrl: '/client/core/user/admin/views/edit.html',
                     controller: 'usersEditController'
                 })

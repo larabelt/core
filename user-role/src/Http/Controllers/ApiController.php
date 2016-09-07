@@ -72,7 +72,7 @@ class ApiController extends BaseApiController
                 'data'    => $this->data,
             ];
 
-            $headers['UserRole'] = url("api/v1/users-roles/$userRole->id");
+            $headers['UserRole'] = url("api/v1/user-roles/$userRole->id");
 
             return response()->json($userRole, 201, $headers);
 

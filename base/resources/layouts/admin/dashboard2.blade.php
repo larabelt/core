@@ -6,7 +6,7 @@
 
 @section('scripts-body-close')
     @parent
-    <script src="/client/core/base/admin/core.js"></script>
+    <script src="/client/core/base/admin/compiled.js"></script>
 @endsection
 
 @section('main')

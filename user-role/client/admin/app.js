@@ -1,27 +1,22 @@
-//=include ../base/app.js
+//=require ../../../base/client/admin/app.js
 
-//=include ./service.js
-//=include ./controllers/usersController.js
-//=include ./controllers/usersCreateController.js
-//=include ./controllers/usersEditController.js
-//=include ./controllers/usersIndexController.js
+//=require ./service.js
+//=require ./controllers/userRolesController.js
+//=require ./controllers/userRolesCreateController.js
+//=require ./controllers/userRolesIndexController.js
 
-angular.module('usersApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'usersApp.usersController', 'usersApp.service'])
+angular.module('userRolesApp', ['ngRoute', 'ui.bootstrap', 'baseApp', 'userRolesApp.userRolesController', 'userRolesApp.service'])
     .config(['$locationProvider', '$routeProvider',
         function ($locationProvider, $routeProvider) {
             $locationProvider.hashPrefix('!');
             $routeProvider
-                .when('/index', {
-                    templateUrl: '/client/core/user/admin/views/index.html',
-                    controller: 'usersIndexController'
+                .when('/user-roles/index', {
+                    templateUrl: '/client/core/user-role/admin/views/index.html',
+                    controller: 'userRolesIndexController'
                 })
-                .when('/create', {
-                    templateUrl: '/client/core/user/admin/views/create.html',
-                    controller: 'usersCreateController'
-                })
-                .when('/edit/:user_id', {
-                    templateUrl: '/client/core/user/admin/views/edit.html',
-                    controller: 'usersEditController'
+                .when('/user-roles/create', {
+                    templateUrl: '/client/core/user-role/admin/views/create.html',
+                    controller: 'userRolesCreateController'
                 })
                 .otherwise('/');
         }]);

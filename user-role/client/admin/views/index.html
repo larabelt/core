@@ -7,10 +7,7 @@
 
             <thead>
                 <tr>
-                    <th>ID <ohio-column-sorter uri="/admin/ohio/core/#!/users/index" order-by="users.id"></ohio-column-sorter></th>
-                    <th>Email <ohio-column-sorter uri="/admin/ohio/core/#!/users/index" order-by="users.email"></ohio-column-sorter></th>
-                    <th>First Name <ohio-column-sorter uri="/admin/ohio/core/#!/users/index" order-by="users.first_name"></ohio-column-sorter></th>
-                    <th>Last Name <ohio-column-sorter uri="/admin/ohio/core/#!/users/index" order-by="users.last_name"></ohio-column-sorter></th>
+                    <th>ID</th>
                     <th class="text-right">Actions</th>
                 </tr>
             </thead>
@@ -18,9 +15,6 @@
             <tbody>
                 <tr id="user-index-{{ user.id }}" ng-hide="loading" ng-repeat="user in users.data">
                     <td>{{ user.id }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.first_name }}</td>
-                    <td>{{ user.last_name }}</td>
                     <td class="text-right">
                         <a class="btn btn-xs btn-warning" href="/admin/ohio/core/#!/users/edit/{{ user.id }}"><i class="fa fa-edit"></i></a>
                         <a class="btn btn-xs btn-danger" ng-click="destroy(user.id)" href="/admin/ohio/core/#!/users/index"><i class="fa fa-trash"></i></a>
@@ -31,24 +25,10 @@
             <tfoot>
                 <tr>
                     <th>ID</th>
-                    <th>Email</th>
-                    <th>First Name</th>
                     <th>Last Name</th>
                     <th class="text-right">Actions</th>
                 </tr>
             </tfoot>
         </table>
-        <div class="row">
-            <div class="col-xs-5">
-                <div class="dataTables_info" role="status" aria-live="polite">
-                    Showing {{ users.meta.pagination.from }} to {{ users.meta.pagination.to }} of {{ users.meta.pagination.total }} entries
-                </div>
-            </div>
-            <div class="col-xs-7">
-                <div class="dataTables_paginate paging_simple_numbers">
-                    <uib-pagination ng-change="pageChanged()" template-url="/ohio/vendor/angular-ui-bootstrap/template/pagination/pagination.html" boundary-links="true" total-items="users.meta.pagination.total" items-per-page="criteria.perPage" ng-model="criteria.page" class="pagination-sm"></uib-pagination>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

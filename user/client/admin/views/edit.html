@@ -14,16 +14,19 @@
             </form>
         </div>
     </div>
-<!--    <div class="col-md-6">-->
-<!--        <div class="box">-->
-<!--            <div class="box-header with-border">-->
-<!--                <h3 class="box-title">Roles</h3>-->
-<!--            </div>-->
-<!--            <form role="form" ng-init="init()" ng-submit="update(user.id)">-->
-<!--                <div class="box-body">-->
-<!--                    <div ng-include="'/ohio/admin/users-roles/views/_form.html'"></div>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Roles 1</h3>
+            </div>
+            <form role="form" ng-init="init()" ng-submit="update(user.id)">
+                <div class="box-body">
+                    <div ng-include="'/client/core/role/admin/views/_form.html'"></div>
+                </div>
+            </form>
+            <div ng-controller="userRolesIndexController" ng-init="init(user.id)" class="box-body">
+                <div ng-include="'/client/core/user-role/admin/views/index.html'"></div>
+            </div>
+        </div>
+    </div>
 </div>
