@@ -129,4 +129,8 @@ class BasePaginateRequest extends Request
         return ['request' => $this->query()];
     }
 
+    public function modifyQuery($query)
+    {
+    }
+
 }

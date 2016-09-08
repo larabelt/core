@@ -7,10 +7,12 @@ angular.module('userRolesApp.service')
 
             // get all the users
             index: function (user_id) {
-
                 var qs = $httpParamSerializer($location.search());
-
-                return $http.get('/api/v1/user-roles?user_id=' + user_id + qs);
+                return $http.get('/api/v1/user-roles?user_id=' + user_id + qs)
+                    .success(function (data) {
+                        return data;
+                    });
+                ;
             },
 
             // get all the users
@@ -24,19 +26,11 @@ angular.module('userRolesApp.service')
 
             // save a user (pass in user data)
             store: function (data) {
+                console.log(333);
+                console.log(data);
                 return $http({
                     method: 'POST',
                     url: '/api/v1/user-roles',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    data: $.param(data)
-                });
-            },
-
-            // save a user (pass in user data)
-            update: function (id, data) {
-                return $http({
-                    method: 'PUT',
-                    url: '/api/v1/user-roles/' + id,
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param(data)
                 });

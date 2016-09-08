@@ -30,7 +30,7 @@ class User extends BaseModel implements Authenticatable
 
 //    public function roles()
 //    {
-//        return $this->belongsToMany(Role\Entity::class, 'users_roles', 'user_id', 'role_id');
+//        return $this->belongsToMany(Role\Entity::class, 'user_roles', 'user_id', 'role_id');
 //    }
 
     public function setIsVerifiedAttribute($value)

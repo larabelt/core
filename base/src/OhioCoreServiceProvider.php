@@ -2,7 +2,10 @@
 
 namespace Ohio\Core\Base;
 
-use Ohio\Core, View;
+use View;
+use Ohio\Core;
+use Ohio\Core\User;
+use Ohio\Core\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\ServiceProvider;
@@ -79,6 +82,7 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         View::composer(['layouts::admin.partials.scripts-body-close'], Core\Base\Composer\NgComposer::class);
 
+        Role\Role::observe(Role\Observers\RoleObserver::class);
     }
 
     /**

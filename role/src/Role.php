@@ -17,10 +17,12 @@ class Role extends BaseModel
     {
         return (string) $this->name;
     }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper(trim($value));
     }
+
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = str_slug(trim($value));

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\Role\RoleRepository;
+use Ohio\Core\Role;
 
 class OhioRolesTableSeeder extends Seeder
 {
@@ -13,9 +13,8 @@ class OhioRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $repository = new RoleRepository(app());
-        $repository->create(['name' => 'SUPER']);
-        $repository->create(['name' => 'ADMIN']);
-        $repository->create(['name' => 'EDITOR']);
+        Role\Role::create(['name' => 'SUPER']);
+        Role\Role::create(['name' => 'ADMIN']);
+        Role\Role::create(['name' => 'EDITOR']);
     }
 }

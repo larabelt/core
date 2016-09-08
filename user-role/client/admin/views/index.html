@@ -1,34 +1,31 @@
-<div class="box box-primary">
-    <div class="box-body">
-        <div class="btn-group">
-            <a href="/admin/ohio/core/#!/users/create" class="btn btn-primary">add user</a>
-        </div>
-        <table ng-init="index()" id="" class="table table-bordered table-hover">
-
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th class="text-right">Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr id="user-index-{{ user.id }}" ng-hide="loading" ng-repeat="user in users.data">
-                    <td>{{ user.id }}</td>
-                    <td class="text-right">
-                        <a class="btn btn-xs btn-warning" href="/admin/ohio/core/#!/users/edit/{{ user.id }}"><i class="fa fa-edit"></i></a>
-                        <a class="btn btn-xs btn-danger" ng-click="destroy(user.id)" href="/admin/ohio/core/#!/users/index"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-
-            <tfoot>
-                <tr>
-                    <th>ID</th>
-                    <th>Last Name</th>
-                    <th class="text-right">Actions</th>
-                </tr>
-            </tfoot>
-        </table>
+<div ng-controller="rolesIndexController" ng-init="index()" class="box-body">
+    <div ng-controller="userRolesCreateController">
+        <form class="form-inline" role="form" ng-submit="store()">
+            <div class="form-group">
+                <select class="form-control" name="role_id" id="role-id" ng-model="userRole.role_id">
+                    <option value="">Choose Role</option>
+                    <option ng-repeat="option in roles.data" value="{{ option.id }}">{{ option.name }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Role</button>
+        </form>
     </div>
+</div>
+<div ng-controller="userRolesIndexController" ng-init="init()" class="box-body">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Role</th>
+                <th class="text-right">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-hide="loading" ng-repeat="userRole in userRoles.data">
+                <td>{{ userRole.role.name }}</td>
+                <td class="text-right">
+                    <a class="btn btn-xs btn-danger" ng-click="destroy(userRole.id)" href="/admin/ohio/core/#!/users/edit/{{ user.id }}"><i class="fa fa-unlink"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

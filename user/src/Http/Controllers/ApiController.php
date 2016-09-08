@@ -34,9 +34,9 @@ class ApiController extends BaseApiController
     {
         $request = new Requests\PaginateRequest($request->query());
 
-        $paginator = BaseLengthAwarePaginator::get(User\User::query(), $request);
+        $paginator = new BaseLengthAwarePaginator(User\User::query(), $request);
 
-        return response()->json($paginator);
+        return response()->json($paginator->toArray());
     }
 
     /**

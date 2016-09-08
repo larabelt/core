@@ -4,27 +4,57 @@ namespace Ohio\Core\Base\Pagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 
-class BaseLengthAwarePaginator extends LengthAwarePaginator
+class BaseLengthAwarePaginator
 {
     /**
      * @var BasePaginateRequest
      */
     public $request;
 
-    public static function get($qb, BasePaginateRequest $request)
+    /**
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
+    public $qb;
+
+    /**
+     * @var LengthAwarePaginator
+     */
+    public $paginator;
+
+    public function __construct($qb, $request)
+    {
+        $this->qb = $qb;
+
+        $this->request = $request;
+
+        $this->build();
+    }
+
+    public function build()
     {
 
-        $qb->basePaginate($request);
+        $request = $this->request;
 
-        $qb->extendedPaginate($request);
+        $needle = $request->needle();
+        if ($needle && $request->searchable) {
+            $this->qb->where(function ($subQB) use ($needle, $request) {
+                foreach ($request->searchable as $column) {
+                    $subQB->orWhere($column, 'LIKE', "%$needle%");
+                }
+            });
+        }
 
-        $count = $qb->count();
+        $request->modifyQuery($this->qb);
 
-        $qb->take($request->perPage());
-        $qb->offset($request->offset());
+        $this->qb->orderBy($request->orderBy(), $request->sortBy());
 
-        $paginator = new BaseLengthAwarePaginator(
-            $qb->get(),
+        $count = $this->qb->count();
+
+        $this->qb->take($request->perPage());
+        $this->qb->offset($request->offset());
+
+        $paginator = new LengthAwarePaginator(
+            $this->qb->get(),
             $count,
             $request->perPage(),
             $request->page()
@@ -34,12 +64,12 @@ class BaseLengthAwarePaginator extends LengthAwarePaginator
 
         $paginator->appends($request->diff());
 
-        return $paginator;
+        $this->paginator = $paginator;
     }
 
     public function toArray()
     {
-        $array = parent::toArray();
+        $array = $this->paginator->toArray();
 
         $array['meta'] = $this->request->meta();
 

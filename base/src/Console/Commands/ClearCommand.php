@@ -47,7 +47,7 @@ class ClearCommand extends Command
         $this->clear('framework/views');
 
         if ($env == 'local') {
-            $this->info(exec('sudo service php5-fpm restart'));
+            $this->info(exec('sudo service php7.0-fpm restart'));
         }
     }
 

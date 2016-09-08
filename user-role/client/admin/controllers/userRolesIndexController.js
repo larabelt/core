@@ -1,19 +1,19 @@
 angular.module('userRolesApp.userRolesController')
-    .controller('userRolesIndexController', function ($scope, $http, $location, User) {
+    .controller('userRolesIndexController', function ($scope, $http, $location, UserRole) {
 
         // object to hold all the data for the new user form
-        $scope.user = {};
+        $scope.userRoles = {};
 
         // loading variable to show the spinning loading icon
         $scope.loading = true;
 
-        // get all the users first and bind it to the $scope.users object
-        // use the function we created in our service
-        // GET ALL USERS ==============
-        $scope.index = function (user_id) {
-            User.index(1)
+        $scope.init = function () {
+
+            $scope.loading = true;
+
+            UserRole.index($scope.user_id)
                 .success(function (data) {
-                    $scope.users = data;
+                    $scope.userRoles = data;
                     $scope.loading = false;
                 });
         };
@@ -25,13 +25,12 @@ angular.module('userRolesApp.userRolesController')
             $scope.loading = true;
 
             // use the function we created in our service
-            User.destroy(id)
+            UserRole.destroy(id)
                 .success(function (data) {
 
-                    // if successful, we'll need to refresh the user list
-                    User.index()
-                        .success(function (getData) {
-                            $scope.users = getData;
+                    UserRole.index($scope.user_id)
+                        .success(function (data) {
+                            $scope.userRoles = data;
                             $scope.loading = false;
                         });
 

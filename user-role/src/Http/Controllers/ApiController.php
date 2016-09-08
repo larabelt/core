@@ -3,31 +3,25 @@
 namespace Ohio\Core\UserRole\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Ohio\Core\User;
+
 use Ohio\Core\UserRole;
-use Ohio\Core\UserRole\Criteria\UserRolePaginateCriteria;
+use Ohio\Core\UserRole\Http\Requests;
+use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
-use Prettus\Validator\Exceptions\ValidatorException;
-use Prettus\Validator\Contracts\ValidatorInterface;
 
 class ApiController extends BaseApiController
 {
 
-    /**
-     * @var User\UserRoleRepository
-     */
-    protected $repository;
-
-    /**
-     * @var User\UserRoleValidator
-     */
-    protected $validator;
-
-
-    public function __construct(User\UserRoleRepository $repository, User\UserRoleValidator $validator)
+    private function get($id)
     {
-        $this->repository = $repository;
-        $this->validator  = $validator;
+        try {
+            $userRole = UserRole\UserRole::findOrFail($id);
+            return $userRole;
+        } catch (\Exception $e) {
+            abort(404, 'Record not found.');
+        }
+
+        return null;
     }
 
     /**
@@ -38,47 +32,29 @@ class ApiController extends BaseApiController
      */
     public function index(Request $request)
     {
+        $request = new Requests\PaginateRequest($request->query());
 
-        //$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $qb = UserRole\UserRole::query();
+        $qb->with('role');
 
-        $this->repository->pushCriteria(new UserRolePaginateCriteria($request->all()));
+        $paginator = new BaseLengthAwarePaginator($qb, $request);
 
-        $this->data = $this->repository->paginate();
-
-        return response()->json($this->data);
+        return response()->json($paginator->toArray());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserRoleCreateRequest $request
+     * @param  Requests\CreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    //public function store(UserRoleCreateRequest $request)
-    public function store(Request $request)
+    public function store(Requests\CreateRequest $request)
     {
 
-        try {
+        $userRole = UserRole\UserRole::create($request->all());
 
-            $this->repository->skipPresenter();
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-            $userRole = $this->repository->create($request->all());
-
-            $response = [
-                'message' => 'UserRole created.',
-                'data'    => $this->data,
-            ];
-
-            $headers['UserRole'] = url("api/v1/user-roles/$userRole->id");
-
-            return response()->json($userRole, 201, $headers);
-
-        } catch (ValidatorException $e) {
-            abort(422, $e->getMessageBag()->toJson());
-        }
+        return response()->json($userRole);
     }
 
     /**
@@ -90,61 +66,10 @@ class ApiController extends BaseApiController
      */
     public function show($id)
     {
+        $user = $this->get($id);
 
-        try {
-            $this->data = $this->repository->find($id);
-        } catch (\Exception $e) {
-            abort(404, 'Record not found.');
-        }
-
-        return response()->json($this->data);
+        return response()->json($user);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  UserRoleUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-
-        $this->show($id);
-
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $this->data = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'UserRole updated.',
-                'data'    => $this->data,
-            ];
-
-            return response()->json($this->data);
-
-//            if ($request->wantsJson()) {
-//                return response()->json($response);
-//            }
-//
-//            return redirect()->back()->with('message', $response['message']);
-
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
-    }
-
 
     /**
      * Remove the specified resource from storage.
@@ -155,7 +80,9 @@ class ApiController extends BaseApiController
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        $user = $this->get($id);
+
+        $user->delete();
 
         return response()->json(null, 204);
     }
