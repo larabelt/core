@@ -13,16 +13,16 @@ angular.module('rolesApp.rolesController')
         // object to hold all the data for the new role form
         $scope.role = {};
 
+        $scope.roles = {};
+
         // loading variable to show the spinning loading icon
         $scope.loading = true;
 
         $scope.setPage = function (pageNo) {
-            console.log('setPage');
             angular.extend($scope.criteria, {page: pageNo});
         };
 
         $scope.pageChanged = function () {
-            console.log('pageChanged');
             $location.search('page', $scope.criteria.page);
         };
 

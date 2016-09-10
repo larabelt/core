@@ -24,15 +24,12 @@ angular.module('rolesApp.rolesController')
                     angular.forEach(data.message, function (value, key) {
                         $scope.errors[key] = value;
                     });
-                    console.log($scope.errors);
                     angular.forEach(data.message, function (value, key) {
                         $scope.errors[key] = value;
-                        console.log(key + ': ' + value);
                         angular.forEach(value, function (value, key) {
-                            console.log(key + ': ' + value);
+                            //show errors...
                         });
                     });
-                    console.log($scope.errors);
                 });
         };
 

@@ -1,5 +1,5 @@
-<div ng-controller="rolesIndexController" ng-init="index()" class="box-body">
-    <div ng-controller="userRolesCreateController">
+<div ng-controller="userRolesIndexController" ng-init="init()">
+    <div class="box-body">
         <form class="form-inline" role="form" ng-submit="store()">
             <div class="form-group">
                 <select class="form-control" name="role_id" id="role-id" ng-model="userRole.role_id">
@@ -10,22 +10,23 @@
             <button type="submit" class="btn btn-primary">Add Role</button>
         </form>
     </div>
-</div>
-<div ng-controller="userRolesIndexController" ng-init="init()" class="box-body">
-    <table class="table table-bordered table-hover">
-        <thead>
+    <div class="box-body">
+        <table class="table table-bordered table-hover">
+            <thead>
             <tr>
                 <th>Role</th>
                 <th class="text-right">Actions</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr ng-hide="loading" ng-repeat="userRole in userRoles.data">
                 <td>{{ userRole.role.name }}</td>
                 <td class="text-right">
-                    <a class="btn btn-xs btn-danger" ng-click="destroy(userRole.id)" href="/admin/ohio/core/#!/users/edit/{{ user.id }}"><i class="fa fa-unlink"></i></a>
+                    <a class="btn btn-xs btn-warning" ng-click="destroy(userRole.id)" href="/admin/ohio/core/#!/users/edit/{{ user.id }}"><i
+                            class="fa fa-unlink"></i></a>
                 </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -24,15 +24,12 @@ angular.module('usersApp.usersController')
                     angular.forEach(data.message, function (value, key) {
                         $scope.errors[key] = value;
                     });
-                    console.log($scope.errors);
                     angular.forEach(data.message, function (value, key) {
                         $scope.errors[key] = value;
-                        console.log(key + ': ' + value);
                         angular.forEach(value, function (value, key) {
-                            console.log(key + ': ' + value);
+
                         });
                     });
-                    console.log($scope.errors);
                 });
         };
 

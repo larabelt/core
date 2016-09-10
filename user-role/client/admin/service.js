@@ -26,8 +26,6 @@ angular.module('userRolesApp.service')
 
             // save a user (pass in user data)
             store: function (data) {
-                console.log(333);
-                console.log(data);
                 return $http({
                     method: 'POST',
                     url: '/api/v1/user-roles',

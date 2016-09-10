@@ -16,13 +16,9 @@ angular.module('rolesApp.service')
             // get all the roles
             get: function (id) {
                 return $http.get('/api/v1/roles/' + id)
-
                     .success(function (data) {
-                        console.log(111);
-                        console.log(data);
                         return data;
                     });
-                ;
             },
 
             // save a role (pass in role data)

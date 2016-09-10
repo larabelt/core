@@ -31,7 +31,7 @@ angular.module('usersApp.usersController')
                     $scope.loading = false;
                 })
                 .error(function (data) {
-                    console.log(data);
+
                 });
         };
 

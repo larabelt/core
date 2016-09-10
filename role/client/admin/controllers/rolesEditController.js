@@ -31,7 +31,7 @@ angular.module('rolesApp.rolesController')
                     $scope.loading = false;
                 })
                 .error(function (data) {
-                    console.log(data);
+
                 });
         };
 

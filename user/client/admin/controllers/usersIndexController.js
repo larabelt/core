@@ -17,12 +17,10 @@ angular.module('usersApp.usersController')
         $scope.loading = true;
 
         $scope.setPage = function (pageNo) {
-            console.log('setPage');
             angular.extend($scope.criteria, {page: pageNo});
         };
 
         $scope.pageChanged = function () {
-            console.log('pageChanged');
             $location.search('page', $scope.criteria.page);
         };
 
