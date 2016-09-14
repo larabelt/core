@@ -13,3 +13,8 @@
 
 ```php artisan migrate:refresh --seed #re-run all migrations with seeds
 ```
+
+## Testing
+
+```phpunit -c vendor/ohiocms/core/base --coverage-html=html
+```
