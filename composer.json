@@ -15,8 +15,7 @@
   "require": {
     "php": ">=5.5.9",
     "laravel/framework": ">=5.2.31",
-    "laravelcollective/html": ">=5.2.4",
-    "league/fractal": "0.12.*"
+    "laravelcollective/html": ">=5.2.4"
   },
   "require-dev": {
 
