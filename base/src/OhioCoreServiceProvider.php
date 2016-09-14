@@ -9,7 +9,6 @@ use Ohio\Core\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\ServiceProvider;
-use Prettus\Repository\Providers\RepositoryServiceProvider;
 
 class OhioCoreServiceProvider extends ServiceProvider
 {
@@ -35,13 +34,6 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         $this->commands([
             Core\Base\Console\Commands\ClearCommand::class,
-        ]);
-
-        /*
-         * Register other vendor providers
-         */
-        $this->app->register(RepositoryServiceProvider::class, [
-            
         ]);
     }
 
