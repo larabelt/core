@@ -30,10 +30,6 @@ class OhioCoreServiceProvider extends ServiceProvider
         include __DIR__ . '/../../role/src/Http/routes.php';
         include __DIR__ . '/../../user/src/Http/routes.php';
         include __DIR__ . '/../../user-role/src/Http/routes.php';
-
-        $this->commands([
-            Core\Base\Console\Commands\ClearCommand::class,
-        ]);
     }
 
     /**
@@ -71,8 +67,6 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         $router->middleware('auth.admin', Core\Base\Http\Middleware\AdminAuthenticate::class);
 
-        View::composer(['layouts::admin.partials.scripts-body-close'], Core\Base\Composer\NgComposer::class);
-
         Role\Role::observe(Role\Observers\RoleObserver::class);
     }
 
@@ -93,8 +87,6 @@ class OhioCoreServiceProvider extends ServiceProvider
         foreach ($this->policies as $key => $value) {
             $gate->policy($key, $value);
         }
-
-        $this->app->singleton(Core\Base\Service\NgService::class);
     }
 
 }

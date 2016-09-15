@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * Front
  */
 Route::group(['middleware' => ['web']], function () {
@@ -12,7 +12,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
-/*
+/**
  * Admin
  */
 Route::group([
@@ -27,7 +27,7 @@ Route::group([
     }
 );
 
-/*
+/**
  * Admin-User
  */
 Route::group([

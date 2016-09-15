@@ -36,9 +36,7 @@ class BasePaginateRequest extends Request
     /**
      * @var array
      */
-    public $meta = [
-        'hello' => 'world'
-    ];
+    public $meta = [];
 
     /**
      * @return string
