@@ -4,7 +4,6 @@ namespace Ohio\Core\Base;
 
 use View;
 use Ohio\Core;
-use Ohio\Core\User;
 use Ohio\Core\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
