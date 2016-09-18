@@ -1,7 +1,6 @@
 <?php
 namespace Ohio\Core\Base\Pagination;
 
-
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -65,7 +64,7 @@ class BaseLengthAwarePaginator
 
         $paginator->request = $request;
 
-        $paginator->appends($request->diff());
+        $paginator->appends($request->query());
 
         $this->paginator = $paginator;
     }
@@ -74,7 +73,7 @@ class BaseLengthAwarePaginator
     {
         $array = $this->paginator->toArray();
 
-        $array['meta'] = $this->request->meta();
+        $array['meta']['request'] = $this->request->query();
 
         return $array;
     }

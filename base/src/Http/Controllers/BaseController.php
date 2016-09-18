@@ -23,16 +23,6 @@ class BaseController extends Controller
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     /**
-     * @var BaseRepository
-     */
-    protected $repository;
-
-    /**
-     * @var BaseValidator
-     */
-    protected $validator;
-
-    /**
      * @var mixed
      */
     protected $data;

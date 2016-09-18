@@ -1,61 +1,75 @@
 <?php
 
-use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
-
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 {
-    protected function addMockConnection($model)
-    {
-        $model->setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
-        $resolver->shouldReceive('connection')->andReturn(m::mock('Illuminate\Database\Connection'));
-        $model->getConnection()->shouldReceive('getQueryGrammar')->andReturn(m::mock('Illuminate\Database\Query\Grammars\Grammar'));
-        $model->getConnection()->shouldReceive('getPostProcessor')->andReturn(m::mock('Illuminate\Database\Query\Processors\Processor'));
-    }
-
     public function tearDown()
     {
         m::close();
-
-        Illuminate\Database\Eloquent\Model::unsetEventDispatcher();
-        Carbon\Carbon::resetToStringFormat();
     }
 
-    public function test__construct()
+    /**
+     * @covers \Ohio\Core\Base\Pagination\BaseLengthAwarePaginator::__construct
+     * @covers \Ohio\Core\Base\Pagination\BaseLengthAwarePaginator::build
+     * @covers \Ohio\Core\Base\Pagination\BaseLengthAwarePaginator::toArray
+     */
+    public function test()
     {
-
-        $model = new EloquentModelStub2();
-        //$this->addMockConnection($model);
+        $model = new EloquentModelStub();
 
         $qb = $model->newQuery();
 
-        $qb->where('asdf', 1);
+        $request = new BasePaginateRequest([
+            'q' => 'test',
+            'perPage' => 25,
+            'page' => 2,
+            'orderBy' => 'test.name',
+            'sortBy' => 'desc',
+        ]);
+        $request->searchable[] = 'test.id';
+        $request->searchable[] = 'test.name';
+        $request->sortable[] = 'test.name';
 
-        $request = new BasePaginateRequest();
+        $paginator = new BaseLengthAwarePaginator($qb, $request);
 
-        //$paginator = new BaseLengthAwarePaginator($qb, $request);
+        $array = $paginator->toArray();
+
+        $this->assertTrue(isset($array['meta']));
     }
+
 }
 
-class EloquentModelStub2 extends Model
+class EloquentModelStub extends Model
 {
-    public $connection;
-    protected $table = 'stub';
-    protected $guarded = [];
-
     public function newQuery()
     {
-        spl_autoload_call('Illuminate\Database\Eloquent\Builder');
-        $mock = m::mock('Illuminate\Database\Eloquent\Builder');
-        $mock->shouldReceive('where')->once()->with('asdf', 1);
 
-        return $mock;
+        $qbMock = m::mock('Illuminate\Database\Eloquent\Builder');
+        $qbMock->shouldReceive('where')->once()->with(
+            m::on(function (\Closure $closure) {
+
+                $subQBMock = m::mock('Illuminate\Database\Eloquent\Builder');
+                $subQBMock->shouldReceive('orWhere')->once()->with('test.id', 'LIKE', '%test%');
+                $subQBMock->shouldReceive('orWhere')->once()->with('test.name', 'LIKE', '%test%');
+
+                $closure($subQBMock);
+
+                // return a bool here so Mockery knows expectation passed
+                return is_callable($closure);
+            })
+        );
+
+        $qbMock->shouldReceive('orderBy')->once()->with('test.name', 'desc');
+        $qbMock->shouldReceive('count')->once()->andReturn(1000);
+        $qbMock->shouldReceive('take')->once()->with(25);
+        $qbMock->shouldReceive('offset')->once()->with(25);
+        $qbMock->shouldReceive('get')->once();
+
+        return $qbMock;
     }
-
 
 }

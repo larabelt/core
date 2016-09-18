@@ -2,8 +2,7 @@
 namespace Ohio\Core\Base\Http\Requests;
 
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class BasePaginateRequest extends Request
 {
@@ -117,18 +116,9 @@ class BasePaginateRequest extends Request
         return (string) $this->sortBy;
     }
 
-    public function diff()
+    public function modifyQuery(Builder $query)
     {
-        return array_diff($this->query(), ['page']);
-    }
-
-    public function meta()
-    {
-        return ['request' => $this->query()];
-    }
-
-    public function modifyQuery($query)
-    {
+        return $query;
     }
 
 }
