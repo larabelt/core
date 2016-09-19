@@ -9,3 +9,5 @@
 <![endif]-->
 
 <script src="/js/admin-head-lib.js"></script>
+
+@yield('scripts-head-close')

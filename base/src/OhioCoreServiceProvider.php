@@ -39,29 +39,48 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate, Router $router)
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/layouts', 'layouts');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'core');
-        $this->loadViewsFrom(__DIR__ . '/../../role/resources/views', 'roles');
-        $this->loadViewsFrom(__DIR__ . '/../../user/resources/views', 'users');
 
-        $this->publishes([
-            __DIR__ . '/../resources/sass/' => resource_path('sass'),
-        ], 'sass');
+        // publish view files
+        $this->publishes([__DIR__ . '/../../base/resources/' => resource_path('ohio/core/base')]);
+        $this->publishes([__DIR__ . '/../../role/resources/' => resource_path('ohio/core/role')]);
+        $this->publishes([__DIR__ . '/../../user/resources/' => resource_path('ohio/core/user')]);
+
+//        $this->publishes([
+//            __DIR__ . '/../resources/sass/' => resource_path('sass'),
+//        ], 'sass');
+
+        // factories
         $this->publishes([
             __DIR__ . '/../../role/database/factories/' => database_path('factories'),
             __DIR__ . '/../../user/database/factories/' => database_path('factories'),
             __DIR__ . '/../../user-role/database/factories/' => database_path('factories'),
         ], 'factories');
+
+        // migrations
         $this->publishes([
             __DIR__ . '/../../role/database/migrations/' => database_path('migrations'),
             __DIR__ . '/../../user/database/migrations/' => database_path('migrations'),
             __DIR__ . '/../../user-role/database/migrations/' => database_path('migrations'),
         ], 'migrations');
+
+        // seeds
         $this->publishes([
             __DIR__ . '/../../role/database/seeds/' => database_path('seeds'),
             __DIR__ . '/../../user/database/seeds/' => database_path('seeds'),
             __DIR__ . '/../../user-role/database/seeds/' => database_path('seeds'),
         ], 'seeds');
+
+        // set view paths
+        $this->loadViewsFrom(resource_path('ohio/core/base/layouts'), 'layouts');
+        $this->loadViewsFrom(resource_path('ohio/core/base/views'), 'core');
+        $this->loadViewsFrom(resource_path('ohio/core/base/roles'), 'roles');
+        $this->loadViewsFrom(resource_path('ohio/core/base/users'), 'users');
+
+        // set backup view paths
+        $this->loadViewsFrom(__DIR__ . '/../../base/resources/layouts', 'layouts');
+        $this->loadViewsFrom(__DIR__ . '/../../base/resources/views', 'core');
+        $this->loadViewsFrom(__DIR__ . '/../../role/resources/views', 'roles');
+        $this->loadViewsFrom(__DIR__ . '/../../user/resources/views', 'users');
 
         $this->registerPolicies($gate);
 
