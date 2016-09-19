@@ -42,9 +42,9 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         // publish view files
         $this->publishes([
-            __DIR__ . '/../../base/resources/' => resource_path('ohio/core/base'),
-            __DIR__ . '/../../role/resources/' => resource_path('ohio/role/base'),
-            __DIR__ . '/../../user/resources/' => resource_path('ohio/user/base'),
+            __DIR__ . '/../../base/resources' => base_path('ohiocms/core/base/resources'),
+            __DIR__ . '/../../role/resources' => base_path('ohiocms/core/role/resources'),
+            __DIR__ . '/../../user/resources' => base_path('ohiocms/core/user/resources'),
         ]);
 
         // factories
@@ -69,10 +69,10 @@ class OhioCoreServiceProvider extends ServiceProvider
         ], 'seeds');
 
         // set view paths
-        $this->loadViewsFrom(resource_path('ohio/core/base/layouts'), 'layouts');
-        $this->loadViewsFrom(resource_path('ohio/core/base/views'), 'core');
-        $this->loadViewsFrom(resource_path('ohio/core/base/roles'), 'roles');
-        $this->loadViewsFrom(resource_path('ohio/core/base/users'), 'users');
+        $this->loadViewsFrom(base_path('ohiocms/core/base/resources/layouts'), 'layouts');
+        $this->loadViewsFrom(base_path('ohiocms/core/base/resources/views'), 'core');
+        $this->loadViewsFrom(base_path('ohiocms/core/base/resources/roles'), 'roles');
+        $this->loadViewsFrom(base_path('ohiocms/core/base/resources/users'), 'users');
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../../base/resources/layouts', 'layouts');

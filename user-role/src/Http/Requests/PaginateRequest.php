@@ -2,6 +2,7 @@
 namespace Ohio\Core\UserRole\Http\Requests;
 
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class PaginateRequest extends BasePaginateRequest
 {
@@ -20,7 +21,7 @@ class PaginateRequest extends BasePaginateRequest
         'user_roles.role_id',
     ];
 
-    public function modifyQuery($query)
+    public function modifyQuery(Builder $query)
     {
         if ($this->get('user_id')) {
             $query->where('user_id', $this->get('user_id'));
@@ -29,6 +30,8 @@ class PaginateRequest extends BasePaginateRequest
         if ($this->get('role_id')) {
             $query->where('role_id', $this->get('role_id'));
         }
+
+        return $query;
     }
 
 }
