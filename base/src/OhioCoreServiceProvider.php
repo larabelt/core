@@ -39,15 +39,10 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate, Router $router)
     {
-
         // publish view files
         $this->publishes([__DIR__ . '/../../base/resources/' => resource_path('ohio/core/base')]);
         $this->publishes([__DIR__ . '/../../role/resources/' => resource_path('ohio/core/role')]);
         $this->publishes([__DIR__ . '/../../user/resources/' => resource_path('ohio/core/user')]);
-
-//        $this->publishes([
-//            __DIR__ . '/../resources/sass/' => resource_path('sass'),
-//        ], 'sass');
 
         // factories
         $this->publishes([

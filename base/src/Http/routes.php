@@ -22,7 +22,7 @@ Route::group([
     function () {
         Route::get('/', \Ohio\Core\Base\Http\Controllers\AdminController::class . '@getIndex');
         Route::get('/ohio/core', function () {
-            return view('layouts::admin.dashboard2');
+            return view('layouts::admin.dashboard');
         });
     }
 );
