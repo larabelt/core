@@ -39,10 +39,13 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate, Router $router)
     {
+
         // publish view files
-        $this->publishes([__DIR__ . '/../../base/resources/' => resource_path('ohio/core/base')]);
-        $this->publishes([__DIR__ . '/../../role/resources/' => resource_path('ohio/core/role')]);
-        $this->publishes([__DIR__ . '/../../user/resources/' => resource_path('ohio/core/user')]);
+        $this->publishes([
+            __DIR__ . '/../../base/resources/' => resource_path('ohio/core/base'),
+            __DIR__ . '/../../role/resources/' => resource_path('ohio/role/base'),
+            __DIR__ . '/../../user/resources/' => resource_path('ohio/user/base'),
+        ]);
 
         // factories
         $this->publishes([
@@ -82,6 +85,8 @@ class OhioCoreServiceProvider extends ServiceProvider
         $router->middleware('auth.admin', Core\Base\Http\Middleware\AdminAuthenticate::class);
 
         Role\Role::observe(Role\Observers\RoleObserver::class);
+
+        $this->commands(Core\Base\Commands\AssetsCommand::class);
     }
 
     /**
