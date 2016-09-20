@@ -3,6 +3,15 @@
 use Ohio\Core\User;
 
 /**
+ * Front
+ */
+Route::group(['middleware' => ['web']], function () {
+    Route::get('login', \Ohio\Core\User\Http\Controllers\Auth\AuthController::class . '@getLogin');
+    Route::post('login', \Ohio\Core\User\Http\Controllers\Auth\AuthController::class . '@postLogin');
+    Route::get('logout', \Ohio\Core\User\Http\Controllers\Auth\AuthController::class . '@getLogout');
+});
+
+/**
  * API
  */
 Route::group([

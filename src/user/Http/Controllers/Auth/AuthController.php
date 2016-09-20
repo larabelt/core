@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\Base\Http\Controllers\Auth;
+namespace Ohio\Core\User\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
@@ -31,7 +31,7 @@ class AuthController extends BaseController
      */
     protected $redirectTo = '/admin-user';
     protected $redirectAfterLogout = '/login';
-    protected $loginView = 'users::front.auth.login';
+    protected $loginView = 'ohio-core::user.front.auth.login';
 
     /**
      * Create a new authentication controller instance.

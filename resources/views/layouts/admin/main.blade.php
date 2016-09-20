@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @include('layouts::admin.partials.head')
-    @include('layouts::admin.partials.scripts-head-close')
+    @include('ohio-core::layouts.admin.partials.head')
+    @include('ohio-core::layouts.admin.partials.scripts-head-close')
 </head>
 <body class="admin hold-transition skin-blue sidebar-mini">
-@include('layouts::admin.partials.scripts-body-open')
+@include('ohio-core::layouts.admin.partials.scripts-body-open')
 <div class="wrapper">
-    @include('layouts::admin.partials.header')
-    @include('layouts::admin.partials.sidebar-left')
+    @include('ohio-core::layouts.admin.partials.header')
+    @include('ohio-core::layouts.admin.partials.sidebar-left')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('layouts::admin.partials.heading')
+        @include('ohio-core::layouts.admin.partials.heading')
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -24,10 +24,10 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    @include('layouts::admin.partials.footer')
-    @include('layouts::admin.partials.sidebar-right')
+    @include('ohio-core::layouts.admin.partials.footer')
+    @include('ohio-core::layouts.admin.partials.sidebar-right')
 </div>
 <!-- ./wrapper -->
-@include('layouts::admin.partials.scripts-body-close')
+@include('ohio-core::layouts.admin.partials.scripts-body-close')
 </body>
 </html>

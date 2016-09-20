@@ -18,7 +18,7 @@ class AdminController extends ApiController
      */
     public function index(Request $request)
     {
-        return View::make('users::admin.index');
+        return View::make('ohio-core::user.admin.index');
     }
 
 }

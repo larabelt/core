@@ -27,10 +27,10 @@
 </head>
 <body class="front">
 
-@include('layouts::front.partials.menu')
+@include('ohio-core::layouts.front.partials.menu')
 
 <div id="main" role="main">
-    @include('layouts::shared.partials.flash')
+    @include('ohio-core::layouts.shared.partials.flash')
     @yield('main')
 </div>
 

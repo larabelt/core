@@ -20,7 +20,7 @@ class AdminController extends BaseController
             //s(403);
         }
 
-        return view('layouts::admin.dashboard');
+        return view('ohio-core::layouts.admin.dashboard');
     }
 
 }

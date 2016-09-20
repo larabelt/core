@@ -28,7 +28,7 @@
 </head>
 <body class="admin">
 
-@include('layouts::admin-user.partials.menu')
+@include('ohio-core::layouts.admin-user.partials.menu')
 
 @yield('main')
 

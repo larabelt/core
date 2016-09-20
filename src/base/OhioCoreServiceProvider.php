@@ -2,7 +2,6 @@
 
 namespace Ohio\Core\Base;
 
-use View;
 use Ohio\Core;
 use Ohio\Core\Role;
 use Illuminate\Routing\Router;
@@ -27,9 +26,9 @@ class OhioCoreServiceProvider extends ServiceProvider
     public function register()
     {
         include __DIR__ . '/Http/routes.php';
-        include __DIR__ . '/../../role/src/Http/routes.php';
-        include __DIR__ . '/../../user/src/Http/routes.php';
-        include __DIR__ . '/../../user-role/src/Http/routes.php';
+        include __DIR__ . '/../role/Http/routes.php';
+        include __DIR__ . '/../user/Http/routes.php';
+        include __DIR__ . '/../user-role/Http/routes.php';
     }
 
     /**
@@ -41,18 +40,18 @@ class OhioCoreServiceProvider extends ServiceProvider
     {
 
         // publish view files
-        $this->publishes([__DIR__ . '/../../resources/' => resource_path('ohiocms')]);
+        $this->publishes([__DIR__ . '/../../resources' => base_path('ohio/core')]);
 
         // database
-        $this->publishes([__DIR__ . '/../../database/factories/' => database_path('factories')]);
-        $this->publishes([__DIR__ . '/../../database/migrations/' => database_path('migrations')]);
-        $this->publishes([__DIR__ . '/../../database/seeds/' => database_path('seeds')]);
+        $this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
+        $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
+        $this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
 
         // set view paths
-        $this->loadViewsFrom(resource_path('ohiocms/views'), 'ohiocms');
+        $this->loadViewsFrom(base_path('ohio/core/views'), 'ohio-core');
 
         // set backup view paths
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ohiocms');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ohio-core');
 
         $this->registerPolicies($gate);
 

@@ -22,20 +22,12 @@ function mix_js(input, output, filename) {
 }
 
 gulp.task('client', function () {
-
-    copy_files('./base/client/**/*', '../../../public/client/core/base');
-    copy_files('./role/client/**/*', '../../../public/client/core/role');
-    copy_files('./user/client/**/*', '../../../public/client/core/user');
-    copy_files('./user-role/client/**/*', '../../../public/client/core/user-role');
-
-    mix_js(['./base/client/admin/uncompiled.js'], '../../../public/client/core/base/admin', 'compiled.js');
+    copy_files('./client/**/*', '../../../public/client/core/user-role');
+    mix_js(['./client/base/admin/uncompiled.js'], '../../../public/client/core/base/admin', 'compiled.js');
 });
 
 gulp.task('default', ['client']);
 
 gulp.task('watch', function () {
-    gulp.watch('./base/client/**/*', ['client']);
-    gulp.watch('./role/client/**/*', ['client']);
-    gulp.watch('./user/client/**/*', ['client']);
-    gulp.watch('./user-role/client/**/*', ['client']);
+    gulp.watch('./client/**/*', ['client']);
 });

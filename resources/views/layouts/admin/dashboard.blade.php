@@ -1,4 +1,4 @@
-@extends('layouts::admin.main')
+@extends('ohio-core::layouts.admin.main')
 
 @section('heading-title', 'tmp')
 @section('heading-subtitle', 'tmp')
@@ -12,7 +12,7 @@
 @section('main')
 
     <div ng-app="ohioApp" style="min-height: 500px;">
-        @include('layouts::admin.partials.loading')
+        @include('ohio-core::layouts.admin.partials.loading')
         <div ng-view></div>
     </div>
 

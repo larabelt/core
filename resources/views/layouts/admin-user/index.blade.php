@@ -1,4 +1,4 @@
-@extends('layouts::admin-user.main')
+@extends('ohio-core::layouts.admin-user.main')
 
 @section('main')
 

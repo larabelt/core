@@ -8,22 +8,22 @@
     @endif
     @if(Session::has('success'))
         <div class="alert alert-success">
-            @include('layouts::shared.partials._flash', ['msgs' => Session::get('success')])
+            @include('ohio-core::layouts.shared.partials._flash', ['msgs' => Session::get('success')])
         </div>
     @endif
     @if(Session::has('info'))
         <div class="alert alert-success">
-            @include('layouts::shared.partials._flash', ['msgs' => Session::get('info')])
+            @include('ohio-core::layouts.shared.partials._flash', ['msgs' => Session::get('info')])
         </div>
     @endif
     @if(Session::has('warning'))
         <div class="alert alert-warning">
-            @include('layouts::shared.partials._flash', ['msgs' => Session::get('warning')])
+            @include('ohio-core::layouts.shared.partials._flash', ['msgs' => Session::get('warning')])
         </div>
     @endif
     @if(Session::has('danger'))
         <div class="alert alert-danger">
-            @include('layouts::shared.partials._flash', ['msgs' => Session::get('danger')])
+            @include('ohio-core::layouts.shared.partials._flash', ['msgs' => Session::get('danger')])
         </div>
     @endif
 </div>

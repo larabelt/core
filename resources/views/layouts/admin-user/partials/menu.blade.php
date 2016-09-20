@@ -35,7 +35,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            @include('layouts::shared.partials.nav-right')
+            @include('ohio-core::layouts.shared.partials.nav-right')
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

@@ -14,7 +14,7 @@ class AdminUserController extends BaseController
      */
     public function getIndex()
     {
-        return view('layouts::admin-user.index');
+        return view('ohio-core::layouts.admin-user.index');
     }
 
 }
