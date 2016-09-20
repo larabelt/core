@@ -1,4 +1,4 @@
-//=require ../../../base/client/admin/app.js
+//=require ../../base/admin/app.js
 
 //=require ./service.js
 //=require ./controllers/userRolesController.js

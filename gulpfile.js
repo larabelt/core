@@ -22,7 +22,7 @@ function mix_js(input, output, filename) {
 }
 
 gulp.task('client', function () {
-    copy_files('./client/**/*', '../../../public/client/core/user-role');
+    copy_files('./client/**/*', '../../../public/client/core/');
     mix_js(['./client/base/admin/uncompiled.js'], '../../../public/client/core/base/admin', 'compiled.js');
 });
 
