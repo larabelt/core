@@ -1,0 +1,36 @@
+.ohio-column-sorter {
+
+    a {
+        color: black;
+    }
+
+    .fa-sort-amount-asc {
+        display: none;
+    }
+
+    .fa-sort-amount-desc {
+        display: none;
+    }
+
+    &.active {
+        a {
+            color: blue;
+        }
+
+        .fa-arrows-v {
+            display: none;
+        }
+
+        &.asc {
+            .fa-sort-amount-desc {
+                display: inline-block;
+            }
+        }
+
+        &.desc {
+            .fa-sort-amount-asc {
+                display: inline-block;
+            }
+        }
+    }
+}

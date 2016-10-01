@@ -3,6 +3,7 @@
 <head>
     @include('ohio-core::layouts.admin.partials.head')
     @include('ohio-core::layouts.admin.partials.scripts-head-close')
+    <link rel="stylesheet" href="/css/ohio.css">
 </head>
 <body class="admin hold-transition skin-blue sidebar-mini">
 @include('ohio-core::layouts.admin.partials.scripts-body-open')

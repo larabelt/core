@@ -18,7 +18,7 @@ Route::group([
 ],
     function () {
         Route::get('/', \Ohio\Core\Base\Http\Controllers\AdminController::class . '@getIndex');
-        Route::get('/ohio/core', function () {
+        Route::get('/ohio/core/{any?}', function () {
             return view('ohio-core::layouts.admin.dashboard');
         });
     }

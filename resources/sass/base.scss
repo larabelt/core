@@ -6,11 +6,4 @@
   }
 }
 
-.ohio-column-sorter {
-  a {
-    color: black;
-  }
-  &.active a {
-    color: blue;
-  }
-}
+@import "components/column-sorter";

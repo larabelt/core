@@ -11,9 +11,12 @@
 
 @section('main')
 
-    <div ng-app="ohioApp" style="min-height: 500px;">
-        @include('ohio-core::layouts.admin.partials.loading')
-        <div ng-view></div>
+    {{--<div ng-app="ohioApp" style="min-height: 500px;">--}}
+        {{--@include('ohio-core::layouts.admin.partials.loading')--}}
+        {{----}}
+    {{--</div>--}}
+    <div id="core-vue">
+        <router-view></router-view>
     </div>
 
 @stop
