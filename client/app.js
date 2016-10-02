@@ -20,14 +20,16 @@ export default class OhioCMS {
 
         if( $('#core-vue').length > 0 )
         {
-            const Foo = { template: '<div>foo</div>' }
-
+            const Foo = {template: `<div>Foo</div>`};
             const Users = require('./components/user/user');
+            const UserCreate = require('./components/user/user-create');
+            const UserEdit = require('./components/user/user-edit');
 
             const router = new VueRouter({
                 routes: [
                     { path: '/users', component: Users, canReuse: false, name: 'userIndex' },
-                    { path: '/users/create', component: Foo, name: 'userCreate' }
+                    { path: '/users/create', component: UserCreate, name: 'userCreate' },
+                    { path: '/users/edit/:id', component: UserEdit, name: 'userEdit' }
                 ],
                 mode: 'history',
                 base: '/admin/ohio/core'

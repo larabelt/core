@@ -19,7 +19,7 @@ export default `
                 <tr v-for="item in items.data.data">
                     <td v-for="column in items.columns">{{ item[column.slug] }}</td>
                     <td class="text-right">
-                        <router-link :to="items.uri + '/edit/' + item.id" v-bind:class="'btn btn-xs btn-warning'">
+                        <router-link :to="{ name: 'userEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                             <i class="fa fa-edit"></i>
                         </router-link>
                         <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
