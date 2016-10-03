@@ -24,9 +24,9 @@ export default class OhioCMS {
             const Users = require('./components/user/user');
             const UserCreate = require('./components/user/user-create');
             const UserEdit = require('./components/user/user-edit');
-            const Roles = require('./components/user-role/user-role');
-            const RolesCreate = require('./components/user-role/user-role-create');
-            const RolesEdit = require('./components/user-role/user-role-edit');
+            const Roles = require('./components/user-role/role');
+            const RolesCreate = require('./components/role/role-create');
+            const RolesEdit = require('./components/role/role-edit');
 
             const router = new VueRouter({
                 routes: [
