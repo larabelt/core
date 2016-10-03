@@ -46,6 +46,11 @@ export default {
                 }
             }
 
+            if ( this.results.last_page - this.max <= 0) {
+                first = 1;
+                this.max = this.results.last_page;
+            }
+
             let i = first;
             while (i < first + this.max) {
                 values.push(i);

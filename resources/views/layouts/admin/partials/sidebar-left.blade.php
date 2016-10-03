@@ -32,7 +32,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="/admin/ohio/core/users"><i class="fa fa-users"></i> <span>Users</span></a></li>
-                    <li><a href="/admin/ohio/core/#!/roles/index"><i class="fa fa-users"></i> <span>Roles</span></a></li>
+                    <li><a href="/admin/ohio/core/roles"><i class="fa fa-users"></i> <span>Roles</span></a></li>
                 </ul>
             </li>
             <li class="header">LABELS</li>
