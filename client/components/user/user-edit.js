@@ -1,6 +1,7 @@
 export default {
     components: {
-        'user-form': require('./templates/form-user')
+        'form-user': require('./templates/form-user'),
+        'form-roles': require('./templates/form-roles')
     },
     data() {
         return {
@@ -17,7 +18,7 @@ export default {
                     <div class="box-header with-border">
                         <h3 class="box-title">Edit User</h3>
                     </div>
-                    <user-form type="edit"></user-form>
+                    <form-user type="edit"></form-user>
                 </div>
             </div>
             <div class="col-md-6">
@@ -26,7 +27,7 @@ export default {
                         <h3 class="box-title">Roles</h3>
                     </div>
                     <div class="box-body">
-                        roles form
+                        <form-roles></form-roles>
                     </div>
                 </div>
             </div>

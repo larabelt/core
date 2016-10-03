@@ -1,0 +1,14 @@
+.form-roles {
+
+    button {
+        background-color: #fff;
+        border: 1px solid #3c8dbc;
+        margin-bottom: 10px;
+        width: 100%;
+
+        &.active {
+            background-color: #3c8dbc;
+            color: #fff;
+        }
+    }
+}
