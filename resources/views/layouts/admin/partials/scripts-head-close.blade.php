@@ -29,9 +29,4 @@
 <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- JS Framework Libraries -->
-<script src="/js/angular/angular.min.js"></script>
-<script src="/js/angular/angular-route.min.js"></script>
-<script src="/js/angular/ui-bootstrap.js"></script>
-
 @yield('scripts-head-close')
