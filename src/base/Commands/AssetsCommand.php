@@ -54,7 +54,7 @@ class AssetsCommand extends Command
             'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
             'node_modules/admin-lte/dist' => 'public/adminlte/dist',
             'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
-            'node_modules/angular/css' => 'public/css/font-awesome',
+//            'node_modules/angular/css' => 'public/css/font-awesome',
             'node_modules/font-awesome/css' => 'public/css/font-awesome',
             'node_modules/font-awesome/fonts' => 'public/fonts',
         ];
@@ -64,9 +64,9 @@ class AssetsCommand extends Command
         }
 
         $files = [
-            'node_modules/angular/angular.min.js' => 'public/js/angular/angular.min.js',
-            'node_modules/angular-route/angular-route.min.js' => 'public/js/angular/angular-route.min.js',
-            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js' => 'public/js/angular/ui-bootstrap.js',
+//            'node_modules/angular/angular.min.js' => 'public/js/angular/angular.min.js',
+//            'node_modules/angular-route/angular-route.min.js' => 'public/js/angular/angular-route.min.js',
+//            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js' => 'public/js/angular/ui-bootstrap.js',
         ];
 
         foreach ($files as $src_path => $target_path) {

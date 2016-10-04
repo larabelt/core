@@ -6,7 +6,7 @@
 
 @section('scripts-body-close')
     @parent
-    <script src="/client/core/base/admin/compiled.js"></script>
+    <script src="/js/ohio.js"></script>
 @endsection
 
 @section('main')

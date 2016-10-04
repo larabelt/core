@@ -39,11 +39,8 @@ class OhioCoreServiceProvider extends ServiceProvider
     public function boot(GateContract $gate, Router $router)
     {
 
-        // publish client
-        $this->publishes([__DIR__ . '/../../client' => base_path('ohio/core/client')]);
-
         // publish resources
-        $this->publishes([__DIR__ . '/../../resources' => base_path('ohio/core/resources')]);
+        $this->publishes([__DIR__ . '/../../resources' => resource_path('ohio/core')]);
 
         // database
         $this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
