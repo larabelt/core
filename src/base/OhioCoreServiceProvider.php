@@ -48,7 +48,7 @@ class OhioCoreServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
 
         // set view paths
-        $this->loadViewsFrom(base_path('ohio/core/resources/views'), 'ohio-core');
+        $this->loadViewsFrom(resource_path('ohio/core/views'), 'ohio-core');
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ohio-core');
@@ -59,7 +59,7 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         Role\Role::observe(Role\Observers\RoleObserver::class);
 
-        $this->commands(Core\Base\Commands\AssetsCommand::class);
+        $this->commands(Core\Base\Commands\PublishCommand::class);
     }
 
     /**
