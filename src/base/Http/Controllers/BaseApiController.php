@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class BaseApiController extends Controller
 {
 
-    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function abort($statusCode, $msg = '')
     {

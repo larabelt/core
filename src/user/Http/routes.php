@@ -6,9 +6,9 @@ use Ohio\Core\User;
  * Front
  */
 Route::group(['middleware' => ['web']], function () {
-    Route::get('login', \Ohio\Core\User\Http\Controllers\AuthController::class . '@getLogin');
-    Route::post('login', \Ohio\Core\User\Http\Controllers\AuthController::class . '@postLogin');
-    Route::get('logout', \Ohio\Core\User\Http\Controllers\AuthController::class . '@getLogout');
+    Route::get('login', \Ohio\Core\User\Http\Controllers\LoginController::class . '@showLoginForm');
+    Route::post('login', \Ohio\Core\User\Http\Controllers\LoginController::class . '@login');
+    Route::get('logout', \Ohio\Core\User\Http\Controllers\LoginController::class . '@logout');
 });
 
 /**
