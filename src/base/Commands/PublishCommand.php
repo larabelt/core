@@ -2,6 +2,8 @@
 
 namespace Ohio\Core\Base\Commands;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 use Ohio\Core\Base\PublishHistory;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemManager;
@@ -33,17 +35,35 @@ class PublishCommand extends Command
 
     protected $ignored = [];
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    protected $dirs = [
+        'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
+        'node_modules/admin-lte/dist' => 'public/adminlte/dist',
+        'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
+        'node_modules/font-awesome/css' => 'public/css/font-awesome',
+        'node_modules/font-awesome/fonts' => 'public/fonts',
+        'vendor/ohiocms/core/resources' => 'resources/ohio/core',
+        'vendor/ohiocms/core/database/factories' => 'rdatabase/factories',
+        'vendor/ohiocms/core/database/migrations' => 'rdatabase/migrations',
+        'vendor/ohiocms/core/database/seeds' => 'rdatabase/seeds',
+    ];
+
+    public function __construct()
     {
-        /**
-         * consider not tracking all files... skip adminlte?
-         * re-test single files...
-         */
+        parent::__construct();
+
+
+    }
+
+    public function init()
+    {
+        if (!Schema::hasTable('publish_history')) {
+            Schema::create('publish_history', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('path')->unique();
+                $table->string('hash')->nullable();
+                $table->timestamps();
+            });
+        }
 
         PublishHistory::unguard();
 
@@ -52,35 +72,25 @@ class PublishCommand extends Command
         /**
          * @var $app ['config'] \Illuminate\Config\Repository
          */
-        $basePath = base_path();
-
         $app = app();
 
-        $app['config']->set('filesystems.disks.base', ['driver' => 'local', 'root' => $basePath]);
+        $app['config']->set('filesystems.disks.base', ['driver' => 'local', 'root' => base_path()]);
 
         $this->disk = (new FilesystemManager($app))->disk('base');
+    }
 
-        $dirs = [
-            'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
-            'node_modules/admin-lte/dist' => 'public/adminlte/dist',
-            'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
-            'node_modules/font-awesome/css' => 'public/css/font-awesome',
-            'node_modules/font-awesome/fonts' => 'public/fonts',
-            'vendor/ohiocms/core/resources' => 'resources/ohio/core'
-        ];
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
 
-        foreach ($dirs as $src_dir => $target_dir) {
+        $this->init();
+
+        foreach ($this->dirs as $src_dir => $target_dir) {
             $this->publishDir($src_dir, $target_dir);
-        }
-
-        $files = [
-            //'node_modules/angular/angular.min.js' => 'public/js/angular/angular.min.js',
-            //'node_modules/angular-route/angular-route.min.js' => 'public/js/angular/angular-route.min.js',
-            //'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js' => 'public/js/angular/ui-bootstrap.js',
-        ];
-
-        foreach ($files as $src_path => $target_path) {
-            $this->publishFile($src_path, $target_path);
         }
 
         if ($this->saved) {

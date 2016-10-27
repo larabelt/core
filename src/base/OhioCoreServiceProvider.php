@@ -40,12 +40,12 @@ class OhioCoreServiceProvider extends ServiceProvider
     {
 
         // publish resources
-        $this->publishes([__DIR__ . '/../../resources' => resource_path('ohio/core')]);
+        //$this->publishes([__DIR__ . '/../../resources' => resource_path('ohio/core')]);
 
         // database
-        $this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
-        $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
-        $this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
+        //$this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
+        //$this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
+        //$this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
 
         // set view paths
         $this->loadViewsFrom(resource_path('ohio/core/views'), 'ohio-core');
