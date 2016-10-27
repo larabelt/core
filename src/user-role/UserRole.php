@@ -2,10 +2,9 @@
 namespace Ohio\Core\UserRole;
 
 use Ohio\Core;
-use Ohio\Core\Base\BaseModel;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Illuminate\Database\Eloquent\Model;
 
-class UserRole extends BaseModel
+class UserRole extends Model
 {
 
     protected $morphClass = 'UserRole';

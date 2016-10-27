@@ -1,10 +1,9 @@
 <?php
 namespace Ohio\Core\Role;
 
-use Ohio\Core\Base\BaseModel;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class Role extends BaseModel
+class Role extends Model
 {
 
     protected $morphClass = 'Role';

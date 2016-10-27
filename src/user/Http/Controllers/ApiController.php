@@ -18,7 +18,7 @@ class ApiController extends BaseApiController
             $user = User\User::findOrFail($id);
             return $user;
         } catch (\Exception $e) {
-            abort(404, 'Record not found.');
+            $this->abort(404);
         }
 
         return null;

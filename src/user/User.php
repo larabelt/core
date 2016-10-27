@@ -1,10 +1,10 @@
 <?php
 namespace Ohio\Core\User;
 
-use Ohio\Core\Base\BaseModel;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-class User extends BaseModel implements Authenticatable
+class User extends Model implements Authenticatable
 {
 
     protected $morphClass = 'User';

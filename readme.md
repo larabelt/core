@@ -16,5 +16,5 @@
 
 ## Testing
 
-```phpunit -c vendor/ohiocms/core/tests/base --coverage-html=vendor/ohiocms/core/tests/base/html
+```phpunit -c vendor/ohiocms/core/src/base --coverage-html=vendor/ohiocms/core/src/base/tests/html
 ```

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-class DatabaseEloquentModelTest extends PHPUnit_Framework_TestCase
+class DatabaseEloquentModel extends PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {

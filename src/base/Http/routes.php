@@ -17,7 +17,9 @@ Route::group([
     'middleware' => ['web', 'auth.admin']
 ],
     function () {
-        Route::get('/', \Ohio\Core\Base\Http\Controllers\AdminController::class . '@getIndex');
+        Route::get('/', function () {
+            return view('ohio-core::layouts.admin.dashboard');
+        });
         Route::get('/ohio/core/{any?}/{something?}/{c?}', function () {
             return view('ohio-core::layouts.admin.dashboard');
         });
@@ -32,6 +34,8 @@ Route::group([
     'middleware' => ['web']
 ],
     function () {
-        Route::get('/', \Ohio\Core\Base\Http\Controllers\AdminUserController::class . '@getIndex');
+        Route::get('/', function () {
+            return view('ohio-core::layouts.admin-user.index');
+        });
     }
 );

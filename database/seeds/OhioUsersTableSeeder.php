@@ -22,11 +22,11 @@ class OhioUsersTableSeeder extends Seeder
             'password' => bcrypt('secret'),
         ]);
 
-        $admin_role = Role::whereName('SUPER')->first();
+        $adminRole = Role::whereName('SUPER')->first();
 
         UserRole::create([
             'user_id' => $superUser->id,
-            'role_id' => $admin_role->id,
+            'role_id' => $adminRole->id,
         ]);
 
         factory(User::class, 100)->create()->each(function ($user) {

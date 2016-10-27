@@ -2,12 +2,12 @@
 
 namespace Ohio\Core\Role\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 use Ohio\Core\Role;
 use Ohio\Core\Role\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
+
+use Illuminate\Http\Request;
 
 class ApiController extends BaseApiController
 {
@@ -18,7 +18,7 @@ class ApiController extends BaseApiController
             $role = Role\Role::findOrFail($id);
             return $role;
         } catch (\Exception $e) {
-            abort(404, 'Record not found.');
+            $this->abort(404);
         }
 
         return null;

@@ -1,29 +1,15 @@
 <?php
-
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Ohio\Core\Base\Http\Exception;
 
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Exception;
 
-class ApiNotFoundHttpException extends \RuntimeException implements HttpExceptionInterface
+class ApiNotFoundHttpException extends ApiException
 {
-    private $statusCode;
-    private $headers;
+    protected $statusCode = 404;
 
-    public function __construct(\Exception $previous = null, array $headers = array(), $code = 0)
+    public function __construct($code = 0, Exception $previous = null)
     {
-        $this->statusCode = 404;
-        $this->headers = $headers;
-
-        parent::__construct('[]', $code, $previous);
+        parent::__construct('', $code, $previous);
     }
 
     public function getStatusCode()

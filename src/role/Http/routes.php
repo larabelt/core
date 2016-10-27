@@ -17,13 +17,3 @@ Route::group([
         Route::post('/roles', Role\Http\Controllers\ApiController::class . '@store');
     }
 );
-
-Route::group([
-    'prefix' => 'admin',
-    'middleware' => ['web']
-],
-    function () {
-            Route::get('/roles/{id}', Role\Http\Controllers\AdminController::class . '@show');
-            Route::get('/roles', Role\Http\Controllers\AdminController::class . '@index');
-    }
-);

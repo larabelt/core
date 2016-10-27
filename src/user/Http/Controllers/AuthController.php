@@ -1,9 +1,9 @@
 <?php
 
-namespace Ohio\Core\User\Http\Controllers\Auth;
+namespace Ohio\Core\User\Http\Controllers;
 
-use App\User;
 use Validator;
+use App\User;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -35,8 +35,6 @@ class AuthController extends BaseController
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {

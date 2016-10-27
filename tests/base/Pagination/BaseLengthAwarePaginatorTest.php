@@ -19,7 +19,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
      */
     public function test()
     {
-        $model = new EloquentModelStub();
+        $model = new BaseLengthAwarePaginatorModelStub();
 
         $qb = $model->newQuery();
 
@@ -43,7 +43,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class EloquentModelStub extends Model
+class BaseLengthAwarePaginatorModelStub extends Model
 {
     public function newQuery()
     {
