@@ -3,7 +3,7 @@
 use Mockery as m;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 
-class RequestsBasePaginateRequestTest extends \PHPUnit_Framework_TestCase
+class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {

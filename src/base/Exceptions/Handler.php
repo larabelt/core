@@ -13,25 +13,25 @@ class Handler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception $e
      * @return \Illuminate\Http\Response
      */
     public static function render($request, Exception $e)
     {
 
-        if ($e instanceof ApiException) {
-            return response()->json($e->getMessage(), $e->getStatusCode());
+        if ($e instanceof ApiException || $request->ajax() || $request->wantsJson()) {
+
+            $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 200;
+
+            return response()->json($e->getMessage(), $statusCode);
         }
 
         if (method_exists($e, 'getResponse')) {
-            if ($e->getResponse() instanceof JsonResponse) {
-                return response()->json(['message' => $e->getResponse()->getData()], $e->getResponse()->getStatusCode());
+            $response = $e->getResponse();
+            if ($response instanceof JsonResponse) {
+                return response()->json(['message' => $response->getData()], $response->getStatusCode());
             }
-        }
-
-        if ($request->ajax() || $request->wantsJson()) {
-            return response()->json($e->getMessage(), $e->getStatusCode());
         }
 
     }

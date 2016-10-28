@@ -2,7 +2,7 @@
 
 use Ohio\Core\Base\Http\Requests\BaseFormRequest;
 
-class RequestsBaseFormRequestTest extends \PHPUnit_Framework_TestCase
+class BaseFormRequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Ohio\Core\Base\Http\Requests\BaseFormRequest::rules()

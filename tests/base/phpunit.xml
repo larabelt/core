@@ -18,6 +18,7 @@
             <directory suffix=".php">../../src/base</directory>
             <exclude>
                 <file>../../src/base/Http/routes.php</file>
+                <file>../../src/base/Testing/OhioTestCase.php</file>
                 <file>../../src/base/OhioCoreServiceProvider.php</file>
             </exclude>
         </whitelist>
