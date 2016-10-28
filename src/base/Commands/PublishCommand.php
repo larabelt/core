@@ -42,9 +42,9 @@ class PublishCommand extends Command
         'node_modules/font-awesome/css' => 'public/css/font-awesome',
         'node_modules/font-awesome/fonts' => 'public/fonts',
         'vendor/ohiocms/core/resources' => 'resources/ohio/core',
-        'vendor/ohiocms/core/database/factories' => 'rdatabase/factories',
-        'vendor/ohiocms/core/database/migrations' => 'rdatabase/migrations',
-        'vendor/ohiocms/core/database/seeds' => 'rdatabase/seeds',
+        'vendor/ohiocms/core/database/factories' => 'database/factories',
+        'vendor/ohiocms/core/database/migrations' => 'database/migrations',
+        'vendor/ohiocms/core/database/seeds' => 'database/seeds',
     ];
 
     public function __construct()

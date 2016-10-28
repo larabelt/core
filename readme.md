@@ -1,20 +1,44 @@
-# OhioCMS User Package
+## Installation
 
-## Migrations / Seeds / Factories
+```
+# install composer dependencies
+composer install
 
-```sudo composer dumpautoload
+# install node dependencies
+npm install
+
+# create .env file
+cp .env.example .env
+
+# create app key
+php artisan key:generate
+
+# install assets & migrate
+php artisan ohio-core:publish
+composer dumpautoload
+
+# migrate & seed
+php artisan migrate
+php artisan db:seed
+
+# compile assets
+gulp
 ```
 
-```php artisan vendor:publish --provider="Ohio\Core\Base\OhioCoreServiceProvider" --force
+## Clear App & PHP cache
+
+```
+composer run-script clear; 
+sudo service php7.0-fpm restart;
 ```
 
-```composer run-script clear; sudo service php7.0-fpm restart;
-``` 
+## Misc
 
-```php artisan migrate:refresh --seed #re-run all migrations with seeds
+```
+#re-run all migrations with seeds
+php artisan migrate:refresh --seed 
 ```
 
-## Testing
+## Acknowledgments / Credits
 
-```phpunit -c vendor/ohiocms/core/src/base --coverage-html=vendor/ohiocms/core/src/base/tests/html
-```
+* [AdminLTE] (https://github.com/almasaeed2010/AdminLTE)
