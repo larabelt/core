@@ -31,7 +31,9 @@ class PublishCommand extends Command
      */
     protected $disk;
 
-    protected $saved = [];
+    protected $created = [];
+
+    protected $modified = [];
 
     protected $ignored = [];
 
@@ -46,13 +48,6 @@ class PublishCommand extends Command
         'vendor/ohiocms/core/database/migrations' => 'database/migrations',
         'vendor/ohiocms/core/database/seeds' => 'database/seeds',
     ];
-
-    public function __construct()
-    {
-        parent::__construct();
-
-
-    }
 
     public function init()
     {
@@ -69,14 +64,9 @@ class PublishCommand extends Command
 
         $this->force = $this->option('force');
 
-        /**
-         * @var $app ['config'] \Illuminate\Config\Repository
-         */
-        $app = app();
+        app()['config']->set('filesystems.disks.base', ['driver' => 'local', 'root' => base_path()]);
 
-        $app['config']->set('filesystems.disks.base', ['driver' => 'local', 'root' => base_path()]);
-
-        $this->disk = (new FilesystemManager($app))->disk('base');
+        $this->disk = (new FilesystemManager(app()))->disk('base');
     }
 
     /**
@@ -93,15 +83,22 @@ class PublishCommand extends Command
             $this->publishDir($src_dir, $target_dir);
         }
 
-        if ($this->saved) {
-            $this->info("\nThe following files were published:\n");
-            foreach ($this->saved as $file) {
+        if ($this->created) {
+            $this->info("\nThe following files were added:\n");
+            foreach ($this->created as $file) {
+                $this->info($file);
+            }
+        }
+
+        if ($this->modified) {
+            $this->info("\nThe following files were overwritten:\n");
+            foreach ($this->modified as $file) {
                 $this->info($file);
             }
         }
 
         if ($this->ignored) {
-            $this->warn("\nThe following files were ignored:\n");
+            $this->warn("\nThe following files were ignored though source files have changed:\n");
             foreach ($this->ignored as $file) {
                 $this->warn($file);
             }
@@ -126,6 +123,8 @@ class PublishCommand extends Command
      *
      * @param $srcPath
      * @param $targetPath
+     *
+     * @return boolean|void
      */
     public function considerCopyingFile($srcPath, $targetPath)
     {
@@ -133,37 +132,77 @@ class PublishCommand extends Command
 
         $history = $this->getFilePublishHistory($targetPath);
 
-        if ($this->force) {
-            return $this->putFile($targetPath, $srcContents, $history);
-        }
-
         if (!$this->disk->exists($targetPath)) {
-            return $this->putFile($targetPath, $srcContents, $history);
+            return $this->createFile($targetPath, $srcContents, $history);
         }
 
-        $targetContents = $this->disk->get($targetPath);
+        if ($this->force) {
+            return $this->replaceFile($targetPath, $srcContents, $history);
+        }
+
+        $targetHash = md5($this->disk->get($targetPath));
 
         /**
-         * If the hash saved in the database matches the hash of the current file,
-         * then consider it unchanged and eligible to be overwritten.
+         * If the target file exists but the history is missing then we're going to
+         * ignore it.
          */
-        if (!$history->hash || $history->hash == md5($targetContents)) {
-            return $this->putFile($targetPath, $srcContents, $history);
+        if (!$history->hash) {
+            return $this->ignored[] = $targetPath;
         }
 
-        $this->ignored[] = $targetPath;
+        /**
+         * If saved hash does not match the current hash, then it appears
+         * this file has been locally edited and should not be replaced.
+         */
+        if ($history->hash != $targetHash) {
+            return $this->ignored[] = $targetPath;
+        }
+
+        /**
+         * The target file appears not to be edited locally while the source file
+         * looks to have been updated. We're going to replace it.
+         */
+        if (md5($srcContents) != $targetHash) {
+            return $this->replaceFile($targetPath, $srcContents, $history);
+        }
+
+        /**
+         * If we've made it this far, then the source and target file are the same.
+         * Nothing needs to happen.
+         */
     }
 
-    public function putFile($path, $contents, $history = null)
+    public function createFile($path, $contents, $history)
     {
+        $result = $this->putFile($path, $contents, $history);
 
-        $this->saved[] = $path;
+        if ($result) {
+            $this->created[] = $path;
+        }
 
-        $this->disk->put($path, $contents);
+        return $result;
+    }
 
-        $history = $history ?: $this->getFilePublishHistory($path);
+    public function replaceFile($path, $contents, $history)
+    {
+        $result = $this->putFile($path, $contents, $history);
 
-        $history->update(['hash' => md5($contents)]);
+        if ($result) {
+            $this->modified[] = $path;
+        }
+
+        return $result;
+    }
+
+    public function putFile($path, $contents, $history)
+    {
+        $result = $this->disk->put($path, $contents);
+
+        if ($result) {
+            $history->update(['hash' => md5($contents)]);
+        }
+
+        return $result;
     }
 
     public function getFilePublishHistory($path)
