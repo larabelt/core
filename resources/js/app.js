@@ -31,8 +31,6 @@ export default class OhioCMS {
             const app = new Vue({
                 router
             }).$mount('#core-vue');
-
-            console.log(app);
         }
     }
 
