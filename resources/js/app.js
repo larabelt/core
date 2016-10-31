@@ -1,33 +1,21 @@
-let $ = require('jquery');
-let lodash = require('lodash');
-//let Vue = require('vue');
-import Vue from 'vue';
-import VueResource from 'vue-resource';
-import VueRouter from 'vue-router';
-
-Vue.use(VueResource);
-Vue.use(VueRouter);
-Vue.config.devtools = true;
+import Users from './components/user/user';
+import UserCreate from './components/user/user-create';
+import UserEdit from './components/user/user-edit';
+import Roles from './components/role/role';
+import RolesCreate from './components/role/role-create';
+import RolesEdit from './components/role/role-edit';
 
 export default class OhioCMS {
 
     constructor(components = []) {
         this.components = [];
 
-        lodash(components).forEach((value, index) => {
+        _(components).forEach((value, index) => {
             this.addComponent(value);
         });
 
         if( $('#core-vue').length > 0 )
         {
-            const Foo = {template: `<div>Foo</div>`};
-            const Users = require('./components/user/user');
-            const UserCreate = require('./components/user/user-create');
-            const UserEdit = require('./components/user/user-edit');
-            const Roles = require('./components/role/role');
-            const RolesCreate = require('./components/role/role-create');
-            const RolesEdit = require('./components/role/role-edit');
-
             const router = new VueRouter({
                 routes: [
                     { path: '/users', component: Users, canReuse: false, name: 'userIndex' },
@@ -43,6 +31,8 @@ export default class OhioCMS {
             const app = new Vue({
                 router
             }).$mount('#core-vue');
+
+            console.log(app);
         }
     }
 

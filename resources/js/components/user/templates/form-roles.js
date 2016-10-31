@@ -1,5 +1,3 @@
-let lodash = require('lodash');
-
 export default {
     data() {
         return {
@@ -31,7 +29,7 @@ export default {
         getRoles() {
             this.$http.get('/api/v1/roles' ).then((response) => {
 
-                lodash(response.data.data).forEach( (value, index) => {
+                _(response.data.data).forEach( (value, index) => {
 
                     this.$set(this.roles, value.id, {
                         assigned: false,
@@ -49,8 +47,8 @@ export default {
         getUserRoles() {
             this.$http.get('/api/v1/user-roles?user_id=' + this.$parent.userid ).then((response) => {
 
-                lodash(response.data.data).forEach( (value, index) => {
-                    lodash(this.roles).forEach( (role, key) => {
+                _(response.data.data).forEach( (value, index) => {
+                    _(this.roles).forEach( (role, key) => {
                         if( role.id == value.role_id ) {
                             this.roles[key].assigned = true;
                         }

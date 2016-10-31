@@ -1,6 +1,3 @@
-let lodash = require('lodash');
-let $ = require('jquery');
-
 export default {
     data() {
         return {
@@ -74,7 +71,7 @@ export default {
         getParams(type, number = null) {
 
             let params = {};
-            lodash(this.$parent.$route.query).forEach((value, key) => {
+            _(this.$parent.$route.query).forEach((value, key) => {
                 params[key] = value;
             });
 

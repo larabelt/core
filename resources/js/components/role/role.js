@@ -1,7 +1,7 @@
-let columnSorter = require('../column-sorter');
-let pagination = require('../pagination');
-let lodash = require('lodash');
-let $ = require('jquery');
+import columnSorter from '../column-sorter';
+import pagination from '../pagination';
+
+import template_index from './templates/index';
 
 export default {
 
@@ -10,7 +10,7 @@ export default {
         pagination: pagination
     },
 
-    template: require('./templates/index'),
+    template: template_index,
 
     data() {
         return {
@@ -43,7 +43,7 @@ export default {
     methods: {
         getItems() {
             let params = {};
-            lodash(this.$route.query).forEach((value, key) => {
+            _(this.$route.query).forEach((value, key) => {
                 params[key] = value;
             });
 

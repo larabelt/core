@@ -1,5 +1,3 @@
-let lodash = require('lodash');
-
 export default {
     data() {
         return {
@@ -36,7 +34,7 @@ export default {
         formIsValid() {
             let isValid = true;
 
-            lodash(this.invalid).forEach( (value, index) => {
+            _(this.invalid).forEach( (value, index) => {
                 this.invalid[index] = false;
             });
 
