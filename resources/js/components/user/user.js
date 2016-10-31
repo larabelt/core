@@ -41,7 +41,6 @@ export default {
     },
 
     mounted() {
-        console.log('users');
         this.getItems();
     },
 
