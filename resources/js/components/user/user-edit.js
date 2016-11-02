@@ -1,7 +1,10 @@
+import component_roles from './templates/form-roles';
+import component_user from './templates/form-user';
+
 export default {
     components: {
-        'form-user': require('./templates/form-user'),
-        'form-roles': require('./templates/form-roles')
+        'form-user': component_user,
+        'form-roles': component_roles
     },
     data() {
         return {

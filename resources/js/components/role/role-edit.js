@@ -1,6 +1,8 @@
+import component_role from './templates/form-role';
+
 export default {
     components: {
-        'form-role': require('./templates/form-role')
+        'form-role': component_role
     },
     data() {
         return {

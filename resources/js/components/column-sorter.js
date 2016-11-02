@@ -33,14 +33,14 @@ export default {
     props: ['orderBy', 'routename'],
 
     template: `
-            <span class="ohio-column-sorter pull-right" 
-                    v-bind:class="[active, sortdir]"
-                    v-bind:order-by="orderBy">
-                <router-link v-bind:to="{ name: routename, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
-                    <i class="fa fa-arrows-v"></i>
-                    <i class="fa fa-sort-amount-asc"></i>
-                    <i class="fa fa-sort-amount-desc"></i>
-                </router-link>
-            </span>
-        `
+        <span class="ohio-column-sorter pull-right" 
+                v-bind:class="[active, sortdir]"
+                v-bind:order-by="orderBy">
+            <router-link v-bind:to="{ name: routename, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
+                <i class="fa fa-arrows-v"></i>
+                <i class="fa fa-sort-amount-asc"></i>
+                <i class="fa fa-sort-amount-desc"></i>
+            </router-link>
+        </span>
+    `
 }

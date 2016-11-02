@@ -1,6 +1,8 @@
+import component_user from './templates/form-user';
+
 export default {
     components: {
-        'user-form': require('./templates/form-user')
+        'user-form': component_user
     },
     mounted() {
         console.log(this);
