@@ -19,7 +19,6 @@ class Handler
      */
     public static function render($request, Exception $e)
     {
-
         if ($e instanceof ApiException || $request->ajax() || $request->wantsJson()) {
 
             $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 200;

@@ -9,17 +9,15 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Base Test Suite">
+        <testsuite name="Role Test Suite">
             <directory suffix="Test.php">./</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../../src/base</directory>
+            <directory suffix=".php">../../src/role</directory>
             <exclude>
-                <directory>../../src/base/Testing</directory>
-                <file>../../src/base/Http/routes.php</file>
-                <file>../../src/base/OhioCoreServiceProvider.php</file>
+                <file>../../src/role/Http/routes.php</file>
             </exclude>
         </whitelist>
     </filter>
