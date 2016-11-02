@@ -13,10 +13,6 @@ use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-/**
- * @runTestsInSeparateProcesses
- * @preserveGlobalState disabled
- */
 class ApiControllerTest extends Testing\OhioTestCase
 {
 

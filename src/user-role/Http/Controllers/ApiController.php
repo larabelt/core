@@ -6,22 +6,28 @@ use Illuminate\Http\Request;
 
 use Ohio\Core\UserRole;
 use Ohio\Core\UserRole\Http\Requests;
-use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
 class ApiController extends BaseApiController
 {
 
-    private function get($id)
-    {
-        try {
-            $userRole = UserRole\UserRole::findOrFail($id);
-            return $userRole;
-        } catch (\Exception $e) {
-            $this->abort(404);
-        }
+    /**
+     * @var UserRole\UserRole
+     */
+    public $userRole;
 
-        return null;
+    /**
+     * ApiController constructor.
+     * @param UserRole\UserRole $userRole
+     */
+    public function __construct(UserRole\UserRole $userRole)
+    {
+        $this->userRole = $userRole;
+    }
+
+    public function get($id)
+    {
+        return $this->userRole->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -32,12 +38,12 @@ class ApiController extends BaseApiController
      */
     public function index(Request $request)
     {
-        $request = new Requests\PaginateRequest($request->query());
+        $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
-        $qb = UserRole\UserRole::query();
+        $qb = $this->userRole->query();
         $qb->with('role');
 
-        $paginator = new BaseLengthAwarePaginator($qb, $request);
+        $paginator = $this->getPaginator($this->userRole->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -52,7 +58,7 @@ class ApiController extends BaseApiController
     public function store(Requests\CreateRequest $request)
     {
 
-        $userRole = UserRole\UserRole::create($request->all());
+        $userRole = $this->userRole->create($request->all());
 
         return response()->json($userRole);
     }

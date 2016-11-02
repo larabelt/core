@@ -18,6 +18,11 @@ class UserRole extends Model
         return static::firstOrCreate($attributes);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(Core\User\User::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Core\Role\Role::class);
