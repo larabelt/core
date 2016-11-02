@@ -4,7 +4,6 @@ namespace Ohio\Core\User\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 use Ohio\Core\User;
 use Ohio\Core\User\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
@@ -12,16 +11,23 @@ use Ohio\Core\Base\Http\Controllers\BaseApiController;
 class ApiController extends BaseApiController
 {
 
-    private function get($id)
-    {
-        try {
-            $user = User\User::findOrFail($id);
-            return $user;
-        } catch (\Exception $e) {
-            $this->abort(404);
-        }
+    /**
+     * @var User\User
+     */
+    public $user;
 
-        return null;
+    /**
+     * ApiController constructor.
+     * @param User\User $user
+     */
+    public function __construct(User\User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function get($id)
+    {
+        return $this->user->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -32,9 +38,9 @@ class ApiController extends BaseApiController
      */
     public function index(Request $request)
     {
-        $request = new Requests\PaginateRequest($request->query());
+        $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
-        $paginator = new BaseLengthAwarePaginator(User\User::query(), $request);
+        $paginator = $this->getPaginator($this->user->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -48,8 +54,7 @@ class ApiController extends BaseApiController
      */
     public function store(Requests\CreateRequest $request)
     {
-
-        $user = User\User::create($request->all());
+        $user = $this->user->create($request->all());
 
         return response()->json($user);
     }

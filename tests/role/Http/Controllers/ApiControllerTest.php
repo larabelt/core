@@ -36,7 +36,7 @@ class ApiControllerTest extends Testing\OhioTestCase
      * @covers \Ohio\Core\Role\Http\Controllers\ApiController::store
      * @covers \Ohio\Core\Role\Http\Controllers\ApiController::index
      */
-    public function test1()
+    public function test()
     {
 
         $role1 = factory(Role::class)->make();

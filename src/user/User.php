@@ -1,6 +1,8 @@
 <?php
 namespace Ohio\Core\User;
 
+use Ohio\Core\Role\Role;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 
@@ -28,10 +30,10 @@ class User extends Model implements Authenticatable
         return (string) $this->email;
     }
 
-//    public function roles()
-//    {
-//        return $this->belongsToMany(Role\Entity::class, 'user_roles', 'user_id', 'role_id');
-//    }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
 
     public function setIsVerifiedAttribute($value)
     {
@@ -61,8 +63,7 @@ class User extends Model implements Authenticatable
     public function setPasswordAttribute($value)
     {
         if ($value && (strlen($value) != 60 || substr($value, 0, 1) != '$')) {
-            $hasher = new \Illuminate\Hashing\BcryptHasher();
-            $value = $hasher->make($value);
+            $value = bcrypt(trim($value));
         }
 
         $this->attributes['password'] = trim($value);
@@ -150,9 +151,22 @@ class User extends Model implements Authenticatable
         return $this->email;
     }
 
-    public function hasRole($role)
+    public function hasRole($name)
     {
-        return true;
+
+        $name = strtoupper($name);
+
+        $roleNames = $this->roles->pluck('name')->all();
+
+        if (in_array('SUPER', $roleNames)) {
+            return true;
+        }
+
+        if (in_array($name, $roleNames)) {
+            return true;
+        }
+
+        return false;
     }
 
 }

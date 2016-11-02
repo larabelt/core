@@ -41,6 +41,7 @@ php artisan migrate:refresh --seed
 # unit testing
 phpunit -c vendor/ohiocms/core/tests/base --coverage-html=vendor/ohiocms/core/tests/base/html
 phpunit -c vendor/ohiocms/core/tests/role --coverage-html=vendor/ohiocms/core/tests/role/html
+phpunit -c vendor/ohiocms/core/tests/user --coverage-html=vendor/ohiocms/core/tests/user/html
 ```
 
 
