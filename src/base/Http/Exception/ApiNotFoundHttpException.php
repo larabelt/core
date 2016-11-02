@@ -9,16 +9,7 @@ class ApiNotFoundHttpException extends ApiException
 
     public function __construct($code = 0, Exception $previous = null)
     {
-        parent::__construct('', $code, $previous);
+        parent::__construct(null, $code, $previous);
     }
 
-    public function getStatusCode()
-    {
-        return $this->statusCode;
-    }
-
-    public function getHeaders()
-    {
-        return $this->headers;
-    }
 }

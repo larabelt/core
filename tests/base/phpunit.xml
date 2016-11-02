@@ -17,6 +17,7 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">../../src/base</directory>
             <exclude>
+                <directory>../../src/base/Testing</directory>
                 <file>../../src/base/Http/routes.php</file>
                 <file>../../src/base/OhioCoreServiceProvider.php</file>
             </exclude>

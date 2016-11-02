@@ -9,15 +9,15 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="User Test Suite">
+        <testsuite name="UserRole Test Suite">
             <directory suffix="Test.php">./</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../../src/user</directory>
+            <directory suffix=".php">../../src/user-role</directory>
             <exclude>
-                <file>../../src/user/Http/routes.php</file>
+                <file>../../src/user-role/Http/routes.php</file>
             </exclude>
         </whitelist>
     </filter>

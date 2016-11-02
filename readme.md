@@ -37,6 +37,12 @@ sudo service php7.0-fpm restart;
 ```
 #re-run all migrations with seeds
 php artisan migrate:refresh --seed 
+
+# unit testing
+phpunit -c vendor/ohiocms/core/tests/base --coverage-html=vendor/ohiocms/core/tests/base/html
+phpunit -c vendor/ohiocms/core/tests/role --coverage-html=vendor/ohiocms/core/tests/role/html
+phpunit -c vendor/ohiocms/core/tests/user --coverage-html=vendor/ohiocms/core/tests/user/html
+phpunit -c vendor/ohiocms/core/tests/user-role --coverage-html=vendor/ohiocms/core/tests/user-role/html
 ```
 
 ## Acknowledgments / Credits

@@ -2,26 +2,33 @@
 
 namespace Ohio\Core\Role\Http\Controllers;
 
-use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
+use Ohio\Core\Base\Http\Controllers\BaseApiController;
+
 use Ohio\Core\Role;
 use Ohio\Core\Role\Http\Requests;
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
 use Illuminate\Http\Request;
 
 class ApiController extends BaseApiController
 {
 
-    private function get($id)
-    {
-        try {
-            $role = Role\Role::findOrFail($id);
-            return $role;
-        } catch (\Exception $e) {
-            $this->abort(404);
-        }
+    /**
+     * @var Role\Role
+     */
+    public $role;
 
-        return null;
+    /**
+     * ApiController constructor.
+     * @param Role\Role $role
+     */
+    public function __construct(Role\Role $role)
+    {
+        $this->role = $role;
+    }
+
+    public function get($id)
+    {
+        return $this->role->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -32,9 +39,9 @@ class ApiController extends BaseApiController
      */
     public function index(Request $request)
     {
-        $request = new Requests\PaginateRequest($request->query());
+        $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
-        $paginator = new BaseLengthAwarePaginator(Role\Role::query(), $request);
+        $paginator = $this->getPaginator($this->role->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -49,7 +56,7 @@ class ApiController extends BaseApiController
     public function store(Requests\CreateRequest $request)
     {
 
-        $role = Role\Role::create($request->all());
+        $role = $this->role->create($request->all());
 
         return response()->json($role);
     }
