@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
 
-    protected $morphClass = 'Role';
+    protected $morphClass = 'core/role';
 
     protected $table = 'roles';
 

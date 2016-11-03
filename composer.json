@@ -17,8 +17,6 @@
     "laravel/framework": ">=5.3.16",
     "laravelcollective/html": ">=5.3.0"
   },
-  "require-dev": {
-  },
   "autoload": {
     "psr-4": {
       "Ohio\\Core\\Base\\": "src/base/",

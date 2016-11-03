@@ -9,7 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 class User extends Model implements Authenticatable
 {
 
-    protected $morphClass = 'User';
+    protected $morphClass = 'core/user';
 
     protected $table = 'users';
 

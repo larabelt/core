@@ -39,10 +39,7 @@ class OhioCoreServiceProvider extends ServiceProvider
     public function boot(GateContract $gate, Router $router)
     {
 
-        // publish resources
         //$this->publishes([__DIR__ . '/../../resources' => resource_path('ohio/core')]);
-
-        // database
         //$this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
         //$this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
         //$this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
@@ -60,6 +57,12 @@ class OhioCoreServiceProvider extends ServiceProvider
         Role\Role::observe(Role\Observers\RoleObserver::class);
 
         $this->commands(Core\Base\Commands\PublishCommand::class);
+
+        $this->app['events']->listen('eloquent.saving*', function ($model) {
+            if (class_uses($model, Core\Base\Behaviors\Sluggable\SluggableTrait::class)) {
+                $model->slugify();
+            }
+        });
     }
 
     /**
