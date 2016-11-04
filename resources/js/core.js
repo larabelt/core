@@ -5,7 +5,7 @@ import Roles from './components/role/role';
 import RolesCreate from './components/role/role-create';
 import RolesEdit from './components/role/role-edit';
 
-export default class OhioCMS {
+export default class OhioCore {
 
     constructor(components = []) {
         this.components = [];
@@ -14,23 +14,22 @@ export default class OhioCMS {
             this.addComponent(value);
         });
 
-        if( $('#core-vue').length > 0 )
-        {
+        if ($('#core-vue').length > 0) {
+
             const router = new VueRouter({
                 routes: [
-                    { path: '/users', component: Users, canReuse: false, name: 'userIndex' },
-                    { path: '/users/create', component: UserCreate, name: 'userCreate' },
-                    { path: '/users/edit/:id', component: UserEdit, name: 'userEdit' },
-                    { path: '/roles', component: Roles, name: 'roleIndex' },
-                    { path: '/roles/create', component: RolesCreate, name: 'roleCreate' },
-                    { path: '/roles/edit/:id', component: RolesEdit, name: 'roleEdit' }
+                    {path: '/users', component: Users, canReuse: false, name: 'userIndex'},
+                    {path: '/users/create', component: UserCreate, name: 'userCreate'},
+                    {path: '/users/edit/:id', component: UserEdit, name: 'userEdit'},
+                    {path: '/roles', component: Roles, name: 'roleIndex'},
+                    {path: '/roles/create', component: RolesCreate, name: 'roleCreate'},
+                    {path: '/roles/edit/:id', component: RolesEdit, name: 'roleEdit'}
                 ],
                 mode: 'history',
                 base: '/admin/ohio/core'
-            })
-            const app = new Vue({
-                router
-            }).$mount('#core-vue');
+            });
+
+            const app = new Vue({router}).$mount('#core-vue');
         }
     }
 
