@@ -16,7 +16,7 @@
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
+                <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
@@ -35,14 +35,17 @@
                     <li><a href="/admin/ohio/core/roles"><i class="fa fa-users"></i> <span>Roles</span></a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-th-large"></i> <span>Content Admin</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/admin/ohio/content/pages"><i class="fa fa-file-text"></i> <span>Pages</span></a></li>
-                </ul>
-            </li>
+
+            @if(in_array('Ohio\Content\Base\OhioContentServiceProvider', array_keys(app()->getLoadedProviders())))
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-th-large"></i> <span>Content Admin</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/ohio/content/pages"><i class="fa fa-file-text"></i> <span>Pages</span></a></li>
+                    </ul>
+                </li>
+            @endif
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

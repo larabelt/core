@@ -23,6 +23,9 @@
       "Ohio\\Core\\Role\\": "src/role/",
       "Ohio\\Core\\User\\": "src/user/",
       "Ohio\\Core\\UserRole\\": "src/user-role/"
-    }
+    },
+    "files": [
+      "src/base/helpers.php"
+    ]
   }
 }

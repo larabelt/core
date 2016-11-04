@@ -20,7 +20,7 @@ Route::group([
         Route::get('/', function () {
             return view('ohio-core::layouts.admin.dashboard');
         });
-        Route::get('/ohio/core/{any?}/{something?}/{c?}', function () {
+        Route::get('{a?}/{b?}/{c?}', function () {
             return view('ohio-core::layouts.admin.dashboard');
         });
     }

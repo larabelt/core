@@ -6,7 +6,7 @@ use Ohio\Core\User\User;
 use Ohio\Core\Role\Role;
 use Ohio\Core\UserRole\UserRole;
 
-class OhioUsersTableSeeder extends Seeder
+class OhioCoreUserSeeds extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,16 +15,17 @@ class OhioUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $superUser = User::create([
+        $superUser = User::firstOrCreate([
             'first_name' => 'SUPER',
             'last_name' => 'ADMIN',
             'email' => 'super@ohiocms.org',
-            'password' => bcrypt('secret'),
         ]);
+
+        $superUser->update(['password' => bcrypt('secret')]);
 
         $adminRole = Role::whereName('SUPER')->first();
 
-        UserRole::create([
+        UserRole::firstOrCreate([
             'user_id' => $superUser->id,
             'role_id' => $adminRole->id,
         ]);
