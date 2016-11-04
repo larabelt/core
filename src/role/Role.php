@@ -2,9 +2,11 @@
 namespace Ohio\Core\Role;
 
 use Illuminate\Database\Eloquent\Model;
+use Ohio\Core\Base\Behaviors\SluggableTrait;
 
 class Role extends Model
 {
+    use SluggableTrait;
 
     protected $morphClass = 'core/role';
 
@@ -20,11 +22,6 @@ class Role extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper(trim($value));
-    }
-
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = str_slug(trim($value));
     }
 
 }

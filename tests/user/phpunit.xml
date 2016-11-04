@@ -14,7 +14,7 @@
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
+        <whitelist>
             <directory suffix=".php">../../src/user</directory>
             <exclude>
                 <file>../../src/user/Http/routes.php</file>

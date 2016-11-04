@@ -54,12 +54,12 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         $router->middleware('auth.admin', Core\Base\Http\Middleware\AdminAuthenticate::class);
 
-        Role\Role::observe(Role\Observers\RoleObserver::class);
+        //Role\Role::observe(Role\Observers\RoleObserver::class);
 
         $this->commands(Core\Base\Commands\PublishCommand::class);
 
         $this->app['events']->listen('eloquent.saving*', function ($model) {
-            if (class_uses($model, Core\Base\Behaviors\Sluggable\SluggableTrait::class)) {
+            if (class_uses($model, Core\Base\Behaviors\SluggableTrait::class)) {
                 $model->slugify();
             }
         });
