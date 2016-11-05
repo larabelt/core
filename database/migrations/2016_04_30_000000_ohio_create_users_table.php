@@ -21,7 +21,7 @@ class OhioCreateUsersTable extends Migration
             $table->string('last_name', 100)->nullable();
             $table->string('mi', 1)->nullable();
             $table->string('username', 100)->nullable();
-            $table->string('password');
+            $table->string('password', 60)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

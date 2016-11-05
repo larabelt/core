@@ -11,16 +11,14 @@ export default {
         params() {
             let value = {
                 orderBy: this.orderBy,
-                sortBy: this.sortdir,
+                sortBy: this.sortBy,
                 page: 1
             };
-
             return value;
         },
-        sortdir() {
+        sortBy() {
             let route_order = this.$parent.$route.query.orderBy;
             let route_sort = this.$parent.$route.query.sortBy;
-
             if (typeof route_sort !== 'undefined' && typeof route_order !== 'undefined') {
                 if (this.$parent.$route.query.sortBy == 'asc' && route_order == this.orderBy) {
                     return 'desc';
@@ -34,7 +32,7 @@ export default {
 
     template: `
         <span class="ohio-column-sorter pull-right" 
-                v-bind:class="[active, sortdir]"
+                v-bind:class="[active, sortBy]"
                 v-bind:order-by="orderBy">
             <router-link v-bind:to="{ name: routename, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
                 <i class="fa fa-arrows-v"></i>

@@ -5,45 +5,35 @@ export default {
         }
     },
     computed: {
-        hasLast() {
-            if( this.$parent.items.data.current_page != this.$parent.items.data.last_page ) {
-                return true;
-            }
-
-            return false;
+        results() {
+            return this.$parent.items.data
+        },
+        isNotFirst() {
+            return this.$parent.items.data.current_page != 1
         },
         hasNext() {
-            if( this.$parent.items.data.last_page - this.$parent.items.data.current_page > 0 )
-            {
-                return true;
-            }
-            return false;
-        },
-        hasPrevious() {
-            if( this.$parent.items.data.current_page - 1 > 0 )
-            {
-                return true;
-            }
-            return false;
+            return this.$parent.items.data.last_page - this.$parent.items.data.current_page > 0;
         },
         indexes() {
+
             let first = this.results.current_page;
+
             let values = [];
 
-            let midpoint = Math.ceil( this.max / 2 );
+            let midpoint = Math.ceil(this.max / 2);
 
-            if ( this.results.last_page - this.max > 0) {
+            if (this.results.last_page - this.max > 0) {
 
-                if ( this.results.current_page >= midpoint ) {
+                if (this.results.current_page >= midpoint) {
                     first = this.results.current_page - (this.max % midpoint);
                 }
 
-                if ( this.results.last_page - this.results.current_page < midpoint ) {
+                if (this.results.last_page - this.results.current_page < midpoint) {
                     first = this.results.last_page - (this.max - 1)
                 }
             }
 
-            if ( this.results.last_page - this.max <= 0) {
+            if (this.results.last_page - this.max <= 0) {
                 first = 1;
                 this.max = this.results.last_page;
             }
@@ -56,15 +46,11 @@ export default {
 
             return values;
         },
-        isNotFirst() {
-            if( this.$parent.items.data.current_page == 1 ) {
-                return false;
-            }
-
-            return true;
+        hasPrevious() {
+            return this.$parent.items.data.current_page - 1 > 0;
         },
-        results() {
-            return this.$parent.items.data
+        hasLast() {
+            return this.$parent.items.data.current_page != this.$parent.items.data.last_page;
         }
     },
     methods: {
@@ -75,7 +61,7 @@ export default {
                 params[key] = value;
             });
 
-            if( typeof params['page'] == 'undefined' ) {
+            if (typeof params['page'] == 'undefined') {
                 params['page'] = this.results.current_page;
             }
 
@@ -100,11 +86,7 @@ export default {
             return params;
         },
         isActive(id) {
-            if( id == this.results.current_page ) {
-                return true;
-            }
-
-            return false;
+            return id == this.results.current_page;
         }
     },
     props: ['routename'],
@@ -113,8 +95,14 @@ export default {
             <li v-if="isNotFirst">
                 <router-link :to="{ name: routename, query: getParams('first') }">First</router-link>
             </li>
+            <li v-else class="disabled">
+                <span aria-hidden="true">First</span>
+            </li>
             <li v-if="hasPrevious">
                 <router-link :to="{ name: routename, query: getParams('previous') }">Previous</router-link>
+            </li>
+            <li v-else class="disabled">
+                <span aria-hidden="true">Previous</span>
             </li>
             <template v-for="number in indexes">
                 <li v-bind:class="{ active: isActive(number) }">
@@ -124,8 +112,14 @@ export default {
             <li v-if="hasNext">
                 <router-link :to="{ name: routename, query: getParams('next') }">Next</router-link>
             </li>
+            <li v-else class="disabled">
+                <span aria-hidden="true">Next</span>
+            </li>
             <li v-if="hasLast">
                 <router-link :to="{ name: routename, query: getParams('last') }">Last</router-link>
+            </li>
+            <li v-else class="disabled">
+                <span aria-hidden="true">Last</span>
             </li>
         </ul>
     `
