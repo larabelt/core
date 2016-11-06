@@ -19,13 +19,6 @@ class Handler
      */
     public static function render($request, Exception $e)
     {
-        if ($e instanceof ApiException || $request->ajax() || $request->wantsJson()) {
-
-            $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 200;
-
-            return response()->json($e->getMessage(), $statusCode);
-        }
-
         if (method_exists($e, 'getResponse')) {
             $response = $e->getResponse();
             if ($response instanceof JsonResponse) {
@@ -33,5 +26,12 @@ class Handler
             }
         }
 
+        if ($e instanceof ApiException || $request->ajax() || $request->wantsJson()) {
+
+            $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 200;
+
+            return response()->json($e->getMessage(), $statusCode);
+        }
     }
+
 }
