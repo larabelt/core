@@ -6,5 +6,9 @@
   }
 }
 
+section.content section.content-header {
+  padding: 0 15px 15px;
+}
+
 @import "components/column-sorter";
 @import "components/form-roles";

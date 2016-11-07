@@ -1,5 +1,5 @@
-import columnSorter from '../column-sorter';
-import pagination from '../pagination';
+import columnSorter from '../base/column-sorter';
+import pagination from '../base/pagination';
 
 import template_index from './templates/index';
 
