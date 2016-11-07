@@ -20,7 +20,19 @@ abstract class OhioTestCase extends TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__ . '/../../../../../../bootstrap/app.php';
+
+        $paths = [
+            __DIR__ . '/../../../../../../bootstrap/app.php',
+            __DIR__ . '/../../../../demo/bootstrap/app.php',
+        ];
+
+        foreach($paths as $path) {
+            if (file_exists($path)) {
+                break;
+            }
+        }
+
+        $app = require $path;
 
         $app->make(Kernel::class)->bootstrap();
 

@@ -35,7 +35,6 @@
                     <li><a href="/admin/ohio/core/roles"><i class="fa fa-users"></i> <span>Roles</span></a></li>
                 </ul>
             </li>
-
             @if(in_array('Ohio\Content\Base\OhioContentServiceProvider', array_keys(app()->getLoadedProviders())))
                 <li class="treeview">
                     <a href="#">
@@ -43,6 +42,9 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="/admin/ohio/content/pages"><i class="fa fa-file-text"></i> <span>Pages</span></a></li>
+                    </ul>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/ohio/content/handles"><i class="fa fa-link"></i> <span>Handles</span></a></li>
                     </ul>
                 </li>
             @endif
