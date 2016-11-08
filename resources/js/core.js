@@ -14,7 +14,7 @@ export default class OhioCore {
             this.addComponent(value);
         });
 
-        if ($('#core-vue').length > 0) {
+        if ($('#ohio-core').length > 0) {
 
             const router = new VueRouter({
                 routes: [
@@ -29,7 +29,7 @@ export default class OhioCore {
                 base: '/admin/ohio/core'
             });
 
-            const app = new Vue({router}).$mount('#core-vue');
+            const app = new Vue({router}).$mount('#ohio-core');
         }
     }
 

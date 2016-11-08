@@ -6,16 +6,12 @@
 
 @section('scripts-body-close')
     @parent
-    <script src="/js/ohio.js"></script>
+    <script src="/js/ohio-core.js"></script>
 @endsection
 
 @section('main')
 
-    {{--<div ng-app="ohioApp" style="min-height: 500px;">--}}
-        {{--@include('ohio-core::layouts.admin.partials.loading')--}}
-        {{----}}
-    {{--</div>--}}
-    <div id="core-vue">
+    <div id="ohio-core">
         <router-view></router-view>
     </div>
 
