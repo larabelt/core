@@ -41,7 +41,7 @@ Route::group([
  * Admin-User
  */
 Route::group([
-    'prefix' => 'admin-user',
+    'prefix' => 'home',
     'middleware' => ['web']
 ],
     function () {

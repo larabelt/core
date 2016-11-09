@@ -1,14 +1,27 @@
 <?php
 
-use Ohio\Core\User;
+use Ohio\Core\User\Http\Controllers;
+
+/**
+ * Front
+ */
+Route::group(['middleware' => ['web', 'guest']], function () {
+    Route::get('login', Controllers\Auth\LoginController::class . '@showLoginForm');
+    Route::post('login', Controllers\Auth\LoginController::class . '@login');
+});
 
 /**
  * Front
  */
 Route::group(['middleware' => ['web']], function () {
-    Route::get('login', \Ohio\Core\User\Http\Controllers\LoginController::class . '@showLoginForm');
-    Route::post('login', \Ohio\Core\User\Http\Controllers\LoginController::class . '@login');
-    Route::get('logout', \Ohio\Core\User\Http\Controllers\LoginController::class . '@logout');
+    Route::get('logout', Controllers\Auth\LoginController::class . '@logout');
+    Route::post('logout', Controllers\Auth\LoginController::class . '@logout');
+    Route::post('password/email', Controllers\Auth\ForgotPasswordController::class . '@sendResetLinkEmail');
+    Route::get('password/reset', Controllers\Auth\ForgotPasswordController::class . '@showLinkRequestForm');
+    Route::post('password/reset', Controllers\Auth\ResetPasswordController::class . '@reset');
+    Route::get('password/reset/{token}', Controllers\Auth\ResetPasswordController::class . '@showResetForm');
+    //Route::get('register', Controllers\Auth\RegisterController::class . '@showRegistrationForm');
+    //Route::post('register', Controllers\Auth\RegisterController::class . '@register');
 });
 
 /**
@@ -19,10 +32,10 @@ Route::group([
     'middleware' => ['api']
 ],
     function () {
-        Route::get('/users/{id}', User\Http\Controllers\ApiController::class . '@show');
-        Route::put('/users/{id}', User\Http\Controllers\ApiController::class . '@update');
-        Route::delete('/users/{id}', User\Http\Controllers\ApiController::class . '@destroy');
-        Route::get('/users', User\Http\Controllers\ApiController::class . '@index');
-        Route::post('/users', User\Http\Controllers\ApiController::class . '@store');
+        Route::get('/users/{id}', Controllers\ApiController::class . '@show');
+        Route::put('/users/{id}', Controllers\ApiController::class . '@update');
+        Route::delete('/users/{id}', Controllers\ApiController::class . '@destroy');
+        Route::get('/users', Controllers\ApiController::class . '@index');
+        Route::post('/users', Controllers\ApiController::class . '@store');
     }
 );

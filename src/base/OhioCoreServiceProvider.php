@@ -60,7 +60,7 @@ class OhioCoreServiceProvider extends ServiceProvider
         $this->commands(Core\Base\Commands\TestDBCommand::class);
 
         $this->app['events']->listen('eloquent.saving*', function ($model) {
-            if (class_uses($model, Core\Base\Behaviors\SluggableTrait::class)) {
+            if (in_array(Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {
                 $model->slugify();
             }
         });

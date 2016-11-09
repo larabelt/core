@@ -5,9 +5,14 @@ use Ohio\Core\Role\Role;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\CanResetPassword;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, CanResetPassword
 {
+    use CanResetPasswordTrait;
+    use Notifiable;
 
     protected $morphClass = 'core/user';
 

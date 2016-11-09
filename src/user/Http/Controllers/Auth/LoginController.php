@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\User\Http\Controllers;
+namespace Ohio\Core\User\Http\Controllers\Auth;
 
 use Ohio\Core\Base\Http\Controllers\BaseController;
 
@@ -11,23 +11,23 @@ class LoginController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
-    | Registration & Login Controller
+    | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
     |
     */
 
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login / registration.
+     * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/admin-user';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -63,6 +63,4 @@ class LoginController extends BaseController
 
         return redirect('/login');
     }
-
-
 }
