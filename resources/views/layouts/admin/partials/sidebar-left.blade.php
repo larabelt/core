@@ -35,7 +35,7 @@
                     <li><a href="/admin/ohio/core/roles"><i class="fa fa-users"></i> <span>Roles</span></a></li>
                 </ul>
             </li>
-            @if(in_array('Ohio\Content\Base\OhioContentServiceProvider', array_keys(app()->getLoadedProviders())))
+            @if(ohio()->uses('content'))
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-th-large"></i> <span>Content Admin</span> <i class="fa fa-angle-left pull-right"></i>

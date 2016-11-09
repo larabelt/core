@@ -57,6 +57,7 @@ class OhioCoreServiceProvider extends ServiceProvider
         //Role\Role::observe(Role\Observers\RoleObserver::class);
 
         $this->commands(Core\Base\Commands\PublishCommand::class);
+        $this->commands(Core\Base\Commands\TestDBCommand::class);
 
         $this->app['events']->listen('eloquent.saving*', function ($model) {
             if (class_uses($model, Core\Base\Behaviors\SluggableTrait::class)) {

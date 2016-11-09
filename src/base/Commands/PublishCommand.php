@@ -29,10 +29,12 @@ class PublishCommand extends Command
         'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
         'node_modules/font-awesome/css' => 'public/css/font-awesome',
         'node_modules/font-awesome/fonts' => 'public/fonts',
+        'vendor/ohiocms/core/config' => 'config/ohio',
         'vendor/ohiocms/core/resources' => 'resources/ohio/core',
         'vendor/ohiocms/core/database/factories' => 'database/factories',
         'vendor/ohiocms/core/database/migrations' => 'database/migrations',
         'vendor/ohiocms/core/database/seeds' => 'database/seeds',
+        'vendor/ohiocms/core/database/testing' => 'database/testing',
     ];
 
     protected $files = [];

@@ -3,9 +3,9 @@
 namespace Ohio\Core\Base\Service;
 
 use Ohio\Core\Base\PublishHistory;
+use Ohio\Core\Base\Helper\OhioHelper;
 
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Facades\Schema;
 
 class PublishService
@@ -40,13 +40,7 @@ class PublishService
      */
     public function disk()
     {
-        if (!$this->disk) {
-            app()['config']->set('filesystems.disks.base', ['driver' => 'local', 'root' => base_path()]);
-
-            $this->disk = (new FilesystemManager(app()))->disk('base');
-        }
-
-        return $this->disk;
+        return $this->disk = $this->disk ?: OhioHelper::baseDisk();
     }
 
     /**

@@ -2,5 +2,5 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 0.0.1
     </div>
-    <strong>Copyright &copy; 2015 OhioCMS.</strong> All rights reserved.
+    <strong>Copyright &copy {{ date('Y') }} OhioCMS.</strong> All rights reserved.
 </footer>

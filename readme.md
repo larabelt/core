@@ -28,7 +28,7 @@ gulp
 ## Clear App & PHP cache
 
 ```
-composer run-script clear; 
+composer run-script clear;
 sudo service php7.0-fpm restart;
 ```
 
@@ -39,11 +39,10 @@ sudo service php7.0-fpm restart;
 php artisan migrate:refresh --seed 
 
 # unit testing
-phpunit --coverage-html=public/tests/ohio/core/base -c vendor/ohiocms/core/tests/base
-phpunit --coverage-html=public/tests/ohio/core/role -c vendor/ohiocms/core/tests/role
-phpunit --coverage-html=public/tests/ohio/core/user -c vendor/ohiocms/core/tests/user
-phpunit --coverage-html=public/tests/ohio/core/user-role -c vendor/ohiocms/core/tests/user-role
-
+phpunit --coverage-html=public/tests/ohio/core/base -c vendor/ohiocms/core/tests/base --bootstrap=bootstrap/autoload.php
+phpunit --coverage-html=public/tests/ohio/core/role -c vendor/ohiocms/core/tests/role --bootstrap=bootstrap/autoload.php
+phpunit --coverage-html=public/tests/ohio/core/user -c vendor/ohiocms/core/tests/user --bootstrap=bootstrap/autoload.php
+phpunit --coverage-html=public/tests/ohio/core/user-role -c vendor/ohiocms/core/tests/user-role --bootstrap=bootstrap/autoload.php
 ```
 
 ## Acknowledgments / Credits

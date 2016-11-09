@@ -2,11 +2,10 @@
 
 namespace Ohio\Core\User\Http\Controllers;
 
-use Validator;
-use App\User;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use Ohio\Core\Base\Http\Controllers\BaseController;
+
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends BaseController
 {
@@ -29,8 +28,6 @@ class LoginController extends BaseController
      * @var string
      */
     protected $redirectTo = '/admin-user';
-    protected $redirectAfterLogout = '/login';
-    protected $loginView = 'ohio-core::user.front.auth.login';
 
     /**
      * Create a new controller instance.
@@ -48,6 +45,23 @@ class LoginController extends BaseController
     public function showLoginForm()
     {
         return view('ohio-core::auth.login');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/login');
     }
 
 

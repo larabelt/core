@@ -1,11 +1,13 @@
 <?php
 
-if (! function_exists('ohio')) {
+use Ohio\Core\Base\Helper\OhioHelper;
+
+if (!function_exists('ohio')) {
     /**
      * bla
      */
     function ohio()
     {
-        s(999);
+        return new OhioHelper();
     }
 }
