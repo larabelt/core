@@ -12,7 +12,6 @@
     @include('ohio-core::layouts.admin.partials.sidebar-left')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @include('ohio-core::layouts.admin.partials.heading')
         <!-- Main content -->
         <section class="content">
             <div class="row">

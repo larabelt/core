@@ -1,9 +1,9 @@
-import Users from './components/user/user';
-import UserCreate from './components/user/user-create';
-import UserEdit from './components/user/user-edit';
-import Roles from './components/role/role';
-import RolesCreate from './components/role/role-create';
-import RolesEdit from './components/role/role-edit';
+import userIndex from './components/user/ctlr-index';
+import userCreate from './components/user/ctlr-create';
+import userEdit from './components/user/ctlr-edit';
+import roleIndex from './components/role/ctlr-index';
+import roleCreate from './components/role/ctlr-create';
+import roleEdit from './components/role/ctlr-edit';
 
 export default class OhioCore {
 
@@ -18,12 +18,12 @@ export default class OhioCore {
 
             const router = new VueRouter({
                 routes: [
-                    {path: '/users', component: Users, canReuse: false, name: 'userIndex'},
-                    {path: '/users/create', component: UserCreate, name: 'userCreate'},
-                    {path: '/users/edit/:id', component: UserEdit, name: 'userEdit'},
-                    {path: '/roles', component: Roles, name: 'roleIndex'},
-                    {path: '/roles/create', component: RolesCreate, name: 'roleCreate'},
-                    {path: '/roles/edit/:id', component: RolesEdit, name: 'roleEdit'}
+                    {path: '/users', component: userIndex, canReuse: false, name: 'userIndex'},
+                    {path: '/users/create', component: userCreate, name: 'userCreate'},
+                    {path: '/users/edit/:id', component: userEdit, name: 'userEdit'},
+                    {path: '/roles', component: roleIndex, name: 'roleIndex'},
+                    {path: '/roles/create', component: roleCreate, name: 'roleCreate'},
+                    {path: '/roles/edit/:id', component: roleEdit, name: 'roleEdit'}
                 ],
                 mode: 'history',
                 base: '/admin/ohio/core'

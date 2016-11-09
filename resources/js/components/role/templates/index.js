@@ -7,17 +7,27 @@ export default `
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th v-for="column in items.columns">
-                            {{ column.title }} 
-                            <column-sorter :order-by="items.slug + '.' + column.slug" :routename="'roleIndex'"></column-sorter>
+                        <th>
+                            ID
+                            <column-sorter :routename="'roleIndex'" :order-by="'roles.id'"></column-sorter>
+                        </th>
+                        <th>
+                            Name
+                            <column-sorter :routename="'roleIndex'" :order-by="'roles.name'"></column-sorter>
+                        </th>
+                        <th>
+                            Slug
+                            <column-sorter :routename="'roleIndex'" :order-by="'roles.slug'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
     
                 <tbody>                
-                    <tr v-for="item in items.data.data">
-                        <td v-for="column in items.columns">{{ item[column.slug] }}</td>
+                    <tr v-for="item in items.data">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.slug }}</td>
                         <td class="text-right">
                             <router-link :to="{ name: 'roleEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
@@ -30,20 +40,15 @@ export default `
     
                 <tfoot>
                     <tr>
-                        <th v-for="column in items.columns">{{ column.title }}</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Slug</th>
+                        <th class="text-right">Actions</th>
                     </tr>
                 </tfoot>
+                
             </table>
-            <div class="row">
-                <div class="col-xs-5">
-                    <div class="dataTables_info" role="status" aria-live="polite">
-                        Showing {{ items.data.from }} to {{ items.data.to }} of {{ items.data.total }} entries
-                    </div>
-                </div>
-                <div class="col-xs-7">
-                    <pagination :routename="'roleIndex'"></pagination>
-                </div>
-            </div>
+            <pagination :routename="'roleIndex'"></pagination>
         </div>
     </div>
 `;

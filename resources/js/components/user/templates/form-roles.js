@@ -5,39 +5,18 @@ export default {
         }
     },
     methods: {
-        addRole(index) {
-            this.roles[index].assigned = true;
-
-            let params = {
-                role_id: this.roles[index].id,
-                user_id: this.$parent.userid
-            };
-
-            this.$http.post('/api/v1/user-roles', params).then((response) => {
-                //success
-            }, (response) => {
-                //fail
-            });
-        },
-        buttonClick(index) {
-            if (this.roles[index].assigned == true ) {
-                return this.removeRole(index);
-            }
-
-            return this.addRole(index);
-        },
         getRoles() {
+
+            this.roles = [];
+
             this.$http.get('/api/v1/roles' ).then((response) => {
-
-                _(response.data.data).forEach( (value, index) => {
-
-                    this.$set(this.roles, value.id, {
-                        assigned: false,
-                        id: value.id,
-                        name: value.name,
-                        slug: value.slug
-                    });
-
+                _(response.data.data).forEach( (role, index) => {
+                    this.roles.push({
+                        userRoleID: false,
+                        id: role.id,
+                        name: role.name,
+                        slug: role.slug
+                    })
                 } );
 
                 this.getUserRoles();
@@ -45,12 +24,13 @@ export default {
             }, (response) => {});
         },
         getUserRoles() {
-            this.$http.get('/api/v1/user-roles?user_id=' + this.$parent.userid ).then((response) => {
 
-                _(response.data.data).forEach( (value, index) => {
+            this.$http.get('/api/v1/user-roles?user_id=' + this.$parent.id ).then((response) => {
+
+                _(response.data.data).forEach( (userRole, index) => {
                     _(this.roles).forEach( (role, key) => {
-                        if( role.id == value.role_id ) {
-                            this.roles[key].assigned = true;
+                        if( role.id == userRole.role_id ) {
+                            this.roles[key].userRoleID = userRole.id;
                         }
                     } );
 
@@ -58,11 +38,31 @@ export default {
 
             }, (response) => {});
         },
-        removeRole(index) {
-            this.roles[index].assigned = false;
+        buttonClick(index) {
+            if (this.roles[index].userRoleID != false ) {
+                return this.removeRole(index);
+            }
 
-            this.$http.delete('/api/v1/user-roles/' + this.roles[index].id).then((response) => {
-                //success
+            return this.addRole(index);
+        },
+        addRole(index) {
+
+            let params = {
+                role_id: this.roles[index].id,
+                user_id: this.$parent.id
+            };
+
+            this.$http.post('/api/v1/user-roles', params).then((response) => {
+                this.roles[index].userRoleID = response.data.id;
+            }, (response) => {
+                //fail
+            });
+        },
+        removeRole(index) {
+            this.$http.delete('/api/v1/user-roles/' + this.roles[index].userRoleID).then((response) => {
+                if( response.status == 204 ) {
+                    this.roles[index].userRoleID = false;
+                }
             }, (response) => {
                 //fail
             });
@@ -74,7 +74,7 @@ export default {
     template: `
         <div class="box-body form-roles">
             <div class="row" v-for="(role, index) in roles">
-                <button class="btn" v-bind:class="{ active: role.assigned }" v-on:click="buttonClick(index)">{{ role.name }}</button>
+                <button class="btn" v-bind:class="{ active: role.userRoleID }" v-on:click="buttonClick(index)">{{ role.name }}</button>
             </div>
         </div>
     `
