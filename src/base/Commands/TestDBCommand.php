@@ -20,6 +20,19 @@ class TestDBCommand extends Command
     protected $description = 'create and seed test sqlite db';
 
     /**
+     * @var \Illuminate\Contracts\Filesystem\Filesystem
+     */
+    public $disk;
+
+    /**
+     * @return \Illuminate\Contracts\Filesystem\Filesystem
+     */
+    public function disk()
+    {
+        return $this->disk = $this->disk ?: OhioHelper::baseDisk();
+    }
+
+    /**
      * Fire test DB create and copy command
      *
      * @return void|string
@@ -36,17 +49,15 @@ class TestDBCommand extends Command
 
         $path = 'database/testing';
 
-        $disk = OhioHelper::baseDisk();
-
         # replace test DB with empty DB
-        $disk->delete("$path/database.sqlite");
-        $disk->copy("$path/empty.sqlite", "$path/database.sqlite");
+        $this->disk()->delete("$path/database.sqlite");
+        $this->disk()->copy("$path/empty.sqlite", "$path/database.sqlite");
 
         # run migration on test DB
         $this->call('migrate', ['--env' => 'testing']);
 
         # seed the db
-        $seeders = $disk->files('database/seeds');
+        $seeders = $this->disk()->files('database/seeds');
         foreach ($seeders as $seeder) {
             if (str_contains($seeder, ['Seeder'])) {
                 $seeder = str_replace(['database/seeds/', '.php'], '', $seeder);

@@ -32,6 +32,7 @@ class UserTest extends OhioTestCase
     public function test()
     {
         $user = factory(User::class)->make();
+        $role = factory(Role::class)->make(['name' => 'test']);
 
         User::unguard();
 

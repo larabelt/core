@@ -5,6 +5,8 @@ use Ohio\Core\Base\Helper\OhioHelper;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\TestCase;
+use Illuminate\Session\Store;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
 abstract class OhioTestCase extends TestCase
 {
@@ -28,7 +30,7 @@ abstract class OhioTestCase extends TestCase
             __DIR__ . '/../../../../demo/bootstrap/app.php',
         ];
 
-        foreach($paths as $path) {
+        foreach ($paths as $path) {
             if (file_exists($path)) {
                 break;
             }
@@ -52,6 +54,9 @@ abstract class OhioTestCase extends TestCase
      */
     public function refreshDB()
     {
+
+        //app()['config']->set('database.default', 'sqlite');
+        //app()['config']->set('database.connections.sqlite.database', 'database/testing/database.sqlite');
 
         $disk = OhioHelper::baseDisk();
 
@@ -82,5 +87,10 @@ abstract class OhioTestCase extends TestCase
             // Reregister them.
             call_user_func(array($model, 'boot'));
         }
+    }
+
+    public function getTestSession($name = 'test')
+    {
+        return new Store($name, new NullSessionHandler());
     }
 }
