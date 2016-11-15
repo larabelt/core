@@ -21,6 +21,8 @@
     "psr-4": {
       "Ohio\\Core\\Base\\": "src/base/",
       "Ohio\\Core\\Role\\": "src/role/",
+      "Ohio\\Core\\Team\\": "src/team/",
+      "Ohio\\Core\\TeamUser\\": "src/team-user/",
       "Ohio\\Core\\User\\": "src/user/",
       "Ohio\\Core\\UserRole\\": "src/user-role/"
     },
