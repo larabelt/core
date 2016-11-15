@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="csrf-token" content="{!! csrf_token() !!}" />
-    <title>Ohio CMS</title>
+    <title>@yield('meta-title')</title>
+    <meta name="description" content="@yield('meta-description')">
+    <meta name="keywords" content="@yield('meta-keywords')">
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
