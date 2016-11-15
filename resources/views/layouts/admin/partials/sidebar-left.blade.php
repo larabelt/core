@@ -43,6 +43,9 @@
                     <ul class="treeview-menu">
                         <li><a href="/admin/ohio/content/pages"><i class="fa fa-file-text"></i> <span>Pages</span></a></li>
                     </ul>
+                    <ul class="treeview-menu">
+                        <li><a href="/admin/ohio/content/blocks"><i class="fa fa-file-text"></i> <span>Blocks</span></a></li>
+                    </ul>
                 </li>
             @endif
             <li class="header">LABELS</li>
