@@ -41,7 +41,6 @@ class ApiController extends BaseApiController
         $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
         $qb = $this->teamUser->query();
-        $qb->with('user');
 
         $paginator = $this->getPaginator($qb, $request);
 

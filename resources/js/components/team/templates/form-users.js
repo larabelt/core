@@ -11,9 +11,9 @@ export default {
     methods: {
         search() {
             if (this.needle) {
-                this.index();
+                this.filter();
             } else {
-                this.items = []
+                this.filtered = [];
             }
         },
         getParams() {
@@ -25,7 +25,7 @@ export default {
         },
     },
     mounted() {
-        this.attached();
+        this.index();
     },
     template: `
         <div class="row">
@@ -37,7 +37,7 @@ export default {
                 </form>
                 <table v-if="items.data" class="table table-striped table-condensed table-hover">
                     <tbody>                
-                        <tr v-for="item in items.data">
+                        <tr v-for="item in filtered.data">
                             <td>
                                 {{ item.fullname }}
                                 <br/>
@@ -51,13 +51,13 @@ export default {
                 </table>
             </div>
             <div class="col-md-7">
-                <table v-if="union.data" class="table table-striped table-condensed table-hover">
+                <table v-if="items.data" class="table table-striped table-condensed table-hover">
                     <tbody>                
-                        <tr v-for="item in union.data">
+                        <tr v-for="item in items.data">
                             <td>{{ item.user.fullname }}</td>
                             <td>{{ item.user.email }}</td>
                             <td class="text-right">
-                                <a class="btn btn-xs btn-primary" v-on:click="unlink(item.id)"><i class="fa fa-unlink"></i></a>
+                                <a class="btn btn-xs btn-warning" v-on:click="unlink(item.id)"><i class="fa fa-unlink"></i></a>
                             </td>
                         </tr>
                     </tbody>

@@ -7,6 +7,17 @@ export default {
     mixins: [form],
 
     methods: {
+        filter() {
+            let params = this.getParams();
+
+            let url = '/api/v1/users?' + $.param(params);
+
+            this.$http.get(url).then(function (response) {
+                this.filtered = response.data;
+            }, function (response) {
+
+            });
+        },
         index() {
             let params = this.getParams();
 
@@ -15,7 +26,7 @@ export default {
             this.$http.get(url).then(function (response) {
                 this.items = response.data;
             }, function (response) {
-                console.log('error');
+
             });
         },
         get() {

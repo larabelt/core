@@ -7,7 +7,7 @@ export default {
             id: false,
             item: {},
             items: {},
-            union: {},
+            filtered: {},
             errors: {}
         }
     },

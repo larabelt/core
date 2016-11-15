@@ -121,4 +121,8 @@ class BasePaginateRequest extends Request
         return $query;
     }
 
+    public function items(Builder $query) {
+        return $query->get();
+    }
+
 }

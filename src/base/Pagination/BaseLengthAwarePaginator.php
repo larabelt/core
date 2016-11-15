@@ -56,7 +56,7 @@ class BaseLengthAwarePaginator
         $this->qb->offset($request->offset());
 
         $paginator = new LengthAwarePaginator(
-            $this->qb->get(),
+            $request->items($this->qb),
             $count,
             $request->perPage(),
             $request->page()
