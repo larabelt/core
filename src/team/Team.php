@@ -1,18 +1,15 @@
 <?php
 namespace Ohio\Core\Team;
 
-use Ohio\Core\Role\Role;
+use Ohio\Core\User\User;
+use Ohio\Core\Base\Behaviors\SluggableTrait;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Auth\Passwords\CanResetPassword as CanResetPasswordTrait;
 
-class Team extends Model implements Authenticatable, CanResetPassword
+class Team extends Model
 {
-    use CanResetPasswordTrait;
-    use Notifiable;
+
+    use SluggableTrait;
 
     protected $morphClass = 'core/team';
 
@@ -27,22 +24,16 @@ class Team extends Model implements Authenticatable, CanResetPassword
      */
     protected $attributes = [
         'is_active' => 1,
-        'is_verified' => 0,
     ];
 
     public function __toString()
     {
-        return (string) $this->email;
+        return (string) $this->name;
     }
 
-    public function roles()
+    public function users()
     {
-        return $this->belongsToMany(Role::class, 'team_roles', 'team_id', 'role_id');
-    }
-
-    public function setIsVerifiedAttribute($value)
-    {
-        $this->attributes['is_verified'] = boolval($value);
+        return $this->belongsToMany(User::class, 'team_users', 'team_id', 'user_id');
     }
 
     public function setIsActiveAttribute($value)
@@ -50,124 +41,23 @@ class Team extends Model implements Authenticatable, CanResetPassword
         $this->attributes['is_active'] = boolval($value);
     }
 
-    public function setFirstNameAttribute($value)
+    public function setNameAttribute($value)
     {
-        $this->attributes['first_name'] = strtoupper(trim($value));
+        $this->attributes['name'] = strtoupper(trim($value));
     }
 
-    public function setLastNameAttribute($value)
-    {
-        $this->attributes['last_name'] = strtoupper(trim($value));
-    }
-
-    public function setMiAttribute($value)
-    {
-        $this->attributes['mi'] = substr(strtoupper(trim($value)), 0, 1) ?: '';
-    }
-
-    public function setPasswordAttribute($value)
-    {
-        if ($value && (strlen($value) != 60 || substr($value, 0, 1) != '$')) {
-            $value = bcrypt(trim($value));
-        }
-
-        $this->attributes['password'] = trim($value);
-    }
-
-    public function setEmailAttribute($value)
-    {
-        $this->attributes['email'] = strtolower(trim($value));
-        $this->setTeamnameAttribute($value);
-    }
-
-    public function setTeamnameAttribute($value)
-    {
-        $this->attributes['teamname'] = strtolower(trim($value));
-    }
-
-    /**
-     * Get the name of the unique identifier for the team.
-     *
-     * @return string
-     */
-    public function getAuthIdentifierName()
-    {
-        return 'id';
-    }
-
-    /**
-     * Get the unique identifier for the team.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the password for the team.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Get the token value for the "remember me" session.
-     *
-     * @return string
-     */
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
-
-    /**
-     * Set the token value for the "remember me" session.
-     *
-     * @param  string $value
-     * @return void
-     */
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
-
-    /**
-     * Get the column name for the "remember me" token.
-     *
-     * @return string
-     */
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     *
-     * @return string
-     */
-    public function getReminderEmail()
-    {
-        return $this->email;
-    }
-
-    public function hasRole($name)
+    public function hasUser($name)
     {
 
         $name = strtoupper($name);
 
-        $roleNames = $this->roles->pluck('name')->all();
+        $userNames = $this->users->pluck('name')->all();
 
-        if (in_array('SUPER', $roleNames)) {
+        if (in_array('SUPER', $userNames)) {
             return true;
         }
 
-        if (in_array($name, $roleNames)) {
+        if (in_array($name, $userNames)) {
             return true;
         }
 

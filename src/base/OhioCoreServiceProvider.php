@@ -28,6 +28,7 @@ class OhioCoreServiceProvider extends ServiceProvider
         include __DIR__ . '/Http/routes.php';
         include __DIR__ . '/../role/Http/routes.php';
         include __DIR__ . '/../team/Http/routes.php';
+        include __DIR__ . '/../team-user/Http/routes.php';
         include __DIR__ . '/../user/Http/routes.php';
         include __DIR__ . '/../user-role/Http/routes.php';
     }

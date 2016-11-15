@@ -43,7 +43,7 @@ class ApiController extends BaseApiController
         $qb = $this->teamUser->query();
         $qb->with('user');
 
-        $paginator = $this->getPaginator($this->teamUser->query(), $request);
+        $paginator = $this->getPaginator($qb, $request);
 
         return response()->json($paginator->toArray());
     }

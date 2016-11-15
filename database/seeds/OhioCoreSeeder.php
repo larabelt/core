@@ -13,5 +13,6 @@ class OhioCoreSeeder extends Seeder
     {
         $this->call(OhioCoreRoleSeeds::class);
         $this->call(OhioCoreUserSeeds::class);
+        $this->call(OhioCoreTeamSeeds::class);
     }
 }

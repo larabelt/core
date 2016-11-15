@@ -11,6 +11,8 @@ class TeamUser extends Model
 
     protected $guarded = ['id'];
 
+    protected $a1ppends = ['user'];
+
     public static function create(array $attributes = [])
     {
         return static::firstOrCreate($attributes);

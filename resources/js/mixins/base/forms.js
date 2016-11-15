@@ -1,11 +1,13 @@
 export default {
     data() {
         return {
+            needle: '',
             saving: false,
             saved: false,
             id: false,
             item: {},
             items: {},
+            union: {},
             errors: {}
         }
     },

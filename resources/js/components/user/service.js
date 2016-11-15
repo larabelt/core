@@ -8,7 +8,6 @@ export default {
 
     methods: {
         index() {
-
             let params = this.getParams();
 
             let url = '/api/v1/users?' + $.param(params);

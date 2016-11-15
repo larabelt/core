@@ -16,7 +16,7 @@ $factory->define(Ohio\Core\User\User::class, function (Faker\Generator $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'mi' => $faker->randomLetter,
-        'email' => $faker->safeEmail,
+        'email' => $faker->email,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];

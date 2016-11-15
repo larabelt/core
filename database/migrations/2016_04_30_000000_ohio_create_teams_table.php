@@ -18,7 +18,6 @@ class OhioCreateTeamsTable extends Migration
             $table->string('name');
             $table->string('slug')->index();
             $table->text('body')->nullable();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

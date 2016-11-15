@@ -18,6 +18,8 @@ class PaginateRequest extends BasePaginateRequest
 
     public $searchable = [
         'users.email',
+        'users.first_name',
+        'users.last_name',
     ];
 
 }

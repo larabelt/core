@@ -10,29 +10,20 @@ export default `
                         > Is Active
                 </label>
             </div>
-            <div class="form-group" v-bind:class="{ 'has-error': errors.email }">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" v-model.trim="item.email"  placeholder="email">
-                <span class="help-block" v-show="errors.email">{{ errors.email }}</span>
+            <div class="form-group" v-bind:class="{ 'has-error': errors.name }">
+                <label for="name">Name</label>
+                <input type="name" class="form-control" v-model.trim="item.name"  placeholder="name">
+                <span class="help-block" v-show="errors.name">{{ errors.name }}</span>
             </div>
-            <div class="form-group" v-bind:class="{ 'has-error': errors.password }">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" v-model.trim="item.password" placeholder="password">
-                <span class="help-block" v-show="errors.password">{{ errors.password }}</span>
+            <div v-if="item.id" class="form-group" v-bind:class="{ 'has-error': errors.slug }">
+                <label for="slug">Slug</label>
+                <input type="slug" class="form-control" v-model.trim="item.slug"  placeholder="slug">
+                <span class="help-block" v-show="errors.slug">{{ errors.slug }}</span>
             </div>
-            <div class="form-group" v-bind:class="{ 'has-error': errors.first_name }">
-                <label for="first_name">First Name</label>
-                <input type="text" class="form-control" v-model.trim="item.first_name" placeholder="first name">
-                <span class="help-block" v-show="errors.first_name">{{ errors.first_name }}</span>
-            </div>
-            <div class="form-group">
-                <label for="mi">MI</label>
-                <input type="text" class="form-control" v-model.trim="item.mi" placeholder="mi">                 
-            </div>
-            <div class="form-group" v-bind:class="{ 'has-error': errors.last_name }">
-                <label for="last_name">Last Name</label>
-                <input type="text" class="form-control" v-model.trim="item.last_name" placeholder="last name">
-                <span class="help-block" v-show="errors.last_name">{{ errors.last_name }}</span>
+            <div class="form-group" v-bind:class="{ 'has-error': errors.body }">
+                <label for="body">Body</label>
+                <textarea class="form-control" rows="10" v-model="item.body"></textarea>
+                <span class="help-block" v-show="errors.body">{{ errors.body }}</span>
             </div>
         </div>
         <div class="box-footer">

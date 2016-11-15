@@ -11,13 +11,11 @@ class PaginateRequest extends BasePaginateRequest
 
     public $sortable = [
         'teams.id',
-        'teams.email',
-        'teams.first_name',
-        'teams.last_name',
+        'teams.name',
     ];
 
     public $searchable = [
-        'teams.email',
+        'teams.name',
     ];
 
 }

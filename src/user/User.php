@@ -20,6 +20,8 @@ class User extends Model implements Authenticatable, CanResetPassword
 
     protected $guarded = ['id'];
 
+    protected $appends = ['fullname'];
+
     /**
      * Default values
      *
@@ -83,6 +85,20 @@ class User extends Model implements Authenticatable, CanResetPassword
     public function setUsernameAttribute($value)
     {
         $this->attributes['username'] = strtolower(trim($value));
+    }
+
+    /**
+     * Get full name
+     *
+     * Output full name based on given pattern
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        $fullname = sprintf('%s %s%s', $this->first_name, $this->mi ? $this->mi . '. ' : '', $this->last_name);
+
+        return trim($fullname);
     }
 
     /**
