@@ -18,13 +18,13 @@ class BaseApiController extends Controller
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function abort($statusCode, $msg = '')
+    public function abort($statusCode, $message = '')
     {
         if ($statusCode == 404) {
-            throw new Exception\ApiNotFoundHttpException();
+            throw new Exception\ApiNotFoundHttpException($message);
         }
 
-        throw new Exception\ApiException();
+        throw new Exception\ApiException($message);
     }
 
     public function getPaginateRequest($class = BasePaginateRequest::class, $query = [])

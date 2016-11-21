@@ -32,10 +32,10 @@ Route::group([
     'middleware' => ['api']
 ],
     function () {
-        Route::get('/users/{id}', Controllers\ApiController::class . '@show');
-        Route::put('/users/{id}', Controllers\ApiController::class . '@update');
-        Route::delete('/users/{id}', Controllers\ApiController::class . '@destroy');
-        Route::get('/users', Controllers\ApiController::class . '@index');
-        Route::post('/users', Controllers\ApiController::class . '@store');
+        Route::get('/users/{id}', Controllers\Api\UsersController::class . '@show');
+        Route::put('/users/{id}', Controllers\Api\UsersController::class . '@update');
+        Route::delete('/users/{id}', Controllers\Api\UsersController::class . '@destroy');
+        Route::get('/users', Controllers\Api\UsersController::class . '@index');
+        Route::post('/users', Controllers\Api\UsersController::class . '@store');
     }
 );

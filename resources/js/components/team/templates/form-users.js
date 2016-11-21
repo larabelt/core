@@ -1,63 +1,55 @@
-import userService from '../../user/service';
-import teamUserService from '../../team-user/service';
+//import teamUserService2 from '../../user/service2';
+import teamUserService from '../team-user-service';
 
 export default {
-    mixins: [userService, teamUserService],
-    data() {
-        return {
-            team_id: this.$route.params.id
-        }
-    },
+    mixins: [teamUserService],
     methods: {
         search() {
-            if (this.needle) {
-                this.filter();
+            if (this.teamUserService.params.q) {
+                this.listNotTeamUsers();
             } else {
-                this.filtered = [];
+                this.teamUserService.notUsers = [];
             }
         },
-        getParams() {
-            let params = this.getUrlParams();
-            params.q = this.needle;
-            params.limit = 5;
-            params.team_id = this.team_id;
-            return params;
-        },
+    },
+    created() {
+        //this.teamUserService.params.limit = 5;
+        this.teamUserService.params.team_id = this.$route.params.id;
     },
     mounted() {
-        this.index();
+        this.listTeamUsers();
     },
     template: `
         <div class="row">
             <div class="col-md-5">
                 <form role="form" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" v-model.trim="needle" v-on:keyup="search($event)" placeholder="search">
+                        <input type="text" class="form-control" v-model.trim="teamUserService.params.q" v-on:keyup="search($event)" placeholder="search">
                     </div>
                 </form>
-                <table v-if="items.data" class="table table-striped table-condensed table-hover">
+                <table v-if="teamUserService.notUsers" class="table table-striped table-condensed table-hover">
                     <tbody>                
-                        <tr v-for="item in filtered.data">
+                        <tr v-for="user in teamUserService.notUsers">
                             <td>
-                                {{ item.fullname }}
+                                {{ user.fullname }}
                                 <br/>
-                                {{ item.email }}
+                                {{ user.email }}
                             </td>
                             <td class="text-right">
-                                <a class="btn btn-xs btn-primary" v-on:click="link({user_id: item.id, team_id: team_id})"><i class="fa fa-link"></i></a>
+                                <a class="btn btn-xs btn-primary" v-on:click="attachTeamUser({user_id: user.id})"><i class="fa fa-link"></i></a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-md-7">
-                <table v-if="items.data" class="table table-striped table-condensed table-hover">
+                <table v-if="teamUserService.users" class="table table-striped table-condensed table-hover">
                     <tbody>                
-                        <tr v-for="item in items.data">
-                            <td>{{ item.user.fullname }}</td>
-                            <td>{{ item.user.email }}</td>
+                        <tr v-for="user in teamUserService.users">
+                            <td>{{ user.fullname }}</td>
+                            <td>{{ user.email }}</td>
                             <td class="text-right">
-                                <a class="btn btn-xs btn-warning" v-on:click="unlink(item.id)"><i class="fa fa-unlink"></i></a>
+                                <a class="btn btn-xs btn-warning" v-on:click="detachTeamUser(user.id)"><i class="fa fa-unlink"></i></a>
                             </td>
                         </tr>
                     </tbody>

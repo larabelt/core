@@ -1,33 +1,33 @@
 <?php
 
-namespace Ohio\Core\Team\Http\Controllers;
+namespace Ohio\Core\User\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use Ohio\Core\Team;
-use Ohio\Core\Team\Http\Requests;
+use Ohio\Core\User;
+use Ohio\Core\User\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
-class ApiController extends BaseApiController
+class UsersController extends BaseApiController
 {
 
     /**
-     * @var Team\Team
+     * @var User\User
      */
-    public $team;
+    public $user;
 
     /**
      * ApiController constructor.
-     * @param Team\Team $team
+     * @param User\User $user
      */
-    public function __construct(Team\Team $team)
+    public function __construct(User\User $user)
     {
-        $this->team = $team;
+        $this->user = $user;
     }
 
     public function get($id)
     {
-        return $this->team->find($id) ?: $this->abort(404);
+        return $this->user->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -40,7 +40,7 @@ class ApiController extends BaseApiController
     {
         $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
-        $paginator = $this->getPaginator($this->team->query(), $request);
+        $paginator = $this->getPaginator($this->user->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -54,9 +54,9 @@ class ApiController extends BaseApiController
      */
     public function store(Requests\CreateRequest $request)
     {
-        $team = $this->team->create($request->all());
+        $user = $this->user->create($request->all());
 
-        return response()->json($team);
+        return response()->json($user);
     }
 
     /**
@@ -68,9 +68,9 @@ class ApiController extends BaseApiController
      */
     public function show($id)
     {
-        $team = $this->get($id);
+        $user = $this->get($id);
 
-        return response()->json($team);
+        return response()->json($user);
     }
 
     /**
@@ -83,11 +83,11 @@ class ApiController extends BaseApiController
      */
     public function update(Requests\UpdateRequest $request, $id)
     {
-        $team = $this->get($id);
+        $user = $this->get($id);
 
-        $team->update($request->all());
+        $user->update($request->all());
 
-        return response()->json($team);
+        return response()->json($user);
     }
 
 
@@ -100,9 +100,9 @@ class ApiController extends BaseApiController
      */
     public function destroy($id)
     {
-        $team = $this->get($id);
+        $user = $this->get($id);
 
-        $team->delete();
+        $user->delete();
 
         return response()->json(null, 204);
     }

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 class PaginateRequest extends BasePaginateRequest
 {
-    public $clean = true;
-
     public $perPage = 5;
 
     public $orderBy = 'team_users.id';
