@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Base\Http\Controllers;
 
-use Ohio\Core\Base\Http\Exception;
+use Ohio\Core\Base\Http\Exceptions;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
@@ -21,10 +21,16 @@ class BaseApiController extends Controller
     public function abort($statusCode, $message = '')
     {
         if ($statusCode == 404) {
-            throw new Exception\ApiNotFoundHttpException($message);
+            throw new Exceptions\ApiNotFoundHttpException($message);
         }
 
-        throw new Exception\ApiException($message);
+        $exception = new Exceptions\ApiException();
+        $exception->setStatusCode($statusCode);
+        $exception->setMsg($message);
+
+        throw $exception;
+
+        throw new Exceptions\ApiException($message);
     }
 
     public function getPaginateRequest($class = BasePaginateRequest::class, $query = [])

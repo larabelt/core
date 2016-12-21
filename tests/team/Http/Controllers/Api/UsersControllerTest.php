@@ -9,7 +9,7 @@ use Ohio\Core\User\User;
 use Ohio\Core\Team\Http\Requests\UserAttachRequest;
 use Ohio\Core\Team\Http\Requests\UserPaginateRequest;
 use Ohio\Core\Team\Http\Controllers\Api\UsersController;
-use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
+use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

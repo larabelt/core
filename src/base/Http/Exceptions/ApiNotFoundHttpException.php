@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Base\Http\Exception;
+namespace Ohio\Core\Base\Http\Exceptions;
 
 use Exception;
 

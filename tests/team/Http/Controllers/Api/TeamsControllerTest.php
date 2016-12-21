@@ -8,7 +8,7 @@ use Ohio\Core\Team\Http\Requests\CreateRequest;
 use Ohio\Core\Team\Http\Requests\PaginateRequest;
 use Ohio\Core\Team\Http\Requests\UpdateRequest;
 use Ohio\Core\Team\Http\Controllers\Api\TeamsController;
-use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
+use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

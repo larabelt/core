@@ -4,7 +4,7 @@ namespace Ohio\Core\Base\Exceptions;
 
 use Exception;
 
-use Ohio\Core\Base\Http\Exception\ApiException;
+use Ohio\Core\Base\Http\Exceptions\ApiException;
 
 use Illuminate\Http\JsonResponse;
 
@@ -26,7 +26,11 @@ class Handler
             }
         }
 
-        if ($e instanceof ApiException || $request->ajax() || $request->wantsJson()) {
+        if ($e instanceof ApiException) {
+            return response()->json($e->getMsg(), $e->getStatusCode());
+        }
+
+        if ($request->ajax() || $request->wantsJson()) {
 
             $statusCode = method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 200;
 

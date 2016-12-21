@@ -2,7 +2,7 @@
 
 use Ohio\Core\Base\Testing\OhioTestCase;
 use Ohio\Core\Base\Exceptions\Handler;
-use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
+use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

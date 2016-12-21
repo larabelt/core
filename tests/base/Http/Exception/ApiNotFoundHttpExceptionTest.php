@@ -1,14 +1,14 @@
 <?php
 
-use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
+use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 class ApiNotFoundHttpExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Ohio\Core\Base\Http\Exception\ApiException::__construct()
-     * @covers \Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException::__construct()
-     * @covers \Ohio\Core\Base\Http\Exception\ApiException::getStatusCode()
-     * @covers \Ohio\Core\Base\Http\Exception\ApiException::getHeaders()
+     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::__construct()
+     * @covers \Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException::__construct()
+     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::getStatusCode()
+     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::getHeaders()
      */
     public function test()
     {

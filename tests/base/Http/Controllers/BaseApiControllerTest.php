@@ -1,7 +1,7 @@
 <?php
 
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
-use Ohio\Core\Base\Http\Exception;
+use Ohio\Core\Base\Http\Exceptions;
 use Ohio\Core\Base\Testing\TestPaginateTrait;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;

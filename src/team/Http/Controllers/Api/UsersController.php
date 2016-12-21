@@ -2,11 +2,11 @@
 
 namespace Ohio\Core\Team\Http\Controllers\Api;
 
+use Ohio\Core\Base\Http\Controllers\BaseApiController;
 use Ohio\Core\Team\Team;
+use Ohio\Core\Team\Http\Requests;
 use Ohio\Core\TeamUser\TeamUser;
 use Ohio\Core\User\User;
-use Ohio\Core\Team\Http\Requests;
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
 use Illuminate\Http\Request;
 
