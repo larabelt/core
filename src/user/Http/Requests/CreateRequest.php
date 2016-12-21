@@ -12,6 +12,7 @@ class CreateRequest extends BaseFormRequest
         return [
             'email' => 'email|required',
             'first_name' => 'required',
+            'password' => 'required',
         ];
     }
 

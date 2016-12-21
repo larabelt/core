@@ -42,4 +42,15 @@ class BaseApiController extends Controller
         return new BaseLengthAwarePaginator($qb, $request);
     }
 
+    public function set($item, $input, $key)
+    {
+        if (is_array($key)) {
+            foreach ($key as $_key) {
+                $this->set($item, $input, $_key);
+            }
+        } elseif (isset($input[$key])) {
+            $item->$key = $input[$key];
+        }
+    }
+
 }

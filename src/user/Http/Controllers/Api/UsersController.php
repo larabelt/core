@@ -85,7 +85,19 @@ class UsersController extends BaseApiController
     {
         $user = $this->get($id);
 
-        $user->update($request->all());
+        $input = $request->all();
+
+        $this->set($user, $input, [
+            'is_active',
+            'is_verified',
+            'first_name',
+            'last_name',
+            'mi',
+            'email',
+            'password',
+        ]);
+
+        $user->save();
 
         return response()->json($user);
     }

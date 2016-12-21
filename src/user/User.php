@@ -20,6 +20,8 @@ class User extends Model implements Authenticatable, CanResetPassword
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['password', 'remember_token'];
+
     protected $appends = ['fullname'];
 
     /**
