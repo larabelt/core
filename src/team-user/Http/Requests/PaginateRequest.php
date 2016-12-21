@@ -30,6 +30,22 @@ class PaginateRequest extends BasePaginateRequest
         'users.last_name',
     ];
 
+    /**
+     * @var TeamUser
+     */
+    public $teamUser;
+
+    /**
+     * @return TeamUser
+     */
+    public function teamUser()
+    {
+        return $this->teamUser ?: $this->teamUser = new TeamUser();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function modifyQuery(Builder $query)
     {
         $query->join('users', 'users.id', '=', 'team_users.user_id');
@@ -45,17 +61,24 @@ class PaginateRequest extends BasePaginateRequest
         return $query;
     }
 
+    /**
+     * @param $id
+     * @return TeamUser|null
+     */
     public function item($id)
     {
-        return TeamUser::with('user')->find($id);
+        return $this->teamUser()->with('user')->find($id);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function items(Builder $query)
     {
         $items = [];
 
         $ids = $query->get(['team_users.id']);
-        foreach($ids->pluck('id')->all() as $id) {
+        foreach ($ids->pluck('id')->all() as $id) {
             $items[] = $this->item($id);
         }
 

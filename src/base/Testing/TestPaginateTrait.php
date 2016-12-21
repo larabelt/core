@@ -18,7 +18,6 @@ trait TestPaginateTrait
 
         $qbMock = m::mock(Builder::class);
 
-
         if ($request->needle()) {
             $qbMock->shouldReceive('where')->once()->with(
                 m::on(function (\Closure $closure) use ($request) {

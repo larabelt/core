@@ -2,9 +2,9 @@
 
 namespace Ohio\Core\Team\Http\Controllers\Api;
 
-use DB;
-use Ohio\Core\Team;
-use Ohio\Core\User;
+use Ohio\Core\Team\Team;
+use Ohio\Core\TeamUser\TeamUser;
+use Ohio\Core\User\User;
 use Ohio\Core\Team\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
@@ -14,22 +14,30 @@ class UsersController extends BaseApiController
 {
 
     /**
-     * @var Team\Team
+     * @var Team
      */
     public $team;
 
     /**
-     * @var User\User
+     * @var TeamUser
+     */
+    public $teamUser;
+
+    /**
+     * @var User
      */
     public $user;
 
     /**
      * ApiController constructor.
-     * @param User\User $user
+     * @param Team $team
+     * @param TeamUser $teamUser
+     * @param User $user
      */
-    public function __construct(Team\Team $team, User\User $user)
+    public function __construct(Team $team, TeamUser $teamUser, User $user)
     {
         $this->team = $team;
+        $this->teamUser = $teamUser;
         $this->user = $user;
     }
 
@@ -63,7 +71,8 @@ class UsersController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\CreateRequest $request
+     * @param  Requests\UserAttachRequest $request
+     * @param  $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -73,9 +82,9 @@ class UsersController extends BaseApiController
 
         $userID = $request->get('user_id');
 
-        DB::table('team_users')->insert(['team_id' => $id, 'user_id' => $userID]);
+        $this->teamUser->firstOrCreate(['team_id' => $id, 'user_id' => $userID]);
 
-        return response()->json(1);
+        return response()->json(null, 201);
     }
 
     /**
@@ -90,7 +99,7 @@ class UsersController extends BaseApiController
         $this->team($id);
         $this->user($userID);
 
-        DB::table('team_users')->where(['team_id' => $id, 'user_id' => $userID])->delete();
+        $this->teamUser->where(['team_id' => $id, 'user_id' => $userID])->delete();
 
         return response()->json(null, 204);
     }

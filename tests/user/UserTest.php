@@ -28,6 +28,7 @@ class UserTest extends OhioTestCase
      * @covers \Ohio\Core\User\User::getReminderEmail
      * @covers \Ohio\Core\User\User::roles
      * @covers \Ohio\Core\User\User::hasRole
+     * @covers \Ohio\Core\User\User::getFullNameAttribute
      */
     public function test()
     {
@@ -70,6 +71,11 @@ class UserTest extends OhioTestCase
         $this->assertEquals('T', $attributes['mi']);
         $this->assertTrue(Hash::check('test', $attributes['password']));
         $this->assertEquals('test', $attributes['username']);
+
+        # getters
+        $this->assertEquals('TEST T. TEST', $user->fullName);
+        $user->mi = null;
+        $this->assertEquals('TEST TEST', $user->fullName);
 
         # Authenticatable functions
         $user->id = 1;

@@ -7,13 +7,13 @@ use Ohio\Core\Team\Team;
 use Ohio\Core\Team\Http\Requests\CreateRequest;
 use Ohio\Core\Team\Http\Requests\PaginateRequest;
 use Ohio\Core\Team\Http\Requests\UpdateRequest;
-use Ohio\Core\Team\Http\Controllers\ApiController;
+use Ohio\Core\Team\Http\Controllers\Api\TeamsController;
 use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ApiControllerTest extends Testing\OhioTestCase
+class TeamsControllerTest extends Testing\OhioTestCase
 {
 
     use Testing\TestPaginateTrait;
@@ -24,13 +24,13 @@ class ApiControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::__construct
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::get
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::show
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::destroy
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::update
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::store
-     * @covers \Ohio\Core\Team\Http\Controllers\ApiController::index
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::__construct
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::get
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::show
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::destroy
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::update
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::store
+     * @covers \Ohio\Core\Team\Http\Controllers\Api\TeamsController::index
      */
     public function test()
     {
@@ -46,7 +46,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $teamRepository->shouldReceive('query')->andReturn($qbMock);
 
         # construct
-        $controller = new ApiController($teamRepository);
+        $controller = new TeamsController($teamRepository);
         $this->assertEquals($teamRepository, $controller->team);
 
         # get existing team
@@ -64,7 +64,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $response = $controller->show(1);
         $this->assertInstanceOf(JsonResponse::class, $response);
         $data = $response->getData();
-        $this->assertEquals($team1->email, $data->email);
+        $this->assertEquals($team1->name, $data->name);
 
         # destroy team
         $response = $controller->destroy(1);
@@ -82,7 +82,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         # index
         $response = $controller->index(new Request());
         $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals($team1->email, $response->getData()->data[0]->email);
+        $this->assertEquals($team1->name, $response->getData()->data[0]->name);
 
     }
 

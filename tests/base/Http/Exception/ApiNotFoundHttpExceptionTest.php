@@ -14,7 +14,7 @@ class ApiNotFoundHttpExceptionTest extends \PHPUnit_Framework_TestCase
     {
         $previous = new \Exception('test');
 
-        $exception = new ApiNotFoundHttpException(123, $previous);
+        $exception = new ApiNotFoundHttpException('msg', 123, $previous);
 
         $this->assertEquals($exception->getStatusCode(), 404);
         $this->assertEquals($exception->getHeaders(), null);

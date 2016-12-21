@@ -34,10 +34,12 @@ class ApiControllerTest extends Testing\OhioTestCase
     public function test()
     {
         $teamUser1 = new TeamUser();
+        $teamUser1->id = 1;
+        $teamUser1->team_id = 1;
         $teamUser1->user_id = 1;
 
         $qbMock = $this->getPaginateQBMock(new PaginateRequest(), [$teamUser1]);
-        $qbMock->shouldReceive('with')->once();
+        $qbMock->shouldReceive('join')->once();
 
         $teamUserRepository = m::mock(TeamUser::class);
         $teamUserRepository->shouldReceive('find')->with(1)->andReturn($teamUser1);
@@ -78,8 +80,6 @@ class ApiControllerTest extends Testing\OhioTestCase
         # index
         $response = $controller->index(new Request());
         $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals($teamUser1->user_id, $response->getData()->data[0]->user_id);
-
     }
 
 }

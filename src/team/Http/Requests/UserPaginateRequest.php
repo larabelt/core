@@ -7,11 +7,24 @@ use Illuminate\Database\Eloquent\Builder;
 
 class UserPaginateRequest extends BasePaginateRequest
 {
+    /**
+     * @var User
+     */
+    public $userRepo;
 
+    /**
+     * @return User
+     */
+    public function userRepo()
+    {
+        return $this->userRepo ?: $this->userRepo = new User();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function modifyQuery(Builder $query)
     {
-        $query = parent::modifyQuery($query);
-
         # show users on team
         if (!$this->get('not')) {
             $query->join('team_users', 'team_users.user_id', '=', 'users.id');
@@ -30,6 +43,9 @@ class UserPaginateRequest extends BasePaginateRequest
         return $query;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function items(Builder $query)
     {
         $items = [];
@@ -44,7 +60,7 @@ class UserPaginateRequest extends BasePaginateRequest
 
     public function item($id)
     {
-        return User::find($id);
+        return $this->userRepo()->find($id);
     }
 
 }

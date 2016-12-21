@@ -46,22 +46,4 @@ class Team extends Model
         $this->attributes['name'] = strtoupper(trim($value));
     }
 
-    public function hasUser($name)
-    {
-
-        $name = strtoupper($name);
-
-        $userNames = $this->users->pluck('name')->all();
-
-        if (in_array('SUPER', $userNames)) {
-            return true;
-        }
-
-        if (in_array($name, $userNames)) {
-            return true;
-        }
-
-        return false;
-    }
-
 }

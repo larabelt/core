@@ -3,6 +3,7 @@ namespace Ohio\Core\Base\Http\Requests;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class BasePaginateRequest extends Request
 {
@@ -116,11 +117,19 @@ class BasePaginateRequest extends Request
         return (string) $this->sortBy;
     }
 
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
     public function modifyQuery(Builder $query)
     {
         return $query;
     }
 
+    /**
+     * @param Builder $query
+     * @return Collection
+     */
     public function items(Builder $query) {
         return $query->get();
     }

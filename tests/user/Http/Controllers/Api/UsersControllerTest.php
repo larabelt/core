@@ -7,13 +7,13 @@ use Ohio\Core\User\User;
 use Ohio\Core\User\Http\Requests\CreateRequest;
 use Ohio\Core\User\Http\Requests\PaginateRequest;
 use Ohio\Core\User\Http\Requests\UpdateRequest;
-use Ohio\Core\User\Http\Controllers\ApiController;
+use Ohio\Core\User\Http\Controllers\Api\UsersController;
 use Ohio\Core\Base\Http\Exception\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ApiControllerTest extends Testing\OhioTestCase
+class UsersControllerTest extends Testing\OhioTestCase
 {
 
     use Testing\TestPaginateTrait;
@@ -24,13 +24,13 @@ class ApiControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::__construct
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::get
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::show
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::destroy
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::update
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::store
-     * @covers \Ohio\Core\User\Http\Controllers\ApiController::index
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::__construct
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::get
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::show
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::destroy
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::update
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::store
+     * @covers \Ohio\Core\User\Http\Controllers\Api\UsersController::index
      */
     public function test()
     {
@@ -46,7 +46,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $userRepository->shouldReceive('query')->andReturn($qbMock);
 
         # construct
-        $controller = new ApiController($userRepository);
+        $controller = new UsersController($userRepository);
         $this->assertEquals($userRepository, $controller->user);
 
         # get existing user

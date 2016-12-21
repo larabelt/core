@@ -18,6 +18,7 @@ class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
      * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::orderBy()
      * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::sortBy()
      * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::modifyQuery()
+     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::items()
      */
     public function test()
     {
@@ -49,7 +50,9 @@ class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('desc', $request->sortBy());
 
         $qbMock = m::mock('Illuminate\Database\Eloquent\Builder');
+        $qbMock->shouldReceive('get')->andReturn([]);
         $this->assertEquals($qbMock, $request->modifyQuery($qbMock));
+        $this->assertEquals([], $request->items($qbMock));
     }
 
 }
