@@ -25,30 +25,7 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-user"></i> <span>User Admin</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="/admin/ohio/core/users"><i class="fa fa-users"></i> <span>Users</span></a></li>
-                    <li><a href="/admin/ohio/core/teams"><i class="fa fa-users"></i> <span>Teams</span></a></li>
-                    <li><a href="/admin/ohio/core/roles"><i class="fa fa-users"></i> <span>Roles</span></a></li>
-                </ul>
-            </li>
-            @if(ohio()->uses('content'))
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-th-large"></i> <span>Content Admin</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="/admin/ohio/content/pages"><i class="fa fa-file-text"></i> <span>Pages</span></a></li>
-                    </ul>
-                    <ul class="treeview-menu">
-                        <li><a href="/admin/ohio/content/blocks"><i class="fa fa-file-text"></i> <span>Blocks</span></a></li>
-                    </ul>
-                </li>
-            @endif
+            @includeIf('layouts.admin.partials.sidebar-left-nav')
             <li class="header">LABELS</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
