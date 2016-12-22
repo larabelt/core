@@ -20,8 +20,8 @@ export default {
             mixins: [roleService],
             template: roleFormTemplate,
             mounted() {
-                this.id = this.$route.params.id;
-                this.get();
+                this.roles.role.id = this.$route.params.id;
+                this.getRole();
             },
         },
     },
@@ -38,7 +38,6 @@ export default {
                             <role-form></role-form>
                         </div>
                     </div>
-                    
                 </div>
             </section>
         </div>

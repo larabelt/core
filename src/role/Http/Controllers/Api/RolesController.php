@@ -3,32 +3,31 @@
 namespace Ohio\Core\Role\Http\Controllers\Api;
 
 use Ohio\Core\Base\Http\Controllers\ApiController;
-
-use Ohio\Core\Role;
+use Ohio\Core\Role\Role;
 use Ohio\Core\Role\Http\Requests;
-
-use Illuminate\Http\Request;
 
 class RolesController extends ApiController
 {
 
     /**
-     * @var Role\Role
+     * The repository instance.
+     *
+     * @var Role
      */
-    public $role;
+    public $roles;
 
     /**
      * ApiController constructor.
-     * @param Role\Role $role
+     * @param Role $role
      */
-    public function __construct(Role\Role $role)
+    public function __construct(Role $role)
     {
-        $this->role = $role;
+        $this->roles = $role;
     }
 
     public function get($id)
     {
-        return $this->role->find($id) ?: $this->abort(404);
+        return $this->roles->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -39,9 +38,7 @@ class RolesController extends ApiController
      */
     public function index(Requests\PaginateRoles $request)
     {
-        $request->reCapture();
-
-        $paginator = $this->paginator($this->role->query(), $request);
+        $paginator = $this->paginator($this->roles->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
     }
@@ -56,9 +53,17 @@ class RolesController extends ApiController
     public function store(Requests\StoreRole $request)
     {
 
-        $role = $this->role->create($request->all());
+        $input = $request->all();
 
-        return response()->json($role);
+        $role = $this->roles->create(['name' => $input['name']]);
+
+        $this->set($role, $input, [
+            'slug',
+        ]);
+
+        $role->save();
+
+        return response()->json($role, 201);
     }
 
     /**
@@ -87,7 +92,14 @@ class RolesController extends ApiController
     {
         $role = $this->get($id);
 
-        $role->update($request->all());
+        $input = $request->all();
+
+        $this->set($role, $input, [
+            'name',
+            'slug',
+        ]);
+
+        $role->save();
 
         return response()->json($role);
     }

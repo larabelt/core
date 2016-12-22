@@ -1,28 +1,24 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
-import userService from './service';
-import userFormTemplate from './templates/form';
+import teamService from './team-service';
+import teamFormTemplate from './templates/form';
 
 export default {
     components: {
         'heading': {
             data() {
                 return {
-                    title: 'User Editor',
+                    title: 'Team Creator',
                     subtitle: '',
                     crumbs: [
-                        {url: '/admin/ohio/core/users', text: 'Manager'}
+                        {url: '/admin/ohio/core/teams', text: 'Manager'}
                     ],
                 }
             },
             'template': headingTemplate
         },
-        'user-form': {
-            mixins: [userService],
-            template: userFormTemplate,
-            mounted() {
-                this.users.user.id = this.$route.params.id;
-                this.getUser();
-            },
+        'team-form': {
+            mixins: [teamService],
+            template: teamFormTemplate,
         },
     },
     template: `
@@ -33,9 +29,9 @@ export default {
                     <div class="col-md-9">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Edit User</h3>
+                                <h3 class="box-title">Create Team</h3>
                             </div>
-                            <user-form></user-form>
+                            <team-form></team-form>
                         </div>
                     </div>
                 </div>

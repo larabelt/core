@@ -8,12 +8,24 @@ class Role extends Model
 {
     use SluggableTrait;
 
-    protected $morphClass = 'core/role';
+    /**
+     * @var string
+     */
+    protected $morphClass = 'roles';
 
+    /**
+     * @var string
+     */
     protected $table = 'roles';
 
-    protected $guarded = ['id'];
+    /**
+     * @var array
+     */
+    protected $fillable = ['name'];
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->name;

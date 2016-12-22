@@ -6,53 +6,72 @@ export default {
 
     mixins: [form],
 
+    data() {
+        return {
+            roles: {
+                url: '/api/v1/roles/',
+                saving: false,
+                saved: false,
+                errors: {},
+                params: {},
+                role: {},
+                roles: [],
+            }
+        }
+    },
+
     methods: {
-        index() {
-
-            let params = this.getParams();
-
-            let url = '/api/v1/roles?' + $.param(params);
-
+        submitRole(event) {
+            event.preventDefault();
+            this.roles.saving = true;
+            this.roles.saved = false;
+            if (this.roles.role.id) {
+                return this.updateRole(this.roles.role);
+            }
+            return this.storeRole(this.roles.role);
+        },
+        paginateRoles() {
+            let url = this.roles.url + '?' + $.param(this.getUrlParams());
             this.$http.get(url).then(function (response) {
-                this.items = response.data;
+                this.roles.roles = response.data.data;
             }, function (response) {
                 console.log('error');
             });
         },
-        get() {
-            this.$http.get('/api/v1/roles/' + this.id).then((response) => {
-                this.item = response.data;
+        getRole() {
+            this.$http.get(this.roles.url + this.roles.role.id).then((response) => {
+                this.roles.role = response.data;
             }, (response) => {
 
             });
         },
-        put(params) {
-            this.errors = {};
-            this.$http.put('/api/v1/roles/' + this.id, params).then((response) => {
-                this.item = response.data;
-                this.saved = true;
+        updateRole(params) {
+            this.roles.errors = {};
+            this.$http.put(this.roles.url + this.roles.role.id, params).then((response) => {
+                this.roles.role = response.data;
+                this.roles.saved = true;
             }, (response) => {
                 if (response.status == 422) {
-                    this.errors = response.data.message;
+                    this.roles.errors = response.data.message;
                 }
             });
-            this.saving = false;
+            this.roles.saving = false;
         },
-        post(params) {
-            this.errors = {};
-            this.$http.post('/api/v1/roles', params ).then((response) => {
+        storeRole(params) {
+            this.roles.errors = {};
+            this.$http.post(this.roles.url, params ).then((response) => {
                 this.$router.push({ name: 'roleEdit', params: { id: response.data.id }})
             }, (response) => {
                 if (response.status == 422) {
-                    this.errors = response.data.message;
+                    this.roles.errors = response.data.message;
                 }
             });
-            this.saving = false;
+            this.roles.saving = false;
         },
-        destroy(id) {
-            this.$http.delete('/api/v1/roles/' + id).then(function(response){
+        destroyRole(id) {
+            this.$http.delete(this.roles.url + id).then(function(response){
                 if( response.status == 204 ) {
-                    this.index();
+                    this.paginateRoles();
                 }
             });
         }

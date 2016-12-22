@@ -19,14 +19,14 @@ export default `
                     </tr>
                 </thead>
                 <tbody>                
-                    <tr v-for="team in teams.teams">
-                        <td>{{ team.id }}</td>
-                        <td>{{ team.name }}</td>
+                    <tr v-for="item in items.data">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
                         <td class="text-right">
-                            <router-link :to="{ name: 'teamEdit', params: { id: team.id } }" v-bind:class="'btn btn-xs btn-warning'">
+                            <router-link :to="{ name: 'teamEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
                             </router-link>
-                            <a class="btn btn-xs btn-danger" v-on:click="destroyTeam(team.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

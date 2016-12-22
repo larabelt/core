@@ -12,7 +12,7 @@ use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 
-class ApiControllerTest extends Testing\OhioTestCase
+class RolesControllerTest extends Testing\OhioTestCase
 {
 
     use Testing\CommonMocks;
@@ -46,7 +46,7 @@ class ApiControllerTest extends Testing\OhioTestCase
 
         # construct
         $controller = new RolesController($roleRepository);
-        $this->assertEquals($roleRepository, $controller->role);
+        $this->assertEquals($roleRepository, $controller->roles);
 
         # get existing role
         $role = $controller->get(1);
@@ -75,7 +75,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # create role
-        $response = $controller->store(new StoreRole());
+        $response = $controller->store(new StoreRole(['name' => 'test']));
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index

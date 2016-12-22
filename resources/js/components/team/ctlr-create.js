@@ -1,5 +1,5 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
-import teamService from './team-service';
+import teamService from './service';
 import teamFormTemplate from './templates/form';
 
 export default {

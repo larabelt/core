@@ -1,5 +1,5 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
-import teamService from './service';
+import teamService from './team-service';
 import teamIndexTemplate from './templates/index';
 
 export default {
@@ -19,11 +19,11 @@ export default {
             mixins: [teamService],
             template: teamIndexTemplate,
             mounted() {
-                this.paginateTeams();
+                this.index();
             },
             watch: {
                 '$route' (to, from) {
-                    this.paginateTeams();
+                    this.index();
                 }
             },
         },

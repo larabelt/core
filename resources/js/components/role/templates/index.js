@@ -5,6 +5,7 @@ export default `
                 <router-link to="/roles/create" v-bind:class="'btn btn-primary'">add role</router-link>
             </div>
             <table class="table table-bordered table-hover">
+            
                 <thead>
                     <tr>
                         <th>
@@ -24,18 +25,17 @@ export default `
                 </thead>
     
                 <tbody>                
-                    <tr v-for="item in items.data">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.slug }}</td>
+                    <tr v-for="role in roles.roles">
+                        <td>{{ role.id }}</td>
+                        <td>{{ role.name }}</td>
+                        <td>{{ role.slug }}</td>
                         <td class="text-right">
-                            <router-link :to="{ name: 'roleEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
+                            <router-link :to="{ name: 'roleEdit', params: { id: role.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
                             </router-link>
-                            <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-xs btn-danger" v-on:click="destroyRole(role.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
-                    
                 </tbody>
     
                 <tfoot>

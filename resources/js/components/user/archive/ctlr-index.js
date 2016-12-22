@@ -1,6 +1,6 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
-import teamService from './service';
-import teamIndexTemplate from './templates/index';
+import userService from './service';
+import userIndexTemplate from './templates/index';
 
 export default {
 
@@ -8,22 +8,22 @@ export default {
         'heading': {
             data() {
                 return {
-                    title: 'Team Manager',
+                    title: 'User Manager',
                     subtitle: '',
                     crumbs: [],
                 }
             },
             'template': headingTemplate
         },
-        'team-index': {
-            mixins: [teamService],
-            template: teamIndexTemplate,
+        'user-index': {
+            mixins: [userService],
+            template: userIndexTemplate,
             mounted() {
-                this.paginateTeams();
+                this.index();
             },
             watch: {
                 '$route' (to, from) {
-                    this.paginateTeams();
+                    this.index();
                 }
             },
         },
@@ -33,7 +33,7 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <team-index></team-index>
+                <user-index></user-index>
             </section>
         </div>
         `

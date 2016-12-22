@@ -46,7 +46,7 @@ class TeamsControllerTest extends Testing\OhioTestCase
 
         # construct
         $controller = new TeamsController($teamRepository);
-        $this->assertEquals($teamRepository, $controller->team);
+        $this->assertEquals($teamRepository, $controller->teams);
 
         # get existing team
         $team = $controller->get(1);
@@ -75,7 +75,7 @@ class TeamsControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # create team
-        $response = $controller->store(new StoreTeam());
+        $response = $controller->store(new StoreTeam(['name' => 'test']));
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index

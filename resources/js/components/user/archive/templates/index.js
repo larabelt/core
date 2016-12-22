@@ -27,16 +27,16 @@ export default `
                     </tr>
                 </thead>
                 <tbody>                
-                    <tr v-for="user in users.users">
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.first_name }}</td>
-                        <td>{{ user.last_name }}</td>
+                    <tr v-for="item in items.data">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.first_name }}</td>
+                        <td>{{ item.last_name }}</td>
                         <td class="text-right">
-                            <router-link :to="{ name: 'userEdit', params: { id: user.id } }" v-bind:class="'btn btn-xs btn-warning'">
+                            <router-link :to="{ name: 'userEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
                             </router-link>
-                            <a class="btn btn-xs btn-danger" v-on:click="destroyUser(user.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

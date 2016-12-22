@@ -11,11 +11,11 @@ class Team extends Model
 
     use SluggableTrait;
 
-    protected $morphClass = 'core/team';
+    protected $morphClass = 'teams';
 
     protected $table = 'teams';
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name'];
 
     /**
      * Default values

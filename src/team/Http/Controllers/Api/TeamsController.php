@@ -2,9 +2,7 @@
 
 namespace Ohio\Core\Team\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
-use Ohio\Core\Team;
+use Ohio\Core\Team\Team;
 use Ohio\Core\Team\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\ApiController;
 
@@ -12,22 +10,22 @@ class TeamsController extends ApiController
 {
 
     /**
-     * @var Team\Team
+     * @var Team
      */
-    public $team;
+    public $teams;
 
     /**
      * ApiController constructor.
-     * @param Team\Team $team
+     * @param Team $team
      */
-    public function __construct(Team\Team $team)
+    public function __construct(Team $team)
     {
-        $this->team = $team;
+        $this->teams = $team;
     }
 
     public function get($id)
     {
-        return $this->team->find($id) ?: $this->abort(404);
+        return $this->teams->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -38,9 +36,7 @@ class TeamsController extends ApiController
      */
     public function index(Requests\PaginateTeams $request)
     {
-        $request->reCapture();
-
-        $paginator = $this->paginator($this->team->query(), $request);
+        $paginator = $this->paginator($this->teams->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
     }
@@ -54,7 +50,17 @@ class TeamsController extends ApiController
      */
     public function store(Requests\StoreTeam $request)
     {
-        $team = $this->team->create($request->all());
+        $input = $request->all();
+
+        $team = $this->teams->create(['name' => $input['name']]);
+
+        $this->set($team, $input, [
+            'is_active',
+            'slug',
+            'body',
+        ]);
+
+        $team->save();
 
         return response()->json($team);
     }
@@ -85,7 +91,16 @@ class TeamsController extends ApiController
     {
         $team = $this->get($id);
 
-        $team->update($request->all());
+        $input = $request->all();
+
+        $this->set($team, $input, [
+            'is_active',
+            'name',
+            'slug',
+            'body',
+        ]);
+
+        $team->save();
 
         return response()->json($team);
     }

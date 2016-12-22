@@ -12,7 +12,7 @@ class UsersController extends ApiController
 {
 
     /**
-     * The user repository instance.
+     * The repository instance.
      *
      * @var User
      */
@@ -40,10 +40,7 @@ class UsersController extends ApiController
      */
     public function index(Requests\PaginateUsers $request)
     {
-
-        $request->reCapture();
-
-        $paginator = $this->paginator($this->users->query(), $request);
+        $paginator = $this->paginator($this->users->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
     }
@@ -70,6 +67,8 @@ class UsersController extends ApiController
             'mi',
             'password',
         ]);
+
+        $user->save();
 
         return response()->json($user, 201);
     }
