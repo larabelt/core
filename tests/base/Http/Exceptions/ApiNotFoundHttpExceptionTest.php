@@ -5,10 +5,7 @@ use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 class ApiNotFoundHttpExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::__construct()
      * @covers \Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException::__construct()
-     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::getStatusCode()
-     * @covers \Ohio\Core\Base\Http\Exceptions\ApiException::getHeaders()
      */
     public function test()
     {

@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class TeamsControllerTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {
@@ -80,7 +80,7 @@ class TeamsControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new Request());
+        $response = $controller->index(new PaginateRequest());
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($team1->name, $response->getData()->data[0]->name);
 

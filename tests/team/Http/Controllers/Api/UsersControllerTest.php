@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 class UsersControllerTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {
@@ -38,10 +38,10 @@ class UsersControllerTest extends Testing\OhioTestCase
         $team1 = factory(Team::class)->make();
         $user1 = factory(User::class)->make();
 
-        $userPaginateRequest = m::mock(UserPaginateRequest::class . '[modifyQuery]');
-        $userPaginateRequest->merge(['team_id' => 1]);
-        $qbMock = $this->getPaginateQBMock($userPaginateRequest, [$team1]);
-        $userPaginateRequest->shouldReceive('modifyQuery')->andReturn($qbMock);
+//        $userPaginateRequest = m::mock(UserPaginateRequest::class . '[modifyQuery]');
+//        $userPaginateRequest->merge(['team_id' => 1]);
+//        $qbMock = $this->getPaginateQBMock($userPaginateRequest, [$team1]);
+//        $userPaginateRequest->shouldReceive('modifyQuery')->andReturn($qbMock);
 
         $teamRepository = m::mock(Team::class);
         $teamRepository->shouldReceive('find')->with(1)->andReturn($team1);
@@ -56,7 +56,7 @@ class UsersControllerTest extends Testing\OhioTestCase
         $userRepository->shouldReceive('find')->with(1)->andReturn($user1);
         $userRepository->shouldReceive('find')->with(999)->andReturn(null);
         $userRepository->shouldReceive('create')->andReturn($user1);
-        $userRepository->shouldReceive('query')->andReturn($qbMock);
+        $userRepository->shouldReceive('query')->andReturn($this->getQBMock());
 
         # construct
         $controller = new UsersController($teamRepository, $teamUserRepository, $userRepository);
@@ -96,9 +96,12 @@ class UsersControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $controller = m::mock(UsersController::class . '[getPaginateRequest]', [$teamRepository, $teamUserRepository, $userRepository]);
-        $controller->shouldReceive('getPaginateRequest')->andReturn($userPaginateRequest);
-        $response = $controller->index(new Request(), 1);
+        $paginatorMock = $this->getPaginatorMock();
+        $paginatorMock->shouldReceive('toArray')->andReturn([]);
+
+        $controller = m::mock(UsersController::class . '[paginator]', [$teamRepository, $teamUserRepository, $userRepository]);
+        $controller->shouldReceive('paginator')->andReturn($paginatorMock);
+        $response = $controller->index(new UserPaginateRequest(), 1);
         $this->assertInstanceOf(JsonResponse::class, $response);
     }
 

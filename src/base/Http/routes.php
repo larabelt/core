@@ -4,7 +4,7 @@
  * Front
  */
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', function () {
+    Route::get('', function () {
         return view('ohio-core::base.front.home');
     });
 });
@@ -17,7 +17,7 @@ Route::group([
     'middleware' => ['web', 'auth.admin']
 ],
     function () {
-        Route::get('/', function () {
+        Route::get('', function () {
             return view('ohio-core::base.admin.dashboard');
         });
     }
@@ -45,7 +45,7 @@ Route::group([
     'middleware' => ['web']
 ],
     function () {
-        Route::get('/', function () {
+        Route::get('', function () {
             return view('ohio-core::layouts.admin-user.index');
         });
     }
@@ -55,7 +55,7 @@ Route::group([
  * Front
  */
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/', function () {
+    Route::get('', function () {
         return view('ohio-core::base.front.home');
     });
 });

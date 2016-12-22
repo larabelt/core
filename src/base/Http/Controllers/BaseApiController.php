@@ -29,8 +29,6 @@ class BaseApiController extends Controller
         $exception->setMsg($message);
 
         throw $exception;
-
-        throw new Exceptions\ApiException($message);
     }
 
     public function getPaginateRequest($class = BasePaginateRequest::class, $query = [])
@@ -43,7 +41,7 @@ class BaseApiController extends Controller
         throw new \Exception('Invalid class for BaseApiController::getPaginateRequest');
     }
 
-    public function getPaginator(Builder $qb, BasePaginateRequest $request)
+    public function paginator(Builder $qb, BasePaginateRequest $request)
     {
         return new BaseLengthAwarePaginator($qb, $request);
     }

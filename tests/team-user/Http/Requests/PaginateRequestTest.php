@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 class PaginateRequestTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {

@@ -3,7 +3,7 @@ namespace Ohio\Core\User\Http\Requests;
 
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
 
-class PaginateRequest extends BasePaginateRequest
+class PaginateUsers extends BasePaginateRequest
 {
     public $perPage = 5;
 

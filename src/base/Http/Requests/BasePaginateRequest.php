@@ -38,6 +38,21 @@ class BasePaginateRequest extends Request
      */
     public $meta = [];
 
+    public function reCapture()
+    {
+        $captured = parent::capture();
+
+        $this->attributes = $captured->attributes;
+        $this->request = $captured->request;
+        $this->query = $captured->query;
+        $this->server = $captured->server;
+        $this->files = $captured->files;
+        $this->cookies = $captured->cookies;
+        $this->headers = $captured->headers;
+
+        return $this;
+    }
+
     /**
      * @return string
      */

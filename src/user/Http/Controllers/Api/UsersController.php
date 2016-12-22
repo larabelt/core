@@ -4,7 +4,7 @@ namespace Ohio\Core\User\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use Ohio\Core\User;
+use Ohio\Core\User\User;
 use Ohio\Core\User\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
@@ -12,22 +12,24 @@ class UsersController extends BaseApiController
 {
 
     /**
-     * @var User\User
+     * The user repository instance.
+     *
+     * @var User
      */
-    public $user;
+    public $users;
 
     /**
      * ApiController constructor.
-     * @param User\User $user
+     * @param User $user
      */
-    public function __construct(User\User $user)
+    public function __construct(User $user)
     {
-        $this->user = $user;
+        $this->users = $user;
     }
 
     public function get($id)
     {
-        return $this->user->find($id) ?: $this->abort(404);
+        return $this->users->find($id) ?: $this->abort(404);
     }
 
     /**
@@ -36,11 +38,12 @@ class UsersController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Requests\PaginateUsers $request)
     {
-        $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
 
-        $paginator = $this->getPaginator($this->user->query(), $request);
+        $request->reCapture();
+
+        $paginator = $this->paginator($this->users->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -48,15 +51,27 @@ class UsersController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\CreateRequest $request
+     * @param  Requests\StoreUser $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\CreateRequest $request)
+    public function store(Requests\StoreUser $request)
     {
-        $user = $this->user->create($request->all());
 
-        return response()->json($user);
+        $input = $request->all();
+
+        $user = $this->users->create(['email' => $input['email']]);
+
+        $this->set($user, $input, [
+            'is_active',
+            'is_verified',
+            'first_name',
+            'last_name',
+            'mi',
+            'password',
+        ]);
+
+        return response()->json($user, 201);
     }
 
     /**
@@ -76,12 +91,12 @@ class UsersController extends BaseApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateRequest $request
+     * @param  Requests\UpdateUser $request
      * @param  string $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateRequest $request, $id)
+    public function update(Requests\UpdateUser $request, $id)
     {
         $user = $this->get($id);
 

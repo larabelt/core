@@ -3,12 +3,18 @@ namespace Ohio\Core\Base\Testing;
 
 use Mockery as m;
 use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-trait TestPaginateTrait
+trait CommonMocks
 {
+
+    function getQBMock()
+    {
+        return $qbMock = m::mock(Builder::class);
+    }
 
     function getPaginateQBMock(BasePaginateRequest $request = null, $results = [])
     {
@@ -26,7 +32,7 @@ trait TestPaginateTrait
 
                     $subQBMock = m::mock('Illuminate\Database\Eloquent\Builder');
 
-                    foreach($request->searchable as $column) {
+                    foreach ($request->searchable as $column) {
                         $subQBMock->shouldReceive('orWhere')->once()->with($column, 'LIKE', "%$needle%s");
                     }
 
@@ -45,6 +51,13 @@ trait TestPaginateTrait
         $qbMock->shouldReceive('get')->once()->andReturn($results);
 
         return $qbMock;
+    }
+
+    function getPaginatorMock()
+    {
+        $paginatorMock = m::mock(BaseLengthAwarePaginator::class);
+
+        return $paginatorMock;
     }
 
 }

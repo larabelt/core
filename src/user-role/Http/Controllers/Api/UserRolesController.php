@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\UserRole\Http\Controllers;
+namespace Ohio\Core\UserRole\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
@@ -8,7 +8,7 @@ use Ohio\Core\UserRole;
 use Ohio\Core\UserRole\Http\Requests;
 use Ohio\Core\Base\Http\Controllers\BaseApiController;
 
-class ApiController extends BaseApiController
+class UserRolesController extends BaseApiController
 {
 
     /**
@@ -36,14 +36,14 @@ class ApiController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Requests\PaginateRequest $request)
     {
-        $request = $this->getPaginateRequest(Requests\PaginateRequest::class, $request->query());
+        $request->reCapture();
 
         $qb = $this->userRole->query();
         $qb->with('role');
 
-        $paginator = $this->getPaginator($qb, $request);
+        $paginator = $this->paginator($qb, $request);
 
         return response()->json($paginator->toArray());
     }

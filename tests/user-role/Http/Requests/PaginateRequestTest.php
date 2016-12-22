@@ -10,7 +10,7 @@ use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 class PaginateRequestTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {

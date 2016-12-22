@@ -1,6 +1,7 @@
 export default {
     data() {
         return {
+            url: '',
             needle: '',
             saving: false,
             saved: false,

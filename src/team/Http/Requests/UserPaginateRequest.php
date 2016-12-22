@@ -2,7 +2,7 @@
 namespace Ohio\Core\Team\Http\Requests;
 
 use Ohio\Core\User\User;
-use Ohio\Core\User\Http\Requests\PaginateRequest as BasePaginateRequest;
+use Ohio\Core\User\Http\Requests\PaginateUsers as BasePaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
 class UserPaginateRequest extends BasePaginateRequest

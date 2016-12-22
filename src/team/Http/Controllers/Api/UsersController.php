@@ -57,13 +57,11 @@ class UsersController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $id)
+    public function index(Requests\UserPaginateRequest $request, $id)
     {
-        $request->merge(['team_id' => $id]);
+        $request->reCapture()->merge(['team_id' => $id]);
 
-        $request = $this->getPaginateRequest(Requests\UserPaginateRequest::class, $request->query());
-
-        $paginator = $this->getPaginator($this->user->query(), $request);
+        $paginator = $this->paginator($this->user->query(), $request);
 
         return response()->json($paginator->toArray());
     }

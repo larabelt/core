@@ -7,7 +7,7 @@ use Ohio\Core\Role\Role;
 use Ohio\Core\Role\Http\Requests\CreateRequest;
 use Ohio\Core\Role\Http\Requests\PaginateRequest;
 use Ohio\Core\Role\Http\Requests\UpdateRequest;
-use Ohio\Core\Role\Http\Controllers\ApiController;
+use Ohio\Core\Role\Http\Controllers\Api\RolesController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 class ApiControllerTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {
@@ -24,13 +24,13 @@ class ApiControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::__construct
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::get
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::show
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::destroy
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::update
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::store
-     * @covers \Ohio\Core\Role\Http\Controllers\ApiController::index
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::__construct
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::get
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::show
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::destroy
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::update
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::store
+     * @covers \Ohio\Core\Role\Http\Controllers\Api\RolesController::index
      */
     public function test()
     {
@@ -46,7 +46,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $roleRepository->shouldReceive('query')->andReturn($qbMock);
 
         # construct
-        $controller = new ApiController($roleRepository);
+        $controller = new RolesController($roleRepository);
         $this->assertEquals($roleRepository, $controller->role);
 
         # get existing role
@@ -80,7 +80,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new Request());
+        $response = $controller->index(new PaginateRequest());
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($role1->name, $response->getData()->data[0]->name);
 

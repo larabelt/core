@@ -7,16 +7,16 @@ use Ohio\Core\TeamUser\TeamUser;
 use Ohio\Core\TeamUser\Http\Requests\CreateRequest;
 use Ohio\Core\TeamUser\Http\Requests\PaginateRequest;
 use Ohio\Core\TeamUser\Http\Requests\UpdateRequest;
-use Ohio\Core\TeamUser\Http\Controllers\ApiController;
+use Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ApiControllerTest extends Testing\OhioTestCase
+class TeamUsersControllerTest extends Testing\OhioTestCase
 {
 
-    use Testing\TestPaginateTrait;
+    use Testing\CommonMocks;
 
     public function tearDown()
     {
@@ -24,12 +24,12 @@ class ApiControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::__construct
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::get
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::show
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::destroy
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::store
-     * @covers \Ohio\Core\TeamUser\Http\Controllers\ApiController::index
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::__construct
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::get
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::show
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::destroy
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::store
+     * @covers \Ohio\Core\TeamUser\Http\Controllers\Api\TeamUsersController::index
      */
     public function test()
     {
@@ -48,7 +48,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $teamUserRepository->shouldReceive('query')->andReturn($qbMock);
 
         # construct
-        $controller = new ApiController($teamUserRepository);
+        $controller = new TeamUsersController($teamUserRepository);
         $this->assertEquals($teamUserRepository, $controller->teamUser);
 
         # get existing teamUser
@@ -78,7 +78,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new Request());
+        $response = $controller->index(new PaginateRequest());
         $this->assertInstanceOf(JsonResponse::class, $response);
     }
 

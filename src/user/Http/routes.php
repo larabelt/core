@@ -20,8 +20,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('password/reset', Controllers\Auth\ForgotPasswordController::class . '@showLinkRequestForm');
     Route::post('password/reset', Controllers\Auth\ResetPasswordController::class . '@reset');
     Route::get('password/reset/{token}', Controllers\Auth\ResetPasswordController::class . '@showResetForm');
-    //Route::get('register', Controllers\Auth\RegisterController::class . '@showRegistrationForm');
-    //Route::post('register', Controllers\Auth\RegisterController::class . '@register');
 });
 
 /**
@@ -32,10 +30,10 @@ Route::group([
     'middleware' => ['api']
 ],
     function () {
-        Route::get('/users/{id}', Controllers\Api\UsersController::class . '@show');
-        Route::put('/users/{id}', Controllers\Api\UsersController::class . '@update');
-        Route::delete('/users/{id}', Controllers\Api\UsersController::class . '@destroy');
-        Route::get('/users', Controllers\Api\UsersController::class . '@index');
-        Route::post('/users', Controllers\Api\UsersController::class . '@store');
+        Route::get('users/{id}', Controllers\Api\UsersController::class . '@show');
+        Route::put('users/{id}', Controllers\Api\UsersController::class . '@update');
+        Route::delete('users/{id}', Controllers\Api\UsersController::class . '@destroy');
+        Route::get('users', Controllers\Api\UsersController::class . '@index');
+        Route::post('users', Controllers\Api\UsersController::class . '@store');
     }
 );
