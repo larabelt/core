@@ -9,19 +9,19 @@ export default `
                     <tr>
                         <th>
                             ID
-                            <column-sorter :routename="'userIndex'" :order-by="'users.id'"></column-sorter>
+                            <column-sorter :route="'userIndex'" :order-by="'users.id'"></column-sorter>
                         </th>
                         <th>
                             Email
-                            <column-sorter :routename="'userIndex'" :order-by="'users.email'"></column-sorter>
+                            <column-sorter :route="'userIndex'" :order-by="'users.email'"></column-sorter>
                         </th>
                         <th>
                             First Name
-                            <column-sorter :routename="'userIndex'" :order-by="'users.first_name'"></column-sorter>
+                            <column-sorter :route="'userIndex'" :order-by="'users.first_name'"></column-sorter>
                         </th>
                         <th>
                             Last Name
-                            <column-sorter :routename="'userIndex'" :order-by="'users.last_name'"></column-sorter>
+                            <column-sorter :route="'userIndex'" :order-by="'users.last_name'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>

@@ -9,13 +9,14 @@ export default {
     data() {
         return {
             roles: {
-                url: '/api/v1/roles/',
-                saving: false,
-                saved: false,
-                errors: {},
-                params: {},
                 role: {},
                 roles: [],
+                url: '/api/v1/roles/',
+                errors: {},
+                paginator: {},
+                params: {},
+                saved: false,
+                saving: false,
             }
         }
     },
@@ -34,6 +35,7 @@ export default {
             let url = this.roles.url + '?' + $.param(this.getUrlParams());
             this.$http.get(url).then(function (response) {
                 this.roles.roles = response.data.data;
+                this.roles.paginator = this.getPaginatorData(response);
             }, function (response) {
                 console.log('error');
             });

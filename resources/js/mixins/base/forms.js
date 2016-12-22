@@ -23,6 +23,17 @@ export default {
             }
             return this.post(this.item);
         },
+        getPaginatorData(response) {
+            return {
+                'total': response.data.total,
+                'per_page': response.data.per_page,
+                'current_page': response.data.current_page,
+                'last_page': response.data.last_page,
+                'from': response.data.from,
+                'to': response.data.to,
+                'meta': response.data.meta,
+            }
+        },
         getUrlParams() {
             let params = {};
             _(this.$route.query).forEach((value, key) => {

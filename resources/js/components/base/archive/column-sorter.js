@@ -1,12 +1,12 @@
 export default {
 
-    props: ['route', 'paginator', 'orderBy'],
-
     computed: {
         showSorter() {
 
+            let data = _.get(this.$parent, 'items.data');
+
             // hide if no data to show
-            if (this.paginator == undefined || this.paginator.length == 0) {
+            if (data == undefined || data.length < 2) {
                 return false;
             }
 
@@ -39,12 +39,14 @@ export default {
         }
     },
 
+    props: ['orderBy', 'routename'],
+
     template: `
         <span v-if="showSorter">
             <span class="ohio-column-sorter pull-right" 
                     v-bind:class="[active, sortBy]"
                     v-bind:order-by="orderBy">
-                <router-link v-bind:to="{ name: route, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
+                <router-link v-bind:to="{ name: routename, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
                     <i class="fa fa-arrows-v"></i>
                     <i class="fa fa-sort-amount-asc"></i>
                     <i class="fa fa-sort-amount-desc"></i>

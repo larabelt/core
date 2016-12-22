@@ -9,13 +9,14 @@ export default {
     data() {
         return {
             teams: {
-                url: '/api/v1/teams/',
-                saving: false,
-                saved: false,
-                errors: {},
-                params: {},
                 team: {},
                 teams: [],
+                url: '/api/v1/teams/',
+                errors: {},
+                paginator: {},
+                params: {},
+                saved: false,
+                saving: false,
             }
         }
     },
@@ -34,6 +35,7 @@ export default {
             let url = this.teams.url + '?' + $.param(this.getUrlParams());
             this.$http.get(url).then(function (response) {
                 this.teams.teams = response.data.data;
+                this.teams.paginator = this.getPaginatorData(response);
             }, function (response) {
                 console.log('error');
             });

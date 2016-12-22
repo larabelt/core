@@ -9,13 +9,14 @@ export default {
     data() {
         return {
             users: {
-                url: '/api/v1/users/',
-                saving: false,
-                saved: false,
-                errors: {},
-                params: {},
                 user: {},
                 users: [],
+                url: '/api/v1/users/',
+                errors: {},
+                paginator: {},
+                params: {},
+                saved: false,
+                saving: false,
             }
         }
     },
@@ -34,6 +35,7 @@ export default {
             let url = this.users.url + '?' + $.param(this.getUrlParams());
             this.$http.get(url).then(function (response) {
                 this.users.users = response.data.data;
+                this.users.paginator = this.getPaginatorData(response);
             }, function (response) {
                 console.log('error');
             });

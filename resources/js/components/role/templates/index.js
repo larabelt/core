@@ -10,15 +10,15 @@ export default `
                     <tr>
                         <th>
                             ID
-                            <column-sorter :routename="'roleIndex'" :order-by="'roles.id'"></column-sorter>
+                            <column-sorter :route="'roleIndex'" :paginator="roles.paginator" :order-by="'roles.id'"></column-sorter>
                         </th>
                         <th>
                             Name
-                            <column-sorter :routename="'roleIndex'" :order-by="'roles.name'"></column-sorter>
+                            <column-sorter :route="'roleIndex'" :paginator="roles.paginator" :order-by="'roles.name'"></column-sorter>
                         </th>
                         <th>
                             Slug
-                            <column-sorter :routename="'roleIndex'" :order-by="'roles.slug'"></column-sorter>
+                            <column-sorter :route="'roleIndex'" :paginator="roles.paginator" :order-by="'roles.slug'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
@@ -48,7 +48,7 @@ export default `
                 </tfoot>
                 
             </table>
-            <pagination :routename="'roleIndex'"></pagination>
+            <pagination :route="'roleIndex'" :paginator="roles.paginator"></pagination>
         </div>
     </div>
 `;

@@ -9,11 +9,11 @@ export default `
                     <tr>
                         <th>
                             ID
-                            <column-sorter :routename="'teamIndex'" :order-by="'teams.id'"></column-sorter>
+                            <column-sorter :route="'teamIndex'" :order-by="'teams.id'"></column-sorter>
                         </th>
                         <th>
                             Name
-                            <column-sorter :routename="'teamIndex'" :order-by="'teams.name'"></column-sorter>
+                            <column-sorter :route="'teamIndex'" :order-by="'teams.name'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
