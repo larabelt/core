@@ -1,26 +1,26 @@
 <?php
 
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 use Ohio\Core\Base\Http\Exceptions;
 use Ohio\Core\Base\Testing\CommonMocks;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 use Ohio\Core\User\User;
-use Ohio\Core\User\Http\Requests\PaginateRequest;
+use Ohio\Core\User\Http\Requests\PaginateUsers;
 
-class BaseApiControllerTest extends \PHPUnit_Framework_TestCase
+class ApiControllerTest extends \PHPUnit_Framework_TestCase
 {
     use CommonMocks;
 
     /**
-     * @covers \Ohio\Core\Base\Http\Controllers\BaseApiController::abort
-     * @covers \Ohio\Core\Base\Http\Controllers\BaseApiController::paginator
-     * @covers \Ohio\Core\Base\Http\Controllers\BaseApiController::getPaginateRequest
-     * @covers \Ohio\Core\Base\Http\Controllers\BaseApiController::set
+     * @covers \Ohio\Core\Base\Http\Controllers\ApiController::abort
+     * @covers \Ohio\Core\Base\Http\Controllers\ApiController::paginator
+     * @covers \Ohio\Core\Base\Http\Controllers\ApiController::getPaginateRequest
+     * @covers \Ohio\Core\Base\Http\Controllers\ApiController::set
      */
     public function test()
     {
-        $controller = new BaseApiController();
+        $controller = new ApiController();
 
         # abort 404
         try {
@@ -38,14 +38,14 @@ class BaseApiControllerTest extends \PHPUnit_Framework_TestCase
 
         # paginator
         $qbMock = $this->getPaginateQBMock();
-        $paginator = $controller->paginator($qbMock, new BasePaginateRequest());
+        $paginator = $controller->paginator($qbMock, new PaginateRequest());
         $this->assertInstanceOf(BaseLengthAwarePaginator::class, $paginator);
 
         # getPaginateRequest
-        $request = $controller->getPaginateRequest(BasePaginateRequest::class, []);
-        $this->assertInstanceOf(BasePaginateRequest::class, $request);
-        $request = $controller->getPaginateRequest(BasePaginateRequest::class, []);
-        $this->assertInstanceOf(BasePaginateRequest::class, $request);
+        $request = $controller->getPaginateRequest(PaginateRequest::class, []);
+        $this->assertInstanceOf(PaginateRequest::class, $request);
+        $request = $controller->getPaginateRequest(PaginateRequest::class, []);
+        $this->assertInstanceOf(PaginateRequest::class, $request);
         try {
             $controller->getPaginateRequest('something stupid');
         } catch (\Exception $e) {

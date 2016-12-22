@@ -2,10 +2,10 @@
 namespace Ohio\Core\Team\Http\Requests;
 
 use Ohio\Core\User\User;
-use Ohio\Core\User\Http\Requests\PaginateUsers as BasePaginateRequest;
+use Ohio\Core\User\Http\Requests\PaginateUsers as PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
-class UserPaginateRequest extends BasePaginateRequest
+class PaginateUsers extends PaginateRequest
 {
     /**
      * @var User

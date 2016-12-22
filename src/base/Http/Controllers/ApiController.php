@@ -3,7 +3,7 @@
 namespace Ohio\Core\Base\Http\Controllers;
 
 use Ohio\Core\Base\Http\Exceptions;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class BaseApiController extends Controller
+class ApiController extends Controller
 {
 
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -31,17 +31,17 @@ class BaseApiController extends Controller
         throw $exception;
     }
 
-    public function getPaginateRequest($class = BasePaginateRequest::class, $query = [])
+    public function getPaginateRequest($class = PaginateRequest::class, $query = [])
     {
 
-        if ($class == BasePaginateRequest::class || is_subclass_of($class, BasePaginateRequest::class)) {
+        if ($class == PaginateRequest::class || is_subclass_of($class, PaginateRequest::class)) {
             return new $class($query);
         }
 
-        throw new \Exception('Invalid class for BaseApiController::getPaginateRequest');
+        throw new \Exception('Invalid class for ApiController::getPaginateRequest');
     }
 
-    public function paginator(Builder $qb, BasePaginateRequest $request)
+    public function paginator(Builder $qb, PaginateRequest $request)
     {
         return new BaseLengthAwarePaginator($qb, $request);
     }

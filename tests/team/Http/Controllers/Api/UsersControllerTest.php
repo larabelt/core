@@ -6,8 +6,8 @@ use Ohio\Core\Base\Testing;
 use Ohio\Core\Team\Team;
 use Ohio\Core\TeamUser\TeamUser;
 use Ohio\Core\User\User;
-use Ohio\Core\Team\Http\Requests\UserAttachRequest;
-use Ohio\Core\Team\Http\Requests\UserPaginateRequest;
+use Ohio\Core\Team\Http\Requests\AttachUser;
+use Ohio\Core\Team\Http\Requests\PaginateUsers;
 use Ohio\Core\Team\Http\Controllers\Api\UsersController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
@@ -38,10 +38,10 @@ class UsersControllerTest extends Testing\OhioTestCase
         $team1 = factory(Team::class)->make();
         $user1 = factory(User::class)->make();
 
-//        $userPaginateRequest = m::mock(UserPaginateRequest::class . '[modifyQuery]');
-//        $userPaginateRequest->merge(['team_id' => 1]);
-//        $qbMock = $this->getPaginateQBMock($userPaginateRequest, [$team1]);
-//        $userPaginateRequest->shouldReceive('modifyQuery')->andReturn($qbMock);
+//        $userPaginateTeams = m::mock(PaginateUsers::class . '[modifyQuery]');
+//        $userPaginateTeams->merge(['team_id' => 1]);
+//        $qbMock = $this->getPaginateQBMock($userPaginateTeams, [$team1]);
+//        $userPaginateTeams->shouldReceive('modifyQuery')->andReturn($qbMock);
 
         $teamRepository = m::mock(Team::class);
         $teamRepository->shouldReceive('find')->with(1)->andReturn($team1);
@@ -92,7 +92,7 @@ class UsersControllerTest extends Testing\OhioTestCase
         $this->assertEquals(204, $response->getStatusCode());
 
         # create team
-        $response = $controller->store(new UserAttachRequest(), 1);
+        $response = $controller->store(new AttachUser(), 1);
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
@@ -101,7 +101,7 @@ class UsersControllerTest extends Testing\OhioTestCase
 
         $controller = m::mock(UsersController::class . '[paginator]', [$teamRepository, $teamUserRepository, $userRepository]);
         $controller->shouldReceive('paginator')->andReturn($paginatorMock);
-        $response = $controller->index(new UserPaginateRequest(), 1);
+        $response = $controller->index(new PaginateUsers(), 1);
         $this->assertInstanceOf(JsonResponse::class, $response);
     }
 

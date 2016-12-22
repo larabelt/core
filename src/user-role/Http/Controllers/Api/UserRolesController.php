@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use Ohio\Core\UserRole;
 use Ohio\Core\UserRole\Http\Requests;
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 
-class UserRolesController extends BaseApiController
+class UserRolesController extends ApiController
 {
 
     /**
@@ -36,7 +36,7 @@ class UserRolesController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateRequest $request)
+    public function index(Requests\PaginateUserRoles $request)
     {
         $request->reCapture();
 
@@ -51,11 +51,11 @@ class UserRolesController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\CreateRequest $request
+     * @param  Requests\StoreUserRole $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\CreateRequest $request)
+    public function store(Requests\StoreUserRole $request)
     {
 
         $userRole = $this->userRole->create($request->all());

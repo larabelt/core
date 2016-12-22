@@ -1,9 +1,9 @@
 <?php
 namespace Ohio\Core\Team\Http\Requests;
 
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 
-class PaginateRequest extends BasePaginateRequest
+class PaginateTeams extends PaginateRequest
 {
     public $perPage = 5;
 

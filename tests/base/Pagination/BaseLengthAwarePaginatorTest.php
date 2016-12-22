@@ -2,7 +2,7 @@
 
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +23,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 
         $qb = $model->newQuery();
 
-        $request = new BasePaginateRequest([
+        $request = new PaginateRequest([
             'q' => 'test',
             'perPage' => 25,
             'page' => 2,

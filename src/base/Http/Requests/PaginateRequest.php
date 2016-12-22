@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class BasePaginateRequest extends Request
+class PaginateRequest extends Request
 {
 
     /**

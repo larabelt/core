@@ -2,11 +2,11 @@
 namespace Ohio\Core\TeamUser\Http\Requests;
 
 use Ohio\Core\TeamUser\TeamUser;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateRequest extends BasePaginateRequest
+class PaginateTeamUsers extends PaginateRequest
 {
     public $perPage = 5;
 

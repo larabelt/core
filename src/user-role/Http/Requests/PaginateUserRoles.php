@@ -1,10 +1,10 @@
 <?php
 namespace Ohio\Core\UserRole\Http\Requests;
 
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateRequest extends BasePaginateRequest
+class PaginateUserRoles extends PaginateRequest
 {
     public $perPage = 5;
 

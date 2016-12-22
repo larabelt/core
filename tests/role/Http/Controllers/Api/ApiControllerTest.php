@@ -4,14 +4,13 @@ use Mockery as m;
 use Ohio\Core\Base\Testing;
 
 use Ohio\Core\Role\Role;
-use Ohio\Core\Role\Http\Requests\CreateRequest;
-use Ohio\Core\Role\Http\Requests\PaginateRequest;
-use Ohio\Core\Role\Http\Requests\UpdateRequest;
+use Ohio\Core\Role\Http\Requests\StoreRole;
+use Ohio\Core\Role\Http\Requests\PaginateRoles;
+use Ohio\Core\Role\Http\Requests\UpdateRole;
 use Ohio\Core\Role\Http\Controllers\Api\RolesController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ApiControllerTest extends Testing\OhioTestCase
 {
@@ -37,7 +36,7 @@ class ApiControllerTest extends Testing\OhioTestCase
 
         $role1 = factory(Role::class)->make();
 
-        $qbMock = $this->getPaginateQBMock(new PaginateRequest(), [$role1]);
+        $qbMock = $this->getPaginateQBMock(new PaginateRoles(), [$role1]);
 
         $roleRepository = m::mock(Role::class);
         $roleRepository->shouldReceive('find')->with(1)->andReturn($role1);
@@ -72,15 +71,15 @@ class ApiControllerTest extends Testing\OhioTestCase
         $this->assertEquals(204, $response->getStatusCode());
 
         # update role
-        $response = $controller->update(new UpdateRequest(), 1);
+        $response = $controller->update(new UpdateRole(), 1);
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # create role
-        $response = $controller->store(new CreateRequest());
+        $response = $controller->store(new StoreRole());
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new PaginateRequest());
+        $response = $controller->index(new PaginateRoles());
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($role1->name, $response->getData()->data[0]->name);
 

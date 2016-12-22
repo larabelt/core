@@ -3,11 +3,11 @@ use Mockery as m;
 use Ohio\Core\Base\Testing;
 
 use Ohio\Core\TeamUser\TeamUser;
-use Ohio\Core\TeamUser\Http\Requests\PaginateRequest;
+use Ohio\Core\TeamUser\Http\Requests\PaginateTeamUsers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateRequestTest extends Testing\OhioTestCase
+class PaginateTeamUsersTest extends Testing\OhioTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,10 +18,10 @@ class PaginateRequestTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateRequest::modifyQuery
-     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateRequest::teamUser
-     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateRequest::items
-     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateRequest::item
+     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateTeamUsers::modifyQuery
+     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateTeamUsers::teamUser
+     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateTeamUsers::items
+     * @covers \Ohio\Core\TeamUser\Http\Requests\PaginateTeamUsers::item
      */
     public function test()
     {
@@ -38,7 +38,7 @@ class PaginateRequestTest extends Testing\OhioTestCase
         $qbMock->shouldReceive('find')->times(2)->with(1)->andReturn($teamUser1);
 
         # modifyQuery
-        $paginateRequest = new PaginateRequest(['team_id' => 1, 'user_id' => 1]);
+        $paginateRequest = new PaginateTeamUsers(['team_id' => 1, 'user_id' => 1]);
         $paginateRequest->modifyQuery($qbMock);
 
         # teamUser

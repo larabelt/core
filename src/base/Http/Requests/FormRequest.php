@@ -1,11 +1,9 @@
 <?php
 namespace Ohio\Core\Base\Http\Requests;
 
-use Illuminate\Http\Request;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 
-class BaseFormRequest extends FormRequest
+class FormRequest extends BaseFormRequest
 {
 
     public function wantsJson()

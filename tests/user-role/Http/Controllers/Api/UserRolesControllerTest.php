@@ -4,8 +4,8 @@ use Mockery as m;
 use Ohio\Core\Base\Testing;
 
 use Ohio\Core\UserRole\UserRole;
-use Ohio\Core\UserRole\Http\Requests\CreateRequest;
-use Ohio\Core\UserRole\Http\Requests\PaginateRequest;
+use Ohio\Core\UserRole\Http\Requests\StoreUserRole;
+use Ohio\Core\UserRole\Http\Requests\PaginateUserRoles;
 use Ohio\Core\UserRole\Http\Requests\UpdateRequest;
 use Ohio\Core\UserRole\Http\Controllers\Api\UserRolesController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
@@ -36,7 +36,7 @@ class ApiControllerTest extends Testing\OhioTestCase
         $userRole1 = new UserRole();
         $userRole1->role_id = 1;
 
-        $qbMock = $this->getPaginateQBMock(new PaginateRequest(), [$userRole1]);
+        $qbMock = $this->getPaginateQBMock(new PaginateUserRoles(), [$userRole1]);
         $qbMock->shouldReceive('with')->once();
 
         $userRoleRepository = m::mock(UserRole::class);
@@ -72,11 +72,11 @@ class ApiControllerTest extends Testing\OhioTestCase
         $this->assertEquals(204, $response->getStatusCode());
 
         # create userRole
-        $response = $controller->store(new CreateRequest());
+        $response = $controller->store(new StoreUserRole());
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new PaginateRequest());
+        $response = $controller->index(new PaginateUserRoles());
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($userRole1->role_id, $response->getData()->data[0]->role_id);
 

@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Team\Http\Controllers\Api;
 
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 use Ohio\Core\Team\Team;
 use Ohio\Core\Team\Http\Requests;
 use Ohio\Core\TeamUser\TeamUser;
@@ -10,7 +10,7 @@ use Ohio\Core\User\User;
 
 use Illuminate\Http\Request;
 
-class UsersController extends BaseApiController
+class UsersController extends ApiController
 {
 
     /**
@@ -57,7 +57,7 @@ class UsersController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\UserPaginateRequest $request, $id)
+    public function index(Requests\PaginateUsers $request, $id)
     {
         $request->reCapture()->merge(['team_id' => $id]);
 
@@ -69,12 +69,12 @@ class UsersController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\UserAttachRequest $request
+     * @param  Requests\AttachUser $request
      * @param  $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\UserAttachRequest $request, $id)
+    public function store(Requests\AttachUser $request, $id)
     {
         $this->team($id);
 

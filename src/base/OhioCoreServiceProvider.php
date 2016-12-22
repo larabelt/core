@@ -3,7 +3,7 @@
 namespace Ohio\Core\Base;
 
 use Ohio\Core;
-use Ohio\Core\Role;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Support\ServiceProvider;
@@ -60,6 +60,13 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         $this->commands(Core\Base\Commands\PublishCommand::class);
         $this->commands(Core\Base\Commands\TestDBCommand::class);
+
+        // morphMap
+        Relation::morphMap([
+            'roles' => Core\Role\Role::class,
+            'teams' => Core\Team\Team::class,
+            'users' => Core\User\User::class,
+        ]);
 
         $this->app['events']->listen('eloquent.saving*', function ($model) {
             if (in_array(Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {

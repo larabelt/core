@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use Ohio\Core\TeamUser;
 use Ohio\Core\TeamUser\Http\Requests;
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 
-class TeamUsersController extends BaseApiController
+class TeamUsersController extends ApiController
 {
 
     /**
@@ -36,7 +36,7 @@ class TeamUsersController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateRequest $request)
+    public function index(Requests\PaginateTeamUsers $request)
     {
         $request->reCapture();
 
@@ -48,11 +48,11 @@ class TeamUsersController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\CreateRequest $request
+     * @param  Requests\StoreTeamUser $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\CreateRequest $request)
+    public function store(Requests\StoreTeamUser $request)
     {
 
         $teamUser = $this->teamUser->create($request->all());

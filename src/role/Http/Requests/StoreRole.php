@@ -1,9 +1,9 @@
 <?php
 namespace Ohio\Core\Role\Http\Requests;
 
-use Ohio\Core\Base\Http\Requests\BaseFormRequest;
+use Ohio\Core\Base\Http\Requests\FormRequest;
 
-class CreateRequest extends BaseFormRequest
+class StoreRole extends FormRequest
 {
 
 

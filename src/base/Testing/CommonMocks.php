@@ -2,7 +2,7 @@
 namespace Ohio\Core\Base\Testing;
 
 use Mockery as m;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -16,10 +16,10 @@ trait CommonMocks
         return $qbMock = m::mock(Builder::class);
     }
 
-    function getPaginateQBMock(BasePaginateRequest $request = null, $results = [])
+    function getPaginateQBMock(PaginateRequest $request = null, $results = [])
     {
 
-        $request = $request ?: new BasePaginateRequest();
+        $request = $request ?: new PaginateRequest();
         $results = new Collection($results);
 
         $qbMock = m::mock(Builder::class);

@@ -1,7 +1,7 @@
 <?php
 namespace Ohio\Core\Base\Pagination;
 
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class BaseLengthAwarePaginator
 {
     /**
-     * @var BasePaginateRequest
+     * @var PaginateRequest
      */
     public $request;
 
@@ -23,7 +23,7 @@ class BaseLengthAwarePaginator
      */
     public $paginator;
 
-    public function __construct(Builder $qb, BasePaginateRequest $request)
+    public function __construct(Builder $qb, PaginateRequest $request)
     {
         $this->qb = $qb;
 

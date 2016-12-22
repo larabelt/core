@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 use Ohio\Core\User\User;
 use Ohio\Core\User\Http\Requests;
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 
-class UsersController extends BaseApiController
+class UsersController extends ApiController
 {
 
     /**

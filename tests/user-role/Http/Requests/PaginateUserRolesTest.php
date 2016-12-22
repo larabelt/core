@@ -4,10 +4,10 @@ use Mockery as m;
 use Ohio\Core\Base\Testing;
 
 use Ohio\Core\UserRole\UserRole;
-use Ohio\Core\UserRole\Http\Requests\PaginateRequest;
+use Ohio\Core\UserRole\Http\Requests\PaginateUserRoles;
 use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
-class PaginateRequestTest extends Testing\OhioTestCase
+class PaginateUserRolesTest extends Testing\OhioTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,7 +18,7 @@ class PaginateRequestTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\UserRole\Http\Requests\PaginateRequest::modifyQuery
+     * @covers \Ohio\Core\UserRole\Http\Requests\PaginateUserRoles::modifyQuery
      */
     public function test()
     {
@@ -26,10 +26,10 @@ class PaginateRequestTest extends Testing\OhioTestCase
         $userRole1->role_id = 1;
 
         # modifyQuery
-        $qbMock = $this->getPaginateQBMock(new PaginateRequest(), [$userRole1]);
+        $qbMock = $this->getPaginateQBMock(new PaginateUserRoles(), [$userRole1]);
         $qbMock->shouldReceive('where')->once()->withArgs(['user_id', 1]);
         $qbMock->shouldReceive('where')->once()->withArgs(['role_id', 2]);
-        new BaseLengthAwarePaginator($qbMock, new PaginateRequest(['user_id' => 1, 'role_id' => 2]));
+        new BaseLengthAwarePaginator($qbMock, new PaginateUserRoles(['user_id' => 1, 'role_id' => 2]));
     }
 
 }

@@ -2,14 +2,14 @@
 
 namespace Ohio\Core\Role\Http\Controllers\Api;
 
-use Ohio\Core\Base\Http\Controllers\BaseApiController;
+use Ohio\Core\Base\Http\Controllers\ApiController;
 
 use Ohio\Core\Role;
 use Ohio\Core\Role\Http\Requests;
 
 use Illuminate\Http\Request;
 
-class RolesController extends BaseApiController
+class RolesController extends ApiController
 {
 
     /**
@@ -37,7 +37,7 @@ class RolesController extends BaseApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateRequest $request)
+    public function index(Requests\PaginateRoles $request)
     {
         $request->reCapture();
 
@@ -49,11 +49,11 @@ class RolesController extends BaseApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\CreateRequest $request
+     * @param  Requests\StoreRole $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\CreateRequest $request)
+    public function store(Requests\StoreRole $request)
     {
 
         $role = $this->role->create($request->all());
@@ -78,12 +78,12 @@ class RolesController extends BaseApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateRequest $request
+     * @param  Requests\UpdateRole $request
      * @param  string $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateRequest $request, $id)
+    public function update(Requests\UpdateRole $request, $id)
     {
         $role = $this->get($id);
 

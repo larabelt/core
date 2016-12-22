@@ -1,9 +1,9 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Base\Http\Requests\BasePaginateRequest;
+use Ohio\Core\Base\Http\Requests\PaginateRequest;
 
-class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
+class PaginateRequestTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -11,18 +11,18 @@ class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::needle()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::offset()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::page()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::perPage()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::orderBy()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::sortBy()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::modifyQuery()
-     * @covers \Ohio\Core\Base\Http\Requests\BasePaginateRequest::items()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::needle()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::offset()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::page()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::perPage()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::orderBy()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::sortBy()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::modifyQuery()
+     * @covers \Ohio\Core\Base\Http\Requests\PaginateRequest::items()
      */
     public function test()
     {
-        $request = new BasePaginateRequest();
+        $request = new PaginateRequest();
 
         $this->assertEmpty($request->needle());
         $this->assertEquals(1, $request->page());
@@ -31,7 +31,7 @@ class BasePaginateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($request->orderBy, $request->orderBy());
         $this->assertEquals($request->sortBy, $request->sortBy());
 
-        $request = new BasePaginateRequest([
+        $request = new PaginateRequest([
             'q' => 'test',
             'perPage' => 25,
             'page' => 2,

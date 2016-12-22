@@ -4,14 +4,13 @@ use Mockery as m;
 use Ohio\Core\Base\Testing;
 
 use Ohio\Core\Team\Team;
-use Ohio\Core\Team\Http\Requests\CreateRequest;
-use Ohio\Core\Team\Http\Requests\PaginateRequest;
-use Ohio\Core\Team\Http\Requests\UpdateRequest;
+use Ohio\Core\Team\Http\Requests\StoreTeam;
+use Ohio\Core\Team\Http\Requests\PaginateTeams;
+use Ohio\Core\Team\Http\Requests\UpdateTeam;
 use Ohio\Core\Team\Http\Controllers\Api\TeamsController;
 use Ohio\Core\Base\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class TeamsControllerTest extends Testing\OhioTestCase
 {
@@ -37,7 +36,7 @@ class TeamsControllerTest extends Testing\OhioTestCase
 
         $team1 = factory(Team::class)->make();
 
-        $qbMock = $this->getPaginateQBMock(new PaginateRequest(), [$team1]);
+        $qbMock = $this->getPaginateQBMock(new PaginateTeams(), [$team1]);
 
         $teamRepository = m::mock(Team::class);
         $teamRepository->shouldReceive('find')->with(1)->andReturn($team1);
@@ -72,15 +71,15 @@ class TeamsControllerTest extends Testing\OhioTestCase
         $this->assertEquals(204, $response->getStatusCode());
 
         # update team
-        $response = $controller->update(new UpdateRequest(), 1);
+        $response = $controller->update(new UpdateTeam(), 1);
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # create team
-        $response = $controller->store(new CreateRequest());
+        $response = $controller->store(new StoreTeam());
         $this->assertInstanceOf(JsonResponse::class, $response);
 
         # index
-        $response = $controller->index(new PaginateRequest());
+        $response = $controller->index(new PaginateTeams());
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals($team1->name, $response->getData()->data[0]->name);
 
