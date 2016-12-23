@@ -1,8 +1,15 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
 import teamService from './service';
 import teamFormTemplate from './templates/form';
+import users from './user/ctlr-edit';
 
 export default {
+    data() {
+        return {
+            morphable_type: 'teams',
+            morphable_id: this.$route.params.id,
+        }
+    },
     components: {
         'heading': {
             data() {
@@ -24,6 +31,7 @@ export default {
                 this.get();
             },
         },
+        users
     },
     template: `
         <div>
@@ -37,6 +45,9 @@ export default {
                             </div>
                             <team-form></team-form>
                         </div>
+                    </div>
+                    <div class="col-md-9">
+                        <users></users>
                     </div>
                 </div>
             </section>

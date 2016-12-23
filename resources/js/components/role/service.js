@@ -14,8 +14,8 @@ export default {
 
     methods: {
         paginate(query) {
-            query = _.merge(this.query, query);
-            let url = this.url + '?' + $.param(query);
+            this.query = _.merge(this.query, query);
+            let url = this.url + '?' + $.param(this.query);
             this.$http.get(url).then(function (response) {
                 this.items = response.data.data;
                 this.paginator = this.setPaginator(response);

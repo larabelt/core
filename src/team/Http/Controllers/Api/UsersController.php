@@ -5,10 +5,7 @@ namespace Ohio\Core\Team\Http\Controllers\Api;
 use Ohio\Core\Base\Http\Controllers\ApiController;
 use Ohio\Core\Team\Team;
 use Ohio\Core\Team\Http\Requests;
-use Ohio\Core\TeamUser\TeamUser;
 use Ohio\Core\User\User;
-
-use Illuminate\Http\Request;
 
 class UsersController extends ApiController
 {
@@ -16,52 +13,59 @@ class UsersController extends ApiController
     /**
      * @var Team
      */
-    public $team;
-
-    /**
-     * @var TeamUser
-     */
-    public $teamUser;
+    public $teams;
 
     /**
      * @var User
      */
-    public $user;
+    public $users;
 
     /**
      * ApiController constructor.
      * @param Team $team
-     * @param TeamUser $teamUser
      * @param User $user
      */
-    public function __construct(Team $team, TeamUser $teamUser, User $user)
+    public function __construct(Team $team, User $user)
     {
-        $this->team = $team;
-        $this->teamUser = $teamUser;
-        $this->user = $user;
+        $this->teams = $team;
+        $this->users = $user;
     }
 
-    public function team($id)
+    public function user($id, $team = null)
     {
-        return $this->team->find($id) ?: $this->abort(404, 'team not found');
+        $user = $this->users->find($id) ?: $this->abort(404);
+
+        if ($team && !$team->users->contains($id)) {
+            $this->abort(400, 'team does not have this user');
+        }
+
+        return $user;
     }
 
-    public function user($userID)
+    public function team($team_id)
     {
-        return $this->user->find($userID) ?: $this->abort(404, 'user not found');
+        $team = $this->teams->find($team_id);
+
+        return $team ?: $this->abort(404);
     }
 
     /**
      * Display a listing of the resource.
      *
      * @param $request
+     * @param  int $team_id
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateUsers $request, $id)
+    public function index(Requests\PaginateUsers $request, $team_id)
     {
-        $request->reCapture()->merge(['team_id' => $id]);
 
-        $paginator = $this->paginator($this->user->query(), $request);
+        $request->reCapture();
+
+        $team = $this->team($team_id);
+
+        $request->merge(['team_id' => $team->id]);
+
+        $paginator = $this->paginator($this->users->query(), $request);
 
         return response()->json($paginator->toArray());
     }
@@ -70,34 +74,59 @@ class UsersController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param  Requests\AttachUser $request
-     * @param  $id
+     * @param  int $team_id
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\AttachUser $request, $id)
+    public function store(Requests\AttachUser $request, $team_id)
     {
-        $this->team($id);
+        $team = $this->team($team_id);
 
-        $userID = $request->get('user_id');
+        $id = $request->get('id');
 
-        $this->teamUser->firstOrCreate(['team_id' => $id, 'user_id' => $userID]);
+        if ($team->users->contains($id)) {
+            $this->abort(422, ['id' => ['user already attached']]);
+        }
 
-        return response()->json(null, 201);
+        $team->users()->attach($id);
+
+        return response()->json($this->user($id), 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $team_id
+     * @param  int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($team_id, $id)
+    {
+        $team = $this->team($team_id);
+
+        $user = $this->user($id, $team);
+
+        return response()->json($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int $team_id
      * @param  int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $userID)
+    public function destroy($team_id, $id)
     {
-        $this->team($id);
-        $this->user($userID);
+        $team = $this->team($team_id);
 
-        $this->teamUser->where(['team_id' => $id, 'user_id' => $userID])->delete();
+        if (!$team->users->contains($id)) {
+            $this->abort(422, ['id' => ['user not attached']]);
+        }
+
+        $team->users()->detach($id);
 
         return response()->json(null, 204);
     }

@@ -30,6 +30,14 @@ Route::group([
     'middleware' => ['api']
 ],
     function () {
+
+        Route::group(['prefix' => 'users/{user_id}/roles'], function () {
+            Route::get('{id}', Controllers\Api\RolesController::class . '@show');
+            Route::delete('{id}', Controllers\Api\RolesController::class . '@destroy');
+            Route::get('', Controllers\Api\RolesController::class . '@index');
+            Route::post('', Controllers\Api\RolesController::class . '@store');
+        });
+
         Route::get('users/{id}', Controllers\Api\UsersController::class . '@show');
         Route::put('users/{id}', Controllers\Api\UsersController::class . '@update');
         Route::delete('users/{id}', Controllers\Api\UsersController::class . '@destroy');

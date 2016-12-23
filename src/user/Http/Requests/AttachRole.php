@@ -1,16 +1,16 @@
 <?php
-namespace Ohio\Core\Team\Http\Requests;
+namespace Ohio\Core\User\Http\Requests;
 
 use Ohio\Core\Base\Http\Requests\FormRequest;
 
-class AttachUser extends FormRequest
+class AttachRole extends FormRequest
 {
 
 
     public function rules()
     {
         return [
-            'id' => 'required|exists:users,id',
+            'id' => 'required|exists:roles,id',
         ];
     }
 

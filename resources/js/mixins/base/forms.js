@@ -1,6 +1,8 @@
 export default {
     data() {
         return {
+            attached: [],
+            detached: [],
             errors: {},
             item: {},
             items: {},

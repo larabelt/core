@@ -12,9 +12,12 @@ Route::group([
     function () {
 
         # team-users
-        Route::get('teams/{id}/users', Controllers\Api\UsersController::class . '@index');
-        Route::post('teams/{id}/users', Controllers\Api\UsersController::class . '@store');
-        Route::delete('teams/{id}/users/{userID}', Controllers\Api\UsersController::class . '@destroy');
+        Route::group(['prefix' => 'teams/{team_id}/users'], function () {
+            Route::get('{id}', Controllers\Api\UsersController::class . '@show');
+            Route::delete('{id}', Controllers\Api\UsersController::class . '@destroy');
+            Route::get('', Controllers\Api\UsersController::class . '@index');
+            Route::post('', Controllers\Api\UsersController::class . '@store');
+        });
 
         # teams
         Route::get('teams/{id}', Controllers\Api\TeamsController::class . '@show');
