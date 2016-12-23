@@ -1,30 +1,22 @@
 global._ = require('lodash');
 
 export default {
-    props: ['route', 'paginator'],
+    props: ['route'],
     data() {
         return {
             max: 5
         }
     },
     computed: {
-
-        results() {
-            return this.$parent.items
+        paginator() {
+            return this.$parent.paginator;
         },
         showPager() {
-
-            // hide if no data to show
             if (this.paginator == undefined || this.paginator.length == 0) {
                 return false;
             }
 
-            // hide if total data is less than perPage limit
-            if (this.paginator.total <= this.paginator.per_page) {
-                return false;
-            }
-
-            return true;
+            return this.paginator.total > this.paginator.per_page;
         },
         isNotFirst() {
             return this.paginator.current_page != 1
@@ -72,36 +64,13 @@ export default {
         }
     },
     methods: {
-        getParams(type, number = null) {
-
-            let params = {};
-            _(this.$parent.$route.query).forEach((value, key) => {
-                params[key] = value;
-            });
-
-            if (typeof params['page'] == 'undefined') {
-                params['page'] = this.paginator.current_page;
+        paginate(event, query) {
+            event.preventDefault();
+            this.$parent.paginate(query);
+            if (this.route != undefined) {
+                query = _.merge(this.$parent.getUrlQuery(), query);
+                this.$parent.$router.push({ name: this.route, query: query})
             }
-
-            switch (type) {
-                case 'first':
-                    params['page'] = 1;
-                    break;
-                case 'previous':
-                    params['page'] = this.paginator.current_page - 1;
-                    break;
-                case 'next':
-                    params['page'] = this.paginator.current_page + 1;
-                    break;
-                case 'last':
-                    params['page'] = this.paginator.last_page;
-                    break;
-                case 'page':
-                    params['page'] = number;
-                    break;
-            }
-
-            return params;
         },
         isActive(id) {
             return id == this.paginator.current_page;
@@ -111,7 +80,7 @@ export default {
         <div v-if="showPager">
             <div class="row">
                 <div class="col-md-5">
-                    <div class="pagination-meta-data" role="status" aria-live="polite">
+                    <div class="pagination-paginator-data" role="status" aria-live="polite">
                         Showing {{ paginator.from }} to {{ paginator.to }} of {{ paginator.total }} entries
                     </div>
                 </div>
@@ -119,30 +88,30 @@ export default {
                     <span class="pull-right">
                         <ul class="pagination-sm pagination">
                             <li v-if="isNotFirst">
-                                <router-link :to="{ name: route, query: getParams('first') }"><i class="fa fa-step-backward" aria-hidden="true"></i></router-link>
+                                <a href="" v-on:click="paginate($event, {page: 1})"><i class="fa fa-step-backward" aria-hidden="true"></i></a>
                             </li>
                             <li v-else class="disabled">
                                 <span aria-hidden="true"><i class="fa fa-step-backward" aria-hidden="true"></i></span>
                             </li>
                             <li v-if="hasPrevious">
-                                <router-link :to="{ name: route, query: getParams('previous') }"><i class="fa fa-backward" aria-hidden="true"></i></router-link>
+                                <a href="" v-on:click="paginate($event, {page: paginator.current_page - 1})"><i class="fa fa-backward" aria-hidden="true"></i></a>
                             </li>
                             <li v-else class="disabled">
                                 <span aria-hidden="true"><i class="fa fa-backward" aria-hidden="true"></i></span>
                             </li>
                             <template v-for="number in indexes">
                                 <li v-bind:class="{ active: isActive(number) }">
-                                    <router-link :to="{ name: route, query: getParams('page', number) }">{{ number }}</router-link>
+                                    <a href="" v-on:click="paginate($event, {page: number})">{{ number }}</a>
                                 </li>
                             </template>
                             <li v-if="hasNext">
-                                <router-link :to="{ name: route, query: getParams('next') }"><i class="fa fa-forward" aria-hidden="true"></i></router-link>
+                                <a href="" v-on:click="paginate($event, {page: paginator.current_page + 1})"><i class="fa fa-forward" aria-hidden="true"></i></a>
                             </li>
                             <li v-else class="disabled">
                                 <span aria-hidden="true"><i class="fa fa-forward" aria-hidden="true"></i></span>
                             </li>
                             <li v-if="hasLast">
-                                <router-link :to="{ name: route, query: getParams('last') }"><i class="fa fa-step-forward" aria-hidden="true"></i></router-link>
+                                <a href="" v-on:click="paginate($event, {page: paginator.last_page})"><i class="fa fa-step-forward" aria-hidden="true"></i></a>
                             </li>
                             <li v-else class="disabled">
                                 <span aria-hidden="true"><i class="fa fa-step-forward" aria-hidden="true"></i></span>

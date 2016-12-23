@@ -1,5 +1,5 @@
 export default `
-    <form user="form">
+    <form team="form">
         <div class="box-body">
             <div class="checkbox">
                 <label>

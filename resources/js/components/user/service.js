@@ -8,72 +8,55 @@ export default {
 
     data() {
         return {
-            users: {
-                user: {},
-                users: [],
-                url: '/api/v1/users/',
-                errors: {},
-                paginator: {},
-                params: {},
-                saved: false,
-                saving: false,
-            }
+            url: '/api/v1/users/',
         }
     },
 
     methods: {
-        submitUser(event) {
-            event.preventDefault();
-            this.users.saving = true;
-            this.users.saved = false;
-            if (this.users.user.id) {
-                return this.updateUser(this.users.user);
-            }
-            return this.storeUser(this.users.user);
-        },
-        paginateUsers() {
-            let url = this.users.url + '?' + $.param(this.getUrlParams());
+        paginate(query) {
+            query = _.merge(this.query, query);
+            let url = this.url + '?' + $.param(query);
             this.$http.get(url).then(function (response) {
-                this.users.users = response.data.data;
-                this.users.paginator = this.getPaginatorData(response);
+                this.items = response.data.data;
+                this.paginator = this.setPaginator(response);
             }, function (response) {
                 console.log('error');
             });
         },
-        getUser() {
-            this.$http.get(this.users.url + this.users.user.id).then((response) => {
-                this.users.user = response.data;
+        get() {
+            this.$http.get(this.url + this.item.id).then((response) => {
+                this.item = response.data;
             }, (response) => {
 
             });
         },
-        updateUser(params) {
-            this.users.errors = {};
-            this.$http.put(this.users.url + this.users.user.id, params).then((response) => {
-                this.users.user = response.data;
-                this.users.saved = true;
+        update(params) {
+            this.errors = {};
+            this.$http.put(this.url + this.item.id, params).then((response) => {
+                this.item = response.data;
+                this.saved = true;
             }, (response) => {
                 if (response.status == 422) {
-                    this.users.errors = response.data.message;
+                    this.errors = response.data.message;
                 }
             });
-            this.users.saving = false;
+            this.saving = false;
         },
-        storeUser(params) {
-            this.users.errors = {};
-            this.$http.post(this.users.url, params).then((response) => {
-                this.$router.push({ name: 'userEdit', params: { id: response.data.id }})
+        store(params) {
+            this.errors = {};
+            this.$http.post(this.url, params).then((response) => {
+                this.$router.push({name: 'userEdit', params: {id: response.data.id}})
             }, (response) => {
                 if (response.status == 422) {
-                    this.users.errors = response.data.message;
+                    this.errors = response.data.message;
                 }
             });
-            this.users.saving = false;
+            this.saving = false;
         },
-        destroyUser(id) {
-            this.$http.delete(this.users.url + id).then(function(response){
-                if( response.status == 204 ) {
-                    this.paginateUsers();
+        destroy(id) {
+            this.$http.delete(this.url + id).then(function (response) {
+                if (response.status == 204) {
+                    this.paginate();
                 }
             });
         }

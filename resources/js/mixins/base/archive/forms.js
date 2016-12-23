@@ -1,16 +1,15 @@
 export default {
     data() {
         return {
-            errors: {},
+            url: '',
+            needle: '',
+            saving: false,
+            saved: false,
+            id: false,
             item: {},
             items: {},
-            needle: '',
-            paginator: {},
-            saved: false,
-            saving: false,
-            status: false,
-            query: {},
-            url: '',
+            filtered: {},
+            errors: {}
         }
     },
     methods: {
@@ -19,10 +18,10 @@ export default {
             this.saving = true;
             this.saved = false;
 
-            if (this.item.id) {
-                return this.update(this.item);
+            if (this.id) {
+                return this.put(this.item);
             }
-            return this.store(this.item);
+            return this.post(this.item);
         },
         setPaginator(response) {
             return {
@@ -32,6 +31,7 @@ export default {
                 'last_page': response.data.last_page,
                 'from': response.data.from,
                 'to': response.data.to,
+                'meta': response.data.meta,
             }
         },
         getUrlQuery() {

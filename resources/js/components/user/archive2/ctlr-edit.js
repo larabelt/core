@@ -20,8 +20,8 @@ export default {
             mixins: [userService],
             template: userFormTemplate,
             mounted() {
-                this.item.id = this.$route.params.id;
-                this.get();
+                this.users.user.id = this.$route.params.id;
+                this.getUser();
             },
         },
     },

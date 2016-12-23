@@ -9,25 +9,25 @@ export default `
                     <tr>
                         <th>
                             ID
-                            <column-sorter :route="'userIndex'" :column="'users.id'"></column-sorter>
+                            <column-sorter :zroute="'userIndex'" :paginator="users.paginator" :order-by="'users.id'" :paginateBy="paginateUsers"></column-sorter>
                         </th>
                         <th>
                             Email
-                            <column-sorter :route="'userIndex'" :column="'users.email'"></column-sorter>
+                            <column-sorter :zroute="'userIndex'" :paginator="users.paginator" :order-by="'users.email'" :paginateBy="paginateUsers"></column-sorter>
                         </th>
                         <th>
                             First Name
-                            <column-sorter :route="'userIndex'" :column="'users.first_name'"></column-sorter>
+                            <column-sorter :zroute="'userIndex'" :paginator="users.paginator" :order-by="'users.first_name'" :paginateBy="paginateUsers"></column-sorter>
                         </th>
                         <th>
                             Last Name
-                            <column-sorter :route="'userIndex'" :column="'users.last_name'"></column-sorter>
+                            <column-sorter :zroute="'userIndex'" :paginator="users.paginator" :order-by="'users.last_name'" :paginateBy="paginateUsers"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>                
-                    <tr v-for="user in items">
+                    <tr v-for="user in users.users">
                         <td>{{ user.id }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.first_name }}</td>
@@ -36,7 +36,7 @@ export default `
                             <router-link :to="{ name: 'userEdit', params: { id: user.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
                             </router-link>
-                            <a class="btn btn-xs btn-danger" v-on:click="destroy(user.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-xs btn-danger" v-on:click="destroyUser(user.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -50,7 +50,11 @@ export default `
                     </tr>
                 </tfoot>
             </table>
-            <pagination :route="'userIndex'"></pagination>
+            <pagination 
+                :zroute="'userIndex'" 
+                :meta="users.paginator"
+                :paginateBy="paginateUsers"
+                ></pagination>
         </div>
     </div>
 `;

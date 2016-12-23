@@ -19,12 +19,8 @@ export default {
             mixins: [userService],
             template: userIndexTemplate,
             mounted() {
-                this.paginateUsers();
-            },
-            watch: {
-                '$route' (to, from) {
-                    this.paginateUsers();
-                }
+                this.query = this.getUrlQuery();
+                this.paginate();
             },
         },
     },

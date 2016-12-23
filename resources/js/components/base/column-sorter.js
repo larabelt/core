@@ -1,54 +1,71 @@
 export default {
 
-    props: ['route', 'paginator', 'orderBy'],
-
+    props: {
+        route: String,
+        paginator: Object,
+        column: String,
+    },
     computed: {
+        paginator() {
+            return this.$parent.paginator;
+        },
         showSorter() {
-
-            // hide if no data to show
-            if (this.paginator == undefined || this.paginator.length == 0) {
-                return false;
-            }
-
-            return true;
+            return this.paginator != undefined && this.paginator.total > 1;
         },
         active() {
-            let route_order = this.$parent.$route.query.orderBy;
-            if (typeof route_order !== 'undefined' && route_order == this.orderBy) {
-                return 'active';
+
+            let orderBy = this.$parent.query.orderBy;
+
+            if (orderBy == undefined || this.column != orderBy) {
+                return ''
             }
-            return '';
-        },
-        params() {
-            let value = {
-                orderBy: this.orderBy,
-                sortBy: this.sortBy,
-                page: 1
-            };
-            return value;
+
+            return 'active';
         },
         sortBy() {
-            let route_order = this.$parent.$route.query.orderBy;
-            let route_sort = this.$parent.$route.query.sortBy;
-            if (typeof route_sort !== 'undefined' && typeof route_order !== 'undefined') {
-                if (this.$parent.$route.query.sortBy == 'asc' && route_order == this.orderBy) {
-                    return 'desc';
-                }
+            return this.getSortBy();
+        },
+        query() {
+            let query = {
+                orderBy: this.column,
+                sortBy: this.getSortBy(),
+                page: 1
+            };
+            return query;
+        },
+    },
+    methods: {
+        getSortBy() {
+            let orderBy = this.$parent.query.orderBy;
+            let sortBy = this.$parent.query.sortBy;
+
+            if (sortBy == undefined || this.column != orderBy) {
+                sortBy = 'asc';
+            } else {
+                sortBy = sortBy == 'asc' ? 'desc' : 'asc';
             }
-            return 'asc';
-        }
+
+            return sortBy;
+        },
+        paginate(event, query) {
+            event.preventDefault();
+            this.$parent.paginate(query);
+            if (this.route != undefined) {
+                query = _.merge(this.$parent.getUrlQuery(), query);
+                this.$parent.$router.push({name: this.route, query: query})
+            }
+        },
     },
 
     template: `
         <span v-if="showSorter">
             <span class="ohio-column-sorter pull-right" 
-                    v-bind:class="[active, sortBy]"
-                    v-bind:order-by="orderBy">
-                <router-link v-bind:to="{ name: route, query: { orderBy: params.orderBy, sortBy: params.sortBy, page: params.page } }">
+                v-bind:class="[active, sortBy]">
+                <a href="" v-on:click="paginate($event, query)">
                     <i class="fa fa-arrows-v"></i>
                     <i class="fa fa-sort-amount-asc"></i>
                     <i class="fa fa-sort-amount-desc"></i>
-                </router-link>
+                </a>
             </span>
         </span>
     `

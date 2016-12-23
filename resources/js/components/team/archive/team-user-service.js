@@ -8,11 +8,11 @@ export default {
 
     data() {
         return {
-            teamUserService: {
+            teamTeamService: {
                 status: null,
-                user: {},
-                users: [],
-                notUsers: [],
+                team: {},
+                teams: [],
+                notTeams: [],
                 errors: {},
                 params: {},
                 meta: {},
@@ -24,53 +24,53 @@ export default {
         baseUrl() {
 
             let url = '/api/v1/teams/'
-                + this.teamUserService.params.team_id
-                + '/users/';
+                + this.teamTeamService.params.team_id
+                + '/teams/';
 
             return url;
         },
-        listNotTeamUsers() {
+        listNotTeamTeams() {
 
-            this.teamUserService.notUsers = [];
+            this.teamTeamService.notTeams = [];
 
             let url = this.baseUrl()
                 + '?not=1'
-                + '&q=' + this.teamUserService.params.q;
+                + '&q=' + this.teamTeamService.params.q;
 
             this.$http.get(url).then(function (response) {
-                this.teamUserService.notUsers = response.data.data;
+                this.teamTeamService.notTeams = response.data.data;
             }, function (response) {
 
             });
 
         },
-        listTeamUsers() {
+        listTeamTeams() {
 
-            this.teamUserService.users = [];
+            this.teamTeamService.teams = [];
 
             let url = this.baseUrl();
 
             this.$http.get(url).then(function (response) {
-                this.teamUserService.users = response.data.data;
+                this.teamTeamService.teams = response.data.data;
             }, function (response) {
 
             });
 
         },
-        attachTeamUser(params) {
+        attachTeamTeam(params) {
 
             this.$http.post(this.baseUrl(), params).then((response) => {
-                this.listTeamUsers();
+                this.listTeamTeams();
             }, (response) => {
 
             });
 
         },
-        detachTeamUser(user_id) {
+        detachTeamTeam(team_id) {
 
-            this.$http.delete(this.baseUrl() + user_id).then(function (response) {
+            this.$http.delete(this.baseUrl() + team_id).then(function (response) {
                 if (response.status == 204) {
-                    this.listTeamUsers();
+                    this.listTeamTeams();
                 }
             });
 

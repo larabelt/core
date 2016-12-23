@@ -9,24 +9,24 @@ export default `
                     <tr>
                         <th>
                             ID
-                            <column-sorter :route="'teamIndex'" :paginator="teams.paginator" :order-by="'teams.id'"></column-sorter>
+                            <column-sorter :route="'teamIndex'" :column="'teams.id'"></column-sorter>
                         </th>
                         <th>
                             Name
-                            <column-sorter :route="'teamIndex'" :paginator="teams.paginator" :order-by="'teams.name'"></column-sorter>
+                            <column-sorter :route="'teamIndex'" :column="'teams.name'"></column-sorter>
                         </th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>                
-                    <tr v-for="team in teams.teams">
-                        <td>{{ team.id }}</td>
-                        <td>{{ team.name }}</td>
+                    <tr v-for="item in items">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
                         <td class="text-right">
-                            <router-link :to="{ name: 'teamEdit', params: { id: team.id } }" v-bind:class="'btn btn-xs btn-warning'">
+                            <router-link :to="{ name: 'teamEdit', params: { id: item.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                 <i class="fa fa-edit"></i>
                             </router-link>
-                            <a class="btn btn-xs btn-danger" v-on:click="destroyTeam(team.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-xs btn-danger" v-on:click="destroy(item.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -38,7 +38,7 @@ export default `
                     </tr>
                 </tfoot>
             </table>
-            <pagination :route="'teamIndex'" :paginator="teams.paginator"></pagination>
+            <pagination :route="'teamIndex'"></pagination>
         </div>
     </div>
 `;

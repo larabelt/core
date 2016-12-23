@@ -1,7 +1,7 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
 import teamService from './team-service';
 import teamFormTemplate from './templates/form';
-import teamUserForm from './templates/form-users';
+import teamTeamForm from './templates/form-teams';
 
 export default {
     components: {
@@ -25,7 +25,7 @@ export default {
                 this.get();
             },
         },
-        'team-user-form': teamUserForm,
+        'team-team-form': teamTeamForm,
     },
     data() {
         return {
@@ -48,10 +48,10 @@ export default {
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Team Users</h3>
+                                <h3 class="box-title">Team Teams</h3>
                             </div>
                             <div class="box-body">
-                                <team-user-form></team-user-form>
+                                <team-team-form></team-team-form>
                             </div>
                         </div>
                     </div>

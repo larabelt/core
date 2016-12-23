@@ -20,8 +20,8 @@ export default {
             mixins: [teamService],
             template: teamFormTemplate,
             mounted() {
-                this.teams.team.id = this.$route.params.id;
-                this.getTeam();
+                this.item.id = this.$route.params.id;
+                this.get();
             },
         },
     },

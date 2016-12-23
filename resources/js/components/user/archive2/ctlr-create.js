@@ -7,7 +7,7 @@ export default {
         'heading': {
             data() {
                 return {
-                    title: 'User Editor',
+                    title: 'User Creator',
                     subtitle: '',
                     crumbs: [
                         {url: '/admin/ohio/core/users', text: 'Manager'}
@@ -19,10 +19,6 @@ export default {
         'user-form': {
             mixins: [userService],
             template: userFormTemplate,
-            mounted() {
-                this.item.id = this.$route.params.id;
-                this.get();
-            },
         },
     },
     template: `
@@ -33,7 +29,7 @@ export default {
                     <div class="col-md-9">
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                                <h3 class="box-title">Edit User</h3>
+                                <h3 class="box-title">Create User</h3>
                             </div>
                             <user-form></user-form>
                         </div>

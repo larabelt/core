@@ -19,12 +19,8 @@ export default {
             mixins: [roleService],
             template: roleIndexTemplate,
             mounted() {
-                this.paginateRoles();
-            },
-            watch: {
-                '$route' (to, from) {
-                    this.paginateRoles();
-                }
+                this.query = this.getUrlQuery();
+                this.paginate();
             },
         },
     },
