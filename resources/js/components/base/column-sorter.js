@@ -12,42 +12,26 @@ export default {
         showSorter() {
             return this.paginator != undefined && this.paginator.total > 1;
         },
-        active() {
+    },
+    watch: {
 
-            let orderBy = this.$parent.query.orderBy;
-
-            if (orderBy == undefined || this.column != orderBy) {
-                return ''
-            }
-
-            return 'active';
-        },
-        sortBy() {
-            return this.getSortBy();
-        },
-        query() {
-            let query = {
-                orderBy: this.column,
-                sortBy: this.getSortBy(),
-                page: 1
-            };
-            return query;
-        },
     },
     methods: {
-        getSortBy() {
+        active() {
+            return this.column == this.$parent.query.orderBy ? 'active' : '';
+        },
+        sortBy() {
             let orderBy = this.$parent.query.orderBy;
             let sortBy = this.$parent.query.sortBy;
-
             if (sortBy == undefined || this.column != orderBy) {
                 sortBy = 'asc';
             } else {
                 sortBy = sortBy == 'asc' ? 'desc' : 'asc';
             }
-
             return sortBy;
         },
-        paginate(event, query) {
+        paginate(event) {
+            let query = this.query();
             event.preventDefault();
             this.$parent.paginate(query);
             if (this.route != undefined) {
@@ -55,13 +39,21 @@ export default {
                 this.$parent.$router.push({name: this.route, query: query})
             }
         },
+        query() {
+            let query = {
+                orderBy: this.column,
+                sortBy: this.sortBy(),
+                page: 1
+            };
+            return query;
+        },
     },
 
     template: `
         <span v-if="showSorter">
             <span class="ohio-column-sorter pull-right" 
-                v-bind:class="[active, sortBy]">
-                <a href="" v-on:click="paginate($event, query)">
+                v-bind:class="[active(), sortBy()]">
+                <a href="" v-on:click="paginate($event)">
                     <i class="fa fa-arrows-v"></i>
                     <i class="fa fa-sort-amount-asc"></i>
                     <i class="fa fa-sort-amount-desc"></i>
