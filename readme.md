@@ -42,9 +42,7 @@ php artisan migrate:refresh --seed
 phpunit --coverage-html=public/tests/ohio/core/base      -c vendor/ohiocms/core/tests/base      --bootstrap=bootstrap/autoload.php
 phpunit --coverage-html=public/tests/ohio/core/role      -c vendor/ohiocms/core/tests/role      --bootstrap=bootstrap/autoload.php
 phpunit --coverage-html=public/tests/ohio/core/team      -c vendor/ohiocms/core/tests/team      --bootstrap=bootstrap/autoload.php
-phpunit --coverage-html=public/tests/ohio/core/team-user -c vendor/ohiocms/core/tests/team-user --bootstrap=bootstrap/autoload.php
 phpunit --coverage-html=public/tests/ohio/core/user      -c vendor/ohiocms/core/tests/user      --bootstrap=bootstrap/autoload.php
-phpunit --coverage-html=public/tests/ohio/core/user-role -c vendor/ohiocms/core/tests/user-role --bootstrap=bootstrap/autoload.php
 ```
 
 ## Acknowledgments / Credits
