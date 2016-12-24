@@ -8,7 +8,10 @@ export default `
             <ol class="breadcrumb">
                 <li><a href="/admin"><i class="fa fa-dashboard"></i> Home</a></li>
                 <template v-if="crumbs">
-                    <li v-for="crumb in crumbs"><a :href="crumb.url">{{ crumb.text }}</a></li>
+                    <li v-for="crumb in crumbs">
+                        <router-link v-if="crumb.route" :to="{ name: crumb.route }">{{ crumb.text }}</router-link>
+						<a v-if="crumb.url" :href="crumb.url">{{ crumb.text }}</a>
+                    </li>
                 </template>
             </ol>
         </section>

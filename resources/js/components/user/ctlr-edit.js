@@ -17,7 +17,7 @@ export default {
                     title: 'User Editor',
                     subtitle: '',
                     crumbs: [
-                        {url: '/admin/ohio/core/users', text: 'Manager'}
+                        {route: 'userIndex', text: 'Manager'},
                     ],
                 }
             },

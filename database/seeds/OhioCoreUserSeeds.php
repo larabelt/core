@@ -4,7 +4,6 @@ use Illuminate\Database\Seeder;
 
 use Ohio\Core\User\User;
 use Ohio\Core\Role\Role;
-use Ohio\Core\UserRole\UserRole;
 
 class OhioCoreUserSeeds extends Seeder
 {
@@ -25,10 +24,7 @@ class OhioCoreUserSeeds extends Seeder
 
         $adminRole = Role::whereName('SUPER')->first();
 
-        UserRole::firstOrCreate([
-            'user_id' => $superUser->id,
-            'role_id' => $adminRole->id,
-        ]);
+        $superUser->roles()->attach($adminRole->id);
 
         factory(User::class, 100)->create()->each(function ($user) {
             //$user->posts()->save(factory(App\Post::class)->make());

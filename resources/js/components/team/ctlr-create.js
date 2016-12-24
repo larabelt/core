@@ -10,7 +10,7 @@ export default {
                     title: 'Team Creator',
                     subtitle: '',
                     crumbs: [
-                        {url: '/admin/ohio/core/teams', text: 'Manager'}
+                        {route: 'teamIndex', text: 'Manager'}
                     ],
                 }
             },

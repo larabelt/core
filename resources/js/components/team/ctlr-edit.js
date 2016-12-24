@@ -17,7 +17,7 @@ export default {
                     title: 'Team Editor',
                     subtitle: '',
                     crumbs: [
-                        {url: '/admin/ohio/core/teams', text: 'Manager'}
+                        {route: 'teamIndex', text: 'Manager'}
                     ],
                 }
             },

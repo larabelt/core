@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="csrf-token" content="{!! csrf_token() !!}" />
+    <meta name="csrf-token" content="{!! csrf_token() !!}"/>
     <title>@yield('meta-title')</title>
     <meta name="description" content="@yield('meta-description')">
     <meta name="keywords" content="@yield('meta-keywords')">

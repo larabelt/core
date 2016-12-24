@@ -3,7 +3,6 @@ import userService from './service';
 import userIndexTemplate from './templates/index';
 
 export default {
-
     components: {
         'heading': {
             data() {

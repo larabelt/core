@@ -10,7 +10,7 @@ export default {
                     title: 'Role Editor',
                     subtitle: '',
                     crumbs: [
-                        {url: '/admin/ohio/core/roles', text: 'Manager'}
+                        {route: 'roleIndex', text: 'Manager'}
                     ],
                 }
             },

@@ -4,6 +4,7 @@ export default `
             <div class="btn-group">
                 <router-link to="/users/create" v-bind:class="'btn btn-primary'">add user</router-link>
             </div>
+            
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
