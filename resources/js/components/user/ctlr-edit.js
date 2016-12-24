@@ -1,8 +1,15 @@
 import headingTemplate from 'ohio/core/js/templates/base/heading';
 import userService from './service';
 import userFormTemplate from './templates/form';
+import roles from './role/ctlr-edit';
 
 export default {
+    data() {
+        return {
+            morphable_type: 'users',
+            morphable_id: this.$route.params.id,
+        }
+    },
     components: {
         'heading': {
             data() {
@@ -24,13 +31,14 @@ export default {
                 this.get();
             },
         },
+        roles
     },
     template: `
         <div>
             <heading></heading>
             <section class="content">
                 <div class="row">
-                    <div class="col-md-9 hide">
+                    <div class="col-md-8">
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Edit User</h3>
@@ -38,15 +46,8 @@ export default {
                             <user-form></user-form>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Roles</h3>
-                            </div>
-                            <div class="box-body">
-                                
-                            </div>
-                        </div>
+                    <div class="col-md-4">
+                        <roles></roles>
                     </div>
                 </div>
             </section>

@@ -16,6 +16,7 @@ export default {
       fullUrl() {
           let url = this.url +
               '/' + this.user_id +
+              '/roles' +
               '/';
           return url;
       }
@@ -32,27 +33,20 @@ export default {
                 console.log('error');
             });
         },
-        paginateNot(query) {
-
-            this.query = _.merge(this.query, query);
-            this.query = _.merge(this.query, {not: 1});
-
-            if (this.query.q.length == 0) {
-                return this.detached = [];
-            }
-
-            let url = this.fullUrl + '?' + $.param(this.query);
-            this.$http.get(url).then(function (response) {
-                this.detached = response.data.data;
+        paginateAll() {
+            this.$http.get('/api/v1/roles').then(function (response) {
+                this.items = response.data.data;
             }, function (response) {
                 console.log('error');
             });
+        },
+        isAttached(role) {
+            return _.findIndex(this.attached, ['id', role.id]) > -1;
         },
         attach(id) {
             this.errors = {};
             this.$http.post(this.fullUrl, {id: id}).then((response) => {
                 this.paginate();
-                this.paginateNot();
             }, (response) => {
                 if (response.status == 422) {
                     this.errors = response.data.message;
