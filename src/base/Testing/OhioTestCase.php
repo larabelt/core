@@ -17,6 +17,11 @@ abstract class OhioTestCase extends TestCase
      */
     protected $baseUrl = 'http://localhost';
 
+    public function exceptionNotThrown()
+    {
+        die('Expected Exception Was Not Thrown');
+    }
+
     /**
      * Creates the application.
      *

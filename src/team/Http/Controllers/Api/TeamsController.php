@@ -32,7 +32,7 @@ class TeamsController extends ApiController
      * Display a listing of the resource.
      *
      * @param $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Requests\PaginateTeams $request)
     {
@@ -46,7 +46,7 @@ class TeamsController extends ApiController
      *
      * @param  Requests\StoreTeam $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Requests\StoreTeam $request)
     {
@@ -70,7 +70,7 @@ class TeamsController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -85,7 +85,7 @@ class TeamsController extends ApiController
      * @param  Requests\UpdateTeam $request
      * @param  string $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Requests\UpdateTeam $request, $id)
     {
@@ -111,7 +111,7 @@ class TeamsController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {

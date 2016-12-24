@@ -36,7 +36,7 @@ class UsersController extends ApiController
      * Display a listing of the resource.
      *
      * @param $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Requests\PaginateUsers $request)
     {
@@ -50,7 +50,7 @@ class UsersController extends ApiController
      *
      * @param  Requests\StoreUser $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Requests\StoreUser $request)
     {
@@ -78,7 +78,7 @@ class UsersController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -93,7 +93,7 @@ class UsersController extends ApiController
      * @param  Requests\UpdateUser $request
      * @param  string $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Requests\UpdateUser $request, $id)
     {
@@ -122,7 +122,7 @@ class UsersController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {

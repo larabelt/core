@@ -54,7 +54,7 @@ class UsersController extends ApiController
      *
      * @param $request
      * @param  int $team_id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Requests\PaginateUsers $request, $team_id)
     {
@@ -76,7 +76,7 @@ class UsersController extends ApiController
      * @param  Requests\AttachUser $request
      * @param  int $team_id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Requests\AttachUser $request, $team_id)
     {
@@ -99,7 +99,7 @@ class UsersController extends ApiController
      * @param  int $team_id
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($team_id, $id)
     {
@@ -116,7 +116,7 @@ class UsersController extends ApiController
      * @param  int $team_id
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($team_id, $id)
     {

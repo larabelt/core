@@ -6,35 +6,42 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 class MorphHelper
 {
 
-    public static $map;
+    /**
+     * @var array
+     */
+    public static $map = [];
 
+    /**
+     * @return array
+     */
     public function map()
     {
         return static::$map ?: static::$map = Relation::morphMap(null, false);
     }
 
+    /**
+     * Convert morphable type to actual class
+     *
+     * @param $type
+     * @return mixed
+     */
     public function type2Class($type)
     {
-        $map = $this->map();
-
-        if (isset($map[$type])) {
-            return $map[$type];
-        }
-
-        return false;
+        return array_get($this->map(), $type);
     }
 
+    /**
+     * Load morphable item
+     *
+     * @param $type
+     * @param $id
+     * @return null
+     */
     public function morph($type, $id)
     {
-        $morphable = null;
-
         $class = $this->type2Class($type);
 
-        if ($class) {
-            $morphable = $class::find($id);
-        }
-
-        return $morphable;
+        return $class ? $class::find($id) : null;
     }
 
 }

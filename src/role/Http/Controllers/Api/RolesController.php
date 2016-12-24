@@ -34,7 +34,7 @@ class RolesController extends ApiController
      * Display a listing of the resource.
      *
      * @param $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Requests\PaginateRoles $request)
     {
@@ -48,7 +48,7 @@ class RolesController extends ApiController
      *
      * @param  Requests\StoreRole $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Requests\StoreRole $request)
     {
@@ -71,7 +71,7 @@ class RolesController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -86,7 +86,7 @@ class RolesController extends ApiController
      * @param  Requests\UpdateRole $request
      * @param  string $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Requests\UpdateRole $request, $id)
     {
@@ -110,7 +110,7 @@ class RolesController extends ApiController
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
