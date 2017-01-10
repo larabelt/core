@@ -26,11 +26,6 @@ class Team extends Model
         'is_active' => 1,
     ];
 
-    public function __toString()
-    {
-        return (string) $this->name;
-    }
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'team_users', 'team_id', 'user_id');

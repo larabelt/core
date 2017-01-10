@@ -23,14 +23,6 @@ class Role extends Model
      */
     protected $fillable = ['name'];
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->name;
-    }
-
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper(trim($value));

@@ -3,6 +3,11 @@
 trait SluggableTrait
 {
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = trim($value);

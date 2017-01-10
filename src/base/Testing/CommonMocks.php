@@ -7,6 +7,7 @@ use Ohio\Core\Base\Pagination\BaseLengthAwarePaginator;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use GuzzleHttp;
 
 trait CommonMocks
 {
@@ -58,6 +59,16 @@ trait CommonMocks
         $paginatorMock = m::mock(BaseLengthAwarePaginator::class);
 
         return $paginatorMock;
+    }
+
+    function getGuzzleMock()
+    {
+        $response = new GuzzleHttp\Psr7\Response();
+
+        $guzzle = m::mock(GuzzleHttp\Client::class . '[get]');
+        $guzzle->shouldReceive('get')->andReturn($response);
+
+        return $guzzle;
     }
 
 }
