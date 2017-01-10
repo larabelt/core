@@ -9,4 +9,9 @@ class FactoryHelper
      */
     public static $ids = [];
 
+    /**
+     * @var array
+     */
+    public static $images = [];
+
 }
