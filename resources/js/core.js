@@ -7,6 +7,7 @@ import teamEdit from './components/team/ctlr-edit';
 import userIndex from './components/user/ctlr-index';
 import userCreate from './components/user/ctlr-create';
 import userEdit from './components/user/ctlr-edit';
+import store from 'ohio/core/js/store/index';
 
 export default class OhioCore {
 
@@ -35,7 +36,7 @@ export default class OhioCore {
                 base: '/admin/ohio/core'
             });
 
-            const app = new Vue({router}).$mount('#ohio-core');
+            const app = new Vue({router, store}).$mount('#ohio-core');
         }
     }
 
