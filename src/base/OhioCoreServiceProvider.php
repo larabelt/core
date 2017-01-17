@@ -2,6 +2,7 @@
 
 namespace Ohio\Core\Base;
 
+use Validator;
 use Ohio\Core;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Routing\Router;
