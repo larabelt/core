@@ -2,11 +2,6 @@
 
 namespace Ohio\Core\Base\Http\Controllers\Behaviors;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
 trait PositionableControllerTrait
 {
 
@@ -18,6 +13,7 @@ trait PositionableControllerTrait
         if ($move && $positionEntityId) {
 
             $entityToMove = $collection->where('id', $id)->first();
+
             $entityInDesiredPosition = $collection->where('id', $positionEntityId)->first();
 
             if ($entityToMove && $entityInDesiredPosition) {
