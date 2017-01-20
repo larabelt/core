@@ -27,7 +27,7 @@ class PublishCommand extends Command
         'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
         'node_modules/admin-lte/dist' => 'public/adminlte/dist',
         'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
-        'node_modules/font-awesome/css' => 'public/css/font-awesome',
+        'node_modules/font-awesome/css' => 'public/fonts',
         'node_modules/font-awesome/fonts' => 'public/fonts',
         'vendor/ohiocms/core/config' => 'config/ohio',
         'vendor/ohiocms/core/resources' => 'resources/ohio/core',
