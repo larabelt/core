@@ -50,7 +50,7 @@ class LoginController extends BaseController
     /**
      * Log the user out of the application.
      *
-     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
@@ -63,4 +63,16 @@ class LoginController extends BaseController
 
         return redirect('/login');
     }
+
+    public function redirectTo()
+    {
+        $user = $this->guard()->user();
+
+        if ($user->hasRole('ADMIN')) {
+            return 'admin';
+        }
+
+        return $this->redirectTo;
+    }
+
 }
