@@ -3,7 +3,7 @@
 use Closure, Session;
 use Illuminate\Contracts\Auth\Guard;
 
-class AdminAuthenticate
+class AdminAuthorize
 {
 
     /**
@@ -32,7 +32,6 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
-
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);

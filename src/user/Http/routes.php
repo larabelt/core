@@ -5,7 +5,7 @@ use Ohio\Core\User\Http\Controllers;
 /**
  * Front
  */
-Route::group(['middleware' => ['web', 'guest']], function () {
+Route::group(['middleware' => ['ohio.web', 'ohio.guest']], function () {
     Route::get('login', Controllers\Auth\LoginController::class . '@showLoginForm');
     Route::post('login', Controllers\Auth\LoginController::class . '@login');
 });
@@ -13,7 +13,7 @@ Route::group(['middleware' => ['web', 'guest']], function () {
 /**
  * Front
  */
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['ohio.web']], function () {
     Route::get('logout', Controllers\Auth\LoginController::class . '@logout');
     Route::post('logout', Controllers\Auth\LoginController::class . '@logout');
     Route::post('password/email', Controllers\Auth\ForgotPasswordController::class . '@sendResetLinkEmail');
@@ -27,7 +27,7 @@ Route::group(['middleware' => ['web']], function () {
  */
 Route::group([
     'prefix' => 'api/v1',
-    'middleware' => ['api']
+    'middleware' => ['ohio.api.admin']
 ],
     function () {
 

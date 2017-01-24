@@ -1,20 +1,11 @@
 <?php
 
 /**
- * Front
- */
-Route::group(['middleware' => ['web']], function () {
-    Route::get('', function () {
-        return view('ohio-core::base.front.home');
-    });
-});
-
-/**
  * Admin
  */
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['web', 'auth.admin']
+    'middleware' => ['ohio.admin']
 ],
     function () {
         Route::get('', function () {
@@ -28,12 +19,12 @@ Route::group([
  */
 Route::group([
     'prefix' => 'admin/ohio/core',
-    'middleware' => ['web', 'auth.admin']
+    'middleware' => ['ohio.admin']
 ],
     function () {
-        Route::get('{a?}/{b?}/{c?}', function () {
+        Route::get('{any?}', function () {
             return view('ohio-core::base.admin.dashboard');
-        });
+        })->where('any', '(.*)');
     }
 );
 
@@ -42,7 +33,7 @@ Route::group([
  */
 Route::group([
     'prefix' => 'home',
-    'middleware' => ['web']
+    'middleware' => ['ohio.web']
 ],
     function () {
         Route::get('', function () {
@@ -54,7 +45,7 @@ Route::group([
 /**
  * Front
  */
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['ohio.web']], function () {
     Route::get('', function () {
         return view('ohio-core::base.front.home');
     });
