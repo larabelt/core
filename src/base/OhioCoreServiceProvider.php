@@ -5,8 +5,9 @@ namespace Ohio\Core\Base;
 use Validator;
 use Ohio\Core;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Routing\Router;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class OhioCoreServiceProvider extends ServiceProvider
@@ -72,6 +73,11 @@ class OhioCoreServiceProvider extends ServiceProvider
                 $model->slugify();
             }
         });
+
+        $this->app->singleton(
+            ExceptionHandler::class,
+            Core\Base\Exceptions\Handler::class
+        );
     }
 
     /**
