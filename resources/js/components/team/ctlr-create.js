@@ -10,7 +10,7 @@ export default {
                     title: 'Team Creator',
                     subtitle: '',
                     crumbs: [
-                        {route: 'teamIndex', text: 'Manager'}
+                        {route: 'teamIndex', text: 'Teams'}
                     ],
                 }
             },
@@ -25,17 +25,12 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Create Team</h3>
-                            </div>
-                            <team-form></team-form>
-                        </div>
+                <div class="box">
+                    <div class="box-body">
+                        <team-form></team-form>
                     </div>
                 </div>
             </section>
-        </div>
+        </div>       
         `
 }

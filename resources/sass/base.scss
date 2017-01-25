@@ -9,8 +9,10 @@
   }
 }
 
-.pagination-meta-data {
-  margin: 15px 0;
+.ohio-pagination {
+  .pagination {
+    margin:0 0;
+  }
 }
 
 @import "components/column-sorter";

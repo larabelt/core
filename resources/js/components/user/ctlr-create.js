@@ -10,7 +10,7 @@ export default {
                     title: 'User Creator',
                     subtitle: '',
                     crumbs: [
-                        {route: 'userIndex', text: 'Manager'}
+                        {route: 'userIndex', text: 'Users'}
                     ],
                 }
             },
@@ -25,14 +25,9 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Create User</h3>
-                            </div>
-                            <user-form></user-form>
-                        </div>
+                <div class="box">
+                    <div class="box-body">
+                        <user-form></user-form>
                     </div>
                 </div>
             </section>

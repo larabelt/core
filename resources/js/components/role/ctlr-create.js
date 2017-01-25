@@ -10,7 +10,7 @@ export default {
                     title: 'Role Creator',
                     subtitle: '',
                     crumbs: [
-                        {route: 'roleIndex', text: 'Manager'}
+                        {route: 'roleIndex', text: 'Roles'}
                     ],
                 }
             },
@@ -25,14 +25,9 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Create Role</h3>
-                            </div>
-                            <role-form></role-form>
-                        </div>
+                <div class="box">
+                    <div class="box-body">
+                        <role-form></role-form>
                     </div>
                 </div>
             </section>

@@ -17,7 +17,7 @@ export default {
                     title: 'Team Editor',
                     subtitle: '',
                     crumbs: [
-                        {route: 'teamIndex', text: 'Manager'}
+                        {route: 'teamIndex', text: 'Teams'}
                     ],
                 }
             },
@@ -37,17 +37,18 @@ export default {
         <div>
             <heading></heading>
             <section class="content">
-                <div class="row">
-                    <div class="col-md-9">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Edit Team</h3>
-                            </div>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs pull-right">
+                        <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Main</a></li>
+                        <li class=""><a href="#tab_2-2" data-toggle="tab" aria-expanded="false">Users</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_1-1">
                             <team-form></team-form>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-                        <users></users>
+                        <div class="tab-pane" id="tab_2-2">
+                            <users></users>
+                        </div>
                     </div>
                 </div>
             </section>

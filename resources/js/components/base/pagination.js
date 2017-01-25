@@ -78,9 +78,9 @@ export default {
     },
     template: `
         <div v-if="showPager">
-            <div class="row">
+            <div class="row ohio-pagination">
                 <div class="col-md-5">
-                    <div class="pagination-paginator-data" role="status" aria-live="polite">
+                    <div class="pagination" role="status" aria-live="polite">
                         Showing {{ paginator.from }} to {{ paginator.to }} of {{ paginator.total }} entries
                     </div>
                 </div>

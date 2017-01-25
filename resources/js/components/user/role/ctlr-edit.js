@@ -24,20 +24,7 @@ export default {
     },
     template: `
         <div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Roles</h3>
-                </div>
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <role-index></role-index>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <role-index></role-index>
         </div>
         `
 }

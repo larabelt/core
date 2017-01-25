@@ -17,7 +17,7 @@ export default {
                     title: 'User Editor',
                     subtitle: '',
                     crumbs: [
-                        {route: 'userIndex', text: 'Manager'},
+                        {route: 'userIndex', text: 'Users'},
                     ],
                 }
             },
@@ -38,16 +38,27 @@ export default {
             <heading></heading>
             <section class="content">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="box box-primary">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Edit User</h3>
+                    <div class="col-md-10">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs pull-right">
+                                <li class="active"><a href="#tab_1-1" data-toggle="tab" aria-expanded="false">Main</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_1-1">
+                                    <user-form></user-form>
+                                </div>
                             </div>
-                            <user-form></user-form>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <roles></roles>
+                    <div class="col-md-2">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">Roles</h3>
+                            </div>
+                            <div class="box-body">
+                                <roles></roles>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

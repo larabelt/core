@@ -23,16 +23,7 @@ export default {
     },
     template: `
         <div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Users</h3>
-                </div>
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <user-index></user-index>
-                    </div>
-                </div>
-            </div>
+            <user-index></user-index>
         </div>
         `
 }
