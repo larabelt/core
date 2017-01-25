@@ -7,7 +7,7 @@ use Ohio\Core\Team\Http\Controllers;
  */
 Route::group([
     'prefix' => 'api/v1',
-    'middleware' => ['api']
+    'middleware' => ['ohio.api.admin']
 ],
     function () {
 

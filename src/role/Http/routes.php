@@ -7,7 +7,7 @@ use Ohio\Core\Role;
  */
 Route::group([
     'prefix' => 'api/v1',
-    'middleware' => ['api']
+    'middleware' => ['ohio.api.admin']
 ],
     function () {
         Route::get('roles/{id}', Role\Http\Controllers\Api\RolesController::class . '@show');
