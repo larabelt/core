@@ -15,5 +15,18 @@
   }
 }
 
+
+.btn-saveable {
+  width: 60px;
+
+  &.saving {
+    background: rgba(red(#3c8dbc), green(#3c8dbc), blue(#3c8dbc), .5);
+  }
+
+  &.saved {
+    background: green;
+  }
+}
+
 @import "components/column-sorter";
 @import "components/form-roles";
