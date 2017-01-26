@@ -3,7 +3,7 @@
 use Mockery as m;
 
 use Ohio\Core\Base\Testing\OhioTestCase;
-use Ohio\Core\Base\Http\Middleware\AdminAuthenticate;
+use Ohio\Core\Base\Http\Middleware\AdminAuthorize;
 use Ohio\Core\User\User;
 
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
-class AdminAuthenticateTest extends OhioTestCase
+class AdminAuthorizeTest extends OhioTestCase
 {
     public function tearDown()
     {
@@ -19,8 +19,8 @@ class AdminAuthenticateTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Base\Http\Middleware\AdminAuthenticate::__construct()
-     * @covers \Ohio\Core\Base\Http\Middleware\AdminAuthenticate::handle()
+     * @covers \Ohio\Core\Base\Http\Middleware\AdminAuthorize::__construct()
+     * @covers \Ohio\Core\Base\Http\Middleware\AdminAuthorize::handle()
      */
     public function test()
     {
@@ -37,7 +37,7 @@ class AdminAuthenticateTest extends OhioTestCase
         $guestGuard->shouldReceive('guest')->andReturn(true);
         $ajaxRequest = m::mock(Request::class);
         $ajaxRequest->shouldReceive('ajax')->andReturn(true);
-        $middleware = new AdminAuthenticate($guestGuard);
+        $middleware = new AdminAuthorize($guestGuard);
         $response = $middleware->handle($ajaxRequest, $next);
         $this->assertInstanceOf(Response::class, $response);
         $this->assertEquals($response->getStatusCode(), 401);
@@ -58,7 +58,7 @@ class AdminAuthenticateTest extends OhioTestCase
         $superGuard = m::mock(Guard::class);
         $superGuard->shouldReceive('guest')->andReturn(false);
         $superGuard->shouldReceive('user')->andReturn($superUser);
-        $middleware = new AdminAuthenticate($superGuard);
+        $middleware = new AdminAuthorize($superGuard);
         $response = $middleware->handle($nonAjaxRequest, $next);
         $this->assertTrue($response);
 
@@ -69,7 +69,7 @@ class AdminAuthenticateTest extends OhioTestCase
         $lameGuard->shouldReceive('guest')->andReturn(false);
         $lameGuard->shouldReceive('user')->andReturn($lameUser);
         $lameGuard->shouldReceive('logout');
-        $middleware = new AdminAuthenticate($lameGuard);
+        $middleware = new AdminAuthorize($lameGuard);
         $response = $middleware->handle($nonAjaxRequest, $next);
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertNotEmpty($response->getSession()->get('warning'));

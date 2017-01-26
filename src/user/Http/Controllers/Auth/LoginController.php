@@ -34,7 +34,7 @@ class LoginController extends BaseController
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('ohio.guest', ['except' => 'logout']);
     }
 
     /**
@@ -69,7 +69,7 @@ class LoginController extends BaseController
         $user = $this->guard()->user();
 
         if ($user->hasRole('ADMIN')) {
-            return 'admin';
+            return '/admin';
         }
 
         return $this->redirectTo;
