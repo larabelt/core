@@ -25,13 +25,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Core\\Base\\": "src/base/",
-      "Ohio\\Core\\Role\\": "src/role/",
-      "Ohio\\Core\\Team\\": "src/team/",
-      "Ohio\\Core\\User\\": "src/user/"
+      "Ohio\\Core\\": "src/"
     },
     "files": [
-      "src/base/helpers.php"
+      "src/Base/helpers.php"
     ]
   }
 }
