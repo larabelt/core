@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\Base\Service;
+namespace Ohio\Core\Base\Services;
 
 use Ohio\Core\Base\PublishHistory;
 use Ohio\Core\Base\Helper\OhioHelper;

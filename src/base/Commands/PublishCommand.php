@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Base\Commands;
 
-use Ohio\Core\Base\Service\PublishService;
+use Ohio\Core\Base\Services\PublishService;
 
 use Illuminate\Console\Command;
 

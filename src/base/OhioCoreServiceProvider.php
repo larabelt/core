@@ -57,8 +57,8 @@ class OhioCoreServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         // middleware
-        $router->middleware('ohio.guest', Core\Base\Http\Middleware\RedirectIfAuthenticated::class);
-        $router->middleware('ohio.throttle', Illuminate\Routing\Middleware\ThrottleRequests::class);
+        $router->aliasMiddleware('ohio.guest', Core\Base\Http\Middleware\RedirectIfAuthenticated::class);
+        $router->aliasMiddleware('ohio.throttle', Illuminate\Routing\Middleware\ThrottleRequests::class);
         $router->middlewareGroup('ohio.web', [
             Illuminate\Cookie\Middleware\EncryptCookies::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -93,17 +93,19 @@ class OhioCoreServiceProvider extends ServiceProvider
         ]);
 
         // add sluggable behavior
-        $this->app['events']->listen('eloquent.saving*', function ($model) {
-            if (in_array(Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {
-                $model->slugify();
+        $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
+            foreach($data as $model) {
+                if (in_array(Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {
+                    $model->slugify();
+                }
             }
         });
 
-        // override exception handler
-        $this->app->singleton(
-            ExceptionHandler::class,
-            Core\Base\Exceptions\Handler::class
-        );
+//        // override exception handler
+//        $this->app->singleton(
+//            ExceptionHandler::class,
+//            Core\Base\Exceptions\Handler::class
+//        );
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);

@@ -1,7 +1,7 @@
 <?php
 
 use Ohio\Core\Base\Commands\PublishCommand;
-use Ohio\Core\Base\Service\PublishService;
+use Ohio\Core\Base\Services\PublishService;
 
 class PublishCommandTest extends \PHPUnit_Framework_TestCase
 {

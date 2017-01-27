@@ -2,7 +2,7 @@
 
 use Mockery as m;
 
-use Ohio\Core\Base\Service\PublishService;
+use Ohio\Core\Base\Services\PublishService;
 use Ohio\Core\Base\PublishHistory;
 use Ohio\Core\Base\Testing\OhioTestCase;
 
@@ -22,16 +22,16 @@ class PublishServiceTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Base\Service\PublishService::__construct
-     * @covers \Ohio\Core\Base\Service\PublishService::setPublishHistoryTable
-     * @covers \Ohio\Core\Base\Service\PublishService::disk
-     * @covers \Ohio\Core\Base\Service\PublishService::getFilePublishHistory
-     * @covers \Ohio\Core\Base\Service\PublishService::putFile
-     * @covers \Ohio\Core\Base\Service\PublishService::createFile
-     * @covers \Ohio\Core\Base\Service\PublishService::replaceFile
-     * @covers \Ohio\Core\Base\Service\PublishService::evalFile
-     * @covers \Ohio\Core\Base\Service\PublishService::publishDir
-     * @covers \Ohio\Core\Base\Service\PublishService::publish
+     * @covers \Ohio\Core\Base\Services\PublishService::__construct
+     * @covers \Ohio\Core\Base\Services\PublishService::setPublishHistoryTable
+     * @covers \Ohio\Core\Base\Services\PublishService::disk
+     * @covers \Ohio\Core\Base\Services\PublishService::getFilePublishHistory
+     * @covers \Ohio\Core\Base\Services\PublishService::putFile
+     * @covers \Ohio\Core\Base\Services\PublishService::createFile
+     * @covers \Ohio\Core\Base\Services\PublishService::replaceFile
+     * @covers \Ohio\Core\Base\Services\PublishService::evalFile
+     * @covers \Ohio\Core\Base\Services\PublishService::publishDir
+     * @covers \Ohio\Core\Base\Services\PublishService::publish
      */
     public function test()
     {
