@@ -19,13 +19,6 @@ class UserTest extends OhioTestCase
      * @covers \Ohio\Core\User\User::setMiAttribute
      * @covers \Ohio\Core\User\User::setPasswordAttribute
      * @covers \Ohio\Core\User\User::setUsernameAttribute
-     * @covers \Ohio\Core\User\User::getAuthIdentifierName
-     * @covers \Ohio\Core\User\User::getAuthIdentifier
-     * @covers \Ohio\Core\User\User::getAuthPassword
-     * @covers \Ohio\Core\User\User::getRememberToken
-     * @covers \Ohio\Core\User\User::setRememberToken
-     * @covers \Ohio\Core\User\User::getRememberTokenName
-     * @covers \Ohio\Core\User\User::getReminderEmail
      * @covers \Ohio\Core\User\User::roles
      * @covers \Ohio\Core\User\User::hasRole
      * @covers \Ohio\Core\User\User::getFullNameAttribute
@@ -59,7 +52,8 @@ class UserTest extends OhioTestCase
         $this->assertFalse($user->hasRole('super'));
         $user->roles->add(factory(Role::class)->make(['name' => 'super']));
         $this->assertEquals(2, $user->roles->count());
-        $this->assertTrue($user->hasRole('super'));
+        $user->is_super = 1;
+        $this->assertTrue($user->hasRole('whatever'));
 
         # setters
         $this->assertEquals('test@test.com', $user->email);
@@ -77,17 +71,17 @@ class UserTest extends OhioTestCase
         $user->mi = null;
         $this->assertEquals('TEST TEST', $user->fullName);
 
-        # Authenticatable functions
-        $user->id = 1;
-        $user->setRememberToken('test');
-        $attributes = $user->getAttributes();
-        $this->assertEquals('test', $attributes['remember_token']);
-        $this->assertNotEmpty($user->getAuthIdentifierName());
-        $this->assertNotEmpty($user->getAuthIdentifier());
-        $this->assertNotEmpty($user->getAuthPassword());
-        $this->assertNotEmpty($user->getRememberToken());
-        $this->assertNotEmpty($user->getRememberTokenName());
-        $this->assertEquals('test@test.com', $user->getReminderEmail());
+//        # Authenticatable functions
+//        $user->id = 1;
+//        $user->setRememberToken('test');
+//        $attributes = $user->getAttributes();
+//        $this->assertEquals('test', $attributes['remember_token']);
+//        $this->assertNotEmpty($user->getAuthIdentifierName());
+//        $this->assertNotEmpty($user->getAuthIdentifier());
+//        $this->assertNotEmpty($user->getAuthPassword());
+//        $this->assertNotEmpty($user->getRememberToken());
+//        $this->assertNotEmpty($user->getRememberTokenName());
+//        $this->assertEquals('test@test.com', $user->getReminderEmail());
 
     }
 

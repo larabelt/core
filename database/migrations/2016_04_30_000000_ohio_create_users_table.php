@@ -16,6 +16,7 @@ class OhioCreateUsersTable extends Migration
             $table->increments('id');
             $table->boolean('is_active')->default(1);
             $table->boolean('is_verified')->default(0);
+            $table->boolean('is_super')->default(0);
             $table->string('email')->unique();
             $table->string('first_name', 100)->nullable();
             $table->string('last_name', 100)->nullable();

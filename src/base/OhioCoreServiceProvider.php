@@ -2,9 +2,8 @@
 
 namespace Ohio\Core\Base;
 
-use Ohio\Core;
+use Ohio;
 use Barryvdh, Collective, Illuminate;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
@@ -28,10 +27,10 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__ . '/Http/routes.php';
-        include __DIR__ . '/../role/Http/routes.php';
-        include __DIR__ . '/../team/Http/routes.php';
-        include __DIR__ . '/../user/Http/routes.php';
+        include __DIR__ . '/../../routes/admin.php';
+        include __DIR__ . '/../../routes/api.php';
+        include __DIR__ . '/../../routes/manage.php';
+        include __DIR__ . '/../../routes/web.php';
     }
 
     /**
@@ -56,56 +55,50 @@ class OhioCoreServiceProvider extends ServiceProvider
         // policies
         $this->registerPolicies($gate);
 
-        // middleware
-        $router->aliasMiddleware('ohio.guest', Core\Base\Http\Middleware\RedirectIfAuthenticated::class);
-        $router->aliasMiddleware('ohio.throttle', Illuminate\Routing\Middleware\ThrottleRequests::class);
-        $router->middlewareGroup('ohio.web', [
-            Illuminate\Cookie\Middleware\EncryptCookies::class,
-            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            Illuminate\Session\Middleware\StartSession::class,
-            Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ]);
-        $router->middlewareGroup('ohio.admin', [
-            'ohio.web',
-            Core\Base\Http\Middleware\AdminAuthorize::class
-        ]);
-        $router->middlewareGroup('ohio.api', [
-            'ohio.throttle:60,1',
-        ]);
-        $router->middlewareGroup('ohio.api.admin', [
-            Illuminate\Cookie\Middleware\EncryptCookies::class,
-            Illuminate\Session\Middleware\StartSession::class,
-            'ohio.api',
-            Core\Base\Http\Middleware\ApiAuthorize::class
-        ]);
+//        // middleware
+//        $router->aliasMiddleware('ohio.guest', Ohio\Core\Base\Http\Middleware\RedirectIfAuthenticated::class);
+//        $router->aliasMiddleware('ohio.throttle', Illuminate\Routing\Middleware\ThrottleRequests::class);
+//        $router->middlewareGroup('ohio.web', [
+//            Illuminate\Cookie\Middleware\EncryptCookies::class,
+//            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+//            Illuminate\Session\Middleware\StartSession::class,
+//            Illuminate\View\Middleware\ShareErrorsFromSession::class,
+//            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+//            Illuminate\Routing\Middleware\SubstituteBindings::class,
+//        ]);
+//        $router->middlewareGroup('ohio.admin', [
+//            'ohio.web',
+//            Ohio\Core\Base\Http\Middleware\AdminAuthorize::class
+//        ]);
+//        $router->middlewareGroup('ohio.api', [
+//            'ohio.throttle:60,1',
+//        ]);
+//        $router->middlewareGroup('ohio.api.admin', [
+//            Illuminate\Cookie\Middleware\EncryptCookies::class,
+//            Illuminate\Session\Middleware\StartSession::class,
+//            'ohio.api',
+//            Ohio\Core\Base\Http\Middleware\ApiAuthorize::class
+//        ]);
 
         // commands
-        $this->commands(Core\Base\Commands\PublishCommand::class);
-        $this->commands(Core\Base\Commands\TestDBCommand::class);
+        $this->commands(Ohio\Core\Base\Commands\PublishCommand::class);
+        $this->commands(Ohio\Core\Base\Commands\TestDBCommand::class);
 
         // morphMap
         Relation::morphMap([
-            'roles' => Core\Role\Role::class,
-            'teams' => Core\Team\Team::class,
-            'users' => Core\User\User::class,
+            'roles' => Ohio\Core\Role\Role::class,
+            'teams' => Ohio\Core\Team\Team::class,
+            'users' => Ohio\Core\User\User::class,
         ]);
 
         // add sluggable behavior
         $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
             foreach($data as $model) {
-                if (in_array(Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {
+                if (in_array(Ohio\Core\Base\Behaviors\SluggableTrait::class, class_uses($model))) {
                     $model->slugify();
                 }
             }
         });
-
-//        // override exception handler
-//        $this->app->singleton(
-//            ExceptionHandler::class,
-//            Core\Base\Exceptions\Handler::class
-//        );
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
@@ -127,15 +120,15 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function registerPolicies(GateContract $gate)
     {
-        $gate->before(function ($user, $ability) {
-            if ($user->hasRole('SUPER')) {
-                return true;
-            }
-        });
-
-        foreach ($this->policies as $key => $value) {
-            $gate->policy($key, $value);
-        }
+//        $gate->before(function ($user, $ability) {
+//            if ($user->hasRole('SUPER')) {
+//                return true;
+//            }
+//        });
+//
+//        foreach ($this->policies as $key => $value) {
+//            $gate->policy($key, $value);
+//        }
     }
 
 }

@@ -13,7 +13,6 @@ class OhioCoreRoleSeeds extends Seeder
      */
     public function run()
     {
-        Role\Role::firstOrCreate(['name' => 'SUPER']);
         Role\Role::firstOrCreate(['name' => 'ADMIN']);
         Role\Role::firstOrCreate(['name' => 'EDITOR']);
     }

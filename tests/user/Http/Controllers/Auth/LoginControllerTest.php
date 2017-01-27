@@ -31,12 +31,6 @@ class LoginControllerTest extends Testing\OhioTestCase
         $view = $controller->showLoginForm();
         $this->assertInstanceOf(View::class, $view);
 
-        # logout
-        $request = new Request();
-        $request->setSession($this->getTestSession());
-        $response = $controller->logout($request);
-        $this->assertInstanceOf(RedirectResponse::class, $response);
-
         # redirect to
         $controller = new LoginControllerStub1();
         $this->assertEquals('/home', $controller->redirectTo());

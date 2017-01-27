@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Base\Exceptions;
 
-use Exception;
+use Exception, Illuminate, Symfony;
 use Ohio\Core\Base\Http\Exceptions\ApiException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -16,12 +16,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Session\TokenMismatchException::class,
-        \Illuminate\Validation\ValidationException::class,
+//        Illuminate\Auth\AuthenticationException::class,
+//        Illuminate\Auth\Access\AuthorizationException::class,
+//        Symfony\Component\HttpKernel\Exception\HttpException::class,
+//        Illuminate\Database\Eloquent\ModelNotFoundException::class,
+//        Illuminate\Session\TokenMismatchException::class,
+//        Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -40,9 +40,9 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  Illuminate\Http\Request $request
      * @param  \Exception $exception
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
@@ -70,9 +70,9 @@ class Handler extends ExceptionHandler
     /**
      * Convert an authentication exception into an unauthenticated response.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Illuminate\Auth\AuthenticationException $exception
-     * @return \Illuminate\Http\Response
+     * @param  Illuminate\Http\Request $request
+     * @param  Illuminate\Auth\AuthenticationException $exception
+     * @return Illuminate\Http\Response
      */
     public function unauthenticated($request, AuthenticationException $exception)
     {

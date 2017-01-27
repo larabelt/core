@@ -36,7 +36,7 @@ class AdminAuthorize
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                Session::set('_redirect', $request->fullUrl());
+                Session::put('_redirect', $request->fullUrl());
                 Session::flash('warning', 'You must be logged in to access that URL.');
                 return redirect()->guest('login');
             }

@@ -14,19 +14,22 @@ class OhioCoreUserSeeds extends Seeder
      */
     public function run()
     {
+        User::unguard();
+
         $superUser = User::firstOrCreate([
             'first_name' => 'SUPER',
             'last_name' => 'ADMIN',
             'email' => 'super@ohiocms.org',
         ]);
 
-        $superUser->update(['password' => bcrypt('secret')]);
+        $superUser->update([
+            'is_super' => true,
+            'first_name' => 'SUPER',
+            'last_name' => 'ADMIN',
+            'password' => bcrypt('secret')
+        ]);
 
-        $adminRole = Role::whereName('SUPER')->first();
-
-        $superUser->roles()->attach($adminRole->id);
-
-        factory(User::class, 100)->create()->each(function ($user) {
+        factory(User::class, 50)->create()->each(function ($user) {
             //$user->posts()->save(factory(App\Post::class)->make());
         });
     }
