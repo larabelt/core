@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core;
+use Ohio\Core\Role;
 
 class OhioCoreRoleSeeds extends Seeder
 {
@@ -13,7 +13,7 @@ class OhioCoreRoleSeeds extends Seeder
      */
     public function run()
     {
-        Role\Role::firstOrCreate(['name' => 'ADMIN']);
-        Role\Role::firstOrCreate(['name' => 'EDITOR']);
+        Role::firstOrCreate(['name' => 'ADMIN']);
+        Role::firstOrCreate(['name' => 'EDITOR']);
     }
 }
