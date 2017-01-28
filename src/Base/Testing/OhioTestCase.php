@@ -32,7 +32,7 @@ abstract class OhioTestCase extends TestCase
 
         $paths = [
             __DIR__ . '/../../../../../../bootstrap/app.php',
-            __DIR__ . '/../../../../demo/bootstrap/app.php',
+            __DIR__ . '/../../../../all/bootstrap/app.php',
         ];
 
         foreach ($paths as $path) {
