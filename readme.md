@@ -39,6 +39,8 @@ sudo service php7.0-fpm restart;
 php artisan migrate:refresh --seed 
 
 # unit testing
+phpunit -c ../core/tests --bootstrap=bootstrap/app.php
+
 phpunit --coverage-html=public/tests/ohio/core/base      -c vendor/ohiocms/core/tests/base      --bootstrap=bootstrap/autoload.php
 phpunit --coverage-html=public/tests/ohio/core/role      -c vendor/ohiocms/core/tests/role      --bootstrap=bootstrap/autoload.php
 phpunit --coverage-html=public/tests/ohio/core/team      -c vendor/ohiocms/core/tests/team      --bootstrap=bootstrap/autoload.php

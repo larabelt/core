@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\User\User;
-use Ohio\Core\Role\Role;
+use Ohio\Core\User;
+use Ohio\Core\Role;
 
 class OhioCoreUserSeeds extends Seeder
 {

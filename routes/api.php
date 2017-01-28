@@ -21,40 +21,40 @@ Route::group([
     function () {
 
         # roles
-        Route::get('roles/{id}', Core\Role\Http\Controllers\Api\RolesController::class . '@show');
-        Route::put('roles/{id}', Core\Role\Http\Controllers\Api\RolesController::class . '@update');
-        Route::delete('roles/{id}', Core\Role\Http\Controllers\Api\RolesController::class . '@destroy');
-        Route::get('roles', Core\Role\Http\Controllers\Api\RolesController::class . '@index');
-        Route::post('roles', Core\Role\Http\Controllers\Api\RolesController::class . '@store');
+        Route::get('roles/{id}', Core\Http\Controllers\Api\RolesController::class . '@show');
+        Route::put('roles/{id}', Core\Http\Controllers\Api\RolesController::class . '@update');
+        Route::delete('roles/{id}', Core\Http\Controllers\Api\RolesController::class . '@destroy');
+        Route::get('roles', Core\Http\Controllers\Api\RolesController::class . '@index');
+        Route::post('roles', Core\Http\Controllers\Api\RolesController::class . '@store');
 
         # team-users
         Route::group(['prefix' => 'teams/{team_id}/users'], function () {
-            Route::get('{id}', Core\Team\Http\Controllers\Api\UsersController::class . '@show');
-            Route::delete('{id}', Core\Team\Http\Controllers\Api\UsersController::class . '@destroy');
-            Route::get('', Core\Team\Http\Controllers\Api\UsersController::class . '@index');
-            Route::post('', Core\Team\Http\Controllers\Api\UsersController::class . '@store');
+            Route::get('{id}', Core\Http\Controllers\Api\UsersController::class . '@show');
+            Route::delete('{id}', Core\Http\Controllers\Api\UsersController::class . '@destroy');
+            Route::get('', Core\Http\Controllers\Api\UsersController::class . '@index');
+            Route::post('', Core\Http\Controllers\Api\UsersController::class . '@store');
         });
 
         # teams
-        Route::get('teams/{id}', Core\Team\Http\Controllers\Api\TeamsController::class . '@show');
-        Route::put('teams/{id}', Core\Team\Http\Controllers\Api\TeamsController::class . '@update');
-        Route::delete('teams/{id}', Core\Team\Http\Controllers\Api\TeamsController::class . '@destroy');
-        Route::get('teams', Core\Team\Http\Controllers\Api\TeamsController::class . '@index');
-        Route::post('teams', Core\Team\Http\Controllers\Api\TeamsController::class . '@store');
+        Route::get('teams/{id}', Core\Http\Controllers\Api\TeamsController::class . '@show');
+        Route::put('teams/{id}', Core\Http\Controllers\Api\TeamsController::class . '@update');
+        Route::delete('teams/{id}', Core\Http\Controllers\Api\TeamsController::class . '@destroy');
+        Route::get('teams', Core\Http\Controllers\Api\TeamsController::class . '@index');
+        Route::post('teams', Core\Http\Controllers\Api\TeamsController::class . '@store');
 
         # user-roles
         Route::group(['prefix' => 'users/{user_id}/roles'], function () {
-            Route::get('{id}', Core\User\Http\Controllers\Api\RolesController::class . '@show');
-            Route::delete('{id}', Core\User\Http\Controllers\Api\RolesController::class . '@destroy');
-            Route::get('', Core\User\Http\Controllers\Api\RolesController::class . '@index');
-            Route::post('', Core\User\Http\Controllers\Api\RolesController::class . '@store');
+            Route::get('{id}', Core\Http\Controllers\Api\RolesController::class . '@show');
+            Route::delete('{id}', Core\Http\Controllers\Api\RolesController::class . '@destroy');
+            Route::get('', Core\Http\Controllers\Api\RolesController::class . '@index');
+            Route::post('', Core\Http\Controllers\Api\RolesController::class . '@store');
         });
 
         # users
-        Route::get('users/{id}', Core\User\Http\Controllers\Api\UsersController::class . '@show');
-        Route::put('users/{id}', Core\User\Http\Controllers\Api\UsersController::class . '@update');
-        Route::delete('users/{id}', Core\User\Http\Controllers\Api\UsersController::class . '@destroy');
-        Route::get('users', Core\User\Http\Controllers\Api\UsersController::class . '@index');
-        Route::post('users', Core\User\Http\Controllers\Api\UsersController::class . '@store');
+        Route::get('users/{id}', Core\Http\Controllers\Api\UsersController::class . '@show');
+        Route::put('users/{id}', Core\Http\Controllers\Api\UsersController::class . '@update');
+        Route::delete('users/{id}', Core\Http\Controllers\Api\UsersController::class . '@destroy');
+        Route::get('users', Core\Http\Controllers\Api\UsersController::class . '@index');
+        Route::post('users', Core\Http\Controllers\Api\UsersController::class . '@store');
     }
 );

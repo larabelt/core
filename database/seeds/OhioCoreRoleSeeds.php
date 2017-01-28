@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\Role;
+use Ohio\Core;
 
 class OhioCoreRoleSeeds extends Seeder
 {

@@ -28,7 +28,7 @@
       "Ohio\\Core\\": "src/"
     },
     "files": [
-      "src/Base/helpers.php"
+      "src/helpers.php"
     ]
   }
 }

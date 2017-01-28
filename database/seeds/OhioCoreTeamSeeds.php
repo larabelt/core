@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\Team\Team;
-use Ohio\Core\User\User;
-use Ohio\Core\TeamUser\TeamUser;
+use Ohio\Core\Team;
+use Ohio\Core\User;
+use Ohio\CoreUser\TeamUser;
 
 class OhioCoreTeamSeeds extends Seeder
 {
