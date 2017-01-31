@@ -24,7 +24,7 @@ class ApiExceptionTest extends \PHPUnit_Framework_TestCase
         $exception->setMsg($messageBag);
 
         $this->assertEquals($exception->getStatusCode(), 422);
-        $this->assertEquals($exception->getHeaders(), null);
+        $this->assertEquals($exception->getHeaders(), []);
         $this->assertEquals($exception->getCode(), 123);
         $this->assertEquals($exception->getMsg(), $messageBag->toArray());
         $this->assertEquals($exception->getPrevious()->getMessage(), 'test');

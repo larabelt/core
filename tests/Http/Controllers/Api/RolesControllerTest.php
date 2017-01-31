@@ -33,6 +33,7 @@ class RolesControllerTest extends Testing\OhioTestCase
      */
     public function test()
     {
+        $this->actAsSuper();
 
         $role1 = factory(Role::class)->make();
 

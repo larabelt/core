@@ -3,12 +3,15 @@
 use Mockery as m;
 use Ohio\Core\Testing\OhioTestCase;
 use Ohio\Core\Exceptions\Handler;
+use Ohio\Core\Http\Exceptions\ApiException;
 use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Validation\ValidationException;
 
 class HandlerTest extends OhioTestCase
 {
@@ -22,48 +25,49 @@ class HandlerTest extends OhioTestCase
      * @covers \Ohio\Core\Exceptions\Handler::render
      * @covers \Ohio\Core\Exceptions\Handler::report
      * @covers \Ohio\Core\Exceptions\Handler::unauthenticated
+     * @covers \Ohio\Core\Exceptions\Handler::getStatusCode
+     * @covers \Ohio\Core\Exceptions\Handler::renderJson
      */
     public function test()
     {
+        $request = new Request();
+        $request->headers->set('Accept', 'application/json');
+
         $handler = new Handler(app());
 
         # unauthenticated
-        $request = m::mock(Request::class);
-        $request->shouldReceive('expectsJson')->andReturn(false);
-        $this->assertInstanceOf(RedirectResponse::class, $handler->unauthenticated($request, new AuthenticationException()));
-        $request = m::mock(Request::class);
-        $request->shouldReceive('expectsJson')->andReturn(true);
+        $this->assertInstanceOf(RedirectResponse::class, $handler->unauthenticated(new Request(), new AuthenticationException()));
         $this->assertInstanceOf(JsonResponse::class, $handler->unauthenticated($request, new AuthenticationException()));
 
         # default report
-        $this->assertNull($handler->report(new TokenMismatchException()));
+        $this->assertNull($handler->report(new AuthorizationException()));
 
-        # Default Handler instead...
+        # default render
         $this->assertNull($handler->render(new Request(), new \Exception()));
 
-        # ApiException
-        $this->assertNotNull($handler->render(new Request(), new ApiNotFoundHttpException()));
+        # status codes
+        $this->assertEquals(200, $handler->getStatusCode(new \Exception()));
+        $this->assertEquals(403, $handler->getStatusCode(new AuthorizationException()));
+        $this->assertEquals(404, $handler->getStatusCode(new ApiNotFoundHttpException()));
 
-        # $request->ajax() == true
-        $request = $this->getMockBuilder(Request::class)
-            ->setMethods(['ajax'])
-            ->getMock();
-        $request->expects($this->once())->method('ajax')->willReturn(true);
-        $this->assertNotNull($handler->render($request, new \Exception()));
+        # renderJson (normal)
+        $response = $handler->render($request, new \Exception('test1'));
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals('test1', $response->getData());
 
-        # $request->wantsJson() == true
-        $request = $this->getMockBuilder(Request::class)
-            ->setMethods(['wantsJson'])
-            ->getMock();
-        $request->expects($this->once())->method('wantsJson')->willReturn(true);
-        $this->assertNotNull($handler->render($request, new \Exception()));
+        # renderJson (getMsg)
+        $exception = new ApiNotFoundHttpException();
+        $exception->setMsg('test2');
+        $response = $handler->render($request, $exception);
+        $this->assertEquals('test2', $response->getData());
+        $this->assertEquals(404, $response->getStatusCode());
 
-        # JsonReponse loaded exception
-        $exception = $this->getMockBuilder(\Exception::class)
-            ->setMethods(['getResponse'])
-            ->getMock();
-        $exception->expects($this->once())->method('getResponse')->willReturn(new JsonResponse('data', 200));
-        $this->assertNotNull($handler->render(new Request(), $exception));
+        # renderJson (getResponse)
+        $validatorFactory = app('Illuminate\Validation\Factory');
+        $validator = $validatorFactory->make([], ['foo' => 'required']);
+        $exception = new ValidationException($validator, new JsonResponse('test3'));
+        $response = $handler->render($request, $exception);
+        $this->assertEquals('test3', $response->getData());
 
     }
 

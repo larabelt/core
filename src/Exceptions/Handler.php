@@ -17,11 +17,17 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
 //        Illuminate\Auth\AuthenticationException::class,
-//        Illuminate\Auth\Access\AuthorizationException::class,
+        Illuminate\Auth\Access\AuthorizationException::class,
 //        Symfony\Component\HttpKernel\Exception\HttpException::class,
 //        Illuminate\Database\Eloquent\ModelNotFoundException::class,
 //        Illuminate\Session\TokenMismatchException::class,
 //        Illuminate\Validation\ValidationException::class,
+    ];
+
+    protected $statusCodes = [
+        Illuminate\Auth\AuthenticationException::class => 401,
+        Illuminate\Auth\Access\AuthorizationException::class => 403,
+        Illuminate\Database\Eloquent\ModelNotFoundException::class => 404,
     ];
 
     /**
@@ -37,6 +43,16 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
+    public function getStatusCode($exception)
+    {
+
+        $statusCode = 200;
+        $statusCode = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : $statusCode;
+        $statusCode = array_get($this->statusCodes, get_class($exception), $statusCode);
+
+        return $statusCode;
+    }
+
     /**
      * Render an exception into an HTTP response.
      *
@@ -46,25 +62,31 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (method_exists($exception, 'getResponse')) {
-            $response = $exception->getResponse();
-            if ($response instanceof JsonResponse) {
-                return response()->json(['message' => $response->getData()], $response->getStatusCode());
-            }
-        }
 
-        if ($exception instanceof ApiException) {
-            return response()->json($exception->getMsg(), $exception->getStatusCode());
-        }
-
-        if ($request->ajax() || $request->wantsJson()) {
-
-            $statusCode = method_exists($exception, 'getStatusCode') ? $exception->getStatusCode() : 200;
-
-            return response()->json($exception->getMessage(), $statusCode);
+        if ($request->wantsJson()) {
+            return $this->renderJson($request, $exception);
         }
 
         parent::render($request, $exception);
+    }
+
+    public function renderJson($request, Exception $exception)
+    {
+
+        $message = $exception->getMessage();
+
+        if (method_exists($exception, 'getMsg')) {
+            $message = $exception->getMsg();
+        }
+
+        if (method_exists($exception, 'getResponse')) {
+            $response = $exception->getResponse();
+            if ($response instanceof JsonResponse) {
+                $message = $response->getData();
+            }
+        }
+
+        return response()->json($message, $this->getStatusCode($exception));
     }
 
     /**

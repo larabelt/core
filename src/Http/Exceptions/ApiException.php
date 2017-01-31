@@ -9,7 +9,7 @@ class ApiException extends Exception implements HttpExceptionInterface
 {
     protected $statusCode;
 
-    protected $headers;
+    protected $headers = [];
 
     protected $msg = [];
 

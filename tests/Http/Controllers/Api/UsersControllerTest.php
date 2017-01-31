@@ -35,6 +35,8 @@ class UsersControllerTest extends Testing\OhioTestCase
     public function test()
     {
 
+        $this->actAsSuper();
+
         $user1 = factory(User::class)->make();
 
         $qbMock = $this->getPaginateQBMock(new PaginateUsers(), [$user1]);

@@ -4,7 +4,8 @@ namespace Ohio\Core\Testing;
 use Mockery as m;
 use Ohio\Core\Http\Requests\PaginateRequest;
 use Ohio\Core\Pagination\BaseLengthAwarePaginator;
-
+use Ohio\Core\User;
+use Ohio\Core\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use GuzzleHttp;
@@ -69,6 +70,29 @@ trait CommonMocks
         $guzzle->shouldReceive('get')->andReturn($response);
 
         return $guzzle;
+    }
+
+    function getUser($type = null)
+    {
+        $user = factory(User::class)->make();
+        $user->id = random_int(1, 10000);
+        $user->roles = new Collection();
+
+        if ($type == 'super') {
+            $user->is_super = true;
+        }
+
+        if ($type == 'admin') {
+            $user->roles->push(factory(Role::class)->make(['name' => 'ADMIN']));
+        }
+
+        return $user;
+    }
+
+    function actAsSuper()
+    {
+        $super = factory(User::class)->make(['is_super' => true]);
+        $this->actingAs($super);
     }
 
 }

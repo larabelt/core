@@ -21,16 +21,18 @@ class UserRolesControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::user
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::role
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::index
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::__construct
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::user
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::role
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::show
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::destroy
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::store
+     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::index
      */
     public function test()
     {
+        $this->actAsSuper();
+
         User::unguard();
         Role::unguard();
 

@@ -3,7 +3,7 @@
 namespace Ohio\Core;
 
 use Ohio;
-use Barryvdh, Collective, Illuminate;
+use Barryvdh, Collective, Illuminate, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
@@ -18,7 +18,11 @@ class OhioCoreServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [];
+    protected $policies = [
+        Ohio\Core\User::class => Ohio\Core\Policies\UserPolicy::class,
+        Ohio\Core\Role::class => Ohio\Core\Policies\RolePolicy::class,
+        Ohio\Core\Team::class => Ohio\Core\Policies\TeamPolicy::class,
+    ];
 
     /**
      * Register the application services.
@@ -93,7 +97,7 @@ class OhioCoreServiceProvider extends ServiceProvider
 
         // add sluggable behavior
         $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
-            foreach($data as $model) {
+            foreach ($data as $model) {
                 if (in_array(Ohio\Core\Behaviors\SluggableTrait::class, class_uses($model))) {
                     $model->slugify();
                 }
@@ -104,10 +108,13 @@ class OhioCoreServiceProvider extends ServiceProvider
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
         if (env('APP_ENV') == 'local') {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
         }
 
         // add other aliases
         $loader = AliasLoader::getInstance();
+        $loader->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
         $loader->alias('Form', Collective\Html\FormFacade::class);
         $loader->alias('Html', Collective\Html\HtmlFacade::class);
     }
@@ -120,15 +127,15 @@ class OhioCoreServiceProvider extends ServiceProvider
      */
     public function registerPolicies(GateContract $gate)
     {
-//        $gate->before(function ($user, $ability) {
-//            if ($user->hasRole('SUPER')) {
-//                return true;
-//            }
-//        });
-//
-//        foreach ($this->policies as $key => $value) {
-//            $gate->policy($key, $value);
-//        }
+        $gate->before(function ($user, $ability) {
+            if ($user->is_super) {
+                return true;
+            }
+        });
+
+        foreach ($this->policies as $key => $value) {
+            $gate->policy($key, $value);
+        }
     }
 
 }

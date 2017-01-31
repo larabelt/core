@@ -31,4 +31,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('', function () {
         return view('ohio-core::base.front.home');
     });
+
+    # debug
+    if (env('APP_ENV') == 'local') {
+        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    }
 });

@@ -58,6 +58,7 @@ class TeamUsersController extends ApiController
      */
     public function index(Requests\PaginateTeamUsers $request, $team_id)
     {
+        $this->authorize('view', Team::class);
 
         $request->reCapture();
 
@@ -82,6 +83,8 @@ class TeamUsersController extends ApiController
     {
         $team = $this->team($team_id);
 
+        $this->authorize('update', $team);
+
         $id = $request->get('id');
 
         if ($team->users->contains($id)) {
@@ -105,6 +108,8 @@ class TeamUsersController extends ApiController
     {
         $team = $this->team($team_id);
 
+        $this->authorize('view', $team);
+
         $user = $this->user($id, $team);
 
         return response()->json($user);
@@ -121,6 +126,8 @@ class TeamUsersController extends ApiController
     public function destroy($team_id, $id)
     {
         $team = $this->team($team_id);
+
+        $this->authorize('update', $team);
 
         if (!$team->users->contains($id)) {
             $this->abort(422, ['id' => ['user not attached']]);

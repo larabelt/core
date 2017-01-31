@@ -36,6 +36,8 @@ class TeamsController extends ApiController
      */
     public function index(Requests\PaginateTeams $request)
     {
+        $this->authorize('index', Team::class);
+
         $paginator = $this->paginator($this->teams->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
@@ -50,6 +52,8 @@ class TeamsController extends ApiController
      */
     public function store(Requests\StoreTeam $request)
     {
+        $this->authorize('create', Team::class);
+
         $input = $request->all();
 
         $team = $this->teams->create(['name' => $input['name']]);
@@ -76,6 +80,8 @@ class TeamsController extends ApiController
     {
         $team = $this->get($id);
 
+        $this->authorize('view', $team);
+
         return response()->json($team);
     }
 
@@ -90,6 +96,8 @@ class TeamsController extends ApiController
     public function update(Requests\UpdateTeam $request, $id)
     {
         $team = $this->get($id);
+
+        $this->authorize('update', $team);
 
         $input = $request->all();
 
@@ -116,6 +124,8 @@ class TeamsController extends ApiController
     public function destroy($id)
     {
         $team = $this->get($id);
+
+        $this->authorize('delete', $team);
 
         $team->delete();
 

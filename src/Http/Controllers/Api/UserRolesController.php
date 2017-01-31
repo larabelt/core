@@ -54,6 +54,7 @@ class UserRolesController extends ApiController
      */
     public function index(Requests\PaginateUserRoles $request, $user_id)
     {
+        $this->authorize('view', User::class);
 
         $request->reCapture();
 
@@ -77,6 +78,8 @@ class UserRolesController extends ApiController
     public function store(Requests\AttachRole $request, $user_id)
     {
         $user = $this->user($user_id);
+
+        $this->authorize('attach', Role::class);
 
         $id = $request->get('id');
 
@@ -103,6 +106,8 @@ class UserRolesController extends ApiController
 
         $role = $this->role($id, $user);
 
+        $this->authorize('view', $role);
+
         return response()->json($role);
     }
 
@@ -117,6 +122,8 @@ class UserRolesController extends ApiController
     public function destroy($user_id, $id)
     {
         $user = $this->user($user_id);
+
+        $this->authorize('detach', Role::class);
 
         if (!$user->roles->contains($id)) {
             $this->abort(422, ['id' => ['role not attached']]);

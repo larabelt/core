@@ -2,8 +2,6 @@
 
 namespace Ohio\Core\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use Ohio\Core\User;
 use Ohio\Core\Http\Requests;
 use Ohio\Core\Http\Controllers\ApiController;
@@ -40,6 +38,8 @@ class UsersController extends ApiController
      */
     public function index(Requests\PaginateUsers $request)
     {
+        $this->authorize('index', User::class);
+
         $paginator = $this->paginator($this->users->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
@@ -54,6 +54,8 @@ class UsersController extends ApiController
      */
     public function store(Requests\StoreUser $request)
     {
+
+        $this->authorize('create', User::class);
 
         $input = $request->all();
 
@@ -82,7 +84,10 @@ class UsersController extends ApiController
      */
     public function show($id)
     {
+
         $user = $this->get($id);
+
+        $this->authorize('view', $user);
 
         return response()->json($user);
     }
@@ -98,6 +103,8 @@ class UsersController extends ApiController
     public function update(Requests\UpdateUser $request, $id)
     {
         $user = $this->get($id);
+
+        $this->authorize('update', $user);
 
         $input = $request->all();
 
@@ -127,6 +134,8 @@ class UsersController extends ApiController
     public function destroy($id)
     {
         $user = $this->get($id);
+
+        $this->authorize('delete', $user);
 
         $user->delete();
 

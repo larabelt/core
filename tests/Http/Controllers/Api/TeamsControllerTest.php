@@ -33,6 +33,7 @@ class TeamsControllerTest extends Testing\OhioTestCase
      */
     public function test()
     {
+        $this->actAsSuper();
 
         $team1 = factory(Team::class)->make();
 

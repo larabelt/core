@@ -20,7 +20,9 @@
     "rutorika/sortable": "3.2.*"
   },
   "require-dev": {
+    "barryvdh/laravel-debugbar": "^2.3",
     "barryvdh/laravel-ide-helper": "2.2.3",
+    "rap2hpoutre/laravel-log-viewer": "^0.8.0",
     "raveren/kint": "1.0.10"
   },
   "autoload": {

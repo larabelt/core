@@ -38,6 +38,8 @@ class RolesController extends ApiController
      */
     public function index(Requests\PaginateRoles $request)
     {
+        $this->authorize('index', Role::class);
+
         $paginator = $this->paginator($this->roles->query(), $request->reCapture());
 
         return response()->json($paginator->toArray());
@@ -52,6 +54,7 @@ class RolesController extends ApiController
      */
     public function store(Requests\StoreRole $request)
     {
+        $this->authorize('create', Role::class);
 
         $input = $request->all();
 
@@ -92,6 +95,8 @@ class RolesController extends ApiController
     {
         $role = $this->get($id);
 
+        $this->authorize('update', $role);
+
         $input = $request->all();
 
         $this->set($role, $input, [
@@ -115,6 +120,8 @@ class RolesController extends ApiController
     public function destroy($id)
     {
         $role = $this->get($id);
+
+        $this->authorize('delete', $role);
 
         $role->delete();
 

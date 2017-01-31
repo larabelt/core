@@ -21,16 +21,18 @@ class TeamUsersControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::team
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::user
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::index
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::__construct
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::team
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::user
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::show
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::destroy
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::store
+     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::index
      */
     public function test()
     {
+        $this->actAsSuper();
+
         Team::unguard();
         User::unguard();
 

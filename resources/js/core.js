@@ -7,6 +7,7 @@ import teamEdit from './components/team/ctlr-edit';
 import userIndex from './components/user/ctlr-index';
 import userCreate from './components/user/ctlr-create';
 import userEdit from './components/user/ctlr-edit';
+import userSelf from './components/user/ctlr-self';
 import store from 'ohio/core/js/store/index';
 
 export default class OhioCore {
@@ -31,6 +32,7 @@ export default class OhioCore {
                     {path: '/users', component: userIndex, canReuse: false, name: 'userIndex'},
                     {path: '/users/create', component: userCreate, name: 'userCreate'},
                     {path: '/users/edit/:id', component: userEdit, name: 'userEdit'},
+                    {path: '/self', component: userSelf, name: 'userSelf'},
                 ],
                 mode: 'history',
                 base: '/admin/ohio/core'
