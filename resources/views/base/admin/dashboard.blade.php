@@ -6,7 +6,7 @@
 
 @section('scripts-body-close')
     @parent
-    <script src="/js/ohio-core.js"></script>
+    <script src="/js/ohio-all.js"></script>
 @endsection
 
 @section('main')

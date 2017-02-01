@@ -1,5 +1,3 @@
-global._ = require('lodash');
-
 export default {
     props: ['route'],
     data() {

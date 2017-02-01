@@ -35,3 +35,5 @@
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/app.js"></script>
 
+{{--<script src="/js/vendor.js"></script>--}}
+
