@@ -4,11 +4,6 @@
 @section('heading-subtitle', 'tmp')
 @section('heading-active', 'tmp')
 
-@section('scripts-body-close')
-    @parent
-    <script src="/js/ohio-all.js"></script>
-@endsection
-
 @section('main')
 
     <div id="ohio-core">
