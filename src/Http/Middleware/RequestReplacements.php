@@ -3,7 +3,7 @@
 use Auth, Closure, Session;
 use Illuminate\Contracts\Auth\Guard;
 
-class Replacements
+class RequestReplacements
 {
 
     /**

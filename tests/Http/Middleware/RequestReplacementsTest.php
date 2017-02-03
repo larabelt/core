@@ -2,14 +2,13 @@
 
 use Mockery as m;
 use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Http\Middleware\Replacements;
-use Ohio\Core\User;
+use Ohio\Core\Http\Middleware\RequestReplacements;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class ReplacementsTest extends OhioTestCase
+class RequestReplacementsTest extends OhioTestCase
 {
     public function tearDown()
     {
@@ -17,9 +16,9 @@ class ReplacementsTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\Replacements::__construct()
-     * @covers \Ohio\Core\Http\Middleware\Replacements::handle()
-     * @covers \Ohio\Core\Http\Middleware\Replacements::replacements()
+     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::__construct()
+     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::handle()
+     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::replacements()
      */
     public function test()
     {
@@ -31,7 +30,7 @@ class ReplacementsTest extends OhioTestCase
         # construct
         $guard = m::mock(Guard::class);
         $guard->shouldReceive('id')->andReturn(1);
-        $middleware = new Replacements($guard);
+        $middleware = new RequestReplacements($guard);
 
         # replacements
         $replacements = $middleware->replacements();

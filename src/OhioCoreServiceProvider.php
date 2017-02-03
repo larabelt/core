@@ -59,37 +59,13 @@ class OhioCoreServiceProvider extends ServiceProvider
         // policies
         $this->registerPolicies($gate);
 
-//        // middleware
-//        $router->aliasMiddleware('ohio.guest', Ohio\Core\Http\Middleware\RedirectIfAuthenticated::class);
-//        $router->aliasMiddleware('ohio.throttle', Illuminate\Routing\Middleware\ThrottleRequests::class);
-//        $router->middlewareGroup('ohio.web', [
-//            Illuminate\Cookie\Middleware\EncryptCookies::class,
-//            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-//            Illuminate\Session\Middleware\StartSession::class,
-//            Illuminate\View\Middleware\ShareErrorsFromSession::class,
-//            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-//            Illuminate\Routing\Middleware\SubstituteBindings::class,
-//        ]);
-//        $router->middlewareGroup('ohio.admin', [
-//            'ohio.web',
-//            Ohio\Core\Http\Middleware\AdminAuthorize::class
-//        ]);
-//        $router->middlewareGroup('ohio.api', [
-//            'ohio.throttle:60,1',
-//        ]);
-//        $router->middlewareGroup('ohio.api.admin', [
-//            Illuminate\Cookie\Middleware\EncryptCookies::class,
-//            Illuminate\Session\Middleware\StartSession::class,
-//            'ohio.api',
-//            Ohio\Core\Http\Middleware\ApiAuthorize::class
-//        ]);
-
         // commands
         $this->commands(Ohio\Core\Commands\PublishCommand::class);
         $this->commands(Ohio\Core\Commands\TestDBCommand::class);
 
         // morphMap
         Relation::morphMap([
+            'params' => Ohio\Core\Param::class,
             'roles' => Ohio\Core\Role::class,
             'teams' => Ohio\Core\Team::class,
             'users' => Ohio\Core\User::class,

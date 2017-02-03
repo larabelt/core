@@ -46,4 +46,17 @@ class FormRequest extends BaseFormRequest
         return $rule;
     }
 
+    public function ruleUnique($table, $columns = [])
+    {
+
+        $rule = new Rules\Unique($table);
+        $rule->where(function ($query) use ($columns) {
+            foreach ($columns as $column) {
+                $query->where($column, $this->get($column));
+            }
+        });
+
+        return $rule;
+    }
+
 }

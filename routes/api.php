@@ -1,7 +1,6 @@
 <?php
 
 use Ohio\Core;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +15,21 @@ use Illuminate\Http\Request;
 
 Route::group([
     'prefix' => 'api/v1',
-    //'middleware' => ['web', 'auth.basic', 'auth', 'api']
     'middleware' => ['web', 'auth.basic', 'api']
 ],
     function () {
+
+        # params
+        Route::group([
+            'prefix' => 'params/{paramable_type}/{paramable_id}',
+            'middleware' => 'request.injections:paramable_type,paramable_id',
+        ], function () {
+            Route::get('{id}', Core\Http\Controllers\Api\ParamsController::class . '@show');
+            Route::put('{id}', Core\Http\Controllers\Api\ParamsController::class . '@update');
+            Route::delete('{id}', Core\Http\Controllers\Api\ParamsController::class . '@destroy');
+            Route::get('', Core\Http\Controllers\Api\ParamsController::class . '@index');
+            Route::post('', Core\Http\Controllers\Api\ParamsController::class . '@store');
+        });
 
         # roles
         Route::get('roles/{id}', Core\Http\Controllers\Api\RolesController::class . '@show');

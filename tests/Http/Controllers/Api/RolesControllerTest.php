@@ -2,7 +2,6 @@
 
 use Mockery as m;
 use Ohio\Core\Testing;
-
 use Ohio\Core\Role;
 use Ohio\Core\Http\Requests\StoreRole;
 use Ohio\Core\Http\Requests\PaginateRoles;

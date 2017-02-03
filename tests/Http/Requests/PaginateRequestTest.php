@@ -11,14 +11,15 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::needle()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::offset()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::page()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::perPage()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::orderBy()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::sortBy()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::modifyQuery()
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::items()
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::needle
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::offset
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::page
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::perPage
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::orderBy
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::sortBy
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::modifyQuery
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::items
+     * @covers \Ohio\Core\Http\Requests\PaginateRequest::reCapture
      */
     public function test()
     {
@@ -53,6 +54,11 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
         $qbMock->shouldReceive('get')->andReturn([]);
         $this->assertEquals($qbMock, $request->modifyQuery($qbMock));
         $this->assertEquals([], $request->items($qbMock));
+
+        # recapture
+        $this->assertEmpty($request->server);
+        $request->reCapture();
+        $this->assertNotEmpty($request->server);
     }
 
 }

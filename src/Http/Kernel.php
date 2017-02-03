@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            'replacements',
+            'request.replacements',
         ],
     ];
 
@@ -57,7 +57,8 @@ class Kernel extends HttpKernel
         'bindings' => Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => Illuminate\Auth\Middleware\Authorize::class,
         'guest' => OhioMiddleware\RedirectIfAuthenticated::class,
-        'replacements' => OhioMiddleware\Replacements::class,
+        'request.replacements' => OhioMiddleware\RequestReplacements::class,
+        'request.injections' => OhioMiddleware\RequestInjections::class,
         'throttle' => Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }
