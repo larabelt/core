@@ -29,7 +29,7 @@ Route::group(['middleware' => ['web']], function () {
 
     # home
     Route::get('', function () {
-        return view('ohio-core::base.front.home');
+        return view('ohio-core::base.web.home');
     });
 
     # debug

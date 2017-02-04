@@ -1,4 +1,4 @@
-@extends('ohio-core::layouts.front.main')
+@extends('ohio-core::layouts.web.main')
 
 @section('main')
 

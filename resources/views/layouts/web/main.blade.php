@@ -27,9 +27,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="front">
+<body class="web">
 
-@include('ohio-core::layouts.front.partials.menu')
+@include('ohio-core::layouts.web.partials.menu')
 
 <div id="main" role="main">
     @include('ohio-core::layouts.shared.partials.flash')
