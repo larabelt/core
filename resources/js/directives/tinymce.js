@@ -1,8 +1,11 @@
+import slugify from 'slugify';
+
 export default {
 
     inserted: function (el, binding) {
 
-        let unique = 'editor-' + binding.value;
+        let slugged = typeof binding.value == 'string' ? slugify(binding.value) : '';
+        let unique = 'editor-' + slugged;
 
         $(el).addClass(unique);
 
