@@ -9,6 +9,9 @@ import userCreate from './components/user/ctlr-create';
 import userEdit from './components/user/ctlr-edit';
 import userSelf from './components/user/ctlr-self';
 import store from 'ohio/core/js/store/index';
+import tinymce_directive from './directives/tinymce';
+
+Vue.directive('tinymce', tinymce_directive);
 
 export default class OhioCore {
 
