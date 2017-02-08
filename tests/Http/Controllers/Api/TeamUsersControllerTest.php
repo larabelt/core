@@ -89,7 +89,7 @@ class TeamUsersControllerTest extends Testing\OhioTestCase
             $controller->user(2, $team);
             $this->exceptionNotThrown();
         } catch (ApiException $e) {
-            $this->assertEquals(400, $e->getStatusCode());
+            $this->assertEquals(404, $e->getStatusCode());
         }
 
         # show
@@ -116,7 +116,7 @@ class TeamUsersControllerTest extends Testing\OhioTestCase
             $controller->destroy(1, 2);
             $this->exceptionNotThrown();
         } catch (ApiException $e) {
-            $this->assertEquals(422, $e->getStatusCode());
+            $this->assertEquals(404, $e->getStatusCode());
         }
 
         # index

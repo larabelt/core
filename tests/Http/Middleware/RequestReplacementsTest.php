@@ -1,15 +1,18 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
+use Ohio\Core\Testing;
 use Ohio\Core\Http\Middleware\RequestReplacements;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class RequestReplacementsTest extends OhioTestCase
+class RequestReplacementsTest extends Testing\OhioTestCase
 {
+
+    use Testing\CommonMocks;
+
     public function tearDown()
     {
         m::close();
@@ -19,6 +22,7 @@ class RequestReplacementsTest extends OhioTestCase
      * @covers \Ohio\Core\Http\Middleware\RequestReplacements::__construct()
      * @covers \Ohio\Core\Http\Middleware\RequestReplacements::handle()
      * @covers \Ohio\Core\Http\Middleware\RequestReplacements::replacements()
+     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::replace()
      */
     public function test()
     {
@@ -38,7 +42,11 @@ class RequestReplacementsTest extends OhioTestCase
 
         # handle
         $requestParameterBag = new ParameterBag(['bar' => '[auth.id]']);
-        $queryParameterBag = new ParameterBag(['foo' => '[auth.id]']);
+        $queryParameterBag = new ParameterBag([
+            'foo' => '[auth.id]',
+            'something' => 'else',
+            'object' => $this->getUploadFile(__FILE__),
+        ]);
         $routeParameterBag = new ParameterBag(['id' => '[auth.id]']);
 
         $route = m::mock(Route::class);

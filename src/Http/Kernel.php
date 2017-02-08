@@ -35,12 +35,18 @@ class Kernel extends HttpKernel
             Illuminate\Session\Middleware\AuthenticateSession::class,
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
             OhioMiddleware\VerifyCsrfToken::class,
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'bindings',
         ],
         'api' => [
+            OhioMiddleware\EncryptCookies::class,
+            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            Illuminate\Session\Middleware\StartSession::class,
+            Illuminate\Session\Middleware\AuthenticateSession::class,
+            //Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            'auth.basic',
             'throttle:60,1',
-            'bindings',
             'request.replacements',
+            'bindings',
         ],
     ];
 

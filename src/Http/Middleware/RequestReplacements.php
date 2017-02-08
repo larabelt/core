@@ -32,6 +32,7 @@ class RequestReplacements
         ];
     }
 
+
     /**
      * Handle an incoming request.
      *
@@ -41,27 +42,49 @@ class RequestReplacements
      */
     public function handle($request, Closure $next)
     {
-        $replacements = $this->replacements();
-
-        $keys = array_keys($replacements);
-        $values = array_values($replacements);
 
         foreach ($request->route()->parameters() as $key => $value) {
-            $value = str_replace($keys, $values, $value);
-            $request->route()->setParameter($key, $value);
+            $replacement = $this->replace($value);
+            if ($replacement) {
+                $request->route()->setParameter($key, $replacement);
+            }
         }
 
         foreach ($request->query->all() as $key => $value) {
-            $value = str_replace($keys, $values, $value);
-            $request->query->set($key, $value);
+            $replacement = $this->replace($value);
+            if ($replacement) {
+                $request->query->set($key, $replacement);
+            }
+
         }
 
         foreach ($request->request->all() as $key => $value) {
-            $value = str_replace($keys, $values, $value);
-            $request->request->set($key, $value);
+            $replacement = $this->replace($value);
+            if ($replacement) {
+                $request->request->set($key, $replacement);
+            }
         }
 
         return $next($request);
+    }
+
+    public function replace($value)
+    {
+        if (!is_string($value)) {
+            return null;
+        }
+
+        $replacements = $this->replacements();
+        $keys = array_keys($replacements);
+        $values = array_values($replacements);
+
+        $replaced = str_replace($keys, $values, $value);
+
+        if ($replaced == $value) {
+            return null;
+        }
+
+        return $replaced;
     }
 
 }
