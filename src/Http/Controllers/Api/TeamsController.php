@@ -66,7 +66,7 @@ class TeamsController extends ApiController
 
         $team->save();
 
-        return response()->json($team);
+        return response()->json($team, 201);
     }
 
     /**

@@ -8,6 +8,7 @@ use Ohio\Core\User;
 use Ohio\Core\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use GuzzleHttp;
 
 trait CommonMocks
@@ -89,10 +90,11 @@ trait CommonMocks
         return $user;
     }
 
-    function actAsSuper()
+    function getUploadFile($path, $name = 'test.jpg', $mimetype = 'image/jpeg')
     {
-        $super = factory(User::class)->make(['is_super' => true]);
-        $this->actingAs($super);
+        $file = new UploadedFile($path, $name, filesize($path), $mimetype, null, true);
+
+        return $file;
     }
 
 }

@@ -1,12 +1,11 @@
 <?php
 namespace Ohio\Core\Testing;
 
-use Tests\CreatesApplication;
+use Ohio\Core\User;
 use Ohio\Core\Helpers\OhioHelper;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\TestCase;
-use Illuminate\Http\Request;
 use Illuminate\Session\Store;
+use Tests\CreatesApplication;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
 abstract class OhioTestCase extends TestCase
@@ -25,40 +24,11 @@ abstract class OhioTestCase extends TestCase
         throw new \Exception('Expected Exception Was Not Thrown, So Throwing This One Instead.');
     }
 
-//    /**
-//     * Creates the application.
-//     *
-//     * @return \Illuminate\Foundation\Application
-//     */
-//    public function createApplication()
-//    {
-//        $path = null;
-//        $argv = Request::capture()->server('argv') ?: [];
-//        foreach ($argv as $v) {
-//            if (str_contains($v, '--bootstrap=')) {
-//                $path = str_replace('--bootstrap=', '', $v);
-//                break;
-//            }
-//        }
-//
-//        if (!$path || !file_exists($path)) {
-//            $paths = [
-//                __DIR__ . '/../../../../../../bootstrap/app.php',
-//                __DIR__ . '/../../../../../bootstrap/app.php',
-//            ];
-//            foreach ($paths as $path) {
-//                if (file_exists($path)) {
-//                    break;
-//                }
-//            }
-//        }
-//
-//        $app = require $path;
-//
-//        $app->make(Kernel::class)->bootstrap();
-//
-//        return $app;
-//    }
+    public function actAsSuper()
+    {
+        $super = factory(User::class)->make(['is_super' => true]);
+        $this->actingAs($super);
+    }
 
     /**
      * Copy and paste testDB stub over actual testDB
@@ -72,8 +42,8 @@ abstract class OhioTestCase extends TestCase
     public function refreshDB()
     {
 
-        //app()['config']->set('database.default', 'sqlite');
-        //app()['config']->set('database.connections.sqlite.database', 'database/testing/database.sqlite');
+        app()['config']->set('database.default', 'sqlite');
+        app()['config']->set('database.connections.sqlite.database', 'database/testing/stub.sqlite');
 
         $disk = OhioHelper::baseDisk();
 

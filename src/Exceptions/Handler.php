@@ -28,6 +28,7 @@ class Handler extends ExceptionHandler
         Illuminate\Auth\AuthenticationException::class => 401,
         Illuminate\Auth\Access\AuthorizationException::class => 403,
         Illuminate\Database\Eloquent\ModelNotFoundException::class => 404,
+        Illuminate\Validation\ValidationException::class => 422,
     ];
 
     /**

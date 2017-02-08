@@ -32,7 +32,7 @@ class UserRolesController extends ApiController
         $role = $this->roles->find($id) ?: $this->abort(404);
 
         if ($user && !$user->roles->contains($id)) {
-            $this->abort(400, 'user does not have this role');
+            $this->abort(404, 'user does not have this role');
         }
 
         return $role;
@@ -125,9 +125,7 @@ class UserRolesController extends ApiController
 
         $this->authorize('detach', Role::class);
 
-        if (!$user->roles->contains($id)) {
-            $this->abort(422, ['id' => ['role not attached']]);
-        }
+        $this->role($id, $user);
 
         $user->roles()->detach($id);
 

@@ -21,7 +21,7 @@ Route::group([
 
         # params
         Route::group([
-            'prefix' => 'params/{paramable_type}/{paramable_id}',
+            'prefix' => '{paramable_type}/{paramable_id}/params',
             'middleware' => 'request.injections:paramable_type,paramable_id',
         ], function () {
             Route::get('{id}', Core\Http\Controllers\Api\ParamsController::class . '@show');
@@ -40,10 +40,10 @@ Route::group([
 
         # team-users
         Route::group(['prefix' => 'teams/{team_id}/users'], function () {
-            Route::get('{id}', Core\Http\Controllers\Api\UsersController::class . '@show');
-            Route::delete('{id}', Core\Http\Controllers\Api\UsersController::class . '@destroy');
-            Route::get('', Core\Http\Controllers\Api\UsersController::class . '@index');
-            Route::post('', Core\Http\Controllers\Api\UsersController::class . '@store');
+            Route::get('{id}', Core\Http\Controllers\Api\TeamUsersController::class . '@show');
+            Route::delete('{id}', Core\Http\Controllers\Api\TeamUsersController::class . '@destroy');
+            Route::get('', Core\Http\Controllers\Api\TeamUsersController::class . '@index');
+            Route::post('', Core\Http\Controllers\Api\TeamUsersController::class . '@store');
         });
 
         # teams
@@ -55,10 +55,10 @@ Route::group([
 
         # user-roles
         Route::group(['prefix' => 'users/{user_id}/roles'], function () {
-            Route::get('{id}', Core\Http\Controllers\Api\RolesController::class . '@show');
-            Route::delete('{id}', Core\Http\Controllers\Api\RolesController::class . '@destroy');
-            Route::get('', Core\Http\Controllers\Api\RolesController::class . '@index');
-            Route::post('', Core\Http\Controllers\Api\RolesController::class . '@store');
+            Route::get('{id}', Core\Http\Controllers\Api\UserRolesController::class . '@show');
+            Route::delete('{id}', Core\Http\Controllers\Api\UserRolesController::class . '@destroy');
+            Route::get('', Core\Http\Controllers\Api\UserRolesController::class . '@index');
+            Route::post('', Core\Http\Controllers\Api\UserRolesController::class . '@store');
         });
 
         # users

@@ -121,6 +121,8 @@ class ParamsController extends ApiController
             'value',
         ]);
 
+        $param->save();
+
         return response()->json($param);
     }
 

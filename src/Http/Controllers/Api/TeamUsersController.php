@@ -36,7 +36,7 @@ class TeamUsersController extends ApiController
         $user = $this->users->find($id) ?: $this->abort(404);
 
         if ($team && !$team->users->contains($id)) {
-            $this->abort(400, 'team does not have this user');
+            $this->abort(404, 'team does not have this user');
         }
 
         return $user;
@@ -129,9 +129,7 @@ class TeamUsersController extends ApiController
 
         $this->authorize('update', $team);
 
-        if (!$team->users->contains($id)) {
-            $this->abort(422, ['id' => ['user not attached']]);
-        }
+        $this->user($id, $team);
 
         $team->users()->detach($id);
 
