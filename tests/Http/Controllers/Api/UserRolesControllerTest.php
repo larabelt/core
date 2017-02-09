@@ -86,7 +86,7 @@ class UserRolesControllerTest extends Testing\OhioTestCase
             $controller->role(102, $user1);
             $this->exceptionNotThrown();
         } catch (ApiException $e) {
-            $this->assertEquals(400, $e->getStatusCode());
+            $this->assertEquals(404, $e->getStatusCode());
         }
 
         # show
@@ -113,7 +113,7 @@ class UserRolesControllerTest extends Testing\OhioTestCase
             $controller->destroy(1, 102);
             $this->exceptionNotThrown();
         } catch (ApiException $e) {
-            $this->assertEquals(422, $e->getStatusCode());
+            $this->assertEquals(404, $e->getStatusCode());
         }
 
         # index
