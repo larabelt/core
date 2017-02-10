@@ -52,7 +52,7 @@ class ApiController extends Controller
             foreach ($key as $_key) {
                 $this->set($item, $input, $_key);
             }
-        } elseif (isset($input[$key])) {
+        } elseif (array_key_exists($key, $input)) {
             $item->$key = $input[$key];
         }
     }
