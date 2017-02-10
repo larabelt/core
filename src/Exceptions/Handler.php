@@ -59,7 +59,7 @@ class Handler extends ExceptionHandler
      *
      * @param  Illuminate\Http\Request $request
      * @param  \Exception $exception
-     * @return Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function render($request, Exception $exception)
     {
@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
             return $this->renderJson($exception);
         }
 
-        parent::render($request, $exception);
+        return parent::render($request, $exception);
     }
 
     public function renderJson(Exception $exception)

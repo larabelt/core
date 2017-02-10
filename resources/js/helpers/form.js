@@ -88,7 +88,7 @@ class BaseForm {
             this.saving = true;
             console.log('form.update(): Promise');
             console.log(this.service);
-            this.service.update(id, this.data())
+            this.service.put(id, this.data())
                 .then(response => {
                     this.saving = null;
                     this.setData(response.data);
@@ -111,7 +111,7 @@ class BaseForm {
             this.saving = true;
             console.log('form.store(): Promise');
             console.log(this.service);
-            this.service.store(this.data())
+            this.service.post(this.data())
                 .then(response => {
                     if (this.router && this.routeEditName) {
                         this.router.push({name: this.routeEditName, params: {id: response.data.id}})
@@ -151,8 +151,6 @@ class BaseForm {
      * @param {object} data
      */
     onSuccess(data) {
-        alert(data.message); // temporary
-
         this.reset();
     }
 
