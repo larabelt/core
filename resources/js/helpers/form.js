@@ -9,6 +9,8 @@ class BaseForm {
      */
     constructor(options = {}) {
         this.router = options.router;
+        this.morphable_type = options.morphable_type;
+        this.morphable_id = options.morphable_id;
         this.errors = new Errors();
         this.saving = null;
         this.service = null;
@@ -26,9 +28,9 @@ class BaseForm {
         }
     }
 
-    setRouter(router) {
-        this.router = router;
-    }
+    // setRouter(router) {
+    //     this.router = router;
+    // }
 
     /**
      * Fetch all relevant data for the form.
@@ -99,7 +101,6 @@ class BaseForm {
      * POST the form object
      */
     store() {
-        console.log('form.store()');
         return new Promise((resolve, reject) => {
             this.saving = true;
             this.service.post(this.data())

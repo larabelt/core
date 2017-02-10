@@ -8,7 +8,11 @@ class BaseTable {
     constructor(options = {}) {
 
         this.router = options.router;
+        this.morphable_type = options.morphable_type;
+        this.morphable_id = options.morphable_id;
         this.service = null;
+
+        // paginator
         this.items = {};
         this.total = null;
         this.per_page = null;
@@ -24,11 +28,15 @@ class BaseTable {
             orderBy: null,
             sortBy: 'asc',
         };
+
+        if (options.query) {
+            this.updateQuery(options.query);
+        }
     }
 
-    setRouter(router) {
-        this.router = router;
-    }
+    // setRouter(router) {
+    //     this.router = router;
+    // }
 
     updateQuery(query) {
         for (let field in query) {
@@ -87,6 +95,27 @@ class BaseTable {
                 });
         });
     }
+
+    // /**
+    //  * Attach Item
+    //  *
+    //  * @param id
+    //  * @param data
+    //  * @returns {Promise}
+    //  */
+    // attach(id, data = {}) {
+    //     data['id'] = id;
+    //     return new Promise((resolve, reject) => {
+    //         this.service.post(data)
+    //             .then(response => {
+    //                 this.index();
+    //                 resolve(response.data);
+    //             })
+    //             .catch(error => {
+    //                 reject(error.response.data);
+    //             });
+    //     });
+    // }
 
     /**
      * DELETE the paginator item
