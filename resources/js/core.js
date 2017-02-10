@@ -11,7 +11,14 @@ import userSelf from './components/user/ctlr-self';
 import store from 'ohio/core/js/store/index';
 import tinymce_directive from './directives/tinymce';
 
+import modals from './components/base/modals/modals';
+import modalDelete from './components/base/modals/modal-delete';
+
+Vue.component('modals', modals);
+Vue.component('modal-delete', modalDelete);
 Vue.directive('tinymce', tinymce_directive);
+
+window.Events = new Vue({});
 
 export default class OhioCore {
 
@@ -43,6 +50,10 @@ export default class OhioCore {
 
             const app = new Vue({router, store}).$mount('#ohio-core');
         }
+
+        let modals = new Vue({
+            el: '#vue-modals'
+        });
     }
 
     addComponent(Class) {

@@ -25,6 +25,8 @@
     <!-- /.content-wrapper -->
     @include('ohio-core::layouts.admin.partials.footer')
     @include('ohio-core::layouts.admin.partials.sidebar-right')
+
+    <div id="vue-modals"><modals></modals></div>
 </div>
 <!-- ./wrapper -->
 @include('ohio-core::layouts.admin.partials.scripts-body-close')

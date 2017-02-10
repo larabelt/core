@@ -39,7 +39,8 @@ export default `
                                 <router-link :to="{ name: 'userEdit', params: { id: user.id } }" v-bind:class="'btn btn-xs btn-warning'">
                                     <i class="fa fa-edit"></i>
                                 </router-link>
-                                <a class="btn btn-xs btn-danger" v-on:click="destroy(user.id)"><i class="fa fa-trash"></i></a>
+                                <!--<a class="btn btn-xs btn-danger" v-on:click="destroy(user.id)"><i class="fa fa-trash"></i></a>-->
+                                <modal-delete :item-id="user.id"></modal-delete>
                             </td>
                         </tr>
                     </tbody>
