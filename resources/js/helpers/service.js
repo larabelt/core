@@ -6,7 +6,7 @@ class BaseService {
      * @param {object} options
      */
     constructor(options = {}) {
-        this.baseUrl = '';
+        this.baseUrl = options.baseUrl;
     }
 
     /**

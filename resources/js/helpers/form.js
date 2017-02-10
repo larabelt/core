@@ -8,9 +8,10 @@ class BaseForm {
      * @param {object} options
      */
     constructor(options = {}) {
+        this.router = options.router;
         this.errors = new Errors();
+        this.saving = null;
         this.service = null;
-        this.router = null;
         this.routeEditName = null;
     }
 
@@ -84,14 +85,17 @@ class BaseForm {
      */
     update(id) {
         return new Promise((resolve, reject) => {
+            this.saving = true;
             console.log('form.update(): Promise');
             console.log(this.service);
             this.service.update(id, this.data())
                 .then(response => {
+                    this.saving = null;
                     this.setData(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {
+                    this.saving = null;
                     this.onFail(error.response.data);
                     reject(error.response.data);
                 });
@@ -104,19 +108,20 @@ class BaseForm {
     store() {
         console.log('form.store()');
         return new Promise((resolve, reject) => {
+            this.saving = true;
             console.log('form.store(): Promise');
             console.log(this.service);
             this.service.store(this.data())
                 .then(response => {
-
                     if (this.router && this.routeEditName) {
                         this.router.push({name: this.routeEditName, params: {id: response.data.id}})
                     }
-
+                    this.saving = null;
                     this.setData(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {
+                    this.saving = null;
                     this.onFail(error.response.data);
                     reject(error.response.data);
                 });
