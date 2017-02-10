@@ -10,8 +10,8 @@ class Tabs {
         this.tab = this.default;
 
         if (this.router && this.router.currentRoute) {
-            if (this.router.currentRoute.query['tab']) {
-                this.tab = this.router.currentRoute.query['tab'];
+            if (this.router.currentRoute.hash) {
+                this.tab = this.router.currentRoute.hash.substring(1);
             }
         }
     }
@@ -19,7 +19,7 @@ class Tabs {
     set(key) {
         this.tab = key;
         if (this.router) {
-            this.router.push({query: {tab: this.tab}});
+            this.router.push({hash: this.tab});
         }
     }
 
