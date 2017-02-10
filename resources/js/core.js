@@ -11,9 +11,13 @@ import userSelf from './components/user/ctlr-self';
 import store from 'ohio/core/js/store/index';
 import tinymce_directive from './directives/tinymce';
 
+import columnSorter2 from './components/base/column-sorter2';
+import pagination2 from './components/base/pagination2.vue';
 import modals from './components/base/modals/modals';
 import modalDelete from './components/base/modals/modal-delete';
 
+Vue.component('column-sorter2', columnSorter2);
+Vue.component('pagination2', pagination2);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 Vue.directive('tinymce', tinymce_directive);

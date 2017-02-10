@@ -6,15 +6,9 @@ class BaseTable {
      * @param {object} options
      */
     constructor(options = {}) {
+
         this.router = options.router;
         this.service = null;
-        this.query = {
-            page: 1,
-            perPage: null,
-            q: null,
-            orderBy: null,
-            sortBy: null,
-        };
         this.items = {};
         this.total = null;
         this.per_page = null;
@@ -22,10 +16,51 @@ class BaseTable {
         this.last_page = null;
         this.from = null;
         this.to = null;
+
+        this.query = {
+            page: 1,
+            perPage: null,
+            q: null,
+            orderBy: null,
+            sortBy: 'asc',
+        };
     }
 
     setRouter(router) {
         this.router = router;
+    }
+
+    updateQuery(query) {
+        for (let field in query) {
+            this.query[field] = query[field];
+        }
+    }
+
+    updateQueryFromRouter() {
+        if (this.router && this.router.currentRoute) {
+            let query = {};
+            _(this.router.currentRoute.query).forEach((value, key) => {
+                query[key] = value;
+            });
+            this.updateQuery(query);
+        }
+    }
+
+    getQuery(key = '') {
+
+        if (key) {
+            return this.query[key] ? this.query[key] : null;
+        }
+
+        let query = {};
+
+        for (let field in this.query) {
+            if (this.query[field]) {
+                query[field] = this.query[field];
+            }
+        }
+
+        return query;
     }
 
     /**
@@ -34,14 +69,10 @@ class BaseTable {
      * @param query
      * @returns {Promise}
      */
-    paginate(query = {}) {
-        console.log('paginator.paginate()');
-        console.log(query);
+    index() {
         return new Promise((resolve, reject) => {
-            this.service.get('', query)
+            this.service.get('', this.getQuery())
                 .then(response => {
-                    console.log('paginator.paginate():then');
-                    console.log(response.data);
                     this.items = response.data.data;
                     this.total = response.data.total;
                     this.per_page = response.data.per_page;
@@ -64,14 +95,9 @@ class BaseTable {
      * @returns {Promise}
      */
     destroy(id) {
-        console.log('paginator.destroy()');
-        console.log(id);
         return new Promise((resolve, reject) => {
             this.service.delete(id)
                 .then(response => {
-                    console.log('paginator.destroy():then');
-                    console.log(response.data);
-                    //this.items = response.data.data;
                     this.index();
                     resolve(response.data);
                 })

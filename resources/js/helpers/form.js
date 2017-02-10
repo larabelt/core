@@ -16,7 +16,7 @@ class BaseForm {
     }
 
     /**
-     * Fetch all relevant data for the form.
+     * Set all relevant data for the form.
      */
     setData(data) {
         this.originalData = data;
@@ -61,15 +61,10 @@ class BaseForm {
      * @returns {Promise}
      */
     show(id) {
-        console.log('form.show()');
-        console.log('form.show():id ' + id);
         return new Promise((resolve, reject) => {
             this.service.get(id)
                 .then(response => {
-                    console.log('form.show():then');
-                    console.log(response.data);
                     this.setData(response.data);
-                    console.log(this.name);
                     resolve(response.data);
                 })
                 .catch(error => {
@@ -86,8 +81,6 @@ class BaseForm {
     update(id) {
         return new Promise((resolve, reject) => {
             this.saving = true;
-            console.log('form.update(): Promise');
-            console.log(this.service);
             this.service.put(id, this.data())
                 .then(response => {
                     this.saving = null;
@@ -109,19 +102,15 @@ class BaseForm {
         console.log('form.store()');
         return new Promise((resolve, reject) => {
             this.saving = true;
-            console.log('form.store(): Promise');
-            console.log(this.service);
             this.service.post(this.data())
                 .then(response => {
                     if (this.router && this.routeEditName) {
                         this.router.push({name: this.routeEditName, params: {id: response.data.id}})
                     }
-                    this.saving = null;
-                    this.setData(response.data);
+                    this.onFail(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.saving = null;
                     this.onFail(error.response.data);
                     reject(error.response.data);
                 });
@@ -132,11 +121,9 @@ class BaseForm {
      * Submit the form.
      */
     submit() {
-        console.log('form.submit()');
         if (this.id) {
             return this.update(this.id);
         } else {
-            console.log('form.submit(): this.id = null');
             return this.store();
         }
     }
@@ -151,7 +138,10 @@ class BaseForm {
      * @param {object} data
      */
     onSuccess(data) {
-        this.reset();
+        //this.reset();
+        this.saving = null;
+        this.errors.clear();
+        this.setData(data);
     }
 
 
@@ -161,6 +151,7 @@ class BaseForm {
      * @param {object} errors
      */
     onFail(errors) {
+        this.saving = null;
         this.errors.record(errors);
     }
 }

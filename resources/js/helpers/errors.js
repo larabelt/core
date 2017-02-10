@@ -30,7 +30,7 @@ class Errors {
      *
      * @param {string} field
      */
-    get(field) {
+    get(field = '') {
         if (this.errors[field]) {
             return this.errors[field];
         }
@@ -42,7 +42,7 @@ class Errors {
      *
      * @param {object} errors
      */
-    record(errors) {
+    record(errors = {}) {
         this.errors = errors;
     }
 
@@ -52,7 +52,7 @@ class Errors {
      *
      * @param {string|null} field
      */
-    clear(field) {
+    clear(field = '') {
         if (field) {
             delete this.errors[field];
 

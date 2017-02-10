@@ -21,6 +21,10 @@ class BaseService {
 
         let url = this.baseUrl + path;
 
+        if (query && Object.keys(query).length > 0) {
+            url += '?' + $.param(query);
+        }
+
         return url;
     }
 
@@ -43,13 +47,11 @@ class BaseService {
         });
     }
 
-    get(id) {
-        return this.submit('get', this.url(id));
+    get(id, query = {}) {
+        return this.submit('get', this.url(id, query));
     }
 
     post(data = {}) {
-        console.log('service.post()');
-        console.log(data);
         return this.submit('post', this.url(), data);
     }
 
