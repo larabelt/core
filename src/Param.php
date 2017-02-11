@@ -1,8 +1,8 @@
 <?php
 namespace Ohio\Core;
 
+use Ohio;
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Behaviors\Sluggable;
 
 class Param extends Model
 {

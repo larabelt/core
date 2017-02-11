@@ -74,7 +74,8 @@ class OhioCoreServiceProvider extends ServiceProvider
         // add sluggable behavior
         $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
             foreach ($data as $model) {
-                if (in_array(Ohio\Core\Behaviors\Sluggable::class, class_uses($model))) {
+                //if (in_array(Ohio\Core\Behaviors\Sluggable::class, class_uses($model))) {
+                if ($model instanceof Ohio\Core\Behaviors\SluggableInterface) {
                     $model->slugify();
                 }
             }

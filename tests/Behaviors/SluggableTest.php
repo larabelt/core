@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Behaviors\Sluggable;
 
 class SluggableTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,6 +33,7 @@ class SluggableTest extends \PHPUnit_Framework_TestCase
 }
 
 class SluggableStub extends Model
+    implements \Ohio\Core\Behaviors\SluggableInterface
 {
-    use Sluggable;
+    use \Ohio\Core\Behaviors\Sluggable;
 }

@@ -1,15 +1,14 @@
 <?php
 namespace Ohio\Core;
 
-use Ohio\Core\User;
-use Ohio\Core\Behaviors\Sluggable;
-
+use Ohio;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Team extends Model implements
+    Ohio\Core\Behaviors\SluggableInterface
 {
 
-    use Sluggable;
+    use Ohio\Core\Behaviors\Sluggable;
 
     protected $morphClass = 'teams';
 
