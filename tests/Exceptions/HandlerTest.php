@@ -43,7 +43,7 @@ class HandlerTest extends OhioTestCase
         $this->assertNull($handler->report(new AuthorizationException()));
 
         # default render
-        $this->assertNull($handler->render(new Request(), new \Exception()));
+        $this->assertInstanceOf(Illuminate\Http\Response::class, $handler->render(new Request(), new \Exception()));
 
         # status codes
         $this->assertEquals(200, $handler->getStatusCode(new \Exception()));
