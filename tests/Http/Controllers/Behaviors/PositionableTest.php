@@ -2,13 +2,13 @@
 
 use Mockery as m;
 use Ohio\Core\Testing\CommonMocks;
-use Ohio\Core\Http\Controllers\Behaviors\PositionableControllerTrait;
+use Ohio\Core\Http\Controllers\Behaviors\Positionable;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Rutorika\Sortable\MorphToSortedMany;
 
-class PositionableControllerTraitTest extends \PHPUnit_Framework_TestCase
+class PositionableTest extends \PHPUnit_Framework_TestCase
 {
     use CommonMocks;
 
@@ -18,7 +18,7 @@ class PositionableControllerTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Behaviors\PositionableControllerTrait::repositionEntity
+     * @covers \Ohio\Core\Http\Controllers\Behaviors\Positionable::repositionEntity
      */
     public function test()
     {
@@ -70,5 +70,5 @@ class PositionableChildModelStub
 
 class PositionableControllerStub extends Controller
 {
-    use PositionableControllerTrait;
+    use Positionable;
 }

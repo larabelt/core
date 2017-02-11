@@ -2,7 +2,7 @@
 
 namespace Ohio\Core\Http\Controllers\Behaviors;
 
-trait PositionableControllerTrait
+trait Positionable
 {
 
     public function repositionEntity($request, $id, $collection, $relation)
