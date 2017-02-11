@@ -2,7 +2,7 @@
 
 use Ohio\Core\Param;
 
-trait ParamableTrait
+trait Paramable
 {
 
     public function params()

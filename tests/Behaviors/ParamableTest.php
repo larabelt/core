@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Behaviors\ParamableTrait;
+use Ohio\Core\Behaviors\Paramable;
 use Ohio\Core\Param;
 use Ohio\Core\Testing;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Collection;
 
-class ParamableTraitTest extends Testing\OhioTestCase
+class ParamableTest extends Testing\OhioTestCase
 {
 
     public function tearDown()
@@ -16,15 +16,15 @@ class ParamableTraitTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Behaviors\ParamableTrait::params
-     * @covers \Ohio\Core\Behaviors\ParamableTrait::saveParam
-     * @covers \Ohio\Core\Behaviors\ParamableTrait::param
+     * @covers \Ohio\Core\Behaviors\Paramable::params
+     * @covers \Ohio\Core\Behaviors\Paramable::saveParam
+     * @covers \Ohio\Core\Behaviors\Paramable::param
      */
     public function test()
     {
         // init
         Param::unguard();
-        $paramable = new ParamableTraitStub();
+        $paramable = new ParamableStub();
         $paramable->params = new Collection();
         $paramable->params->add(new Param(['key' => 'foo', 'value' => 'bar']));
 
@@ -47,7 +47,7 @@ class ParamableTraitTest extends Testing\OhioTestCase
         # saveParam (create)
         $morphMany = m::mock(MorphMany::class);
         $morphMany->shouldReceive('save')->once();
-        $paramable = m::mock(ParamableTraitStub::class . '[params]');
+        $paramable = m::mock(ParamableStub::class . '[params]');
         $paramable->params = new Collection();
         $paramable->shouldReceive('params')->once()->andReturn($morphMany);
         $paramable->saveParam('missing', 'test');
@@ -55,8 +55,8 @@ class ParamableTraitTest extends Testing\OhioTestCase
 
 }
 
-class ParamableTraitStub extends Testing\BaseModelStub
+class ParamableStub extends Testing\BaseModelStub
 {
-    use ParamableTrait;
+    use Paramable;
 
 }

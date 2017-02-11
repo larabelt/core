@@ -8,7 +8,7 @@ use Ohio\Core\Http\Exceptions\ApiException;
 use Ohio\Core\Http\Requests;
 use Ohio\Core\Param;
 use Ohio\Core\Behaviors\ParamableInterface;
-use Ohio\Core\Behaviors\ParamableTrait;
+use Ohio\Core\Behaviors\Paramable;
 use Illuminate\Database\Eloquent\Model;
 
 class ParamsControllerTest extends Testing\OhioTestCase
@@ -133,7 +133,7 @@ class ParamsControllerTestStub extends Model
 {
     protected $guarded = [];
 
-    use ParamableTrait;
+    use Paramable;
 
     public function getMorphClass()
     {
