@@ -1,6 +1,6 @@
 <?php namespace Ohio\Core\Behaviors;
 
-trait SluggableTrait
+trait Sluggable
 {
 
     public function __toString()

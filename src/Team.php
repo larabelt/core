@@ -2,14 +2,14 @@
 namespace Ohio\Core;
 
 use Ohio\Core\User;
-use Ohio\Core\Behaviors\SluggableTrait;
+use Ohio\Core\Behaviors\Sluggable;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
 
-    use SluggableTrait;
+    use Sluggable;
 
     protected $morphClass = 'teams';
 

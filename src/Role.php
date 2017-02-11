@@ -2,11 +2,11 @@
 namespace Ohio\Core;
 
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Behaviors\SluggableTrait;
+use Ohio\Core\Behaviors\Sluggable;
 
 class Role extends Model
 {
-    use SluggableTrait;
+    use Sluggable;
 
     /**
      * @var string

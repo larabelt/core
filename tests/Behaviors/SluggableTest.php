@@ -1,21 +1,21 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Behaviors\SluggableTrait;
+use Ohio\Core\Behaviors\Sluggable;
 
-class SluggableTraitTest extends \PHPUnit_Framework_TestCase
+class SluggableTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Behaviors\SluggableTrait::__toString
-     * @covers \Ohio\Core\Behaviors\SluggableTrait::setNameAttribute
-     * @covers \Ohio\Core\Behaviors\SluggableTrait::setSlugAttribute
-     * @covers \Ohio\Core\Behaviors\SluggableTrait::slugify
+     * @covers \Ohio\Core\Behaviors\Sluggable::__toString
+     * @covers \Ohio\Core\Behaviors\Sluggable::setNameAttribute
+     * @covers \Ohio\Core\Behaviors\Sluggable::setSlugAttribute
+     * @covers \Ohio\Core\Behaviors\Sluggable::slugify
      */
     public function test()
     {
         // init
-        $sluggable = new SluggableTraitStub();
+        $sluggable = new SluggableStub();
         $this->assertNull($sluggable->slug);
         $sluggable->name = ' TEST ';
 
@@ -33,7 +33,7 @@ class SluggableTraitTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class SluggableTraitStub extends Model
+class SluggableStub extends Model
 {
-    use SluggableTrait;
+    use Sluggable;
 }
