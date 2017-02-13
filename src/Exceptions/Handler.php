@@ -3,7 +3,6 @@
 namespace Ohio\Core\Exceptions;
 
 use Exception, Illuminate, Symfony;
-use Ohio\Core\Http\Exceptions\ApiException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
@@ -29,6 +28,7 @@ class Handler extends ExceptionHandler
         Illuminate\Auth\Access\AuthorizationException::class => 403,
         Illuminate\Database\Eloquent\ModelNotFoundException::class => 404,
         Illuminate\Validation\ValidationException::class => 422,
+        Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class => 404,
     ];
 
     /**
