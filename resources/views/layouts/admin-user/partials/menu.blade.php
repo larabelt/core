@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">OHIO CMS</a>
+            <a class="navbar-brand" href="/">BELT CMS</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,7 +35,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            @include('ohio-core::layouts.shared.partials.nav-right')
+            @include('belt-core::layouts.shared.partials.nav-right')
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

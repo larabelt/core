@@ -51,7 +51,7 @@ export default {
 
     template: `
         <span v-if="showSorter">
-            <span class="ohio-column-sorter pull-right" 
+            <span class="belt-column-sorter pull-right" 
                 v-bind:class="[active(), sortBy()]">
                 <a href="" v-on:click="paginate($event)">
                     <i class="fa fa-arrows-v"></i>

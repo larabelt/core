@@ -1,14 +1,14 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Controllers\Auth\LoginController;
+use Belt\Core\Testing;
+use Belt\Core\Http\Controllers\Auth\LoginController;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Auth\StatefulGuard;
 
-class LoginControllerTest extends Testing\OhioTestCase
+class LoginControllerTest extends Testing\BeltTestCase
 {
     public function tearDown()
     {
@@ -16,10 +16,10 @@ class LoginControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @cover \Ohio\Core\Http\Controllers\LoginController::__construct
-     * @cover \Ohio\Core\Http\Controllers\LoginController::showLoginForm
-     * @cover \Ohio\Core\Http\Controllers\LoginController::logout
-     * @cover \Ohio\Core\Http\Controllers\LoginController::redirectTo
+     * @cover \Belt\Core\Http\Controllers\LoginController::__construct
+     * @cover \Belt\Core\Http\Controllers\LoginController::showLoginForm
+     * @cover \Belt\Core\Http\Controllers\LoginController::logout
+     * @cover \Belt\Core\Http\Controllers\LoginController::redirectTo
      */
     public function test()
     {
@@ -44,7 +44,7 @@ class LoginControllerStub1 extends LoginController
 {
     public function guard()
     {
-        $user1 = m::mock(\Ohio\Core\User::class);
+        $user1 = m::mock(\Belt\Core\User::class);
         $user1->shouldReceive('hasRole')->once()->andReturn(false);
 
         $guard = m::mock(StatefulGuard::class);
@@ -58,7 +58,7 @@ class LoginControllerStub2 extends LoginController
 {
     public function guard()
     {
-        $user2 = m::mock(\Ohio\Core\User::class);
+        $user2 = m::mock(\Belt\Core\User::class);
         $user2->shouldReceive('hasRole')->once()->andReturn(true);
 
         $guard = m::mock(StatefulGuard::class);

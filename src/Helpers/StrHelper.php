@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Helpers;
+namespace Belt\Core\Helpers;
 
 class StrHelper
 {

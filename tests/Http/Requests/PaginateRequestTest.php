@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Http\Requests\PaginateRequest;
 
 class PaginateRequestTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,15 +11,15 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::needle
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::offset
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::page
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::perPage
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::orderBy
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::sortBy
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::modifyQuery
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::items
-     * @covers \Ohio\Core\Http\Requests\PaginateRequest::reCapture
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::needle
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::offset
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::page
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::perPage
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::orderBy
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::sortBy
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::modifyQuery
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::items
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::reCapture
      */
     public function test()
     {

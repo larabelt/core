@@ -1,16 +1,16 @@
 <?php
 
-use Ohio\Core\Testing;
-use Ohio\Core\Policies\RolePolicy;
+use Belt\Core\Testing;
+use Belt\Core\Policies\RolePolicy;
 
-class RolePolicyTest extends Testing\OhioTestCase
+class RolePolicyTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
 
     /**
-     * @covers \Ohio\Core\Policies\RolePolicy::attach
-     * @covers \Ohio\Core\Policies\RolePolicy::detach
+     * @covers \Belt\Core\Policies\RolePolicy::attach
+     * @covers \Belt\Core\Policies\RolePolicy::detach
      */
     public function test()
     {

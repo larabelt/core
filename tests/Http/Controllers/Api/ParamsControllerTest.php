@@ -1,17 +1,17 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Helpers\MorphHelper;
-use Ohio\Core\Http\Controllers\Api\ParamsController;
-use Ohio\Core\Http\Exceptions\ApiException;
-use Ohio\Core\Http\Requests;
-use Ohio\Core\Param;
-use Ohio\Core\Behaviors\ParamableInterface;
-use Ohio\Core\Behaviors\Paramable;
+use Belt\Core\Testing;
+use Belt\Core\Helpers\MorphHelper;
+use Belt\Core\Http\Controllers\Api\ParamsController;
+use Belt\Core\Http\Exceptions\ApiException;
+use Belt\Core\Http\Requests;
+use Belt\Core\Param;
+use Belt\Core\Behaviors\ParamableInterface;
+use Belt\Core\Behaviors\Paramable;
 use Illuminate\Database\Eloquent\Model;
 
-class ParamsControllerTest extends Testing\OhioTestCase
+class ParamsControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -22,14 +22,14 @@ class ParamsControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::param
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::paramable
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::update
-     * @covers \Ohio\Core\Http\Controllers\Api\ParamsController::index
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::param
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::paramable
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::show
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::store
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::update
+     * @covers \Belt\Core\Http\Controllers\Api\ParamsController::index
      */
     public function test()
     {

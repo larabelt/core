@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OhioCreateTeamsTable extends Migration
+class BeltCreateParamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class OhioCreateTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('params', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('is_active')->default(1);
-            $table->string('name');
-            $table->string('slug')->index();
-            $table->text('body')->nullable();
+            $table->morphs('paramable');
+            $table->string('key');
+            $table->text('value');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class OhioCreateTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('teams');
+        Schema::drop('params');
     }
 }

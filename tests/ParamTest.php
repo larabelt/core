@@ -1,13 +1,13 @@
 <?php
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Param;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Param;
 
-class ParamTest extends OhioTestCase
+class ParamTest extends BeltTestCase
 {
     /**
-     * @covers \Ohio\Core\Param::setKeyAttribute
-     * @covers \Ohio\Core\Param::setValueAttribute
+     * @covers \Belt\Core\Param::setKeyAttribute
+     * @covers \Belt\Core\Param::setValueAttribute
      */
     public function test()
     {

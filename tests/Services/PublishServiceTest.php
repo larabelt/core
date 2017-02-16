@@ -2,9 +2,9 @@
 
 use Mockery as m;
 
-use Ohio\Core\Services\PublishService;
-use Ohio\Core\PublishHistory;
-use Ohio\Core\Testing\OhioTestCase;
+use Belt\Core\Services\PublishService;
+use Belt\Core\PublishHistory;
+use Belt\Core\Testing\BeltTestCase;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -14,7 +14,7 @@ use Illuminate\Filesystem\FilesystemAdapter;
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-class PublishServiceTest extends OhioTestCase
+class PublishServiceTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -22,16 +22,16 @@ class PublishServiceTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Services\PublishService::__construct
-     * @covers \Ohio\Core\Services\PublishService::setPublishHistoryTable
-     * @covers \Ohio\Core\Services\PublishService::disk
-     * @covers \Ohio\Core\Services\PublishService::getFilePublishHistory
-     * @covers \Ohio\Core\Services\PublishService::putFile
-     * @covers \Ohio\Core\Services\PublishService::createFile
-     * @covers \Ohio\Core\Services\PublishService::replaceFile
-     * @covers \Ohio\Core\Services\PublishService::evalFile
-     * @covers \Ohio\Core\Services\PublishService::publishDir
-     * @covers \Ohio\Core\Services\PublishService::publish
+     * @covers \Belt\Core\Services\PublishService::__construct
+     * @covers \Belt\Core\Services\PublishService::setPublishHistoryTable
+     * @covers \Belt\Core\Services\PublishService::disk
+     * @covers \Belt\Core\Services\PublishService::getFilePublishHistory
+     * @covers \Belt\Core\Services\PublishService::putFile
+     * @covers \Belt\Core\Services\PublishService::createFile
+     * @covers \Belt\Core\Services\PublishService::replaceFile
+     * @covers \Belt\Core\Services\PublishService::evalFile
+     * @covers \Belt\Core\Services\PublishService::publishDir
+     * @covers \Belt\Core\Services\PublishService::publish
      */
     public function test()
     {

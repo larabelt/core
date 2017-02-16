@@ -2,8 +2,8 @@
 
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;
-use Ohio\Core\Http\Requests\PaginateRequest;
-use Ohio\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Pagination\BaseLengthAwarePaginator;
 
 class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,9 +13,9 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Pagination\BaseLengthAwarePaginator::__construct
-     * @covers \Ohio\Core\Pagination\BaseLengthAwarePaginator::build
-     * @covers \Ohio\Core\Pagination\BaseLengthAwarePaginator::toArray
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::__construct
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::build
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::toArray
      */
     public function test()
     {

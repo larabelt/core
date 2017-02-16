@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Http\Requests\StoreParam;
+use Belt\Core\Http\Requests\StoreParam;
 
 class StoreParamTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Http\Requests\StoreParam::rules
+     * @covers \Belt\Core\Http\Requests\StoreParam::rules
      */
     public function test()
     {

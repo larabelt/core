@@ -1,19 +1,19 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Core\User;
-use Ohio\Core\Http\Requests\StoreUser;
-use Ohio\Core\Http\Requests\PaginateUsers;
-use Ohio\Core\Http\Requests\UpdateUser;
-use Ohio\Core\Http\Controllers\Api\UsersController;
-use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
+use Belt\Core\User;
+use Belt\Core\Http\Requests\StoreUser;
+use Belt\Core\Http\Requests\PaginateUsers;
+use Belt\Core\Http\Requests\UpdateUser;
+use Belt\Core\Http\Controllers\Api\UsersController;
+use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UsersControllerTest extends Testing\OhioTestCase
+class UsersControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -24,13 +24,13 @@ class UsersControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::get
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::update
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\UsersController::index
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::get
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::show
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::update
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::store
+     * @covers \Belt\Core\Http\Controllers\Api\UsersController::index
      */
     public function test()
     {

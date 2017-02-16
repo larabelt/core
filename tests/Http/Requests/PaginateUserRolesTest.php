@@ -1,13 +1,13 @@
 <?php
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Core\Role;
-use Ohio\Core\Http\Requests\PaginateUserRoles;
+use Belt\Core\Role;
+use Belt\Core\Http\Requests\PaginateUserRoles;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateUserRolesTest extends Testing\OhioTestCase
+class PaginateUserRolesTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,8 +18,8 @@ class PaginateUserRolesTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Requests\PaginateUserRoles::modifyQuery
-     * @covers \Ohio\Core\Http\Requests\PaginateUserRoles::roles
+     * @covers \Belt\Core\Http\Requests\PaginateUserRoles::modifyQuery
+     * @covers \Belt\Core\Http\Requests\PaginateUserRoles::roles
      */
     public function test()
     {

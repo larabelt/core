@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Http\Requests;
+namespace Belt\Core\Http\Requests;
 
 use Illuminate\Validation\Rule;
 

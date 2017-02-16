@@ -21,7 +21,7 @@
             <directory suffix=".php">../src</directory>
             <exclude>
                 <directory>../src/Testing</directory>
-                <file>../src/OhioCoreServiceProvider.php</file>
+                <file>../src/BeltCoreServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>

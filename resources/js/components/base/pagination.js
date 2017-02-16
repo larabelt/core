@@ -76,7 +76,7 @@ export default {
     },
     template: `
         <div v-if="showPager">
-            <div class="row ohio-pagination">
+            <div class="row belt-pagination">
                 <div class="col-md-5">
                     <div class="pagination" role="status" aria-live="polite">
                         Showing {{ paginator.from }} to {{ paginator.to }} of {{ paginator.total }} entries

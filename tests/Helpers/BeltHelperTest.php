@@ -1,21 +1,21 @@
 <?php
 
-use Ohio\Core\Helpers\OhioHelper;
-use Ohio\Core\Testing\OhioTestCase;
+use Belt\Core\Helpers\BeltHelper;
+use Belt\Core\Testing\BeltTestCase;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 
-class OhioHelperTest extends OhioTestCase
+class BeltHelperTest extends BeltTestCase
 {
 
     /**
-     * @covers \Ohio\Core\Helpers\OhioHelper::__toString
-     * @covers \Ohio\Core\Helpers\OhioHelper::baseDisk
-     * @covers \Ohio\Core\Helpers\OhioHelper::uses
+     * @covers \Belt\Core\Helpers\BeltHelper::__toString
+     * @covers \Belt\Core\Helpers\BeltHelper::baseDisk
+     * @covers \Belt\Core\Helpers\BeltHelper::uses
      */
     public function test()
     {
-        $helper = new OhioHelper();
+        $helper = new BeltHelper();
 
         # __toString
         $this->assertTrue(is_string($helper->__toString()));
@@ -25,7 +25,7 @@ class OhioHelperTest extends OhioTestCase
 
         # uses
         $this->assertTrue($helper->uses('core'));
-        $this->assertTrue($helper->uses('Ohio\Core\OhioCoreServiceProvider'));
+        $this->assertTrue($helper->uses('Belt\Core\BeltCoreServiceProvider'));
         $this->assertFalse($helper->uses('tacos'));
     }
 }

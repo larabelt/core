@@ -1,4 +1,4 @@
-<?php namespace Ohio\Core\Behaviors;
+<?php namespace Belt\Core\Behaviors;
 
 trait Sluggable
 {

@@ -1,4 +1,4 @@
-import headingTemplate from 'ohio/core/js/templates/base/heading.html';
+import headingTemplate from 'belt/core/js/templates/base/heading.html';
 import roleService from './service';
 import roleIndexTemplate from './templates/index';
 

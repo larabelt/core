@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Helpers;
+namespace Belt\Core\Helpers;
 
 use Illuminate\Database\Eloquent\Builder;
 

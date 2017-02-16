@@ -6,10 +6,10 @@ class SluggableTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Behaviors\Sluggable::__toString
-     * @covers \Ohio\Core\Behaviors\Sluggable::setNameAttribute
-     * @covers \Ohio\Core\Behaviors\Sluggable::setSlugAttribute
-     * @covers \Ohio\Core\Behaviors\Sluggable::slugify
+     * @covers \Belt\Core\Behaviors\Sluggable::__toString
+     * @covers \Belt\Core\Behaviors\Sluggable::setNameAttribute
+     * @covers \Belt\Core\Behaviors\Sluggable::setSlugAttribute
+     * @covers \Belt\Core\Behaviors\Sluggable::slugify
      */
     public function test()
     {
@@ -33,7 +33,7 @@ class SluggableTest extends \PHPUnit_Framework_TestCase
 }
 
 class SluggableStub extends Model
-    implements \Ohio\Core\Behaviors\SluggableInterface
+    implements \Belt\Core\Behaviors\SluggableInterface
 {
-    use \Ohio\Core\Behaviors\Sluggable;
+    use \Belt\Core\Behaviors\Sluggable;
 }

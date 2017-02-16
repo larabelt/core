@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Behaviors;
+namespace Belt\Core\Http\Controllers\Behaviors;
 
 trait Positionable
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core\Policies;
+namespace Belt\Core\Policies;
 
-use Ohio\Core\User;
+use Belt\Core\User;
 
 class UserPolicy extends BaseAdminPolicy
 {

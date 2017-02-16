@@ -1,6 +1,6 @@
 <template>
     <div v-if="show">
-        <div class="row ohio-pagination">
+        <div class="row belt-pagination">
             <div class="col-md-5">
                 <div class="pagination" role="status" aria-live="polite">
                     Showing {{ table.from }} to {{ table.to }} of {{ table.total }} entries

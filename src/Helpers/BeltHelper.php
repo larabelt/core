@@ -1,9 +1,9 @@
 <?php
-namespace Ohio\Core\Helpers;
+namespace Belt\Core\Helpers;
 
 use Illuminate\Filesystem\FilesystemManager;
 
-class OhioHelper
+class BeltHelper
 {
     public function __toString()
     {
@@ -20,7 +20,7 @@ class OhioHelper
 
         foreach ($providerList as $provider) {
             $spaces = explode('\\', $provider);
-            if ($spaces[0] == 'Ohio') {
+            if ($spaces[0] == 'Belt') {
                 if (str_slug($spaces[1]) == $providerClass) {
                     return true;
                 }

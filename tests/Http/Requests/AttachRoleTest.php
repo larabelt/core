@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Http\Requests\AttachRole;
+use Belt\Core\Http\Requests\AttachRole;
 
 class AttachRoleTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Http\Requests\AttachRole::rules
+     * @covers \Belt\Core\Http\Requests\AttachRole::rules
      */
     public function test()
     {

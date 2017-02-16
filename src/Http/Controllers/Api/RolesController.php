@@ -1,10 +1,10 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Api;
+namespace Belt\Core\Http\Controllers\Api;
 
-use Ohio\Core\Http\Controllers\ApiController;
-use Ohio\Core\Role;
-use Ohio\Core\Http\Requests;
+use Belt\Core\Http\Controllers\ApiController;
+use Belt\Core\Role;
+use Belt\Core\Http\Requests;
 
 class RolesController extends ApiController
 {

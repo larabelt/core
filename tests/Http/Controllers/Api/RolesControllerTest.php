@@ -1,17 +1,17 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Role;
-use Ohio\Core\Http\Requests\StoreRole;
-use Ohio\Core\Http\Requests\PaginateRoles;
-use Ohio\Core\Http\Requests\UpdateRole;
-use Ohio\Core\Http\Controllers\Api\RolesController;
-use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
+use Belt\Core\Testing;
+use Belt\Core\Role;
+use Belt\Core\Http\Requests\StoreRole;
+use Belt\Core\Http\Requests\PaginateRoles;
+use Belt\Core\Http\Requests\UpdateRole;
+use Belt\Core\Http\Controllers\Api\RolesController;
+use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 
-class RolesControllerTest extends Testing\OhioTestCase
+class RolesControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -22,13 +22,13 @@ class RolesControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::get
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::update
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\RolesController::index
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::get
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::show
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::update
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::store
+     * @covers \Belt\Core\Http\Controllers\Api\RolesController::index
      */
     public function test()
     {

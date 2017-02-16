@@ -1,6 +1,6 @@
 <?php
 
-use Ohio\Core;
+use Belt\Core;
 
 Route::group([
     'prefix' => 'admin',
@@ -8,14 +8,14 @@ Route::group([
 ],
     function () {
 
-        # admin/ohio/core home
-        Route::get('ohio/core/{any?}', function () {
-            return view('ohio-core::base.admin.dashboard');
+        # admin/belt/core home
+        Route::get('belt/core/{any?}', function () {
+            return view('belt-core::base.admin.dashboard');
         })->where('any', '(.*)');
 
         # admin home
         Route::get('', function () {
-            return view('ohio-core::base.admin.dashboard');
+            return view('belt-core::base.admin.dashboard');
         });
     }
 );

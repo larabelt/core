@@ -1,10 +1,10 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers;
+namespace Belt\Core\Http\Controllers;
 
-use Ohio\Core\Http\Exceptions;
-use Ohio\Core\Http\Requests\PaginateRequest;
-use Ohio\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Http\Exceptions;
+use Belt\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Pagination\BaseLengthAwarePaginator;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Bus\DispatchesJobs;

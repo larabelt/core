@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Http\Requests\AttachUser;
+use Belt\Core\Http\Requests\AttachUser;
 
 class AttachUserTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Http\Requests\AttachUser::rules
+     * @covers \Belt\Core\Http\Requests\AttachUser::rules
      */
     public function test()
     {

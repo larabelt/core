@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Http\Middleware\ApiAuthorize;
-use Ohio\Core\User;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Http\Middleware\ApiAuthorize;
+use Belt\Core\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 
-class ApiAuthorizeTest extends OhioTestCase
+class ApiAuthorizeTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -15,8 +15,8 @@ class ApiAuthorizeTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\ApiAuthorize::__construct()
-     * @covers \Ohio\Core\Http\Middleware\ApiAuthorize::handle()
+     * @covers \Belt\Core\Http\Middleware\ApiAuthorize::__construct()
+     * @covers \Belt\Core\Http\Middleware\ApiAuthorize::handle()
      */
     public function test()
     {

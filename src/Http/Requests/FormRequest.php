@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Http\Requests;
+namespace Belt\Core\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Validation\Rules;

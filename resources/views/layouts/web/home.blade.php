@@ -1,4 +1,4 @@
-@extends('ohio-core::layouts.web.main')
+@extends('belt-core::layouts.web.main')
 
 @section('main')
 
@@ -6,7 +6,7 @@
         <br/>
         <br/>
         <div class="jumbotron">
-            <h1>Ohio CMS</h1>
+            <h1>Belt CMS</h1>
             <p>This is a template showcasing the optional theme stylesheet included in Bootstrap.
                 Use it as a starting point to create something more unique by building on or modifying it.</p>
         </div>

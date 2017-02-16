@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OhioCreateUserRolesTable extends Migration {
+class BeltCreateTeamUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class OhioCreateUserRolesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('user_roles', function(Blueprint $table)
+		Schema::create('team_users', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('team_id')->index();
 			$table->integer('user_id')->index();
-			$table->integer('role_id')->index();
             $table->timestamps();
 		});
 	}
@@ -29,7 +29,7 @@ class OhioCreateUserRolesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('user_roles');
+		Schema::drop('team_users');
 	}
 
 }

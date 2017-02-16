@@ -1,8 +1,8 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\CommonMocks;
-use Ohio\Core\Http\Controllers\Behaviors\Positionable;
+use Belt\Core\Testing\CommonMocks;
+use Belt\Core\Http\Controllers\Behaviors\Positionable;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,7 +18,7 @@ class PositionableTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Behaviors\Positionable::repositionEntity
+     * @covers \Belt\Core\Http\Controllers\Behaviors\Positionable::repositionEntity
      */
     public function test()
     {

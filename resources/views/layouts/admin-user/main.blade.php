@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="csrf-token" content="{!! csrf_token() !!}" />
 
-    <title>Ohio CMS</title>
+    <title>Belt CMS</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -28,7 +28,7 @@
 </head>
 <body class="admin">
 
-@include('ohio-core::layouts.admin-user.partials.menu')
+@include('belt-core::layouts.admin-user.partials.menu')
 
 @yield('main')
 

@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core\Pagination;
+namespace Belt\Core\Pagination;
 
-use Ohio\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Http\Requests\PaginateRequest;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;

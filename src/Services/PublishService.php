@@ -1,9 +1,9 @@
 <?php
 
-namespace Ohio\Core\Services;
+namespace Belt\Core\Services;
 
-use Ohio\Core\PublishHistory;
-use Ohio\Core\Helpers\OhioHelper;
+use Belt\Core\PublishHistory;
+use Belt\Core\Helpers\BeltHelper;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -40,7 +40,7 @@ class PublishService
      */
     public function disk()
     {
-        return $this->disk = $this->disk ?: OhioHelper::baseDisk();
+        return $this->disk = $this->disk ?: BeltHelper::baseDisk();
     }
 
     /**

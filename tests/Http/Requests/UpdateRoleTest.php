@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Http\Requests\UpdateRole;
+use Belt\Core\Http\Requests\UpdateRole;
 
 class UpdateRoleTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Http\Requests\UpdateRole::rules
+     * @covers \Belt\Core\Http\Requests\UpdateRole::rules
      */
     public function test()
     {

@@ -8,7 +8,7 @@ import userIndex from './components/user/ctlr-index';
 import userCreate from './components/user/ctlr-create';
 import userEdit from './components/user/ctlr-edit';
 import userSelf from './components/user/ctlr-self';
-import store from 'ohio/core/js/store/index';
+import store from 'belt/core/js/store/index';
 import tinymce_directive from './directives/tinymce';
 
 import columnSorter2 from './components/base/column-sorter2';
@@ -24,7 +24,7 @@ Vue.directive('tinymce', tinymce_directive);
 
 window.Events = new Vue({});
 
-export default class OhioCore {
+export default class BeltCore {
 
     constructor(components = []) {
         this.components = [];
@@ -33,7 +33,7 @@ export default class OhioCore {
             this.addComponent(value);
         });
 
-        if ($('#ohio-core').length > 0) {
+        if ($('#belt-core').length > 0) {
 
             const router = new VueRouter({
                 routes: [
@@ -49,10 +49,10 @@ export default class OhioCore {
                     {path: '/self', component: userSelf, name: 'userSelf'},
                 ],
                 mode: 'history',
-                base: '/admin/ohio/core'
+                base: '/admin/belt/core'
             });
 
-            const app = new Vue({router, store}).$mount('#ohio-core');
+            const app = new Vue({router, store}).$mount('#belt-core');
         }
 
         let modals = new Vue({

@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Http\Requests\StoreUser;
+use Belt\Core\Http\Requests\StoreUser;
 
 class StoreUserTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Http\Requests\StoreUser::rules
+     * @covers \Belt\Core\Http\Requests\StoreUser::rules
      */
     public function test()
     {

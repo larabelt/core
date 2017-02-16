@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Http\Middleware;
+namespace Belt\Core\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

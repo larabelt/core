@@ -40,7 +40,7 @@ export default {
 
     template: `
         <span v-if="show">
-            <span class="ohio-column-sorter pull-right" :class="[active(), sortBy()]">
+            <span class="belt-column-sorter pull-right" :class="[active(), sortBy()]">
                 <a href="" @click.prevent="paginate($event)">
                     <i class="fa fa-arrows-v"></i>
                     <i class="fa fa-sort-amount-asc"></i>

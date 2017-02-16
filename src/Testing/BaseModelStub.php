@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Testing;
+namespace Belt\Core\Testing;
 
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;

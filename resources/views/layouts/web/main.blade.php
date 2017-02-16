@@ -29,10 +29,10 @@
 </head>
 <body class="web">
 
-@include('ohio-core::layouts.web.partials.menu')
+@include('belt-core::layouts.web.partials.menu')
 
 <div id="main" role="main">
-    @include('ohio-core::layouts.shared.partials.flash')
+    @include('belt-core::layouts.shared.partials.flash')
     @yield('main')
 </div>
 

@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\Team;
-use Ohio\Core\User;
-use Ohio\CoreUser\TeamUser;
+use Belt\Core\Team;
+use Belt\Core\User;
+use Belt\CoreUser\TeamUser;
 
-class OhioCoreTeamSeeds extends Seeder
+class BeltCoreTeamSeeds extends Seeder
 {
     /**
      * Run the database seeds.

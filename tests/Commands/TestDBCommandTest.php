@@ -2,13 +2,13 @@
 
 use Mockery as m;
 
-use Ohio\Core\Commands\TestDBCommand;
-use Ohio\Core\Testing\OhioTestCase;
+use Belt\Core\Commands\TestDBCommand;
+use Belt\Core\Testing\BeltTestCase;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 
-class TestDBCommandTest extends OhioTestCase
+class TestDBCommandTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -16,8 +16,8 @@ class TestDBCommandTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Commands\TestDBCommand::disk
-     * @covers \Ohio\Core\Commands\TestDBCommand::fire
+     * @covers \Belt\Core\Commands\TestDBCommand::disk
+     * @covers \Belt\Core\Commands\TestDBCommand::fire
      */
     public function testHandle()
     {

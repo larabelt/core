@@ -1,6 +1,6 @@
 <?php
 
-use Ohio\Core;
+use Belt\Core;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ Route::group(['middleware' => ['web']], function () {
 
     # home
     Route::get('', function () {
-        return view('ohio-core::base.web.home');
+        return view('belt-core::base.web.home');
     });
 
     # debug

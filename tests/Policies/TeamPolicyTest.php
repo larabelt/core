@@ -1,20 +1,20 @@
 <?php
 
-use Ohio\Core\Testing;
-use Ohio\Core\Policies\TeamPolicy;
-use Ohio\Core\Team;
+use Belt\Core\Testing;
+use Belt\Core\Policies\TeamPolicy;
+use Belt\Core\Team;
 use Illuminate\Database\Eloquent\Collection;
 
-class TeamPolicyTest extends Testing\OhioTestCase
+class TeamPolicyTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
 
     /**
-     * @covers \Ohio\Core\Policies\TeamPolicy::view
-     * @covers \Ohio\Core\Policies\TeamPolicy::create
-     * @covers \Ohio\Core\Policies\TeamPolicy::delete
-     * @covers \Ohio\Core\Policies\TeamPolicy::update
+     * @covers \Belt\Core\Policies\TeamPolicy::view
+     * @covers \Belt\Core\Policies\TeamPolicy::create
+     * @covers \Belt\Core\Policies\TeamPolicy::delete
+     * @covers \Belt\Core\Policies\TeamPolicy::update
      */
     public function test()
     {

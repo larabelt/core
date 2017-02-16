@@ -1,13 +1,13 @@
 <?php
 
-use Ohio\Core\Commands\PublishCommand;
-use Ohio\Core\Services\PublishService;
+use Belt\Core\Commands\PublishCommand;
+use Belt\Core\Services\PublishService;
 
 class PublishCommandTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Commands\PublishCommand::handle
+     * @covers \Belt\Core\Commands\PublishCommand::handle
      */
     public function testHandle()
     {
@@ -34,7 +34,7 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Commands\PublishCommand::getService
+     * @covers \Belt\Core\Commands\PublishCommand::getService
      */
     public function testGetService()
     {

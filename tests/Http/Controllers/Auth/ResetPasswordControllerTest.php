@@ -1,17 +1,17 @@
 <?php
 
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Controllers\Auth\ResetPasswordController;
+use Belt\Core\Testing;
+use Belt\Core\Http\Controllers\Auth\ResetPasswordController;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
-class ResetPasswordControllerTest extends Testing\OhioTestCase
+class ResetPasswordControllerTest extends Testing\BeltTestCase
 {
 
     /**
-     * @cover \Ohio\Core\Http\Controllers\ResetPasswordController::__construct
-     * @cover \Ohio\Core\Http\Controllers\ResetPasswordController::showResetForm
+     * @cover \Belt\Core\Http\Controllers\ResetPasswordController::__construct
+     * @cover \Belt\Core\Http\Controllers\ResetPasswordController::showResetForm
      */
     public function test()
     {

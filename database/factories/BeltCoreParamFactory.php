@@ -11,9 +11,9 @@
 |
 */
 
-$factory->define(Ohio\Core\PublishHistory::class, function (Faker\Generator $faker) {
+$factory->define(Belt\Core\Param::class, function (Faker\Generator $faker) {
     return [
-        'path' => '/' . $faker->word,
-        'hash' => md5($faker->word),
+        'key' => $faker->word,
+        'value' => $faker->word,
     ];
 });

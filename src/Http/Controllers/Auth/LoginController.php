@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Auth;
+namespace Belt\Core\Http\Controllers\Auth;
 
-use Ohio\Core\Http\Controllers\BaseController;
+use Belt\Core\Http\Controllers\BaseController;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -44,7 +44,7 @@ class LoginController extends BaseController
      */
     public function showLoginForm()
     {
-        return view('ohio-core::auth.login');
+        return view('belt-core::auth.login');
     }
 
     public function redirectTo()

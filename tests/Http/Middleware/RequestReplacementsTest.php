@@ -1,14 +1,14 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Middleware\RequestReplacements;
+use Belt\Core\Testing;
+use Belt\Core\Http\Middleware\RequestReplacements;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class RequestReplacementsTest extends Testing\OhioTestCase
+class RequestReplacementsTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -19,10 +19,10 @@ class RequestReplacementsTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::__construct()
-     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::handle()
-     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::replacements()
-     * @covers \Ohio\Core\Http\Middleware\RequestReplacements::replace()
+     * @covers \Belt\Core\Http\Middleware\RequestReplacements::__construct()
+     * @covers \Belt\Core\Http\Middleware\RequestReplacements::handle()
+     * @covers \Belt\Core\Http\Middleware\RequestReplacements::replacements()
+     * @covers \Belt\Core\Http\Middleware\RequestReplacements::replace()
      */
     public function test()
     {

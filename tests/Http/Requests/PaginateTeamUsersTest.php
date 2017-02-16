@@ -1,13 +1,13 @@
 <?php
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Core\User;
-use Ohio\Core\Http\Requests\PaginateTeamUsers;
+use Belt\Core\User;
+use Belt\Core\Http\Requests\PaginateTeamUsers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateTeamUsersTest extends Testing\OhioTestCase
+class PaginateTeamUsersTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -18,10 +18,10 @@ class PaginateTeamUsersTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Requests\PaginateTeamUsers::modifyQuery
-     * @covers \Ohio\Core\Http\Requests\PaginateTeamUsers::userRepo
-     * @covers \Ohio\Core\Http\Requests\PaginateTeamUsers::items
-     * @covers \Ohio\Core\Http\Requests\PaginateTeamUsers::item
+     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::modifyQuery
+     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::userRepo
+     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::items
+     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::item
      */
     public function test()
     {

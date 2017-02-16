@@ -1,18 +1,18 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
+use Belt\Core\Testing;
 
-use Ohio\Core\Team;
-use Ohio\Core\Http\Requests\StoreTeam;
-use Ohio\Core\Http\Requests\PaginateTeams;
-use Ohio\Core\Http\Requests\UpdateTeam;
-use Ohio\Core\Http\Controllers\Api\TeamsController;
-use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
+use Belt\Core\Team;
+use Belt\Core\Http\Requests\StoreTeam;
+use Belt\Core\Http\Requests\PaginateTeams;
+use Belt\Core\Http\Requests\UpdateTeam;
+use Belt\Core\Http\Controllers\Api\TeamsController;
+use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 
 use Illuminate\Http\JsonResponse;
 
-class TeamsControllerTest extends Testing\OhioTestCase
+class TeamsControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -23,13 +23,13 @@ class TeamsControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::get
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::update
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamsController::index
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::get
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::show
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::update
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::store
+     * @covers \Belt\Core\Http\Controllers\Api\TeamsController::index
      */
     public function test()
     {

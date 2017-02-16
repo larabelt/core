@@ -1,8 +1,8 @@
 <?php
-namespace Ohio\Core\Http;
+namespace Belt\Core\Http;
 
 use Illuminate;
-use Ohio\Core\Http\Middleware as OhioMiddleware;
+use Belt\Core\Http\Middleware as BeltMiddleware;
 use Illuminate\Foundation\Http\Middleware as IlluminateMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -18,7 +18,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         IlluminateMiddleware\CheckForMaintenanceMode::class,
         IlluminateMiddleware\ValidatePostSize::class,
-        OhioMiddleware\TrimStrings::class,
+        BeltMiddleware\TrimStrings::class,
         IlluminateMiddleware\ConvertEmptyStringsToNull::class,
     ];
 
@@ -29,16 +29,16 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            OhioMiddleware\EncryptCookies::class,
+            BeltMiddleware\EncryptCookies::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Session\Middleware\AuthenticateSession::class,
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            OhioMiddleware\VerifyCsrfToken::class,
+            BeltMiddleware\VerifyCsrfToken::class,
             'bindings',
         ],
         'api' => [
-            OhioMiddleware\EncryptCookies::class,
+            BeltMiddleware\EncryptCookies::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Session\Middleware\AuthenticateSession::class,
@@ -62,9 +62,9 @@ class Kernel extends HttpKernel
         'auth.basic' => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => OhioMiddleware\RedirectIfAuthenticated::class,
-        'request.replacements' => OhioMiddleware\RequestReplacements::class,
-        'request.injections' => OhioMiddleware\RequestInjections::class,
+        'guest' => BeltMiddleware\RedirectIfAuthenticated::class,
+        'request.replacements' => BeltMiddleware\RequestReplacements::class,
+        'request.injections' => BeltMiddleware\RequestInjections::class,
         'throttle' => Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
 }

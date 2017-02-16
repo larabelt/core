@@ -1,14 +1,14 @@
 <?php
-namespace Ohio\Core\Testing;
+namespace Belt\Core\Testing;
 
-use Ohio\Core\User;
-use Ohio\Core\Helpers\OhioHelper;
+use Belt\Core\User;
+use Belt\Core\Helpers\BeltHelper;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Session\Store;
 use Tests\CreatesApplication;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
-abstract class OhioTestCase extends TestCase
+abstract class BeltTestCase extends TestCase
 {
     use CreatesApplication;
 
@@ -45,7 +45,7 @@ abstract class OhioTestCase extends TestCase
         app()['config']->set('database.default', 'sqlite');
         app()['config']->set('database.connections.sqlite.database', 'database/testing/stub.sqlite');
 
-        $disk = OhioHelper::baseDisk();
+        $disk = BeltHelper::baseDisk();
 
         $path = 'database/testing';
 

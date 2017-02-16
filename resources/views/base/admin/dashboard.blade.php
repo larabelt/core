@@ -1,4 +1,4 @@
-@extends('ohio-core::layouts.admin.main')
+@extends('belt-core::layouts.admin.main')
 
 @section('heading-title', 'tmp')
 @section('heading-subtitle', 'tmp')
@@ -6,7 +6,7 @@
 
 @section('main')
 
-    <div id="ohio-core">
+    <div id="belt-core">
         <router-view></router-view>
     </div>
 

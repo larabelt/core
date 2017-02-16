@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Helpers\OhioHelper;
+use Belt\Core\Helpers\BeltHelper;
 
 class helpersTest extends \PHPUnit_Framework_TestCase
 {
 
     public function test()
     {
-        $this->assertInstanceOf(OhioHelper::class, ohio());
+        $this->assertInstanceOf(BeltHelper::class, belt());
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Auth;
+namespace Belt\Core\Http\Controllers\Auth;
 
-use Ohio\Core\Http\Controllers\BaseController;
+use Belt\Core\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends BaseController
@@ -35,6 +35,6 @@ class ForgotPasswordController extends BaseController
      */
     public function showLinkRequestForm()
     {
-        return view('ohio-core::auth.passwords.email');
+        return view('belt-core::auth.passwords.email');
     }
 }

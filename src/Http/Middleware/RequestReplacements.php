@@ -1,4 +1,4 @@
-<?php namespace Ohio\Core\Http\Middleware;
+<?php namespace Belt\Core\Http\Middleware;
 
 use Auth, Closure, Session;
 use Illuminate\Contracts\Auth\Guard;

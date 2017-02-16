@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\Role;
+use Belt\Core\Role;
 
-class OhioCoreRoleSeeds extends Seeder
+class BeltCoreRoleSeeds extends Seeder
 {
     /**
      * Run the database seeds.

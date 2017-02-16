@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core;
+namespace Belt\Core;
 
-use Ohio;
+use Belt;
 use Illuminate\Database\Eloquent\Model;
 
 class Param extends Model

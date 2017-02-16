@@ -1,6 +1,6 @@
 {
-  "name": "ohiocms/core",
-  "description": "Core package for any OhioCMS app.",
+  "name": "larabelt/core",
+  "description": "Core package for any LaraBelt app.",
   "authors": [
     {
       "name": "Matt Crowe",
@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ohio\\Core\\": "src/"
+      "Belt\\Core\\": "src/"
     },
     "files": [
       "src/helpers.php"

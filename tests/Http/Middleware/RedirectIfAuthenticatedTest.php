@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Http\Middleware\RedirectIfAuthenticated;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 
-class RedirectIfAuthenticatedTest extends OhioTestCase
+class RedirectIfAuthenticatedTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -15,7 +15,7 @@ class RedirectIfAuthenticatedTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\RedirectIfAuthenticated::handle()
+     * @covers \Belt\Core\Http\Middleware\RedirectIfAuthenticated::handle()
      */
     public function test1()
     {
@@ -37,7 +37,7 @@ class RedirectIfAuthenticatedTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\RedirectIfAuthenticated::handle()
+     * @covers \Belt\Core\Http\Middleware\RedirectIfAuthenticated::handle()
      */
     public function test2()
     {

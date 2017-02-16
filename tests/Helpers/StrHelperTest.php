@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Helpers\StrHelper;
+use Belt\Core\Helpers\StrHelper;
 
 class StrHelperTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Helpers\StrHelper::isJson
+     * @covers \Belt\Core\Helpers\StrHelper::isJson
      */
     public function testisJson()
     {

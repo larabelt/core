@@ -1,7 +1,7 @@
 <!-- Logo -->
 <a href="/admin" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>OH</b></span>
+    <span class="logo-mini"><b>LB</b></span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Ohio</b>CMS</span>
+    <span class="logo-lg">Lara<b>Belt</b></span>
 </a>

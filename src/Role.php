@@ -1,14 +1,14 @@
 <?php
-namespace Ohio\Core;
+namespace Belt\Core;
 
-use Ohio;
+use Belt;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model implements
-    Ohio\Core\Behaviors\SluggableInterface
+    Belt\Core\Behaviors\SluggableInterface
 {
 
-    use Ohio\Core\Behaviors\Sluggable;
+    use Belt\Core\Behaviors\Sluggable;
 
     /**
      * @var string

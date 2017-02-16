@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core\Commands;
+namespace Belt\Core\Commands;
 
-use Ohio\Core\Helpers\OhioHelper;
+use Belt\Core\Helpers\BeltHelper;
 
 use Illuminate\Console\Command;
 
@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
 class TestDBCommand extends Command
 {
 
-    protected $signature = 'ohio-core:test-db';
+    protected $signature = 'belt-core:test-db';
 
     protected $description = 'create and seed test sqlite db';
 
@@ -29,7 +29,7 @@ class TestDBCommand extends Command
      */
     public function disk()
     {
-        return $this->disk = $this->disk ?: OhioHelper::baseDisk();
+        return $this->disk = $this->disk ?: BeltHelper::baseDisk();
     }
 
     /**

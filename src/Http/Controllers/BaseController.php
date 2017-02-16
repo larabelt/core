@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers;
+namespace Belt\Core\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;

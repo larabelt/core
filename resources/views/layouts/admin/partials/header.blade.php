@@ -1,5 +1,5 @@
 <header class="main-header">
-    @include('ohio-core::layouts.admin.partials.header-branding')
+    @include('belt-core::layouts.admin.partials.header-branding')
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
@@ -27,7 +27,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="/admin/ohio/core/self" class="btn btn-default btn-flat">Profile</a>
+                                <a href="/admin/belt/core/self" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/logout" class="btn btn-default btn-flat">Sign out</a>

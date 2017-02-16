@@ -1,16 +1,16 @@
 <?php
 
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Controllers\Auth\ForgotPasswordController;
+use Belt\Core\Testing;
+use Belt\Core\Http\Controllers\Auth\ForgotPasswordController;
 
 use Illuminate\View\View;
 
-class ForgotPasswordControllerTest extends Testing\OhioTestCase
+class ForgotPasswordControllerTest extends Testing\BeltTestCase
 {
 
     /**
-     * @cover \Ohio\Core\Http\Controllers\ForgotPasswordController::__construct
-     * @cover \Ohio\Core\Http\Controllers\ForgotPasswordController::showLinkRequestForm
+     * @cover \Belt\Core\Http\Controllers\ForgotPasswordController::__construct
+     * @cover \Belt\Core\Http\Controllers\ForgotPasswordController::showLinkRequestForm
      */
     public function test()
     {

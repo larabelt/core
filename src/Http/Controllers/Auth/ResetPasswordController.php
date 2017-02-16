@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Auth;
+namespace Belt\Core\Http\Controllers\Auth;
 
-use Ohio\Core\Http\Controllers\BaseController;
+use Belt\Core\Http\Controllers\BaseController;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -48,7 +48,7 @@ class ResetPasswordController extends BaseController
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('ohio-core::auth.passwords.reset')->with([
+        return view('belt-core::auth.passwords.reset')->with([
                 'token' => $token,
                 'email' => $request->email
             ]

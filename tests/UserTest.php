@@ -1,27 +1,27 @@
 <?php
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\User;
-use Ohio\Core\Role;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\User;
+use Belt\Core\Role;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class UserTest extends OhioTestCase
+class UserTest extends BeltTestCase
 {
     /**
-     * @covers \Ohio\Core\User::__toString
-     * @covers \Ohio\Core\User::setEmailAttribute
-     * @covers \Ohio\Core\User::setIsVerifiedAttribute
-     * @covers \Ohio\Core\User::setIsActiveAttribute
-     * @covers \Ohio\Core\User::setFirstNameAttribute
-     * @covers \Ohio\Core\User::setLastNameAttribute
-     * @covers \Ohio\Core\User::setMiAttribute
-     * @covers \Ohio\Core\User::setPasswordAttribute
-     * @covers \Ohio\Core\User::setUsernameAttribute
-     * @covers \Ohio\Core\User::roles
-     * @covers \Ohio\Core\User::hasRole
-     * @covers \Ohio\Core\User::getFullNameAttribute
+     * @covers \Belt\Core\User::__toString
+     * @covers \Belt\Core\User::setEmailAttribute
+     * @covers \Belt\Core\User::setIsVerifiedAttribute
+     * @covers \Belt\Core\User::setIsActiveAttribute
+     * @covers \Belt\Core\User::setFirstNameAttribute
+     * @covers \Belt\Core\User::setLastNameAttribute
+     * @covers \Belt\Core\User::setMiAttribute
+     * @covers \Belt\Core\User::setPasswordAttribute
+     * @covers \Belt\Core\User::setUsernameAttribute
+     * @covers \Belt\Core\User::roles
+     * @covers \Belt\Core\User::hasRole
+     * @covers \Belt\Core\User::getFullNameAttribute
      */
     public function test()
     {

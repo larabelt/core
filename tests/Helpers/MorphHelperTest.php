@@ -1,16 +1,16 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Helpers\MorphHelper;
-use Ohio\Core\User;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Helpers\MorphHelper;
+use Belt\Core\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
  * @runTestsInSeparateProcesses
  * @preserveGlobalState disabled
  */
-class MorphHelperTest extends OhioTestCase
+class MorphHelperTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -19,9 +19,9 @@ class MorphHelperTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Helpers\MorphHelper::map
-     * @covers \Ohio\Core\Helpers\MorphHelper::type2Class
-     * @covers \Ohio\Core\Helpers\MorphHelper::morph
+     * @covers \Belt\Core\Helpers\MorphHelper::map
+     * @covers \Belt\Core\Helpers\MorphHelper::type2Class
+     * @covers \Belt\Core\Helpers\MorphHelper::morph
      */
     public function test()
     {

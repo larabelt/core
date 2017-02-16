@@ -1,17 +1,17 @@
 <?php
 
-use Ohio\Core\Http\Exceptions\ApiException;
+use Belt\Core\Http\Exceptions\ApiException;
 use Illuminate\Support\MessageBag;
 
 class ApiExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::__construct()
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::getStatusCode()
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::setStatusCode()
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::getHeaders()
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::getMsg()
-     * @covers \Ohio\Core\Http\Exceptions\ApiException::setMsg()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::__construct()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::getStatusCode()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::setStatusCode()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::getHeaders()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::getMsg()
+     * @covers \Belt\Core\Http\Exceptions\ApiException::setMsg()
      */
     public function test()
     {

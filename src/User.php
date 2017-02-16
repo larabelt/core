@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core;
+namespace Belt\Core;
 
-use Ohio\Core\Role;
+use Belt\Core\Role;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;

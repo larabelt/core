@@ -1,19 +1,19 @@
 <?php
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Team;
-use Ohio\Core\User;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Team;
+use Belt\Core\User;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class TeamTest extends OhioTestCase
+class TeamTest extends BeltTestCase
 {
     /**
-     * @covers \Ohio\Core\Team::__toString
-     * @covers \Ohio\Core\Team::setIsActiveAttribute
-     * @covers \Ohio\Core\Team::setNameAttribute
-     * @covers \Ohio\Core\Team::users
+     * @covers \Belt\Core\Team::__toString
+     * @covers \Belt\Core\Team::setIsActiveAttribute
+     * @covers \Belt\Core\Team::setNameAttribute
+     * @covers \Belt\Core\Team::users
      */
     public function test()
     {

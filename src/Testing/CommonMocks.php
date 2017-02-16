@@ -1,11 +1,11 @@
 <?php
-namespace Ohio\Core\Testing;
+namespace Belt\Core\Testing;
 
 use Mockery as m;
-use Ohio\Core\Http\Requests\PaginateRequest;
-use Ohio\Core\Pagination\BaseLengthAwarePaginator;
-use Ohio\Core\User;
-use Ohio\Core\Role;
+use Belt\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\User;
+use Belt\Core\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;

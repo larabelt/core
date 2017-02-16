@@ -11,9 +11,13 @@
 |
 */
 
-$factory->define(Ohio\Core\Param::class, function (Faker\Generator $faker) {
+$factory->define(Belt\Core\User::class, function (Faker\Generator $faker) {
     return [
-        'key' => $faker->word,
-        'value' => $faker->word,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'mi' => $faker->randomLetter,
+        'email' => $faker->email,
+        'password' => bcrypt(str_random(10)),
+        'remember_token' => str_random(10),
     ];
 });

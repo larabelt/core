@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Helpers\DebugHelper;
+use Belt\Core\Helpers\DebugHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class DebugHelperTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class DebugHelperTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Ohio\Core\Helpers\DebugHelper::getSql
+     * @covers \Belt\Core\Helpers\DebugHelper::getSql
      */
     public function test()
     {

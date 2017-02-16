@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class OhioCreateParamsTable extends Migration
+class BeltCreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class OhioCreateParamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('params', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
-            $table->morphs('paramable');
-            $table->string('key');
-            $table->text('value');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class OhioCreateParamsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('params');
+        Schema::drop('roles');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Requests\PaginateParams;
+use Belt\Core\Testing;
+use Belt\Core\Http\Requests\PaginateParams;
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateParamsTest extends Testing\OhioTestCase
+class PaginateParamsTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -16,7 +16,7 @@ class PaginateParamsTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Requests\PaginateParams::modifyQuery
+     * @covers \Belt\Core\Http\Requests\PaginateParams::modifyQuery
      */
     public function test()
     {

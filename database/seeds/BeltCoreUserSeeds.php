@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
-use Ohio\Core\User;
-use Ohio\Core\Role;
+use Belt\Core\User;
+use Belt\Core\Role;
 
-class OhioCoreUserSeeds extends Seeder
+class BeltCoreUserSeeds extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,7 +19,7 @@ class OhioCoreUserSeeds extends Seeder
         $superUser = User::firstOrCreate([
             'first_name' => 'SUPER',
             'last_name' => 'ADMIN',
-            'email' => 'super@ohiocms.org',
+            'email' => 'super@larabelt.org',
         ]);
 
         $superUser->update([

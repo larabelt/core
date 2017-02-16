@@ -1,8 +1,8 @@
 <?php
-namespace Ohio\Core\Http\Requests;
+namespace Belt\Core\Http\Requests;
 
-use Ohio\Core\Role;
-use Ohio\Core\Http\Requests\PaginateRoles as PaginateRequest;
+use Belt\Core\Role;
+use Belt\Core\Http\Requests\PaginateRoles as PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
 class PaginateUserRoles extends PaginateRequest

@@ -1,15 +1,15 @@
 <?php
 
-use Ohio\Core\Http\Requests\FormRequest;
+use Belt\Core\Http\Requests\FormRequest;
 use Illuminate\Validation\Rules;
 
 class FormRequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Ohio\Core\Http\Requests\FormRequest::rules
-     * @covers \Ohio\Core\Http\Requests\FormRequest::wantsJson
-     * @covers \Ohio\Core\Http\Requests\FormRequest::authorize
-     * @covers \Ohio\Core\Http\Requests\FormRequest::ruleExists
+     * @covers \Belt\Core\Http\Requests\FormRequest::rules
+     * @covers \Belt\Core\Http\Requests\FormRequest::wantsJson
+     * @covers \Belt\Core\Http\Requests\FormRequest::authorize
+     * @covers \Belt\Core\Http\Requests\FormRequest::ruleExists
      */
     public function test()
     {

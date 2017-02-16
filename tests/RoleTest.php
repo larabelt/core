@@ -1,13 +1,13 @@
 <?php
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Role;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Role;
 
-class RoleTest extends OhioTestCase
+class RoleTest extends BeltTestCase
 {
     /**
-     * @covers \Ohio\Core\Role::__toString
-     * @covers \Ohio\Core\Role::setNameAttribute
+     * @covers \Belt\Core\Role::__toString
+     * @covers \Belt\Core\Role::setNameAttribute
      */
     public function test()
     {

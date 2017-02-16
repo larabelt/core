@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core\Http\Requests;
+namespace Belt\Core\Http\Requests;
 
-use Ohio\Core\Http\Requests\FormRequest;
+use Belt\Core\Http\Requests\FormRequest;
 
 class StoreRole extends FormRequest
 {

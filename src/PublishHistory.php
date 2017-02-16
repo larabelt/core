@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core;
+namespace Belt\Core;
 
 use Illuminate\Database\Eloquent\Model;
 

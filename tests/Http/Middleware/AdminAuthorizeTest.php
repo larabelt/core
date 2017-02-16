@@ -2,16 +2,16 @@
 
 use Mockery as m;
 
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Http\Middleware\AdminAuthorize;
-use Ohio\Core\User;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Http\Middleware\AdminAuthorize;
+use Belt\Core\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 
-class AdminAuthorizeTest extends OhioTestCase
+class AdminAuthorizeTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -19,8 +19,8 @@ class AdminAuthorizeTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\AdminAuthorize::__construct()
-     * @covers \Ohio\Core\Http\Middleware\AdminAuthorize::handle()
+     * @covers \Belt\Core\Http\Middleware\AdminAuthorize::__construct()
+     * @covers \Belt\Core\Http\Middleware\AdminAuthorize::handle()
      */
     public function test()
     {

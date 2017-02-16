@@ -1,22 +1,22 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Role;
-use Ohio\Core\Policies\BaseAdminPolicy;
+use Belt\Core\Testing;
+use Belt\Core\Role;
+use Belt\Core\Policies\BaseAdminPolicy;
 
-class BaseAdminPolicyTest extends Testing\OhioTestCase
+class BaseAdminPolicyTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
 
     /**
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::before
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::index
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::view
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::create
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::update
-     * @covers \Ohio\Core\Policies\BaseAdminPolicy::delete
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::before
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::index
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::view
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::create
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::update
+     * @covers \Belt\Core\Policies\BaseAdminPolicy::delete
      */
     public function test()
     {

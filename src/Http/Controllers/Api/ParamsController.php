@@ -1,12 +1,12 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Api;
+namespace Belt\Core\Http\Controllers\Api;
 
-use Ohio\Core\Behaviors\ParamableInterface;
-use Ohio\Core\Param;
-use Ohio\Core\Helpers\MorphHelper;
-use Ohio\Core\Http\Controllers\ApiController;
-use Ohio\Core\Http\Requests;
+use Belt\Core\Behaviors\ParamableInterface;
+use Belt\Core\Param;
+use Belt\Core\Helpers\MorphHelper;
+use Belt\Core\Http\Controllers\ApiController;
+use Belt\Core\Http\Requests;
 
 class ParamsController extends ApiController
 {

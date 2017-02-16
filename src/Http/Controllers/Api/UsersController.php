@@ -1,10 +1,10 @@
 <?php
 
-namespace Ohio\Core\Http\Controllers\Api;
+namespace Belt\Core\Http\Controllers\Api;
 
-use Ohio\Core\User;
-use Ohio\Core\Http\Requests;
-use Ohio\Core\Http\Controllers\ApiController;
+use Belt\Core\User;
+use Belt\Core\Http\Requests;
+use Belt\Core\Http\Controllers\ApiController;
 
 class UsersController extends ApiController
 {

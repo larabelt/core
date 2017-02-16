@@ -1,16 +1,16 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Exceptions\ApiException;
-use Ohio\Core\Team;
-use Ohio\Core\User;
-use Ohio\Core\Http\Requests\AttachUser;
-use Ohio\Core\Http\Requests\PaginateTeamUsers;
-use Ohio\Core\Http\Controllers\Api\TeamUsersController;
+use Belt\Core\Testing;
+use Belt\Core\Http\Exceptions\ApiException;
+use Belt\Core\Team;
+use Belt\Core\User;
+use Belt\Core\Http\Requests\AttachUser;
+use Belt\Core\Http\Requests\PaginateTeamUsers;
+use Belt\Core\Http\Controllers\Api\TeamUsersController;
 use Illuminate\Http\JsonResponse;
 
-class TeamUsersControllerTest extends Testing\OhioTestCase
+class TeamUsersControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -21,13 +21,13 @@ class TeamUsersControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::team
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::user
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\TeamUsersController::index
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::team
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::user
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::show
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::store
+     * @covers \Belt\Core\Http\Controllers\Api\TeamUsersController::index
      */
     public function test()
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core;
+namespace Belt\Core;
 
-use Ohio;
+use Belt;
 use Barryvdh, Collective, Illuminate, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class OhioCoreServiceProvider extends ServiceProvider
+class BeltCoreServiceProvider extends ServiceProvider
 {
 
     /**
@@ -19,9 +19,9 @@ class OhioCoreServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Ohio\Core\User::class => Ohio\Core\Policies\UserPolicy::class,
-        Ohio\Core\Role::class => Ohio\Core\Policies\RolePolicy::class,
-        Ohio\Core\Team::class => Ohio\Core\Policies\TeamPolicy::class,
+        Belt\Core\User::class => Belt\Core\Policies\UserPolicy::class,
+        Belt\Core\Role::class => Belt\Core\Policies\RolePolicy::class,
+        Belt\Core\Team::class => Belt\Core\Policies\TeamPolicy::class,
     ];
 
     /**
@@ -45,37 +45,37 @@ class OhioCoreServiceProvider extends ServiceProvider
     public function boot(GateContract $gate, Router $router)
     {
 
-        //$this->publishes([__DIR__ . '/../../resources' => resource_path('ohio/core')]);
+        //$this->publishes([__DIR__ . '/../../resources' => resource_path('belt/core')]);
         //$this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
         //$this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
         //$this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
 
         // set view paths
-        $this->loadViewsFrom(resource_path('ohio/core/views'), 'ohio-core');
+        $this->loadViewsFrom(resource_path('belt/core/views'), 'belt-core');
 
         // set backup view paths
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ohio-core');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'belt-core');
 
         // policies
         $this->registerPolicies($gate);
 
         // commands
-        $this->commands(Ohio\Core\Commands\PublishCommand::class);
-        $this->commands(Ohio\Core\Commands\TestDBCommand::class);
+        $this->commands(Belt\Core\Commands\PublishCommand::class);
+        $this->commands(Belt\Core\Commands\TestDBCommand::class);
 
         // morphMap
         Relation::morphMap([
-            'params' => Ohio\Core\Param::class,
-            'roles' => Ohio\Core\Role::class,
-            'teams' => Ohio\Core\Team::class,
-            'users' => Ohio\Core\User::class,
+            'params' => Belt\Core\Param::class,
+            'roles' => Belt\Core\Role::class,
+            'teams' => Belt\Core\Team::class,
+            'users' => Belt\Core\User::class,
         ]);
 
         // add sluggable behavior
         $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
             foreach ($data as $model) {
-                //if (in_array(Ohio\Core\Behaviors\Sluggable::class, class_uses($model))) {
-                if ($model instanceof Ohio\Core\Behaviors\SluggableInterface) {
+                //if (in_array(Belt\Core\Behaviors\Sluggable::class, class_uses($model))) {
+                if ($model instanceof Belt\Core\Behaviors\SluggableInterface) {
                     $model->slugify();
                 }
             }

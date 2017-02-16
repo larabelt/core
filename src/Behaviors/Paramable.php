@@ -1,6 +1,6 @@
-<?php namespace Ohio\Core\Behaviors;
+<?php namespace Belt\Core\Behaviors;
 
-use Ohio\Core\Param;
+use Belt\Core\Param;
 
 trait Paramable
 {

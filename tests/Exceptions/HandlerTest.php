@@ -1,10 +1,10 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Exceptions\Handler;
-use Ohio\Core\Http\Exceptions\ApiException;
-use Ohio\Core\Http\Exceptions\ApiNotFoundHttpException;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Exceptions\Handler;
+use Belt\Core\Http\Exceptions\ApiException;
+use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -13,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 
-class HandlerTest extends OhioTestCase
+class HandlerTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -22,11 +22,11 @@ class HandlerTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Exceptions\Handler::render
-     * @covers \Ohio\Core\Exceptions\Handler::report
-     * @covers \Ohio\Core\Exceptions\Handler::unauthenticated
-     * @covers \Ohio\Core\Exceptions\Handler::getStatusCode
-     * @covers \Ohio\Core\Exceptions\Handler::renderJson
+     * @covers \Belt\Core\Exceptions\Handler::render
+     * @covers \Belt\Core\Exceptions\Handler::report
+     * @covers \Belt\Core\Exceptions\Handler::unauthenticated
+     * @covers \Belt\Core\Exceptions\Handler::getStatusCode
+     * @covers \Belt\Core\Exceptions\Handler::renderJson
      */
     public function test()
     {

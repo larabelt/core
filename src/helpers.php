@@ -1,15 +1,15 @@
 <?php
 
-use Ohio\Core\Helpers\DebugHelper;
-use Ohio\Core\Helpers\OhioHelper;
+use Belt\Core\Helpers\DebugHelper;
+use Belt\Core\Helpers\BeltHelper;
 
-if (!function_exists('ohio')) {
+if (!function_exists('belt')) {
     /**
      * bla
      */
-    function ohio()
+    function belt()
     {
-        return new OhioHelper();
+        return new BeltHelper();
     }
 }
 

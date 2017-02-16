@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @include('ohio-core::layouts.admin.partials.head')
-    @include('ohio-core::layouts.admin.partials.scripts-head-close')
-    <link rel="stylesheet" href="/css/ohio.css">
+    @include('belt-core::layouts.admin.partials.head')
+    @include('belt-core::layouts.admin.partials.scripts-head-close')
+    <link rel="stylesheet" href="/css/belt.css">
 </head>
 <body class="admin hold-transition skin-blue sidebar-mini">
-@include('ohio-core::layouts.admin.partials.scripts-body-open')
+@include('belt-core::layouts.admin.partials.scripts-body-open')
 <div class="wrapper">
-    @include('ohio-core::layouts.admin.partials.header')
-    @include('ohio-core::layouts.admin.partials.sidebar-left')
+    @include('belt-core::layouts.admin.partials.header')
+    @include('belt-core::layouts.admin.partials.sidebar-left')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
@@ -23,12 +23,12 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    @include('ohio-core::layouts.admin.partials.footer')
-    @include('ohio-core::layouts.admin.partials.sidebar-right')
+    @include('belt-core::layouts.admin.partials.footer')
+    @include('belt-core::layouts.admin.partials.sidebar-right')
 
     <div id="vue-modals"><modals></modals></div>
 </div>
 <!-- ./wrapper -->
-@include('ohio-core::layouts.admin.partials.scripts-body-close')
+@include('belt-core::layouts.admin.partials.scripts-body-close')
 </body>
 </html>

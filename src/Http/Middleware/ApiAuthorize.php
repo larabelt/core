@@ -1,5 +1,5 @@
 <?php
-namespace Ohio\Core\Http\Middleware;
+namespace Belt\Core\Http\Middleware;
 
 use Auth, Closure;
 use Illuminate\Contracts\Auth\Guard;

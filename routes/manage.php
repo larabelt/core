@@ -1,6 +1,6 @@
 <?php
 
-use Ohio\Core;
+use Belt\Core;
 use Illuminate\Http\Request;
 
 Route::group([
@@ -9,7 +9,7 @@ Route::group([
 ],
     function () {
         Route::get('', function () {
-            return view('ohio-core::layouts.admin-user.index');
+            return view('belt-core::layouts.admin-user.index');
         });
     }
 );

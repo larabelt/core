@@ -1,8 +1,8 @@
 <?php
 
-namespace Ohio\Core\Commands;
+namespace Belt\Core\Commands;
 
-use Ohio\Core\Services\PublishService;
+use Belt\Core\Services\PublishService;
 
 use Illuminate\Console\Command;
 
@@ -14,14 +14,14 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ohio-core:publish {--force}';
+    protected $signature = 'belt-core:publish {--force}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'publish assets for ohio core';
+    protected $description = 'publish assets for belt core';
 
     protected $dirs = [
         'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
@@ -29,12 +29,12 @@ class PublishCommand extends Command
         'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
         'node_modules/font-awesome/css' => 'public/fonts',
         'node_modules/font-awesome/fonts' => 'public/fonts',
-        'vendor/ohiocms/core/config' => 'config/ohio',
-        'vendor/ohiocms/core/resources' => 'resources/ohio/core',
-        'vendor/ohiocms/core/database/factories' => 'database/factories',
-        'vendor/ohiocms/core/database/migrations' => 'database/migrations',
-        'vendor/ohiocms/core/database/seeds' => 'database/seeds',
-        'vendor/ohiocms/core/database/testing' => 'database/testing',
+        'vendor/larabelt/core/config' => 'config/belt',
+        'vendor/larabelt/core/resources' => 'resources/belt/core',
+        'vendor/larabelt/core/database/factories' => 'database/factories',
+        'vendor/larabelt/core/database/migrations' => 'database/migrations',
+        'vendor/larabelt/core/database/seeds' => 'database/seeds',
+        'vendor/larabelt/core/database/testing' => 'database/testing',
     ];
 
     protected $files = [];

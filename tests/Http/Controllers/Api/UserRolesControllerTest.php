@@ -1,16 +1,16 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing;
-use Ohio\Core\Http\Exceptions\ApiException;
-use Ohio\Core\User;
-use Ohio\Core\Role;
-use Ohio\Core\Http\Requests\AttachRole;
-use Ohio\Core\Http\Requests\PaginateUserRoles;
-use Ohio\Core\Http\Controllers\Api\UserRolesController;
+use Belt\Core\Testing;
+use Belt\Core\Http\Exceptions\ApiException;
+use Belt\Core\User;
+use Belt\Core\Role;
+use Belt\Core\Http\Requests\AttachRole;
+use Belt\Core\Http\Requests\PaginateUserRoles;
+use Belt\Core\Http\Controllers\Api\UserRolesController;
 use Illuminate\Http\JsonResponse;
 
-class UserRolesControllerTest extends Testing\OhioTestCase
+class UserRolesControllerTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -21,13 +21,13 @@ class UserRolesControllerTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::__construct
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::user
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::role
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::show
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::destroy
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::store
-     * @covers \Ohio\Core\Http\Controllers\Api\UserRolesController::index
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::__construct
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::user
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::role
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::show
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::destroy
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::store
+     * @covers \Belt\Core\Http\Controllers\Api\UserRolesController::index
      */
     public function test()
     {

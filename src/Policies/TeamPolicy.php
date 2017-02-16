@@ -1,9 +1,9 @@
 <?php
 
-namespace Ohio\Core\Policies;
+namespace Belt\Core\Policies;
 
-use Ohio\Core\User;
-use Ohio\Core\Team;
+use Belt\Core\User;
+use Belt\Core\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TeamPolicy extends BaseAdminPolicy

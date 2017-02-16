@@ -1,7 +1,7 @@
 <?php
-namespace Ohio\Core\Http\Requests;
+namespace Belt\Core\Http\Requests;
 
-use Ohio\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Http\Requests\PaginateRequest;
 
 class PaginateTeams extends PaginateRequest
 {

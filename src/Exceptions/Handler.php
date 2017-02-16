@@ -1,6 +1,6 @@
 <?php
 
-namespace Ohio\Core\Exceptions;
+namespace Belt\Core\Exceptions;
 
 use Exception, Illuminate, Symfony;
 use Illuminate\Auth\AuthenticationException;

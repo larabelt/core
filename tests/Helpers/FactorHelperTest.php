@@ -1,12 +1,12 @@
 <?php
 
-use Ohio\Core\Helpers\FactoryHelper;
+use Belt\Core\Helpers\FactoryHelper;
 
 class FactoryHelperTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers \Ohio\Core\Helpers\FactoryHelper::popImage
+     * @covers \Belt\Core\Helpers\FactoryHelper::popImage
      */
     public function test()
     {

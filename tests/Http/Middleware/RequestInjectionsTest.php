@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Testing\OhioTestCase;
-use Ohio\Core\Http\Middleware\RequestInjections;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Http\Middleware\RequestInjections;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class RequestInjectionsTest extends OhioTestCase
+class RequestInjectionsTest extends BeltTestCase
 {
     public function tearDown()
     {
@@ -15,7 +15,7 @@ class RequestInjectionsTest extends OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Http\Middleware\RequestInjections::handle()
+     * @covers \Belt\Core\Http\Middleware\RequestInjections::handle()
      */
     public function test()
     {

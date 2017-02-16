@@ -1,13 +1,13 @@
 <?php
 
 use Mockery as m;
-use Ohio\Core\Behaviors\Paramable;
-use Ohio\Core\Param;
-use Ohio\Core\Testing;
+use Belt\Core\Behaviors\Paramable;
+use Belt\Core\Param;
+use Belt\Core\Testing;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Collection;
 
-class ParamableTest extends Testing\OhioTestCase
+class ParamableTest extends Testing\BeltTestCase
 {
 
     public function tearDown()
@@ -16,9 +16,9 @@ class ParamableTest extends Testing\OhioTestCase
     }
 
     /**
-     * @covers \Ohio\Core\Behaviors\Paramable::params
-     * @covers \Ohio\Core\Behaviors\Paramable::saveParam
-     * @covers \Ohio\Core\Behaviors\Paramable::param
+     * @covers \Belt\Core\Behaviors\Paramable::params
+     * @covers \Belt\Core\Behaviors\Paramable::saveParam
+     * @covers \Belt\Core\Behaviors\Paramable::param
      */
     public function test()
     {
