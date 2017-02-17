@@ -9,7 +9,18 @@
 @include('belt-core::layouts.admin.partials.scripts-body-open')
 <div class="wrapper">
     @include('belt-core::layouts.admin.partials.header')
-    @include('belt-core::layouts.admin.partials.sidebar-left')
+
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                @include('belt-core::layouts.admin.partials.sidebar-left')
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->

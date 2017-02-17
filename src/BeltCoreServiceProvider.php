@@ -51,10 +51,10 @@ class BeltCoreServiceProvider extends ServiceProvider
         //$this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
 
         // set view paths
-        $this->loadViewsFrom(resource_path('belt/core/views'), 'belt-core');
+        // $this->loadViewsFrom(resource_path('belt/core/views'), 'belt-core');
 
         // set backup view paths
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'belt-core');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
 
         // policies
         $this->registerPolicies($gate);

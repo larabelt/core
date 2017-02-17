@@ -30,7 +30,7 @@ class PublishCommand extends Command
         'node_modules/font-awesome/css' => 'public/fonts',
         'node_modules/font-awesome/fonts' => 'public/fonts',
         'vendor/larabelt/core/config' => 'config/belt',
-        'vendor/larabelt/core/resources' => 'resources/belt/core',
+        //'vendor/larabelt/core/resources' => 'resources/belt/core',
         'vendor/larabelt/core/database/factories' => 'database/factories',
         'vendor/larabelt/core/database/migrations' => 'database/migrations',
         'vendor/larabelt/core/database/seeds' => 'database/seeds',
