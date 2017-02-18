@@ -4,8 +4,15 @@ namespace Belt\Core\Testing;
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class BaseModelStub
+ * @package Belt\Core\Testing
+ */
 class BaseModelStub extends Model
 {
+    /**
+     * @return m\MockInterface
+     */
     public function newQuery()
     {
         $mock = m::mock('Illuminate\Database\Eloquent\Builder');

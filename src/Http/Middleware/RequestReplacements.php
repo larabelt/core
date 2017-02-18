@@ -1,8 +1,12 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Auth, Closure, Session;
+use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Class RequestReplacements
+ * @package Belt\Core\Http\Middleware
+ */
 class RequestReplacements
 {
 
@@ -13,6 +17,9 @@ class RequestReplacements
      */
     protected $auth;
 
+    /**
+     * @var array
+     */
     public $replacements = [];
 
     /**
@@ -25,6 +32,9 @@ class RequestReplacements
         $this->auth = $auth;
     }
 
+    /**
+     * @return array
+     */
     public function replacements()
     {
         return $this->replacements ?: $this->replacements = [
@@ -68,6 +78,10 @@ class RequestReplacements
         return $next($request);
     }
 
+    /**
+     * @param $value
+     * @return mixed|null
+     */
     public function replace($value)
     {
         if (!is_string($value)) {

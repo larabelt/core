@@ -5,14 +5,24 @@ use Belt\Core\Role;
 use Belt\Core\Http\Requests\PaginateRoles as PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class PaginateUserRoles
+ * @package Belt\Core\Http\Requests
+ */
 class PaginateUserRoles extends PaginateRequest
 {
+    /**
+     * @var int
+     */
     public $perPage = 5;
     /**
      * @var Role
      */
     public $roles;
 
+    /**
+     * @return Role
+     */
     public function roles()
     {
         return $this->roles ?: $this->roles = new Role();

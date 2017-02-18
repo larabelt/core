@@ -5,6 +5,10 @@ namespace Belt\Core\Http\Controllers\Auth;
 use Belt\Core\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
+/**
+ * Class ForgotPasswordController
+ * @package Belt\Core\Http\Controllers\Auth
+ */
 class ForgotPasswordController extends BaseController
 {
     /*

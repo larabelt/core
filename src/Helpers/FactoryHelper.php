@@ -1,6 +1,10 @@
 <?php
 namespace Belt\Core\Helpers;
 
+/**
+ * Class FactoryHelper
+ * @package Belt\Core\Helpers
+ */
 class FactoryHelper
 {
 

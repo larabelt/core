@@ -4,6 +4,10 @@ namespace Belt\Core\Policies;
 
 use Belt\Core\User;
 
+/**
+ * Class UserPolicy
+ * @package Belt\Core\Policies
+ */
 class UserPolicy extends BaseAdminPolicy
 {
     /**

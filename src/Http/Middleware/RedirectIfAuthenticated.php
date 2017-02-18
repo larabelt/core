@@ -4,6 +4,10 @@ namespace Belt\Core\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class RedirectIfAuthenticated
+ * @package Belt\Core\Http\Middleware
+ */
 class RedirectIfAuthenticated
 {
     /**

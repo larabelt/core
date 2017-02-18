@@ -3,10 +3,12 @@
 namespace Belt\Core\Http\Controllers\Auth;
 
 use Belt\Core\Http\Controllers\BaseController;
-
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+/**
+ * Class LoginController
+ * @package Belt\Core\Http\Controllers\Auth
+ */
 class LoginController extends BaseController
 {
     /*
@@ -47,6 +49,9 @@ class LoginController extends BaseController
         return view('belt-core::auth.login');
     }
 
+    /**
+     * @return string
+     */
     public function redirectTo()
     {
         $user = $this->guard()->user();

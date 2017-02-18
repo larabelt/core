@@ -15,8 +15,14 @@ use Illuminate\Console\Command;
 class TestDBCommand extends Command
 {
 
+    /**
+     * @var string
+     */
     protected $signature = 'belt-core:test-db';
 
+    /**
+     * @var string
+     */
     protected $description = 'create and seed test sqlite db';
 
     /**

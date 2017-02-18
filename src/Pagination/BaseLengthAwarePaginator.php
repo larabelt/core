@@ -2,10 +2,13 @@
 namespace Belt\Core\Pagination;
 
 use Belt\Core\Http\Requests\PaginateRequest;
-
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * Class BaseLengthAwarePaginator
+ * @package Belt\Core\Pagination
+ */
 class BaseLengthAwarePaginator
 {
     /**
@@ -23,6 +26,11 @@ class BaseLengthAwarePaginator
      */
     public $paginator;
 
+    /**
+     * BaseLengthAwarePaginator constructor.
+     * @param Builder $qb
+     * @param PaginateRequest $request
+     */
     public function __construct(Builder $qb, PaginateRequest $request)
     {
         $this->qb = $qb;
@@ -32,6 +40,9 @@ class BaseLengthAwarePaginator
         $this->build();
     }
 
+    /**
+     *
+     */
     public function build()
     {
 
@@ -69,6 +80,9 @@ class BaseLengthAwarePaginator
         $this->paginator = $paginator;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $array = $this->paginator->toArray();

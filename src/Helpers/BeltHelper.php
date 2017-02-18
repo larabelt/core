@@ -3,13 +3,24 @@ namespace Belt\Core\Helpers;
 
 use Illuminate\Filesystem\FilesystemManager;
 
+/**
+ * Class BeltHelper
+ * @package Belt\Core\Helpers
+ */
 class BeltHelper
 {
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return '';
     }
 
+    /**
+     * @param $providerClass
+     * @return bool
+     */
     public function uses($providerClass)
     {
         $providerList = array_keys(app()->getLoadedProviders());

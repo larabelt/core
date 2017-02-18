@@ -6,6 +6,10 @@ use Belt\Core\User;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
 
+/**
+ * Class UsersController
+ * @package Belt\Core\Http\Controllers\Api
+ */
 class UsersController extends ApiController
 {
 
@@ -25,6 +29,9 @@ class UsersController extends ApiController
         $this->users = $user;
     }
 
+    /**
+     * @param $id
+     */
     public function get($id)
     {
         return $this->users->find($id) ?: $this->abort(404);

@@ -6,6 +6,10 @@ use Belt\Core\Team;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
 
+/**
+ * Class TeamsController
+ * @package Belt\Core\Http\Controllers\Api
+ */
 class TeamsController extends ApiController
 {
 
@@ -23,6 +27,9 @@ class TeamsController extends ApiController
         $this->teams = $team;
     }
 
+    /**
+     * @param $id
+     */
     public function get($id)
     {
         return $this->teams->find($id) ?: $this->abort(404);

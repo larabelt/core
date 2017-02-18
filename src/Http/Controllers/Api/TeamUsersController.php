@@ -7,6 +7,10 @@ use Belt\Core\Team;
 use Belt\Core\Http\Requests;
 use Belt\Core\User;
 
+/**
+ * Class TeamUsersController
+ * @package Belt\Core\Http\Controllers\Api
+ */
 class TeamUsersController extends ApiController
 {
 
@@ -31,6 +35,10 @@ class TeamUsersController extends ApiController
         $this->users = $user;
     }
 
+    /**
+     * @param $id
+     * @param null $team
+     */
     public function user($id, $team = null)
     {
         $user = $this->users->find($id) ?: $this->abort(404);
@@ -42,6 +50,9 @@ class TeamUsersController extends ApiController
         return $user;
     }
 
+    /**
+     * @param $team_id
+     */
     public function team($team_id)
     {
         $team = $this->teams->find($team_id);

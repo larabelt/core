@@ -1,11 +1,16 @@
 <?php
 namespace Belt\Core\Http\Requests;
 
-use Illuminate\Validation\Rule;
-
+/**
+ * Class StoreParam
+ * @package Belt\Core\Http\Requests
+ */
 class StoreParam extends FormRequest
 {
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [

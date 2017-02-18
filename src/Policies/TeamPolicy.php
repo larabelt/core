@@ -4,8 +4,11 @@ namespace Belt\Core\Policies;
 
 use Belt\Core\User;
 use Belt\Core\Team;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
+/**
+ * Class TeamPolicy
+ * @package Belt\Core\Policies
+ */
 class TeamPolicy extends BaseAdminPolicy
 {
     /**

@@ -4,6 +4,10 @@ namespace Belt\Core\Http\Middleware;
 use Auth, Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Class ApiAuthorize
+ * @package Belt\Core\Http\Middleware
+ */
 class ApiAuthorize
 {
 

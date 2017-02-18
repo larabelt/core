@@ -2,6 +2,10 @@
 
 use Closure;
 
+/**
+ * Class RequestInjections
+ * @package Belt\Core\Http\Middleware
+ */
 class RequestInjections
 {
 

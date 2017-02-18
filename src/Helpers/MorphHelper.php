@@ -3,6 +3,10 @@ namespace Belt\Core\Helpers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+/**
+ * Class MorphHelper
+ * @package Belt\Core\Helpers
+ */
 class MorphHelper
 {
 

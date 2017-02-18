@@ -1,8 +1,10 @@
 <?php
 namespace Belt\Core\Http\Requests;
 
-use Belt\Core\Http\Requests\FormRequest;
-
+/**
+ * Class UpdateUser
+ * @package Belt\Core\Http\Requests
+ */
 class UpdateUser extends FormRequest
 {
 

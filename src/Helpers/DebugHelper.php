@@ -3,6 +3,10 @@ namespace Belt\Core\Helpers;
 
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class DebugHelper
+ * @package Belt\Core\Helpers
+ */
 class DebugHelper
 {
 

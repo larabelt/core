@@ -1,11 +1,13 @@
 <?php
 namespace Belt\Core;
 
-use Belt\Core\Role;
-
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ * @package Belt\Core
+ */
 class User extends Authenticatable
 {
     use Notifiable;

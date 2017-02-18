@@ -3,6 +3,10 @@
 use Closure, Session;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Class AdminAuthorize
+ * @package Belt\Core\Http\Middleware
+ */
 class AdminAuthorize
 {
 

@@ -10,6 +10,10 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class BeltCoreServiceProvider
+ * @package Belt\Core
+ */
 class BeltCoreServiceProvider extends ServiceProvider
 {
 

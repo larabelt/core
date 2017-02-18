@@ -3,6 +3,10 @@ namespace Belt\Core\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
 
+/**
+ * Class VerifyCsrfToken
+ * @package Belt\Core\Http\Middleware
+ */
 class VerifyCsrfToken extends BaseVerifier
 {
     /**

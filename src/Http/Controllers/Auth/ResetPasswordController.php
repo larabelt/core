@@ -3,10 +3,13 @@
 namespace Belt\Core\Http\Controllers\Auth;
 
 use Belt\Core\Http\Controllers\BaseController;
-
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
+/**
+ * Class ResetPasswordController
+ * @package Belt\Core\Http\Controllers\Auth
+ */
 class ResetPasswordController extends BaseController
 {
     /*

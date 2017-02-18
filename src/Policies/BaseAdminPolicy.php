@@ -3,13 +3,22 @@
 namespace Belt\Core\Policies;
 
 use Belt\Core\User;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class BaseAdminPolicy
+ * @package Belt\Core\Policies
+ */
 class BaseAdminPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param $user
+     * @param $ability
+     * @return bool
+     */
     public function before($user, $ability)
     {
         if ($user->hasRole('ADMIN')) {

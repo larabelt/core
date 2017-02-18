@@ -4,6 +4,10 @@ namespace Belt\Core;
 use Belt;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Role
+ * @package Belt\Core
+ */
 class Role extends Model implements
     Belt\Core\Behaviors\SluggableInterface
 {
@@ -25,6 +29,9 @@ class Role extends Model implements
      */
     protected $fillable = ['name'];
 
+    /**
+     * @param $value
+     */
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtoupper(trim($value));

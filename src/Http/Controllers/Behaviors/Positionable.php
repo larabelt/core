@@ -2,9 +2,19 @@
 
 namespace Belt\Core\Http\Controllers\Behaviors;
 
+/**
+ * Class Positionable
+ * @package Belt\Core\Http\Controllers\Behaviors
+ */
 trait Positionable
 {
 
+    /**
+     * @param $request
+     * @param $id
+     * @param $collection
+     * @param $relation
+     */
     public function repositionEntity($request, $id, $collection, $relation)
     {
         $move = $request->get('move');

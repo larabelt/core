@@ -3,9 +3,12 @@
 namespace Belt\Core\Commands;
 
 use Belt\Core\Services\PublishService;
-
 use Illuminate\Console\Command;
 
+/**
+ * Class PublishCommand
+ * @package Belt\Core\Commands
+ */
 class PublishCommand extends Command
 {
 
@@ -23,6 +26,9 @@ class PublishCommand extends Command
      */
     protected $description = 'publish assets for belt core';
 
+    /**
+     * @var array
+     */
     protected $dirs = [
         'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
         'node_modules/admin-lte/dist' => 'public/adminlte/dist',
@@ -38,6 +44,9 @@ class PublishCommand extends Command
         'vendor/larabelt/core/database/testing' => 'database/testing',
     ];
 
+    /**
+     * @var array
+     */
     protected $files = [];
 
     /**
@@ -78,6 +87,9 @@ class PublishCommand extends Command
         }
     }
 
+    /**
+     * @return PublishService
+     */
     public function getService()
     {
         $this->service = $this->service ?: new PublishService([

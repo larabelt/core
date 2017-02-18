@@ -3,6 +3,10 @@ namespace Belt\Core\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as BaseTrimmer;
 
+/**
+ * Class TrimStrings
+ * @package Belt\Core\Http\Middleware
+ */
 class TrimStrings extends BaseTrimmer
 {
     /**

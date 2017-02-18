@@ -6,6 +6,10 @@ use Belt\Core\Http\Middleware as BeltMiddleware;
 use Illuminate\Foundation\Http\Middleware as IlluminateMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * Class Kernel
+ * @package Belt\Core\Http
+ */
 class Kernel extends HttpKernel
 {
     /**

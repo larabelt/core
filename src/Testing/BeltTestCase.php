@@ -8,6 +8,10 @@ use Illuminate\Session\Store;
 use Tests\CreatesApplication;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
+/**
+ * Class BeltTestCase
+ * @package Belt\Core\Testing
+ */
 abstract class BeltTestCase extends TestCase
 {
     use CreatesApplication;
@@ -19,11 +23,17 @@ abstract class BeltTestCase extends TestCase
      */
     protected $baseUrl = 'http://localhost';
 
+    /**
+     * @throws \Exception
+     */
     public function exceptionNotThrown()
     {
         throw new \Exception('Expected Exception Was Not Thrown, So Throwing This One Instead.');
     }
 
+    /**
+     *
+     */
     public function actAsSuper()
     {
         $super = factory(User::class)->make(['is_super' => true]);
@@ -76,6 +86,10 @@ abstract class BeltTestCase extends TestCase
         }
     }
 
+    /**
+     * @param string $name
+     * @return Store
+     */
     public function getTestSession($name = 'test')
     {
         return new Store($name, new NullSessionHandler());

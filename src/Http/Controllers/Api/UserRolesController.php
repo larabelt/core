@@ -6,8 +6,11 @@ use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Role;
 use Belt\Core\User;
 use Belt\Core\Http\Requests;
-use Illuminate\Http\Request;
 
+/**
+ * Class UserRolesController
+ * @package Belt\Core\Http\Controllers\Api
+ */
 class UserRolesController extends ApiController
 {
 
@@ -21,12 +24,21 @@ class UserRolesController extends ApiController
      */
     public $users;
 
+    /**
+     * UserRolesController constructor.
+     * @param User $user
+     * @param Role $role
+     */
     public function __construct(User $user, Role $role)
     {
         $this->roles = $role;
         $this->users = $user;
     }
 
+    /**
+     * @param $id
+     * @param null $user
+     */
     public function role($id, $user = null)
     {
         $role = $this->roles->find($id) ?: $this->abort(404);
@@ -38,6 +50,9 @@ class UserRolesController extends ApiController
         return $role;
     }
 
+    /**
+     * @param $user_id
+     */
     public function user($user_id)
     {
         $user = $this->users->find($user_id);

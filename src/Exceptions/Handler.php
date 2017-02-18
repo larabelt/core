@@ -7,6 +7,10 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * Class Handler
+ * @package Belt\Core\Exceptions
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -23,6 +27,9 @@ class Handler extends ExceptionHandler
         Illuminate\Validation\ValidationException::class,
     ];
 
+    /**
+     * @var array
+     */
     protected $statusCodes = [
         Illuminate\Auth\AuthenticationException::class => 401,
         Illuminate\Auth\Access\AuthorizationException::class => 403,
@@ -44,6 +51,10 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
+    /**
+     * @param $exception
+     * @return int|mixed
+     */
     public function getStatusCode($exception)
     {
 
@@ -70,6 +81,10 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    /**
+     * @param Exception $exception
+     * @return JsonResponse
+     */
     public function renderJson(Exception $exception)
     {
 

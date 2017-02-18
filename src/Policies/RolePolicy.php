@@ -2,9 +2,12 @@
 
 namespace Belt\Core\Policies;
 
-use Belt\Core\Role;
 use Belt\Core\User;
 
+/**
+ * Class RolePolicy
+ * @package Belt\Core\Policies
+ */
 class RolePolicy extends BaseAdminPolicy
 {
 

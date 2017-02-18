@@ -1,12 +1,16 @@
 <?php
 namespace Belt\Core\Http\Requests;
 
-use Belt\Core\Http\Requests\FormRequest;
-
+/**
+ * Class StoreRole
+ * @package Belt\Core\Http\Requests
+ */
 class StoreRole extends FormRequest
 {
 
-
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [

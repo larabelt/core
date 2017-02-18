@@ -11,14 +11,26 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use GuzzleHttp;
 
+/**
+ * Class CommonMocks
+ * @package Belt\Core\Testing
+ */
 trait CommonMocks
 {
 
+    /**
+     * @return m\MockInterface
+     */
     function getQBMock()
     {
         return $qbMock = m::mock(Builder::class);
     }
 
+    /**
+     * @param PaginateRequest|null $request
+     * @param array $results
+     * @return m\MockInterface
+     */
     function getPaginateQBMock(PaginateRequest $request = null, $results = [])
     {
 
@@ -56,6 +68,9 @@ trait CommonMocks
         return $qbMock;
     }
 
+    /**
+     * @return m\MockInterface
+     */
     function getPaginatorMock()
     {
         $paginatorMock = m::mock(BaseLengthAwarePaginator::class);
@@ -63,6 +78,9 @@ trait CommonMocks
         return $paginatorMock;
     }
 
+    /**
+     * @return m\MockInterface
+     */
     function getGuzzleMock()
     {
         $response = new GuzzleHttp\Psr7\Response();
@@ -73,6 +91,10 @@ trait CommonMocks
         return $guzzle;
     }
 
+    /**
+     * @param null $type
+     * @return mixed
+     */
     function getUser($type = null)
     {
         $user = factory(User::class)->make();
@@ -90,6 +112,12 @@ trait CommonMocks
         return $user;
     }
 
+    /**
+     * @param $path
+     * @param string $name
+     * @param string $mimetype
+     * @return UploadedFile
+     */
     function getUploadFile($path, $name = 'test.jpg', $mimetype = 'image/jpeg')
     {
         $file = new UploadedFile($path, $name, filesize($path), $mimetype, null, true);

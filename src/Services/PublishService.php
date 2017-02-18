@@ -4,23 +4,44 @@ namespace Belt\Core\Services;
 
 use Belt\Core\PublishHistory;
 use Belt\Core\Helpers\BeltHelper;
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class PublishService
+ * @package Belt\Core\Services
+ */
 class PublishService
 {
 
+    /**
+     * @var bool|mixed
+     */
     public $force = false;
 
+    /**
+     * @var array|mixed
+     */
     public $dirs = [];
 
+    /**
+     * @var array|mixed
+     */
     public $files = [];
 
+    /**
+     * @var array
+     */
     public $created = [];
 
+    /**
+     * @var array
+     */
     public $modified = [];
 
+    /**
+     * @var array
+     */
     public $ignored = [];
 
     /**
@@ -28,6 +49,10 @@ class PublishService
      */
     public $disk;
 
+    /**
+     * PublishService constructor.
+     * @param array $options
+     */
     public function __construct($options = [])
     {
         $this->force = array_get($options, 'force', false);
@@ -72,6 +97,10 @@ class PublishService
         }
     }
 
+    /**
+     * @param $src_dir
+     * @param $target_dir
+     */
     public function publishDir($src_dir, $target_dir)
     {
 
@@ -138,6 +167,12 @@ class PublishService
          */
     }
 
+    /**
+     * @param $path
+     * @param $contents
+     * @param $history
+     * @return bool
+     */
     public function createFile($path, $contents, $history)
     {
         $result = $this->putFile($path, $contents, $history);
@@ -149,6 +184,12 @@ class PublishService
         return $result;
     }
 
+    /**
+     * @param $path
+     * @param $contents
+     * @param $history
+     * @return bool
+     */
     public function replaceFile($path, $contents, $history)
     {
         $result = $this->putFile($path, $contents, $history);
@@ -160,6 +201,12 @@ class PublishService
         return $result;
     }
 
+    /**
+     * @param $path
+     * @param $contents
+     * @param $history
+     * @return bool
+     */
     public function putFile($path, $contents, $history)
     {
         $result = $this->disk()->put($path, $contents);
@@ -171,6 +218,10 @@ class PublishService
         return $result;
     }
 
+    /**
+     * @param $path
+     * @return mixed
+     */
     public function getFilePublishHistory($path)
     {
         return PublishHistory::firstOrCreate(['path' => $path]);
