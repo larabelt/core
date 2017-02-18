@@ -1,8 +1,5 @@
 <?php
 
-use Belt\Core;
-use Illuminate\Http\Request;
-
 Route::group([
     'prefix' => 'home',
     'middleware' => ['web', 'auth']

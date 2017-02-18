@@ -3,7 +3,6 @@
 use Illuminate\Database\Seeder;
 
 use Belt\Core\User;
-use Belt\Core\Role;
 
 class BeltCoreUserSeeds extends Seeder
 {

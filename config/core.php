@@ -1,5 +1,3 @@
 <?php
 
-return [
-    'foo' => 'bar',
-];
+return [];

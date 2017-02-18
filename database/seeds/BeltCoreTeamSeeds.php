@@ -3,8 +3,6 @@
 use Illuminate\Database\Seeder;
 
 use Belt\Core\Team;
-use Belt\Core\User;
-use Belt\CoreUser\TeamUser;
 
 class BeltCoreTeamSeeds extends Seeder
 {

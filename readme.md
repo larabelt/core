@@ -1,44 +1,22 @@
 ## Installation
 
+Add the ServiceProvider to the providers array in config/app.php
+
+```php
+Belt\Core\BeltCoreServiceProvider::class,
 ```
-# install composer dependencies
-composer install
 
-# install node dependencies
-npm install
-
-# create .env file
-cp .env.example .env
-
-# create app key
-php artisan key:generate
-
-# install assets & migrate
+```
+# publish
 php artisan belt-core:publish
 composer dumpautoload
 
-# migrate & seed
+# migration
 php artisan migrate
+
+# seed
 php artisan db:seed --class=BeltCoreSeeder
 
 # compile assets
-gulp
+npm run
 ```
-
-## Clear App & PHP cache
-
-```
-composer run-script clear;
-sudo service php7.0-fpm restart;
-```
-
-## Misc
-
-```
-#re-run all migrations with seeds
-php artisan migrate:refresh --seed 
-```
-
-## Acknowledgments / Credits
-
-* [AdminLTE] (https://github.com/almasaeed2010/AdminLTE)
