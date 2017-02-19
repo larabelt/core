@@ -1,6 +1,7 @@
 <?php
 namespace Belt\Core\Helpers;
 
+use Belt;
 use Illuminate\Filesystem\FilesystemManager;
 
 /**
@@ -9,12 +10,47 @@ use Illuminate\Filesystem\FilesystemManager;
  */
 class BeltHelper
 {
+
     /**
-     * @return string
+     * List of Loaded Belt Packages
+     *
+     * @var null|array
      */
-    public function __toString()
+    private static $enabled;
+
+    /**
+     * List of available Belt Pacakges
+     *
+     * @var array
+     */
+    private $available = [
+        'core' => Belt\Core\BeltCoreServiceProvider::class,
+        'clip' => Belt\Clip\BeltClipServiceProvider::class,
+        'content' => Belt\Content\BeltContentServiceProvider::class,
+        'glue' => Belt\Glue\BeltGlueServiceProvider::class,
+        'menu' => Belt\Menu\BeltMenuServiceProvider::class,
+        'spot' => Belt\Spot\BeltSpotServiceProvider::class,
+    ];
+
+    /**
+     * @return array
+     */
+    public function enabled()
     {
-        return '';
+        if (!is_null(static::$enabled)) {
+            return static::$enabled;
+        }
+
+        $loaded = app()->getLoadedProviders();
+
+        $enabled = [];
+        foreach ($this->available as $key => $class) {
+            if (array_get($loaded, $class) === true) {
+                $enabled[$key] = $class;
+            }
+        }
+
+        return static::$enabled = $enabled;
     }
 
     /**
@@ -23,19 +59,14 @@ class BeltHelper
      */
     public function uses($providerClass)
     {
-        $providerList = array_keys(app()->getLoadedProviders());
+        $enabled = $this->enabled();
 
-        if (in_array($providerClass, $providerList)) {
+        if (in_array($providerClass, $enabled)) {
             return true;
         }
 
-        foreach ($providerList as $provider) {
-            $spaces = explode('\\', $provider);
-            if ($spaces[0] == 'Belt') {
-                if (str_slug($spaces[1]) == $providerClass) {
-                    return true;
-                }
-            }
+        if (isset($enabled[$providerClass])) {
+            return true;
         }
 
         return false;

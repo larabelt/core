@@ -9,16 +9,12 @@ class BeltHelperTest extends BeltTestCase
 {
 
     /**
-     * @covers \Belt\Core\Helpers\BeltHelper::__toString
      * @covers \Belt\Core\Helpers\BeltHelper::baseDisk
      * @covers \Belt\Core\Helpers\BeltHelper::uses
      */
     public function test()
     {
         $helper = new BeltHelper();
-
-        # __toString
-        $this->assertTrue(is_string($helper->__toString()));
 
         # baseDisk
         $this->assertInstanceOf(Filesystem::class, $helper->baseDisk());

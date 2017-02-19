@@ -64,6 +64,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         // commands
+        $this->commands(Belt\Core\Commands\BeltCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestDBCommand::class);
 
@@ -98,6 +99,11 @@ class BeltCoreServiceProvider extends ServiceProvider
         $loader->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
         $loader->alias('Form', Collective\Html\FormFacade::class);
         $loader->alias('Html', Collective\Html\HtmlFacade::class);
+
+        # beltable values for global belt command
+        $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
+        $this->app['belt']->publish('belt-core:publish');
+        $this->app['belt']->seeders('BeltCoreSeeder');
     }
 
     /**
