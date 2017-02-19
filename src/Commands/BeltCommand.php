@@ -43,26 +43,12 @@ class BeltCommand extends Command
             return $this->seed();
         }
 
-        if ($action == 'install') {
-            if (!file_exists(base_path('.env'))) {
-                try {
-                    exec('cp .env.example .env');
-                } catch (\Exception $c) {
-
-                }
-            }
-            try {
-                exec('composer install');
-            } catch (\Exception $c) {
-
-            }
-            $this->info('key:generate');
-            $this->call('key:generate');
-            $this->publish(['force' => true]);
-            $this->info('migrate');
-            $this->call('migrate');
-            $this->seed();
-        }
+//        if ($action == 'install') {
+//            $this->publish(['force' => true]);
+//            $this->info('migrate');
+//            $this->call('migrate');
+//            $this->seed();
+//        }
 
         if ($action == 'refresh') {
             $this->publish(['force' => true]);
