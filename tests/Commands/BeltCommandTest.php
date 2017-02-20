@@ -1,53 +1,80 @@
 <?php
 
-use Belt\Core\Commands\PublishCommand;
-use Belt\Core\Services\PublishService;
+use Mockery as m;
+use Belt\Core\Commands\BeltCommand;
+use Belt\Core\Testing\BeltTestCase;
 
-class BeltCommandTest extends \PHPUnit_Framework_TestCase
+class BeltCommandTest extends BeltTestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
 
     /**
-     * @covers \Belt\Core\Commands\PublishCommand::handle
+     * @covers \Belt\Core\Commands\BeltCommand::handle
      */
     public function testHandle()
     {
 
-        $cmd = $this->getMockBuilder(PublishCommand::class)
-            ->setMethods(['getService', 'info', 'warn'])
-            ->getMock();
-
-        $service = $this->getMockBuilder(PublishService::class)
-            ->setMethods(['publish'])
-            ->getMock();
-
-        $service->created = ['one', 'two', 'three'];
-        $service->modified = ['one', 'two', 'three'];
-        $service->ignored = ['one', 'two', 'three'];
-
-        $service->expects($this->once())->method('publish');
-
-        $cmd->expects($this->once())->method('getService')->willReturn($service);
-        $cmd->expects($this->exactly(8))->method('info');
-        $cmd->expects($this->exactly(4))->method('warn');
-
+        # handle -> publish
+        $cmd = m::mock(BeltCommand::class . '[argument,options,publish]');
+        $cmd->shouldReceive('argument')->once()->andReturn('publish');
+        $cmd->shouldReceive('options')->once()->andReturn([]);
+        $cmd->shouldReceive('publish')->once()->andReturn();
         $cmd->handle();
+
+        # handle -> seed
+        $cmd = m::mock(BeltCommand::class . '[argument,seed]');
+        $cmd->shouldReceive('argument')->once()->andReturn('seed');
+        $cmd->shouldReceive('seed')->once()->andReturn();
+        $cmd->handle();
+
+        # handle -> refresh
+        $cmd = m::mock(BeltCommand::class . '[argument,refresh]');
+        $cmd->shouldReceive('argument')->once()->andReturn('refresh');
+        $cmd->shouldReceive('refresh')->once()->andReturn();
+        $cmd->handle();
+
     }
 
     /**
-     * @covers \Belt\Core\Commands\PublishCommand::getService
+     * @covers \Belt\Core\Commands\BeltCommand::seed
      */
-    public function testGetService()
+    public function testSeed()
     {
+        $cnt = count(app('belt')->seeders());
 
-        $cmd = $this->getMockBuilder(PublishCommand::class)
-            ->setMethods(['option'])
-            ->getMock();
+        $cmd = m::mock(BeltCommand::class . '[info,call]');
+        $cmd->shouldReceive('info')->times($cnt);
+        $cmd->shouldReceive('call')->times($cnt);
+        $cmd->seed();
+    }
 
-        $cmd->expects($this->once())->method('option')->willReturn(false);
+    /**
+     * @covers \Belt\Core\Commands\BeltCommand::refresh
+     */
+    public function testRefresh()
+    {
+        $cmd = m::mock(BeltCommand::class . '[publish,info,call,seed,process]');
+        $cmd->shouldReceive('publish')->with(['force' => true])->once();
+        $cmd->shouldReceive('info')->once()->with('migrate:refresh');
+        $cmd->shouldReceive('call')->once()->with('migrate:refresh');
+        $cmd->shouldReceive('seed')->once();
+        $cmd->refresh();
+    }
 
-        $service = $cmd->getService();
+    /**
+     * @covers \Belt\Core\Commands\BeltCommand::publish
+     */
+    public function testPublish()
+    {
+        $cnt = count(app('belt')->publish());
 
-        $this->assertInstanceOf(PublishService::class, $service);
-
+        $cmd = m::mock(BeltCommand::class . '[info,call,process]');
+        $cmd->shouldReceive('info')->times($cnt);
+        $cmd->shouldReceive('call')->times($cnt);
+        $cmd->shouldReceive('process')->once()->with('composer dumpautoload');
+        $cmd->publish();
     }
 }
