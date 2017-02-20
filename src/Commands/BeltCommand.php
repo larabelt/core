@@ -3,7 +3,7 @@
 namespace Belt\Core\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
+use Belt\Core\Commands\Behaviors\ProcessTrait;
 
 /**
  * Class BeltCommand
@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
  */
 class BeltCommand extends Command
 {
+    use ProcessTrait;
 
     /**
      * The name and signature of the console command.
@@ -43,21 +44,14 @@ class BeltCommand extends Command
             return $this->seed();
         }
 
-//        if ($action == 'install') {
-//            $this->publish(['force' => true]);
-//            $this->info('migrate');
-//            $this->call('migrate');
-//            $this->seed();
-//        }
-
         if ($action == 'refresh') {
-            $this->publish(['force' => true]);
-            $this->info('migrate:refresh');
-            $this->call('migrate:refresh');
-            $this->seed();
+            $this->refresh();
         }
     }
 
+    /**
+     * @param array $options
+     */
     public function publish($options = [])
     {
         foreach (app('belt')->publish() as $cmd) {
@@ -66,13 +60,13 @@ class BeltCommand extends Command
                 '--force' => (bool) array_get($options, 'force', false)
             ]);
         }
-        try {
-            exec('composer dumpautoload');
-        } catch (\Exception $c) {
 
-        }
+        $this->process('composer dumpautoload');
     }
 
+    /**
+     *
+     */
     public function seed()
     {
         foreach (app('belt')->seeders() as $class) {
@@ -81,5 +75,15 @@ class BeltCommand extends Command
         }
     }
 
+    /**
+     *
+     */
+    public function refresh()
+    {
+        $this->publish(['force' => true]);
+        $this->info('migrate:refresh');
+        $this->call('migrate:refresh');
+        $this->seed();
+    }
 
 }
