@@ -19,6 +19,7 @@ class UserRolesFunctionalTest extends Testing\BeltTestCase
             'id' => 1
         ]);
         $response->assertStatus(201);
+        $response->assertJsonFragment(['id']);
         $response = $this->json('GET', "/api/v1/users/1/roles/1");
         $response->assertStatus(200);
 

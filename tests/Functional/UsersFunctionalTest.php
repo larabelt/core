@@ -23,6 +23,7 @@ class UsersFunctionalTest extends Testing\BeltTestCase
             'password_confirmation' => 'password',
         ]);
         $response->assertStatus(201);
+        $response->assertJsonFragment(['id']);
         $userID = array_get($response->json(), 'id');
 
         # show
