@@ -108,7 +108,9 @@ class BaseForm {
                     if (this.router && this.routeEditName) {
                         this.router.push({name: this.routeEditName, params: {id: response.data.id}})
                     }
-                    this.onFail(response.data);
+                    this.onSuccess(response.data);
+                    this.saving = null;
+                    this.setData(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {
@@ -152,6 +154,8 @@ class BaseForm {
      * @param {object} errors
      */
     onFail(errors) {
+        console.log('errors');
+        console.log(errors);
         this.saving = null;
         this.errors.record(errors);
     }

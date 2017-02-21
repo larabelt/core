@@ -1,27 +1,20 @@
-import roleIndex from './components/role/ctlr-index';
-import roleCreate from './components/role/ctlr-create';
-import roleEdit from './components/role/ctlr-edit';
-import teamIndex from './components/team/ctlr-index';
-import teamCreate from './components/team/ctlr-create';
-import teamEdit from './components/team/ctlr-edit';
-import userIndex from './components/user/ctlr-index';
-import userCreate from './components/user/ctlr-create';
-import userEdit from './components/user/ctlr-edit';
-import userSelf from './components/user/ctlr-self';
+import roles from './components/roles/routes';
+import teams from './components/teams/routes';
+import users from './components/users/routes';
 import store from 'belt/core/js/store/index';
 import tinymce_directive from './directives/tinymce';
 
-import columnSorter2 from './components/base/column-sorter2';
-import pagination2 from './components/base/pagination2.vue';
+import column_sorter from './components/base/column-sorter';
+import pagination from './components/base/pagination.vue';
 import modals from './components/base/modals/modals';
 import modalDelete from './components/base/modals/modal-delete';
 
-Vue.component('column-sorter2', columnSorter2);
-Vue.component('pagination2', pagination2);
+Vue.component('column-sorter', column_sorter);
+Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 Vue.directive('tinymce', tinymce_directive);
-
+//asdf
 window.Events = new Vue({});
 
 export default class BeltCore {
@@ -36,21 +29,14 @@ export default class BeltCore {
         if ($('#belt-core').length > 0) {
 
             const router = new VueRouter({
-                routes: [
-                    {path: '/roles', component: roleIndex, name: 'roleIndex'},
-                    {path: '/roles/create', component: roleCreate, name: 'roleCreate'},
-                    {path: '/roles/edit/:id', component: roleEdit, name: 'roleEdit'},
-                    {path: '/teams', component: teamIndex, canReuse: false, name: 'teamIndex'},
-                    {path: '/teams/create', component: teamCreate, name: 'teamCreate'},
-                    {path: '/teams/edit/:id', component: teamEdit, name: 'teamEdit'},
-                    {path: '/users', component: userIndex, canReuse: false, name: 'userIndex'},
-                    {path: '/users/create', component: userCreate, name: 'userCreate'},
-                    {path: '/users/edit/:id', component: userEdit, name: 'userEdit'},
-                    {path: '/self', component: userSelf, name: 'userSelf'},
-                ],
                 mode: 'history',
-                base: '/admin/belt/core'
+                base: '/admin/belt/core',
+                routes: []
             });
+
+            router.addRoutes(roles);
+            router.addRoutes(teams);
+            router.addRoutes(users);
 
             const app = new Vue({router, store}).$mount('#belt-core');
         }
