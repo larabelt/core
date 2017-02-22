@@ -11,6 +11,7 @@ class BaseForm {
         this.router = options.router;
         this.morphable_type = options.morphable_type;
         this.morphable_id = options.morphable_id;
+        this.hasFile = options.hasFile;
         this.errors = new Errors();
         this.saving = null;
         this.service = null;
@@ -36,6 +37,11 @@ class BaseForm {
      * Fetch all relevant data for the form.
      */
     data() {
+
+        if (this.hasFile) {
+            return this.formData();
+        }
+
         let data = {};
 
         for (let property in this.originalData) {
@@ -43,6 +49,19 @@ class BaseForm {
         }
 
         return data;
+    }
+
+    /**
+     * Fetch all relevant data for the form.
+     */
+    formData() {
+        let formData = new FormData();
+
+        for (let property in this.originalData) {
+            formData.append(property, this[property]);
+        }
+
+        return formData;
     }
 
     /**
