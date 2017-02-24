@@ -6,8 +6,12 @@ class Tabs {
      */
     constructor(options = {}) {
         this.router = options.router;
-        this.default = options.default ? options.default : 'main';
+        this.default = options.default;
+        this.toggleable = options.toggleable;
         this.tab = this.default;
+
+        console.log(this.tab);
+        console.log(this.default);
 
         if (this.router && this.router.currentRoute) {
             if (this.router.currentRoute.hash) {
@@ -17,10 +21,16 @@ class Tabs {
     }
 
     set(key) {
-        this.tab = key;
-        if (this.router) {
-            this.router.push({hash: this.tab});
+
+        if (this.tab != key) {
+            this.tab = key;
+            if (this.router) {
+                this.router.push({hash: this.tab});
+            }
+        } else if (this.toggleable) {
+            this.tab = '';
         }
+
     }
 
     show(key) {

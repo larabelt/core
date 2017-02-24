@@ -29,10 +29,6 @@ class BaseForm {
         }
     }
 
-    // setRouter(router) {
-    //     this.router = router;
-    // }
-
     /**
      * Fetch all relevant data for the form.
      */

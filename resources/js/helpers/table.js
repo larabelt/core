@@ -34,10 +34,6 @@ class BaseTable {
         }
     }
 
-    // setRouter(router) {
-    //     this.router = router;
-    // }
-
     updateQuery(query) {
         for (let field in query) {
             this.query[field] = query[field];
@@ -91,31 +87,10 @@ class BaseTable {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    reject(error.response.data);
+                    reject(error);
                 });
         });
     }
-
-    // /**
-    //  * Attach Item
-    //  *
-    //  * @param id
-    //  * @param data
-    //  * @returns {Promise}
-    //  */
-    // attach(id, data = {}) {
-    //     data['id'] = id;
-    //     return new Promise((resolve, reject) => {
-    //         this.service.post(data)
-    //             .then(response => {
-    //                 this.index();
-    //                 resolve(response.data);
-    //             })
-    //             .catch(error => {
-    //                 reject(error.response.data);
-    //             });
-    //     });
-    // }
 
     /**
      * DELETE the paginator item
