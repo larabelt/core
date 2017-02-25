@@ -10,9 +10,6 @@ class Tabs {
         this.toggleable = options.toggleable;
         this.tab = this.default;
 
-        console.log(this.tab);
-        console.log(this.default);
-
         if (this.router && this.router.currentRoute) {
             if (this.router.currentRoute.hash) {
                 this.tab = this.router.currentRoute.hash.substring(1);
