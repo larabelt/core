@@ -136,6 +136,24 @@ class BaseForm {
     }
 
     /**
+     * DELETE the paginator item
+     *
+     * @param id
+     * @returns {Promise}
+     */
+    destroy(id) {
+        return new Promise((resolve, reject) => {
+            this.service.delete(id)
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject(error.response.data);
+                });
+        });
+    }
+
+    /**
      * Submit the form.
      */
     submit() {
