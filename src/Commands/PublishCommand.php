@@ -30,11 +30,6 @@ class PublishCommand extends Command
      * @var array
      */
     protected $dirs = [
-        'node_modules/admin-lte/bootstrap' => 'public/adminlte/bootstrap',
-        'node_modules/admin-lte/dist' => 'public/adminlte/dist',
-        'node_modules/admin-lte/plugins' => 'public/adminlte/plugins',
-        'node_modules/font-awesome/css' => 'public/fonts',
-        'node_modules/font-awesome/fonts' => 'public/fonts',
         'vendor/larabelt/core/config' => 'config/belt',
         'vendor/larabelt/core/resources/js' => 'resources/belt/core/js',
         'vendor/larabelt/core/resources/sass' => 'resources/belt/core/sass',
