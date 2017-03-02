@@ -48,6 +48,7 @@ class Kernel extends HttpKernel
             Illuminate\Session\Middleware\AuthenticateSession::class,
             //Illuminate\View\Middleware\ShareErrorsFromSession::class,
             //'auth.basic',
+            BeltMiddleware\ApiAuthorize::class,
             'throttle:60,1',
             'request.replacements',
             'bindings',
