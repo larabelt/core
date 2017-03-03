@@ -22,6 +22,10 @@ class TeamUsersFunctionalTest extends Testing\BeltTestCase
         $response->assertJsonFragment(['id']);
         $response = $this->json('GET', "/api/v1/teams/1/users/2");
         $response->assertStatus(200);
+        $response = $this->json('POST', '/api/v1/teams/1/users', [
+            'id' => 2
+        ]);
+        $response->assertStatus(422);
 
         # show
         $response = $this->json('GET', "/api/v1/teams/1/users/2");
