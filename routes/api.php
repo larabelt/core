@@ -8,6 +8,14 @@ Route::group([
 ],
     function () {
 
+        # tree
+        Route::group([
+            'prefix' => '{node_type}/{node_id}/tree',
+            'middleware' => 'request.injections:node_type,node_id',
+        ], function () {
+            Route::post('', Core\Http\Controllers\Api\TreeController::class . '@store');
+        });
+
         # params
         Route::group([
             'prefix' => '{paramable_type}/{paramable_id}/params',
