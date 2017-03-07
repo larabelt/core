@@ -79,7 +79,6 @@ class BeltCoreServiceProvider extends ServiceProvider
         // add sluggable behavior
         $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
             foreach ($data as $model) {
-                //if (in_array(Belt\Core\Behaviors\Sluggable::class, class_uses($model))) {
                 if ($model instanceof Belt\Core\Behaviors\SluggableInterface) {
                     $model->slugify();
                 }

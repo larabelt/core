@@ -17,7 +17,7 @@ class UpdateParam extends FormRequest
             'paramable_id' => 'sometimes|required',
             'paramable_type' => 'sometimes|required',
             'key' => 'sometimes|required',
-            'value' => 'sometimes|required',
+            //'value' => 'sometimes|required',
         ];
     }
 
