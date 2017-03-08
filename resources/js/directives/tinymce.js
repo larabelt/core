@@ -1,5 +1,3 @@
-import slugify from 'slugify';
-
 export default {
     inserted: function (el, binding, vnode, oldVnode) {
         let expression = vnode.data.directives.find(function(o) {
