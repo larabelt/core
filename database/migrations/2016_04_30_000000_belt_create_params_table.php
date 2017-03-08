@@ -16,7 +16,7 @@ class BeltCreateParamsTable extends Migration
             $table->increments('id');
             $table->morphs('paramable');
             $table->string('key');
-            $table->text('value');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }
