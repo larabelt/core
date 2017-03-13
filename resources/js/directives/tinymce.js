@@ -1,11 +1,11 @@
 export default {
     inserted: function (el, binding, vnode, oldVnode) {
-        let expression = vnode.data.directives.find(function(o) {
+        let expression = vnode.data.directives.find(function (o) {
             return o.name === 'model';
-        }).expression
+        }).expression;
 
         //@todo[lasota] Need to refactor this to not depend on 2 steps.
-        expression = expression.split('.');
+        //expression = expression.split('.');
 
         tinymce.init({
             target: el,
@@ -19,10 +19,12 @@ export default {
             toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
             init_instance_callback: function (editor) {
                 editor.on('keyup', function (e) {
-                    vnode.context[expression[0]][expression[1]] = editor.getContent();
+                    //vnode.context[expression[0]][expression[1]] = editor.getContent();
+                    _.set(vnode.context, expression, editor.getContent());
                 });
                 editor.on('NodeChange', function (e) {
-                    vnode.context[expression[0]][expression[1]] = editor.getContent();
+                    //vnode.context[expression[0]][expression[1]] = editor.getContent();
+                    _.set(vnode.context, expression, editor.getContent());
                 });
             }
         });
