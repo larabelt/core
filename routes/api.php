@@ -8,6 +8,9 @@ Route::group([
 ],
     function () {
 
+        # contact
+        Route::post('contact', Core\Http\Controllers\Api\ContactController::class . '@store');
+
         # params
         Route::group([
             'prefix' => '{paramable_type}/{paramable_id}/params',
