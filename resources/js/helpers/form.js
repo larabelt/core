@@ -85,7 +85,7 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    reject(error.response.data);
+                    reject(error);
                 });
         });
     }
@@ -106,8 +106,8 @@ class BaseForm {
                 })
                 .catch(error => {
                     this.saving = null;
-                    this.onFail(error.response.data);
-                    reject(error.response.data);
+                    this.onFail(error);
+                    reject(error);
                 });
         });
     }
@@ -129,8 +129,8 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.onFail(error.response.data);
-                    reject(error.response.data);
+                    this.onFail(error);
+                    reject(error);
                 });
         });
     }
@@ -148,7 +148,7 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    reject(error.response.data);
+                    reject(error);
                 });
         });
     }
