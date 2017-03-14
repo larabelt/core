@@ -85,7 +85,9 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    reject(error);
+                    if (error.response) {
+                        reject(error.response);
+                    }
                 });
         });
     }
@@ -106,8 +108,10 @@ class BaseForm {
                 })
                 .catch(error => {
                     this.saving = null;
-                    this.onFail(error);
-                    reject(error);
+                    if (error.response) {
+                        this.onFail(error.response);
+                        reject(error.response);
+                    }
                 });
         });
     }
@@ -129,8 +133,10 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    this.onFail(error);
-                    reject(error);
+                    if (error.response) {
+                        this.onFail(error.response);
+                        reject(error.response);
+                    }
                 });
         });
     }
@@ -148,7 +154,9 @@ class BaseForm {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    reject(error);
+                    if (error.response) {
+                        reject(error.response);
+                    }
                 });
         });
     }
@@ -186,11 +194,11 @@ class BaseForm {
      *
      * @param {object} errors
      */
-    onFail(errors) {
-        console.log('errors');
-        console.log(errors);
+    onFail(response) {
         this.saving = null;
-        this.errors.record(errors);
+        if (response.data) {
+            this.errors.record(response.data);
+        }
     }
 }
 
