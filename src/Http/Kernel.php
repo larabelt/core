@@ -39,6 +39,7 @@ class Kernel extends HttpKernel
             Illuminate\Session\Middleware\AuthenticateSession::class,
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
             BeltMiddleware\VerifyCsrfToken::class,
+            BeltMiddleware\Alerts::class,
             'bindings',
         ],
         'api' => [
@@ -46,9 +47,6 @@ class Kernel extends HttpKernel
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Session\Middleware\AuthenticateSession::class,
-            //Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            //'auth.basic',
-            //BeltMiddleware\ApiAuthorize::class,
             BeltMiddleware\OptionalBasicAuth::class,
             'throttle:60,1',
             'request.replacements',

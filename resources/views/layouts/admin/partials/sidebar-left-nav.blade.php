@@ -8,3 +8,4 @@
         <li><a href="/admin/belt/core/roles"><i class="fa fa-key"></i> <span>Roles</span></a></li>
     </ul>
 </li>
+<li><a href="/admin/belt/core/alerts"><i class="fa fa-bullhorn"></i> <span>Alerts</span></a></li>

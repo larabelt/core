@@ -1,3 +1,4 @@
+import alerts from './components/alerts/routes';
 import roles from './components/roles/routes';
 import teams from './components/teams/routes';
 import users from './components/users/routes';
@@ -34,6 +35,7 @@ export default class BeltCore {
                 routes: []
             });
 
+            router.addRoutes(alerts);
             router.addRoutes(roles);
             router.addRoutes(teams);
             router.addRoutes(users);

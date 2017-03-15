@@ -11,6 +11,7 @@ class BeltCoreSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(BeltCoreAlertSeeds::class);
         $this->call(BeltCoreRoleSeeds::class);
         $this->call(BeltCoreUserSeeds::class);
         $this->call(BeltCoreTeamSeeds::class);

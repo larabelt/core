@@ -85,6 +85,9 @@ class BeltCoreServiceProvider extends ServiceProvider
             }
         });
 
+        // route model binding
+        $router->model('alert', Belt\Core\Alert::class);
+
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
         if (env('APP_ENV') == 'local') {
