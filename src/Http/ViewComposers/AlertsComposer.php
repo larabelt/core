@@ -29,7 +29,7 @@ class AlertsComposer
                 $alerts->forget($id);
             }
 
-            $this->alerts = $alerts;
+            $this->alerts = $alerts->count() ? $alerts : null;
         }
     }
 
