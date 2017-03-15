@@ -29,8 +29,10 @@
 @include('belt-core::layouts.web.partials.menu')
 
 <div id="main" role="main">
-    @include('belt-core::layouts.shared.partials.flash')
-    <div id="app">@yield('main')</div>
+    <div id="app">
+        @include('belt-core::layouts.shared.partials.flash')
+        @yield('main')
+    </div>
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

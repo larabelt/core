@@ -3,6 +3,7 @@
 namespace Belt\Core\Http\Controllers\Api;
 
 use Belt\Core\Alert;
+use Belt\Core\Services\AlertService;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
 
@@ -19,12 +20,25 @@ class AlertsController extends ApiController
     public $alerts;
 
     /**
+     * @var AlertService
+     */
+    public $service;
+
+    /**
      * ApiController constructor.
      * @param Alert $alert
      */
     public function __construct(Alert $alert)
     {
         $this->alerts = $alert;
+    }
+
+    /**
+     * @return AlertService
+     */
+    public function service()
+    {
+        return $this->service ?: new AlertService();
     }
 
     /**
@@ -66,6 +80,8 @@ class AlertsController extends ApiController
         ]);
 
         $alert->save();
+
+        $this->service()->cache();
 
         return response()->json($alert, 201);
     }
@@ -109,6 +125,8 @@ class AlertsController extends ApiController
 
         $alert->save();
 
+        $this->service()->cache();
+
         return response()->json($alert);
     }
 
@@ -125,6 +143,8 @@ class AlertsController extends ApiController
         $this->authorize('delete', $alert);
 
         $alert->delete();
+
+        $this->service()->cache();
 
         return response()->json(null, 204);
     }

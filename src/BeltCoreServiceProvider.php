@@ -64,6 +64,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         // commands
+        $this->commands(Belt\Core\Commands\AlertCommand::class);
         $this->commands(Belt\Core\Commands\BeltCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestDBCommand::class);

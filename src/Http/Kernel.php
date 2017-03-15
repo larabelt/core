@@ -39,7 +39,6 @@ class Kernel extends HttpKernel
             Illuminate\Session\Middleware\AuthenticateSession::class,
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
             BeltMiddleware\VerifyCsrfToken::class,
-            BeltMiddleware\Alerts::class,
             'bindings',
         ],
         'api' => [

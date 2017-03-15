@@ -66,12 +66,12 @@ class Alert extends Model implements
     {
         $query->where('is_active', true);
         $query->where(function ($sub) {
-            $sub->whereNull('starts_at_date');
-            $sub->orWhere('starts_at_date', '<=', date('Y-m-d'));
+            $sub->whereNull('starts_at');
+            $sub->orWhere('starts_at', '<=', date('Y-m-d H:i:s', strtotime('now')));
         });
         $query->where(function ($sub) {
-            $sub->whereNull('ends_at_date');
-            $sub->orWhere('ends_at_date', '>=', date('Y-m-d'));
+            $sub->whereNull('ends_at');
+            $sub->orWhere('ends_at', '>=', date('Y-m-d H:i:s', strtotime('now')));
         });
     }
 
