@@ -24,6 +24,8 @@ trait Paramable
      */
     public function saveParam($key, $value)
     {
+        $this->load('params');
+
         $param = $this->params->where('key', $key)->first();
 
         if ($param) {
