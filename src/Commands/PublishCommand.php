@@ -61,8 +61,8 @@ class PublishCommand extends Command
 
         $service = $this->service();
 
-        if ($action == 'hash') {
-            $service->hash();
+        if ($action == 'update') {
+            $service->update();
         }
 
         if ($action == 'publish') {

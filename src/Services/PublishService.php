@@ -108,14 +108,18 @@ class PublishService
      *
      * @return mixed
      */
-    public function hash()
+    public function update()
     {
         $this->setPublishHistoryTable();
 
         $histories = PublishHistory::all();
         foreach ($histories as $history) {
-            $hash = md5($this->disk()->get($history->path));
-            $history->update(['hash' => $hash]);
+            try {
+                $hash = md5($this->disk()->get($history->path));
+                $history->update(['hash' => $hash]);
+            } catch(\Exception $e) {
+                $history->delete();
+            }
         }
     }
 
