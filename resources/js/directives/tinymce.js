@@ -18,11 +18,11 @@ export default {
             ],
             toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
             init_instance_callback: function (editor) {
-                editor.on('keyup', function (e) {
-                    //vnode.context[expression[0]][expression[1]] = editor.getContent();
-                    _.set(vnode.context, expression, editor.getContent());
+                editor.on('init', function (e) {
+                    // vnode.context[expression[0]][expression[1]] = editor.getContent();
+                    editor.setContent(_.get(vnode.context, expression));
                 });
-                editor.on('NodeChange', function (e) {
+                editor.on('NodeChange Change KeyUp', function (e) {
                     //vnode.context[expression[0]][expression[1]] = editor.getContent();
                     _.set(vnode.context, expression, editor.getContent());
                 });
