@@ -17,7 +17,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:publish {--force}';
+    protected $signature = 'belt-core:publish {action=publish} {--force} {--path=}';
 
     /**
      * The console command description.
@@ -56,8 +56,27 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        $service = $this->getService();
 
+        $action = $this->argument('action');
+
+        $service = $this->service();
+
+        if ($action == 'hash') {
+            $service->hash();
+        }
+
+        if ($action == 'publish') {
+            $this->publish($service);
+        }
+    }
+
+    /**
+     * Publish contents
+     *
+     * @param $service
+     */
+    public function publish($service)
+    {
         $service->publish();
 
         if ($service->created) {
@@ -85,12 +104,13 @@ class PublishCommand extends Command
     /**
      * @return PublishService
      */
-    public function getService()
+    public function service()
     {
         $this->service = $this->service ?: new PublishService([
-            'force' => $this->option('force'),
             'dirs' => $this->dirs,
-            'files' => $this->files
+            'files' => $this->files,
+            'force' => $this->option('force'),
+            'path' => $this->option('path'),
         ]);
 
         return $this->service;

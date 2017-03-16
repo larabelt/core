@@ -34,9 +34,9 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Belt\Core\Commands\PublishCommand::getService
+     * @covers \Belt\Core\Commands\PublishCommand::service
      */
-    public function testGetService()
+    public function testService()
     {
 
         $cmd = $this->getMockBuilder(PublishCommand::class)
@@ -45,7 +45,7 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
 
         $cmd->expects($this->once())->method('option')->willReturn(false);
 
-        $service = $cmd->getService();
+        $service = $cmd->service();
 
         $this->assertInstanceOf(PublishService::class, $service);
 

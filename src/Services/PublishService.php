@@ -20,6 +20,11 @@ class PublishService
     public $force = false;
 
     /**
+     * @var string
+     */
+    public $path = null;
+
+    /**
      * @var array|mixed
      */
     public $dirs = [];
@@ -55,9 +60,10 @@ class PublishService
      */
     public function __construct($options = [])
     {
-        $this->force = array_get($options, 'force', false);
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
+        $this->force = array_get($options, 'force', false);
+        $this->path = array_get($options, 'path', []);
     }
 
     /**
@@ -98,6 +104,22 @@ class PublishService
     }
 
     /**
+     * Update history hashes
+     *
+     * @return mixed
+     */
+    public function hash()
+    {
+        $this->setPublishHistoryTable();
+
+        $histories = PublishHistory::all();
+        foreach ($histories as $history) {
+            $hash = md5($this->disk()->get($history->path));
+            $history->update(['hash' => $hash]);
+        }
+    }
+
+    /**
      * @param $src_dir
      * @param $target_dir
      */
@@ -109,7 +131,9 @@ class PublishService
         foreach ($files as $file) {
             $rel_src_path = str_replace($src_dir, '', $file);
             $save_path = $target_dir . $rel_src_path;
-            $this->evalFile($file, $save_path);
+            if (!$this->path || str_contains($save_path, explode(',', $this->path))) {
+                $this->evalFile($file, $save_path);;
+            }
         }
     }
 

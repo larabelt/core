@@ -18,7 +18,7 @@ class BeltCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt {action} {--force}';
+    protected $signature = 'belt {action} {--force} {--path=}';
 
     /**
      * The console command description.
@@ -57,7 +57,8 @@ class BeltCommand extends Command
         foreach (app('belt')->publish() as $cmd) {
             $this->info($cmd);
             $this->call($cmd, [
-                '--force' => (bool) array_get($options, 'force', false)
+                '--force' => (bool) array_get($options, 'force', false),
+                '--path' => (string) array_get($options, 'path'),
             ]);
         }
 
