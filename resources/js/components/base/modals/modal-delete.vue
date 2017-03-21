@@ -17,7 +17,7 @@
                 modalTemplate: `
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="gridSystemModalLabel">Removal Confirmations</h4>
+                        <h4 class="modal-title" id="gridSystemModalLabel">Remove This Item?</h4>
                     </div>
                     <div class="modal-body">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
