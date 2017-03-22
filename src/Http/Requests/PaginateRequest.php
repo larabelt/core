@@ -38,6 +38,11 @@ class PaginateRequest extends Request
      */
     public $meta = [];
 
+    /**
+     * @var array
+     */
+    public $joins = [];
+
     public function reCapture()
     {
         $captured = parent::capture();

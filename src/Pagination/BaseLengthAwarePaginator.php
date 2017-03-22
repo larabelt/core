@@ -59,7 +59,9 @@ class BaseLengthAwarePaginator
 
         $request->modifyQuery($this->qb);
 
-        $this->qb->orderBy($request->orderBy(), $request->sortBy());
+        if ($orderBy = $request->orderBy()) {
+            $this->qb->orderBy($orderBy, $request->sortBy());
+        }
 
         $count = $this->qb->count();
 
