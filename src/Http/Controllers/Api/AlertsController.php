@@ -49,7 +49,7 @@ class AlertsController extends ApiController
      */
     public function index(Requests\PaginateAlerts $request)
     {
-        $this->authorize('index', Alert::class);
+        //$this->authorize('index', Alert::class);
 
         $paginator = $this->paginator($this->alerts->query(), $request->reCapture());
 
@@ -95,7 +95,7 @@ class AlertsController extends ApiController
      */
     public function show(Alert $alert)
     {
-        $this->authorize('view', $alert);
+        //$this->authorize('view', $alert);
 
         return response()->json($alert);
     }
