@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Pagination;
 
 use Belt\Core\Http\Requests\PaginateRequest;
@@ -59,9 +60,7 @@ class BaseLengthAwarePaginator
 
         $request->modifyQuery($this->qb);
 
-        if ($orderBy = $request->orderBy()) {
-            $this->qb->orderBy($orderBy, $request->sortBy());
-        }
+        $this->orderBy($request);
 
         $count = $this->qb->count();
 
@@ -80,6 +79,19 @@ class BaseLengthAwarePaginator
         $paginator->appends($request->query());
 
         $this->paginator = $paginator;
+    }
+
+    public function orderBy($request)
+    {
+        $orderBy = $request->orderBy();
+        if ($orderBy) {
+            foreach (explode(',', $orderBy) as $orderBy) {
+                $prefix = substr($orderBy, 0, 1);
+                $sortBy = $prefix == '-' ? 'desc' : $request->sortBy();
+                //echo $orderBy . "\n";
+                $this->qb->orderBy(ltrim($orderBy, '-'), $sortBy);
+            }
+        }
     }
 
     /**

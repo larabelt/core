@@ -116,7 +116,7 @@ class PaginateRequest extends Request
     {
         $orderBy = $this->query('orderBy');
 
-        if ($orderBy && in_array($orderBy, $this->sortable)) {
+        if ($orderBy && in_array(ltrim($orderBy, '-'), $this->sortable)) {
             return (string) $orderBy;
         }
 
