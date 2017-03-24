@@ -18,7 +18,10 @@ export default {
             ids = _.compact(_.uniq(ids));
             ids = ids.join(',');
 
-            document.cookie = "alerts=" + ids;
+            //document.cookie = "alerts=" + ids;
+
+            let cookie = new Cookies();
+            cookie.set('alerts', ids, 7);
         },
     },
     template: `<div><span @click="dismiss"><slot><i class="fa fa-times"></i></slot></span></div>`
