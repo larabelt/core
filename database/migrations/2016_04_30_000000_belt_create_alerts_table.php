@@ -21,10 +21,6 @@ class BeltCreateAlertsTable extends Migration
             $table->text('body')->nullable();
             $table->dateTime('starts_at')->nullable();
             $table->dateTime('ends_at')->nullable();
-//            $table->date('starts_at_date')->nullable();
-//            $table->time('starts_at_time')->nullable();
-//            $table->date('ends_at_date')->nullable();
-//            $table->time('ends_at_time')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
