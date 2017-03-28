@@ -1,10 +1,16 @@
 <?php
 
+use Mockery as m;
 use Belt\Core\Commands\PublishCommand;
 use Belt\Core\Services\PublishService;
 
 class PublishCommandTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function tearDown()
+    {
+        m::close();
+    }
 
     /**
      * @covers \Belt\Core\Commands\PublishCommand::handle
@@ -38,16 +44,10 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
      */
     public function testService()
     {
+        $cmd = m::mock(PublishCommand::class . '[option]');
+        $cmd->shouldReceive('option')->with('force')->andReturn(false);
+        $cmd->shouldReceive('option')->with('path')->andReturn('test');
 
-        $cmd = $this->getMockBuilder(PublishCommand::class)
-            ->setMethods(['option'])
-            ->getMock();
-
-        $cmd->expects($this->once())->method('option')->willReturn(false);
-
-        $service = $cmd->service();
-
-        $this->assertInstanceOf(PublishService::class, $service);
-
+        $this->assertInstanceOf(PublishService::class, $cmd->service());
     }
 }
