@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core;
 
 use Belt;
@@ -62,16 +63,23 @@ class Alert extends Model implements
         $this->attributes['name'] = strtoupper(trim($value));
     }
 
-    public function scopeActive($query)
+    /**
+     * @param $query
+     * @param $datetime
+     */
+    public function scopeActive($query, $datetime = null)
     {
-        $query->where('is_active', true);
-        $query->where(function ($sub) {
-            $sub->whereNull('starts_at');
-            $sub->orWhere('starts_at', '<=', date('Y-m-d H:i:s', strtotime('now')));
+
+        $datetime = $datetime ?: date('Y-m-d H:i:s', strtotime('now'));
+
+        $query->where('alerts.is_active', true);
+        $query->where(function ($query) use ($datetime) {
+            $query->whereNull('alerts.starts_at');
+            $query->orWhere('alerts.starts_at', '<=', $datetime);
         });
-        $query->where(function ($sub) {
-            $sub->whereNull('ends_at');
-            $sub->orWhere('ends_at', '>=', date('Y-m-d H:i:s', strtotime('now')));
+        $query->where(function ($query) use ($datetime) {
+            $query->whereNull('alerts.ends_at');
+            $query->orWhere('alerts.ends_at', '>=', $datetime);
         });
     }
 

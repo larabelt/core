@@ -15,7 +15,7 @@ trait HasSortableTrait
      *
      * @return mixed
      */
-    protected function getBelongsToManyCaller()
+    public function getBelongsToManyCaller()
     {
         return $this->guessBelongsToManyRelation();
     }

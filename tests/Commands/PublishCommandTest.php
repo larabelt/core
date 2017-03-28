@@ -18,25 +18,38 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
     public function testHandle()
     {
 
-        $cmd = $this->getMockBuilder(PublishCommand::class)
-            ->setMethods(['getService', 'info', 'warn'])
-            ->getMock();
+        # service update
+        $service = m::mock(PublishService::class);
+        $service->shouldReceive('update')->andReturnNull();
+        $cmd = m::mock(PublishCommand::class . '[argument, service]');
+        $cmd->shouldReceive('argument')->andReturn('update');
+        $cmd->shouldReceive('service')->andReturn($service);
+        $cmd->handle();
 
-        $service = $this->getMockBuilder(PublishService::class)
-            ->setMethods(['publish'])
-            ->getMock();
+        # publish
+        $service = m::mock(PublishService::class);
+        $cmd = m::mock(PublishCommand::class . '[argument, publish, service]');
+        $cmd->shouldReceive('argument')->andReturn('publish');
+        $cmd->shouldReceive('service')->andReturn($service);
+        $cmd->shouldReceive('publish')->andReturnNull();
+        $cmd->handle();
+    }
 
+    /**
+     * @covers \Belt\Core\Commands\PublishCommand::publish
+     */
+    public function testPublish()
+    {
+        $service = m::mock(PublishService::class);
+        $service->shouldReceive('publish')->andReturnNull();
         $service->created = ['one', 'two', 'three'];
         $service->modified = ['one', 'two', 'three'];
         $service->ignored = ['one', 'two', 'three'];
 
-        $service->expects($this->once())->method('publish');
-
-        $cmd->expects($this->once())->method('getService')->willReturn($service);
-        $cmd->expects($this->exactly(8))->method('info');
-        $cmd->expects($this->exactly(4))->method('warn');
-
-        $cmd->handle();
+        $cmd = m::mock(PublishCommand::class . '[info, warn]');
+        $cmd->shouldReceive('info')->times(8)->andReturnNull();
+        $cmd->shouldReceive('warn')->times(4)->andReturnNull();
+        $cmd->publish($service);
     }
 
     /**

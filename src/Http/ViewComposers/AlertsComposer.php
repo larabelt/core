@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Http\ViewComposers;
 
 use Cache, Cookie;
@@ -11,7 +12,7 @@ class AlertsComposer
     /**
      * @var Alert[]|Collection
      */
-    protected $alerts;
+    public $alerts;
 
     /**
      * Create a new profile composer.
@@ -22,11 +23,13 @@ class AlertsComposer
 
         if ($alerts && $alerts->count() && $alerts instanceof Collection) {
 
-            $dismissed = Cookie::get('alerts') ?: '';
-            $dismissed = array_unique(explode(',', $dismissed));
+            $dismissed = Cookie::get('alerts');
 
-            foreach ($dismissed as $id) {
-                $alerts->forget($id);
+            if ($dismissed) {
+                $dismissed = array_unique(explode(',', $dismissed));
+                foreach ($dismissed as $id) {
+                    $alerts->forget($id);
+                }
             }
 
             $this->alerts = $alerts->count() ? $alerts : null;

@@ -55,6 +55,11 @@ class PublishService
     public $disk;
 
     /**
+     * @var PublishHistory
+     */
+    public $publishHistory;
+
+    /**
      * PublishService constructor.
      * @param array $options
      */
@@ -64,6 +69,8 @@ class PublishService
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
         $this->path = array_get($options, 'path', []);
+
+        $this->publishHistory = new PublishHistory();
     }
 
     /**
@@ -112,12 +119,13 @@ class PublishService
     {
         $this->setPublishHistoryTable();
 
-        $histories = PublishHistory::all();
+        $histories = $this->publishHistory->all();
+
         foreach ($histories as $history) {
             try {
                 $hash = md5($this->disk()->get($history->path));
                 $history->update(['hash' => $hash]);
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 $history->delete();
             }
         }
@@ -252,7 +260,7 @@ class PublishService
      */
     public function getFilePublishHistory($path)
     {
-        return PublishHistory::firstOrCreate(['path' => $path]);
+        return $this->publishHistory->firstOrCreate(['path' => $path]);
     }
 
 }

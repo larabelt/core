@@ -5,10 +5,10 @@ use Mockery as m;
 use Belt\Core\Services\PublishService;
 use Belt\Core\PublishHistory;
 use Belt\Core\Testing\BeltTestCase;
-
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * @runTestsInSeparateProcesses
@@ -60,8 +60,9 @@ class PublishServiceTest extends BeltTestCase
         $this->assertInstanceOf(Filesystem::class, $service->disk());
 
         # getFilePublishHistory
-        $historyClass = m::mock('overload:' . PublishHistory::class);
-        $historyClass->shouldReceive('firstOrCreate')->andReturn($this->mockHistory());
+        $publishHistory = m::mock(PublishHistory::class);
+        $publishHistory->shouldReceive('firstOrCreate')->andReturn($this->mockHistory());
+        $service->publishHistory = $publishHistory;
         $history = $service->getFilePublishHistory('/src');
 
         # mock disk
@@ -143,6 +144,42 @@ class PublishServiceTest extends BeltTestCase
         $this->assertEquals(count($service->modified), 0);
         $service->publish();
         $this->assertEquals(count($service->modified), 3);
+
+
+    }
+
+    /**
+     * @covers \Belt\Core\Services\PublishService::update
+     */
+    public function testUpdate()
+    {
+        $disk = m::mock(Filesystem::class);
+        $disk->shouldReceive('get')->with('valid')->andReturn('contents');
+        $disk->shouldReceive('get')->with('invalid')->andThrow(new \Exception());
+
+        $history1 = m::mock(PublishHistory::class);
+        $history1->shouldReceive('getAttribute')->with('path')->andReturn('valid');
+        $history1->shouldReceive('delete')->andReturn();
+        $history1->shouldReceive('update')->andReturn();
+
+        $history2 = m::mock(PublishHistory::class);
+        $history2->shouldReceive('getAttribute')->with('path')->andReturn('invalid');
+        $history2->shouldReceive('delete')->andReturn();
+        $history2->shouldReceive('update')->andReturn();
+
+        $histories = new \Illuminate\Support\Collection();
+        $histories->push($history1);
+        $histories->push($history2);
+
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('all')->andReturn($histories);
+
+        $service = m::mock(PublishService::class . '[setPublishHistoryTable]');
+        $service->disk = $disk;
+        $service->publishHistory = $qb;
+        $service->shouldReceive('setPublishHistoryTable')->andReturnNull();
+
+        $service->update();
     }
 
     private function mockDisk()

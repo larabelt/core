@@ -18,7 +18,6 @@ class TeamTest extends BeltTestCase
     public function test()
     {
         $team = factory(Team::class)->make();
-        $user = factory(User::class)->make(['email' => 'test@test.com']);
 
         Team::unguard();
 

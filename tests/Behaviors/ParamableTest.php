@@ -59,4 +59,9 @@ class ParamableStub extends Testing\BaseModelStub
 {
     use Paramable;
 
+    public function load($relations)
+    {
+        
+    }
+
 }
