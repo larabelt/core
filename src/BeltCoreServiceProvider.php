@@ -87,7 +87,9 @@ class BeltCoreServiceProvider extends ServiceProvider
         });
 
         // route model binding
-        $router->model('alert', Belt\Core\Alert::class);
+        $router->model('alert', Belt\Core\Alert::class, function ($value) {
+            return Belt\Core\Alert::sluggish($value)->first();
+        });
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);

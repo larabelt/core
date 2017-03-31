@@ -43,4 +43,22 @@ trait Sluggable
         return $this;
     }
 
+    /**
+     * Scope a query to search by slug or id
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSluggish($query, $value)
+    {
+
+        $column = is_numeric($value) ? 'id' : 'slug';
+
+        $value = $column == 'id' ? $value : str_slug($value);
+
+        return $query->where($column, $value);
+    }
+
 }
