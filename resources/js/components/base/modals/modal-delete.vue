@@ -1,17 +1,22 @@
 <template>
-    <a :class="_class" v-on:click="remove(itemId)">
-        <slot>
-            <i class="fa fa-trash"></i>
-        </slot>
-    </a>
+    <a class="btn btn-xs btn-danger" v-on:click="remove(itemId)"><i class="fa fa-trash"></i></a>
 </template>
 
 <script>
     export default {
+        computed: {
+            parent() {
+                if( !this.callingObject ) {
+                    return this.$parent;
+                }
+
+                return this.callingObject;
+            }
+        },
         created() {
             Events.$on('modal-confirmation', (key) => {
                 if( key == this.key ) {
-                    this.$parent.destroy(this.itemId);
+                    this.parent.destroy(this.itemId);
                 }
             });
         },
@@ -39,11 +44,11 @@
             }
         },
         props: {
-            _class: {
-                default: 'btn btn-xs btn-danger',
-            },
             itemId : {
-                default: null,
+                default: null
+            },
+            callingObject: {
+                default: null
             }
         }
     }
