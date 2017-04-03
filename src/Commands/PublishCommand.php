@@ -17,7 +17,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:publish {action=publish} {--force} {--path=}';
+    protected $signature = 'belt-core:publish {action=publish} {--force} {--include=} {--exclude=}';
 
     /**
      * The console command description.
@@ -110,7 +110,8 @@ class PublishCommand extends Command
             'dirs' => $this->dirs,
             'files' => $this->files,
             'force' => $this->option('force'),
-            'path' => $this->option('path'),
+            'include' => $this->option('include'),
+            'exclude' => $this->option('exclude'),
         ]);
 
         return $this->service;

@@ -22,7 +22,12 @@ class PublishService
     /**
      * @var string
      */
-    public $path = null;
+    public $include = null;
+
+    /**
+     * @var string
+     */
+    public $exclude = null;
 
     /**
      * @var array|mixed
@@ -68,7 +73,8 @@ class PublishService
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
-        $this->path = array_get($options, 'path', []);
+        $this->include = array_get($options, 'include', []);
+        $this->exclude = array_get($options, 'exclude', []);
 
         $this->publishHistory = new PublishHistory();
     }
@@ -138,13 +144,19 @@ class PublishService
     public function publishDir($src_dir, $target_dir)
     {
 
+        $include = explode(',', $this->include);
+        $exclude = explode(',', $this->exclude);
+
         $files = $this->disk()->allFiles($src_dir);
 
         foreach ($files as $file) {
             $rel_src_path = str_replace($src_dir, '', $file);
             $save_path = $target_dir . $rel_src_path;
-            if (!$this->path || str_contains($save_path, explode(',', $this->path))) {
-                $this->evalFile($file, $save_path);;
+            if (!$include || str_contains($save_path, $include)) {
+                if ($exclude && str_contains($save_path, $exclude)) {
+                    continue;
+                }
+                $this->evalFile($file, $save_path);
             }
         }
     }
