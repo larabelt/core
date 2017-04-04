@@ -1,5 +1,9 @@
 <template>
-    <a class="btn btn-xs btn-danger" v-on:click="remove(itemId)"><i class="fa fa-trash"></i></a>
+    <a :class="_class" @:click="remove(itemId)">
+        <slot>
+            <i class="fa fa-trash"></i>
+        </slot>
+    </a>
 </template>
 
 <script>
@@ -44,6 +48,9 @@
             }
         },
         props: {
+            _class: {
+                default: 'btn btn-xs btn-danger',
+            },
             itemId : {
                 default: null
             },
@@ -52,4 +59,5 @@
             }
         }
     }
+
 </script>
