@@ -144,8 +144,8 @@ class PublishService
     public function publishDir($src_dir, $target_dir)
     {
 
-        $include = explode(',', $this->include);
-        $exclude = explode(',', $this->exclude);
+        $include = $this->include ? explode(',', $this->include) : [];
+        $exclude = $this->exclude ? explode(',', $this->exclude) : [];
 
         $files = $this->disk()->allFiles($src_dir);
 
