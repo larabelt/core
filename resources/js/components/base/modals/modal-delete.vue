@@ -1,5 +1,5 @@
 <template>
-    <a :class="_class" @:click="remove(itemId)">
+    <a :class="_class" class="modal-delete-trigger" @:click="remove(itemId)">
         <slot>
             <i class="fa fa-trash"></i>
         </slot>
@@ -61,3 +61,9 @@
     }
 
 </script>
+
+<style lang="scss" scoped>
+    .modal-delete-trigger {
+        cursor: pointer;
+    }
+</style>
