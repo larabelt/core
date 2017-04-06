@@ -59,7 +59,8 @@ class PublishCommandTest extends \PHPUnit_Framework_TestCase
     {
         $cmd = m::mock(PublishCommand::class . '[option]');
         $cmd->shouldReceive('option')->with('force')->andReturn(false);
-        $cmd->shouldReceive('option')->with('path')->andReturn('test');
+        $cmd->shouldReceive('option')->with('include')->andReturn('test');
+        $cmd->shouldReceive('option')->with('exclude')->andReturn('something-else');
 
         $this->assertInstanceOf(PublishService::class, $cmd->service());
     }

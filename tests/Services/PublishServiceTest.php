@@ -135,6 +135,24 @@ class PublishServiceTest extends BeltTestCase
         $service->publishDir('/path/to/src', '/path/to/target');
         $this->assertEquals(count($service->modified), 3);
 
+        # publishDir (include)
+        $history = $this->mockHistory();
+        $service = $this->serviceMock($history);
+        $service->disk = $this->mockDisk();
+        $service->force = true;
+        $service->include = 'one,two';
+        $service->publishDir('/path/to/src', '/path/to/target');
+        $this->assertEquals(count($service->modified), 2);
+
+        # publishDir (exclude)
+        $history = $this->mockHistory();
+        $service = $this->serviceMock($history);
+        $service->disk = $this->mockDisk();
+        $service->force = true;
+        $service->exclude = 'two,three';
+        $service->publishDir('/path/to/src', '/path/to/target');
+        $this->assertEquals(count($service->modified), 1);
+
         # publish
         $history = $this->mockHistory();
         $service = $this->serviceMock($history);

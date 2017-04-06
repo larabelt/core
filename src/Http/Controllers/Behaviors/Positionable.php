@@ -22,7 +22,14 @@ trait Positionable
         if ($move && $positionEntityId) {
             $entityToMove = $collection->where('id', $id)->first();
             $entityInDesiredPosition = $collection->where('id', $positionEntityId)->first();
-            $this->__reposition($move, $entityToMove, $entityInDesiredPosition);
+            if ($entityToMove && $entityInDesiredPosition) {
+                if ($move == 'after') {
+                    $relation->moveAfter($entityToMove, $entityInDesiredPosition);
+                }
+                if ($move == 'before') {
+                    $relation->moveBefore($entityToMove, $entityInDesiredPosition);
+                }
+            }
         }
     }
 
@@ -37,19 +44,15 @@ trait Positionable
 
         if ($move && $positionEntityId) {
             $entityInDesiredPosition = $entityToMove->query()->where('id', $positionEntityId)->first();
-            $this->__reposition($move, $entityToMove, $entityInDesiredPosition);
+            if ($entityToMove && $entityInDesiredPosition) {
+                if ($move == 'after') {
+                    $entityToMove->moveAfter($entityInDesiredPosition);
+                }
+                if ($move == 'before') {
+                    $entityToMove->moveBefore($entityInDesiredPosition);
+                }
+            }
         }
     }
 
-    public function __reposition($move, $entityToMove, $entityInDesiredPosition)
-    {
-        if ($entityToMove && $entityInDesiredPosition) {
-            if ($move == 'after') {
-                $entityToMove->moveAfter($entityInDesiredPosition);
-            }
-            if ($move == 'before') {
-                $entityToMove->moveBefore($entityInDesiredPosition);
-            }
-        }
-    }
 }
