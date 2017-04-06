@@ -1,5 +1,5 @@
 <template>
-    <a :class="_class" class="modal-delete-trigger" @:click="remove(itemId)">
+    <a class="modal-delete-trigger" :class="_class" @click="remove(itemId)">
         <slot>
             <i class="fa fa-trash"></i>
         </slot>
