@@ -1,5 +1,5 @@
 <template>
-    <a :class="_class" @:click="remove(itemId)">
+    <a :class="_class" @click="remove(itemId)">
         <slot>
             <i class="fa fa-trash"></i>
         </slot>

@@ -39,7 +39,7 @@ class PositionableTest extends \PHPUnit_Framework_TestCase
 
         $request = new Request(['move' => 'after', 'position_entity_id' => 1]);
 
-        $controller->repositionEntity($request, 3, $collection, $relation);
+        $controller->repositionHasManyThrough($request, 3, $collection, $relation);
 
         # moveBefore
         $collection = m::mock(Collection::class);
@@ -53,7 +53,7 @@ class PositionableTest extends \PHPUnit_Framework_TestCase
 
         $request = new Request(['move' => 'before', 'position_entity_id' => 3]);
 
-        $controller->repositionEntity($request, 1, $collection, $relation);
+        $controller->repositionHasManyThrough($request, 1, $collection, $relation);
     }
 
 }
