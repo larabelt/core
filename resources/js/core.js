@@ -15,7 +15,7 @@ Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 Vue.directive('tinymce', tinymce_directive);
-//asdf
+
 window.Events = new Vue({});
 
 export default class BeltCore {
