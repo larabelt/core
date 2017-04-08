@@ -15,6 +15,7 @@ class EncryptCookies extends BaseEncrypter
      * @var array
      */
     protected $except = [
-        'alerts'
+        'alerts',
+        'guid',
     ];
 }
