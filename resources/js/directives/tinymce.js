@@ -9,6 +9,7 @@ export default {
             target: el,
             height: 300,
             menubar: false,
+            convert_urls: false,
             plugins: [
                 'advlist autolink lists link image charmap print preview anchor',
                 'searchreplace visualblocks code fullscreen',
