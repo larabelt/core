@@ -7,8 +7,8 @@ import tinymce_directive from './directives/tinymce';
 
 import column_sorter from './components/base/column-sorter';
 import pagination from './components/base/pagination.vue';
-import modals from './components/base/modals/modals';
-import modalDelete from './components/base/modals/modal-delete';
+import modals from './components/base/modals/modals.vue';
+import modalDelete from './components/base/modals/modal-delete.vue';
 
 Vue.component('column-sorter', column_sorter);
 Vue.component('pagination', pagination);

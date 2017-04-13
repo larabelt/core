@@ -4,10 +4,9 @@ class Cookies {
         let d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         let expires = "expires=" + d.toUTCString();
+
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
     }
-
-
 
     get(name) {
         name = name + "=";
@@ -21,7 +20,12 @@ class Cookies {
                 return c.substring(name.length, c.length);
             }
         }
-        return "";
+
+        return null;
+    }
+
+    delete(name) {
+        this.set(name, null, -1);
     }
 }
 
