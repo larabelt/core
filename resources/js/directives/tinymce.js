@@ -1,6 +1,5 @@
 export default {
-    componentUpdated: function (el, binding, vnode) {
-
+    bind(el, binding, vnode) {
         let expression = vnode.data.directives.find(function (o) {
             return o.name === 'model';
         }).expression;
@@ -24,6 +23,17 @@ export default {
                     _.set(vnode.context, expression, editor.getContent());
                 });
             }
+        }).then(response => {
+            el.dataset.tinymceid = response[0].id;
+            el.dataset.tinymcerecheck = el.value != '';
         });
+    },
+    componentUpdated: function (el, binding, vnode, oldVnode) {
+
+        if( el.dataset.tinymcerecheck == 'false' ) {
+            tinymce.get(el.dataset.tinymceid).setContent(el.value);
+            el.dataset.tinymcerecheck = true;
+        }
+
     }
 }
