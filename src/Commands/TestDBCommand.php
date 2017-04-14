@@ -45,10 +45,7 @@ class TestDBCommand extends Command
      */
     public function fire()
     {
-
-        if ($this->option('env') != 'testing') {
-            return $this->info('this command must with option --env=testing');
-        }
+        putenv("APP_ENV=testing");
 
         app()['config']->set('database.default', 'sqlite');
         app()['config']->set('database.connections.sqlite.database', 'database/testing/database.sqlite');
