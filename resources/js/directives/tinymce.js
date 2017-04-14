@@ -1,5 +1,5 @@
 export default {
-    bind(el, binding, vnode) {
+    inserted(el, binding, vnode) {
         let expression = vnode.data.directives.find(function (o) {
             return o.name === 'model';
         }).expression;
@@ -28,7 +28,7 @@ export default {
             el.dataset.tinymcerecheck = el.value != '';
         });
     },
-    componentUpdated: function (el, binding, vnode, oldVnode) {
+    componentUpdated(el, binding, vnode, oldVnode) {
 
         if( el.dataset.tinymcerecheck == 'false' ) {
             tinymce.get(el.dataset.tinymceid).setContent(el.value);
