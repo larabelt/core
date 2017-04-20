@@ -27,21 +27,11 @@ class TestDBCommandTest extends BeltTestCase
         # disk
         $this->assertInstanceOf(Filesystem::class, $cmd->disk());
 
-        # fire (option.env is not testing)
-        $cmd = $this->getMockBuilder(TestDBCommand::class)
-            ->setMethods(['option', 'info'])
-            ->getMock();
-        $cmd->expects($this->once())->method('option')->willReturn('production');
-        $cmd->expects($this->once())->method('info')->willReturn('error');
-        $cmd->fire();
-
         # fire (option.env is testing)
-
         $disk = $this->mockDisk();
         $cmd = $this->getMockBuilder(TestDBCommand::class)
-            ->setMethods(['option', 'disk', 'call'])
+            ->setMethods(['disk', 'call'])
             ->getMock();
-        $cmd->expects($this->once())->method('option')->willReturn('testing');
         $cmd->expects($this->any())->method('disk')->willReturn($disk);
         $cmd->expects($this->any())->method('call')->willReturn(null);
 

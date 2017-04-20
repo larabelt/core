@@ -2,6 +2,8 @@
 
 namespace Belt\Core\Pagination;
 
+use Event;
+use Belt\Core\Pagination\PaginationQueryModifier;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -42,7 +44,7 @@ class BaseLengthAwarePaginator
     }
 
     /**
-     *
+     * Build pagination query.
      */
     public function build()
     {
@@ -56,6 +58,13 @@ class BaseLengthAwarePaginator
                     $subQB->orWhere($column, 'LIKE', "%$needle%");
                 }
             });
+        }
+
+        /**
+         * @var $queryModifier PaginationQueryModifier
+         */
+        foreach ($request->queryModifiers as $queryModifier) {
+            $queryModifier::modify($this->qb, $request);
         }
 
         $request->modifyQuery($this->qb);
@@ -81,6 +90,9 @@ class BaseLengthAwarePaginator
         $this->paginator = $paginator;
     }
 
+    /**
+     * @param $request
+     */
     public function orderBy($request)
     {
         $orderBy = $request->orderBy();

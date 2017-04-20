@@ -1,9 +1,10 @@
 <?php
 
 use Mockery as m;
-use Illuminate\Database\Eloquent\Model;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Pagination\IsActiveQueryModifier;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,6 +17,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::__construct
      * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::build
      * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::toArray
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::orderBy
      */
     public function test()
     {
@@ -33,6 +35,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
         $request->searchable[] = 'test.id';
         $request->searchable[] = 'test.name';
         $request->sortable[] = 'test.name';
+        $request->queryModifiers[] = IsActiveQueryModifier::class;
 
         $paginator = new BaseLengthAwarePaginator($qb, $request);
 

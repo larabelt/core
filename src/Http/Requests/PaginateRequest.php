@@ -1,6 +1,8 @@
 <?php
+
 namespace Belt\Core\Http\Requests;
 
+use Belt\Core\Pagination\PaginationQueryModifier;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -39,10 +41,20 @@ class PaginateRequest extends Request
     public $meta = [];
 
     /**
+     * @var PaginationQueryModifier[]
+     */
+    public $queryModifiers = [];
+
+    /**
      * @var array
      */
     public $joins = [];
 
+    /**
+     * @deprecated
+     *
+     * @return $this
+     */
     public function reCapture()
     {
         $captured = parent::capture();
@@ -56,6 +68,29 @@ class PaginateRequest extends Request
         $this->headers = $captured->headers;
 
         return $this;
+    }
+
+    /**
+     * Create new PageRequest instance extending a regular Request instance
+     *
+     * @param Request $request
+     * @return static
+     */
+    public static function extend(Request $request)
+    {
+        $new = new static();
+
+        $new->initialize(
+            $request->query->all(),
+            $request->request->all(),
+            $request->attributes->all(),
+            $request->cookies->all(),
+            $request->files->all(),
+            $request->server->all(),
+            $request->content
+        );
+
+        return $new;
     }
 
     /**
@@ -150,7 +185,8 @@ class PaginateRequest extends Request
      * @param Builder $query
      * @return Collection
      */
-    public function items(Builder $query) {
+    public function items(Builder $query)
+    {
         return $query->get();
     }
 
