@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'auth.basic' => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => Illuminate\Auth\Middleware\Authorize::class,
+        'cors' => \Barryvdh\Cors\HandleCors::class,
         'guest' => BeltMiddleware\RedirectIfAuthenticated::class,
         'request.replacements' => BeltMiddleware\RequestReplacements::class,
         'request.injections' => BeltMiddleware\RequestInjections::class,

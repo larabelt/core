@@ -93,6 +93,7 @@ class BeltCoreServiceProvider extends ServiceProvider
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
+        $this->app->register(Barryvdh\Cors\ServiceProvider::class);
         if (env('APP_ENV') == 'local') {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
