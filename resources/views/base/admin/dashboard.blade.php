@@ -10,4 +10,13 @@
         <router-view></router-view>
     </div>
 
+    {{--<section class="content-header">--}}
+        {{--<h1><span><i class="fa fa-dashboard"></i> Dashboard</span></h1>--}}
+    {{--</section>--}}
+    {{--<div class="box">--}}
+        {{--<div class="box-body" style="min-height: 500px;">--}}
+
+        {{--</div>--}}
+    {{--</div>--}}
+
 @stop
