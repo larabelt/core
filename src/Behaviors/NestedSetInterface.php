@@ -1,10 +1,10 @@
 <?php namespace Belt\Core\Behaviors;
 
 /**
- * Interface NodeInterface
+ * Interface NestedSetInterface
  * @package Belt\Core\Behaviors
  */
-interface NodeInterface
+interface NestedSetInterface
 {
 
 
