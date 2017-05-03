@@ -3,7 +3,7 @@
 namespace Belt\Core;
 
 use Belt;
-use Barryvdh, Collective, Illuminate, Rap2hpoutre;
+use Barryvdh, Collective, DamianTW, Illuminate, Laravel, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
@@ -94,6 +94,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
         $this->app->register(Barryvdh\Cors\ServiceProvider::class);
+        $this->app->register(Laravel\Scout\ScoutServiceProvider::class);
         if (env('APP_ENV') == 'local') {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
