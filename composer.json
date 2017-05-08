@@ -22,7 +22,8 @@
     "laravel/framework": ">=5.4.0",
     "laravel/scout": "^3.0",
     "laravelcollective/html": "5.4.1",
-    "rutorika/sortable": "3.2.*"
+    "rutorika/sortable": "3.2.*",
+    "tamayo/laravel-scout-elastic": "^3.0"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^2.3",
