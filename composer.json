@@ -20,10 +20,9 @@
     "kalnoy/nestedset": "^4.2",
     "kint-php/kint": "^2.0",
     "laravel/framework": ">=5.4.0",
-    "laravel/scout": "^3.0",
     "laravelcollective/html": "5.4.1",
-    "rutorika/sortable": "3.2.*",
-    "tamayo/laravel-scout-elastic": "^3.0"
+    "riimu/kit-phpencoder": "^2.1",
+    "rutorika/sortable": "3.2.*"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^2.3",
