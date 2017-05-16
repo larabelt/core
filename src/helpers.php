@@ -5,7 +5,7 @@ use Belt\Core\Helpers\BeltHelper;
 
 if (!function_exists('belt')) {
     /**
-     * bla
+     * @codeCoverageIgnore
      */
     function belt()
     {
@@ -15,7 +15,7 @@ if (!function_exists('belt')) {
 
 if (!function_exists('dump_sql')) {
     /**
-     * bla
+     * @codeCoverageIgnore
      */
     function dump_sql($qb)
     {

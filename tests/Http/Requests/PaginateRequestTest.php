@@ -20,6 +20,7 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Http\Requests\PaginateRequest::modifyQuery
      * @covers \Belt\Core\Http\Requests\PaginateRequest::items
      * @covers \Belt\Core\Http\Requests\PaginateRequest::reCapture
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::extend
      */
     public function test()
     {
@@ -59,6 +60,11 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($request->server);
         $request->reCapture();
         $this->assertNotEmpty($request->server);
+
+        #extend
+        $request = new \Illuminate\Http\Request(['foo' => 'bar']);
+        $request = PaginateRequest::extend($request);
+        $this->assertEquals('bar', $request->get('foo'));
     }
 
 }

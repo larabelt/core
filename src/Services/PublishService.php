@@ -89,6 +89,8 @@ class PublishService
 
     /**
      * Create "publish_history" table if it does not exist.
+     *
+     * @codeCoverageIgnore
      */
     public function setPublishHistoryTable()
     {
