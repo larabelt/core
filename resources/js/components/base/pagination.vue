@@ -1,12 +1,12 @@
 <template>
     <div v-if="show">
         <div class="row belt-pagination">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="pagination" role="status" aria-live="polite">
                     Showing {{ table.from }} to {{ table.to }} of {{ table.total }} entries
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <span class="pull-right">
                     <ul class="pagination-sm pagination">
                         <li v-if="isNotFirst">
@@ -40,6 +40,15 @@
                         </li>
                     </ul>
                 </span>
+                <span class="pull-right">
+                    <div class="form-group">
+                        <select class="form-control" v-model="table.query.perPage" @change="table.index()">
+                            <template v-for="perPage in perPages">
+                                <option :value="perPage">{{ perPage }}</option>
+                            </template>
+                        </select>
+                    </div>
+                </span>
             </div>
         </div>
     </div>
@@ -49,7 +58,8 @@
     export default {
     data() {
         return {
-            max: 5
+            max: 5,
+            perPages: [10, 50, 100, 500, 1000],
         }
     },
     computed: {
@@ -61,7 +71,7 @@
                 return false;
             }
 
-            return this.table.total > this.table.per_page;
+            return this.table.total > 50 || this.table.total > this.table.per_page;
         },
         isNotFirst() {
             return this.table.current_page != 1
