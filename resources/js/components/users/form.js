@@ -14,9 +14,13 @@ class UserForm extends BaseForm {
             last_name: '',
             mi: '',
             email: '',
-            password: '',
-            password_confirmation: '',
         })
+    }
+
+    setData(data) {
+        data['password'] = '';
+        data['password_confirmation'] = '';
+        super.setData(data);
     }
 
 }

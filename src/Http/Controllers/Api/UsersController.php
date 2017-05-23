@@ -30,14 +30,6 @@ class UsersController extends ApiController
     }
 
     /**
-     * @param $id
-     */
-    public function get($id)
-    {
-        return $this->users->find($id) ?: $this->abort(404);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @param $request
@@ -85,15 +77,12 @@ class UsersController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param User $user
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(User $user)
     {
-
-        $user = $this->get($id);
-
         $this->authorize('view', $user);
 
         return response()->json($user);
@@ -103,14 +92,12 @@ class UsersController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  Requests\UpdateUser $request
-     * @param  string $id
+     * @param User $user
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Requests\UpdateUser $request, $id)
+    public function update(Requests\UpdateUser $request, User $user)
     {
-        $user = $this->get($id);
-
         $this->authorize('update', $user);
 
         $input = $request->all();
@@ -134,14 +121,12 @@ class UsersController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param User $user
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        $user = $this->get($id);
-
         $this->authorize('delete', $user);
 
         $user->delete();

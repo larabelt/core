@@ -61,9 +61,9 @@ Route::group([
         });
 
         # users
-        Route::get('users/{id}', Api\UsersController::class . '@show');
-        Route::put('users/{id}', Api\UsersController::class . '@update');
-        Route::delete('users/{id}', Api\UsersController::class . '@destroy');
+        Route::get('users/{user}', Api\UsersController::class . '@show');
+        Route::put('users/{user}', Api\UsersController::class . '@update');
+        Route::delete('users/{user}', Api\UsersController::class . '@destroy');
         Route::get('users', Api\UsersController::class . '@index');
         Route::post('users', Api\UsersController::class . '@store');
     }

@@ -23,6 +23,8 @@ class BaseForm {
      */
     setData(data) {
         this.originalData = data;
+        console.log('original');
+        console.log(this.originalData);
 
         for (let field in data) {
             this[field] = data[field];
