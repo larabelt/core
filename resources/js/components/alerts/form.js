@@ -40,8 +40,6 @@ class AlertForm extends BaseForm {
     }
 
     submit() {
-        console.log('submit');
-
         if (this.starts_at_date && this.starts_at_time) {
             this.starts_at = this.starts_at_date + ' ' + this.starts_at_time + ':00';
         }

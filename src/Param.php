@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core;
 
 use Belt;
@@ -39,6 +40,22 @@ class Param extends Model
     public function setValueAttribute($value)
     {
         $this->attributes['value'] = trim($value);
+    }
+
+    /**
+     * @param $param
+     * @param array $options
+     * @return Model
+     */
+    public static function copy($param, $options = [])
+    {
+        $param = $param instanceof Param ? $param : self::find($param)->first();
+
+        $clone = $param->replicate();
+        $clone->paramable_id = array_get($options, 'paramable_id');
+        $clone->push();
+
+        return $clone;
     }
 
 }

@@ -17,8 +17,6 @@ export default {
             let form = this.form;
             form.submit()
                 .then(function (response) {
-                    console.log(111);
-                    console.log(response);
                     self.success = true;
                 });
         }
