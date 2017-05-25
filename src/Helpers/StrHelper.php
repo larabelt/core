@@ -2,6 +2,8 @@
 
 namespace Belt\Core\Helpers;
 
+use Sabre\Uri;
+
 /**
  * Class StrHelper
  * @package Belt\Core\Helpers
@@ -224,6 +226,11 @@ class StrHelper
         s($array);
 
         return $array;
+    }
+
+    public static function normalizeUrl($str)
+    {
+        return rtrim(Uri\normalize($str), '/');
     }
 
 }
