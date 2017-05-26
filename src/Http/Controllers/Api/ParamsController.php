@@ -7,9 +7,13 @@ use Belt\Core\Param;
 use Belt\Core\Helpers\MorphHelper;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Requests;
+use Belt\Core\Http\Controllers\Morphable;
+use Illuminate\Http\Request;
 
 class ParamsController extends ApiController
 {
+
+    use Morphable;
 
     /**
      * @var Param
@@ -17,40 +21,24 @@ class ParamsController extends ApiController
     public $params;
 
     /**
-     * @var MorphHelper
+     * ParamsController constructor.
+     * @param Param $param
+     * @param MorphHelper $morphHelper
      */
-    public $morphHelper;
-
     public function __construct(Param $param, MorphHelper $morphHelper)
     {
         $this->params = $param;
-        $this->morphHelper = $morphHelper;
-    }
-
-    public function param($id, ParamableInterface $paramable = null)
-    {
-        $qb = $this->params->query();
-
-        if ($paramable) {
-            $qb->where('paramable_type', $paramable->getMorphClass());
-            $qb->where('paramable_id', $paramable->id);
-        }
-
-        $param = $qb->where('params.id', $id)->first();
-
-        return $param ?: $this->abort(404);
     }
 
     /**
-     * @param $paramable_type
-     * @param $paramable_id
-     * @return ParamableInterface
+     * @param ParamableInterface $paramable
+     * @param Param $param
      */
-    public function paramable($paramable_type, $paramable_id)
+    public function contains(ParamableInterface $paramable, Param $param)
     {
-        $paramable = $this->morphHelper->morph($paramable_type, $paramable_id);
-
-        return $paramable ?: $this->abort(404);
+        if (!$paramable->params->contains($param->id)) {
+            $this->abort(404, 'item does not have this param');
+        }
     }
 
     /**
@@ -59,17 +47,17 @@ class ParamsController extends ApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateParams $request, $paramable_type, $paramable_id)
+    public function index(Request $request, $paramable_type, $paramable_id)
     {
-        $request->reCapture();
+        $request = Requests\PaginateRequest::extend($request);
 
-        $owner = $this->paramable($paramable_type, $paramable_id);
+        $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize('view', $paramable);
 
         $request->merge([
-            'paramable_id' => $owner->id,
-            'paramable_type' => $owner->getMorphClass()
+            'paramable_id' => $paramable->id,
+            'paramable_type' => $paramable->getMorphClass()
         ]);
 
         $paginator = $this->paginator($this->params->query(), $request);
@@ -80,19 +68,19 @@ class ParamsController extends ApiController
     /**
      * Store a newly created resource in core.
      *
-     * @param  Requests\StoreParam $request
+     * @param Requests\StoreParam $request
      *
      * @return \Illuminate\Http\Response
      */
     public function store(Requests\StoreParam $request, $paramable_type, $paramable_id)
     {
-        $owner = $this->paramable($paramable_type, $paramable_id);
+        $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $owner);
+        $this->authorize('update', $paramable);
 
         $input = $request->all();
 
-        $param = $owner->saveParam($input['key'], $input['value']);
+        $param = $paramable->saveParam($input['key'], $input['value']);
 
         return response()->json($param, 201);
     }
@@ -100,20 +88,20 @@ class ParamsController extends ApiController
     /**
      * Update the specified resource in core.
      *
-     * @param  Requests\UpdateParam $request
-     * @param  string $paramable_type
-     * @param  string $paramable_id
-     * @param  string $id
+     * @param Requests\UpdateParam $request
+     * @param string $paramable_type
+     * @param string $paramable_id
+     * @param Param $param
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, $id)
+    public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
     {
-        $owner = $this->paramable($paramable_type, $paramable_id);
+        $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $owner);
+        $this->authorize('update', $paramable);
 
-        $param = $this->param($id, $owner);
+        $this->contains($paramable, $param);
 
         $input = $request->all();
 
@@ -129,17 +117,19 @@ class ParamsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param string $paramable_type
+     * @param string $paramable_id
+     * @param Param $param
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($paramable_type, $paramable_id, $id)
+    public function show($paramable_type, $paramable_id, Param $param)
     {
-        $owner = $this->paramable($paramable_type, $paramable_id);
+        $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $owner);
+        $this->authorize('view', $paramable);
 
-        $param = $this->param($id, $owner);
+        $this->contains($paramable, $param);
 
         return response()->json($param);
     }
@@ -147,17 +137,17 @@ class ParamsController extends ApiController
     /**
      * Remove the specified resource from core.
      *
-     * @param  int $id
+     * @param Param $param
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($paramable_type, $paramable_id, $id)
+    public function destroy($paramable_type, $paramable_id, Param $param)
     {
-        $owner = $this->paramable($paramable_type, $paramable_id);
+        $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $owner);
+        $this->authorize('update', $paramable);
 
-        $param = $this->param($id, $owner);
+        $this->contains($paramable, $param);
 
         $param->delete();
 

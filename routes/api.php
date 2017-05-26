@@ -23,9 +23,9 @@ Route::group([
             'prefix' => '{paramable_type}/{paramable_id}/params',
             'middleware' => 'request.injections:paramable_type,paramable_id',
         ], function () {
-            Route::get('{id}', Api\ParamsController::class . '@show');
-            Route::put('{id}', Api\ParamsController::class . '@update');
-            Route::delete('{id}', Api\ParamsController::class . '@destroy');
+            Route::get('{param}', Api\ParamsController::class . '@show');
+            Route::put('{param}', Api\ParamsController::class . '@update');
+            Route::delete('{param}', Api\ParamsController::class . '@destroy');
             Route::get('', Api\ParamsController::class . '@index');
             Route::post('', Api\ParamsController::class . '@store');
         });

@@ -1,6 +1,7 @@
 <?php
 
 use Belt\Core\Testing;
+use Belt\Core\Param;
 
 class ParamsFunctionalTest extends Testing\BeltTestCase
 {
@@ -32,6 +33,12 @@ class ParamsFunctionalTest extends Testing\BeltTestCase
         ]);
         $response = $this->json('GET', "/api/v1/sections/1/params/$paramID");
         $response->assertJson(['value' => 'updated']);
+
+        # copy
+        $old = Param::find($paramID);
+        $new = Param::copy($old, ['paramable_id' => 2]);
+        $response = $this->json('GET', "/api/v1/sections/2/params/$new->id");
+        $response->assertStatus(200);
 
         # delete
         $response = $this->json('DELETE', "/api/v1/sections/1/params/$paramID");

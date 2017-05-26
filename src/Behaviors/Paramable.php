@@ -44,7 +44,6 @@ trait Paramable
      */
     public function param($key, $default = null)
     {
-
         $param = $this->params->where('key', $key)->first();
 
         return $param ? $param->value : $default;
