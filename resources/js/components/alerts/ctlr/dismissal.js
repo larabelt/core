@@ -4,25 +4,25 @@ export default {
     props: {
         id: {},
     },
-    data() {
-        return {
-            result: 'bar',
-        }
-    },
     methods: {
         dismiss() {
-            document.getElementById('alert-' + this.id).style.display = 'none';
+            // Emit event to parent component
+            this.$emit('alert-dismissed', this.id)
 
-            let ids = (new Cookies()).get('alerts').split(',');
+            let ids = []
+            const existingIds = (new Cookies()).get('alerts');
+            
+            if (existingIds) {
+              ids = existingIds.split(',');
+            }
+
             ids.push(this.id.toString());
             ids = _.compact(_.uniq(ids));
             ids = ids.join(',');
-
-            //document.cookie = "alerts=" + ids;
-
+            
             let cookie = new Cookies();
             cookie.set('alerts', ids, 7);
         },
     },
-    template: `<div><span @click="dismiss"><slot><i class="fa fa-times"></i></slot></span></div>`
+    template: `<div @click="dismiss"><slot></slot></div>`
 }
