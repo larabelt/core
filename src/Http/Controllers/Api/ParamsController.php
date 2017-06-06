@@ -49,7 +49,7 @@ class ParamsController extends ApiController
      */
     public function index(Request $request, $paramable_type, $paramable_id)
     {
-        $request = Requests\PaginateRequest::extend($request);
+        $request = Requests\PaginateParams::extend($request);
 
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
