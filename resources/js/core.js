@@ -6,11 +6,13 @@ import store from 'belt/core/js/store/index';
 import tinymce_directive from './directives/tinymce';
 
 import column_sorter from './components/base/column-sorter';
+import dropdown from './components/base/dropdown';
 import pagination from './components/base/pagination.vue';
 import modals from './components/base/modals/modals.vue';
 import modalDelete from './components/base/modals/modal-delete.vue';
 
 Vue.component('column-sorter', column_sorter);
+Vue.component('dropdown', dropdown);
 Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);

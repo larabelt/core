@@ -2,10 +2,10 @@
 
 use Mockery as m;
 use Belt\Core\Testing;
-use Belt\Core\Http\Requests\PaginateParams;
+use Belt\Core\Http\Requests\PaginateParamables;
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateParamsTest extends Testing\BeltTestCase
+class PaginateParamablesTest extends Testing\BeltTestCase
 {
 
     use Testing\CommonMocks;
@@ -16,7 +16,7 @@ class PaginateParamsTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Http\Requests\PaginateParams::modifyQuery
+     * @covers \Belt\Core\Http\Requests\PaginateParamables::modifyQuery
      */
     public function test()
     {
@@ -24,7 +24,7 @@ class PaginateParamsTest extends Testing\BeltTestCase
         $qbMock->shouldReceive('where')->once()->with('paramable_id', 1);
         $qbMock->shouldReceive('where')->once()->with('paramable_type', 'users');
 
-        $paginateRequest = new PaginateParams(['paramable_id' => 1, 'paramable_type' => 'users']);
+        $paginateRequest = new PaginateParamables(['paramable_id' => 1, 'paramable_type' => 'users']);
 
         # modifyQuery
         $paginateRequest->modifyQuery($qbMock);

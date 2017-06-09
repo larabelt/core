@@ -1,0 +1,17 @@
+<tr class="form-inline">
+    <td>
+        <div class="form-group" :class="{ 'has-error': form.error('key') }">
+            <input type="key" class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
+            <span v-for="error in form.error('key')" class="text-danger">{{ error }}</span>
+        </div>
+    </td>
+    <td>
+        <div class="form-group" :class="{ 'has-error': form.error('value') }">
+            <input type="text" class="form-control input-sm" v-model="form.value" placeholder="" @change="update()">
+            <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
+        </div>
+    </td>
+    <td class="text-right">
+        <modal-delete :item-id="form.id" _class="btn btn-sm btn-danger" :callingObject="table"></modal-delete>
+    </td>
+</tr>

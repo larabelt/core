@@ -4,7 +4,7 @@ namespace Belt\Core\Http\Requests;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
-class PaginateParams extends PaginateRequest
+class PaginateParamables extends PaginateRequest
 {
     public $perPage = 10;
 

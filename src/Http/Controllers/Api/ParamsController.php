@@ -2,18 +2,16 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
-use Belt\Core\Behaviors\ParamableInterface;
 use Belt\Core\Param;
-use Belt\Core\Helpers\MorphHelper;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Requests;
-use Belt\Core\Http\Controllers\Morphable;
+use Belt\Core\Http\Requests\PaginateRequest;
+use Belt\Core\Pagination\GroupLengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class ParamsController extends ApiController
 {
-
-    use Morphable;
 
     /**
      * @var Param
@@ -21,24 +19,22 @@ class ParamsController extends ApiController
     public $params;
 
     /**
-     * ParamsController constructor.
+     * ParamablesController constructor.
      * @param Param $param
-     * @param MorphHelper $morphHelper
      */
-    public function __construct(Param $param, MorphHelper $morphHelper)
+    public function __construct(Param $param)
     {
         $this->params = $param;
     }
 
     /**
-     * @param ParamableInterface $paramable
-     * @param Param $param
+     * @param Builder $qb
+     * @param PaginateRequest $request
+     * @return GroupLengthAwarePaginator
      */
-    public function contains(ParamableInterface $paramable, Param $param)
+    public function paginator(Builder $qb, PaginateRequest $request)
     {
-        if (!$paramable->params->contains($param->id)) {
-            $this->abort(404, 'item does not have this param');
-        }
+        return new GroupLengthAwarePaginator($qb, $request);
     }
 
     /**
@@ -47,18 +43,13 @@ class ParamsController extends ApiController
      * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $paramable_type, $paramable_id)
+    public function keys(Request $request)
     {
-        $request = Requests\PaginateParams::extend($request);
+        $this->authorize('view', Param::class);
 
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $request = Requests\PaginateRequest::extend($request);
 
-        $this->authorize('view', $paramable);
-
-        $request->merge([
-            'paramable_id' => $paramable->id,
-            'paramable_type' => $paramable->getMorphClass()
-        ]);
+        $request->merge(['group' => 'key']);
 
         $paginator = $this->paginator($this->params->query(), $request);
 
@@ -66,91 +57,30 @@ class ParamsController extends ApiController
     }
 
     /**
-     * Store a newly created resource in core.
+     * Display a listing of the resource.
      *
-     * @param Requests\StoreParam $request
-     *
+     * @param $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Requests\StoreParam $request, $paramable_type, $paramable_id)
+    public function values(Request $request)
     {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $this->authorize('view', Param::class);
 
-        $this->authorize('update', $paramable);
+        $request = Requests\PaginateRequest::extend($request);
 
-        $input = $request->all();
+        $request->merge(['group' => 'value']);
 
-        $param = $paramable->saveParam($input['key'], $input['value']);
+        $query = $this->params->query();
 
-        return response()->json($param, 201);
+        $query->where('value', '!=', '');
+
+        if ($key = $request->get('key')) {
+            $query->where('key', $key);
+        }
+
+        $paginator = $this->paginator($query, $request);
+
+        return response()->json($paginator->toArray());
     }
 
-    /**
-     * Update the specified resource in core.
-     *
-     * @param Requests\UpdateParam $request
-     * @param string $paramable_type
-     * @param string $paramable_id
-     * @param Param $param
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
-    {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
-
-        $this->authorize('update', $paramable);
-
-        $this->contains($paramable, $param);
-
-        $input = $request->all();
-
-        $this->set($param, $input, [
-            'value',
-        ]);
-
-        $param->save();
-
-        return response()->json($param);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param string $paramable_type
-     * @param string $paramable_id
-     * @param Param $param
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($paramable_type, $paramable_id, Param $param)
-    {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
-
-        $this->authorize('view', $paramable);
-
-        $this->contains($paramable, $param);
-
-        return response()->json($param);
-    }
-
-    /**
-     * Remove the specified resource from core.
-     *
-     * @param Param $param
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($paramable_type, $paramable_id, Param $param)
-    {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
-
-        $this->authorize('update', $paramable);
-
-        $this->contains($paramable, $param);
-
-        $param->delete();
-
-        return response()->json(null, 204);
-    }
 }
