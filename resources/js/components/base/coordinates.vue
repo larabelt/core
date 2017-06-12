@@ -29,19 +29,13 @@ export default {
 
     initMap () {
         this.center = new google.maps.LatLng(39.9978441,-82.8857605);
+        
         gMap = new google.maps.Map(this.$refs.map , {
           center: this.center,
           zoom: 17,
           disableDefaultUI: false,
           gestureHandling: 'cooperative'
         });
-
-        // // Set bounds based on the US
-        // var bounds = new google.maps.LatLngBounds();
-        // bounds.extend(new google.maps.LatLng(24.52,-124.77));
-        // bounds.extend(new google.maps.LatLng(49.01,-66.94));
-        // gMap.setCenter(bounds.getCenter());
-        // gMap.fitBounds(bounds);
 
         // Set marker default location OR passed in coordinates
         let dragSpotLocation = this.center
