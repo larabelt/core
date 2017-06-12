@@ -7,9 +7,15 @@ import loadGoogleMapsAPI from 'load-google-maps-api';
 
 let gMap = {};
 
+let defaults = {
+    lat: 39.9612,
+    lng: -82.99882,
+    zoom: 15,
+}
+
 export default {
   name: 'coordinates-map',
-  props: ['lat', 'lng', 'type', 'level'],
+  props: ['lat', 'lng', 'type', 'level', 'zoom'],
   data () {
     return {
       center: ''
@@ -17,7 +23,7 @@ export default {
   },
   mounted () {
     // Fetch google maps API
-    loadGoogleMapsAPI({ key: 'AIzaSyDSaodVjYaPnWOtjEOzx-8IpgTaVlrtpXw'})
+    loadGoogleMapsAPI({ key: config('gmaps_api_key')})
       .then(this.initMap)
       .catch((err) => console.error(err));
   }, 
@@ -26,15 +32,18 @@ export default {
     /**
      * Initilize Map
      */
-
     initMap () {
-        this.center = new google.maps.LatLng(39.9978441,-82.8857605);
-        
+
+        let zoom = parseInt(this.zoom ? this.zoom : config('zoom', 15));
+
+        this.center = new google.maps.LatLng(config('lat'), config('lng'));
+
         gMap = new google.maps.Map(this.$refs.map , {
           center: this.center,
-          zoom: 17,
+          zoom: zoom,
           disableDefaultUI: false,
-          gestureHandling: 'cooperative'
+          gestureHandling: 'cooperative',
+          scrollwheel: false,
         });
 
         // Set marker default location OR passed in coordinates
@@ -68,6 +77,8 @@ export default {
         });
 
         return Promise.resolve();
+    },
+    centerSpot() {
     }
 
   }
@@ -104,6 +115,25 @@ function labelActive (text) {
   }
 }
 
+function config(key, _default) {
+
+    if (_.get(window, 'larabelt.coords.' + key)) {
+        return _.get(window, 'larabelt.coords.' + key);
+    }
+
+    if (_default) {
+        return _default;
+    }
+
+    if (_.get(defaults, key)) {
+        return _.get(defaults, key);
+    }
+
+    return null;
+}
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -111,4 +141,5 @@ function labelActive (text) {
 .coordinates {
   height: 500px;
 }
+
 </style>
