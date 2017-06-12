@@ -61,9 +61,6 @@ export default {
         // Add listener, emit events and coords changed
         const _vue = this;
         google.maps.event.addListener(dragSpot, 'dragend', function (event) {
-           console.log(this.getPosition().lat());
-           console.log(this.getPosition().lng());
-
            _vue.$emit('spot-updated', {
              lat: this.getPosition().lat(),
              lng: this.getPosition().lng()
