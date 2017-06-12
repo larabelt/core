@@ -1,3 +1,5 @@
+// todo[lasota] - valid elements need to be on all of them
+
 export default {
     inserted(el, binding, vnode) {
         let expression = vnode.data.directives.find(function (o) {
@@ -22,7 +24,8 @@ export default {
                 editor.on('NodeChange Change KeyUp', function (e) {
                     _.set(vnode.context, expression, editor.getContent());
                 });
-            }
+            },
+            valid_elements: 'a[role|aria*|tabindex]'
         }).then(response => {
             el.dataset.tinymceid = response[0].id;
             el.dataset.tinymcerecheck = el.value != '';
