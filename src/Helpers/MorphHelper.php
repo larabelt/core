@@ -1,6 +1,9 @@
 <?php
+
 namespace Belt\Core\Helpers;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
@@ -27,11 +30,24 @@ class MorphHelper
      * Convert morphable type to actual class
      *
      * @param $type
-     * @return mixed
+     * @return Model
      */
     public function type2Class($type)
     {
         return array_get($this->map(), $type);
+    }
+
+    /**
+     * Convert morphable type to actual query builder object
+     *
+     * @param $type
+     * @return Builder
+     */
+    public function type2QB($type)
+    {
+        $class = $this->type2Class($type);
+
+        return (new $class())->query();
     }
 
     /**
