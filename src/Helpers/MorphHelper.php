@@ -47,7 +47,7 @@ class MorphHelper
     {
         $class = $this->type2Class($type);
 
-        return (new $class())->query();
+        return (new $class())->newQuery();
     }
 
     /**
@@ -59,9 +59,9 @@ class MorphHelper
      */
     public function morph($type, $id)
     {
-        $class = $this->type2Class($type);
+        $qb = $this->type2QB($type);
 
-        return $class ? $class::find($id) : null;
+        return $qb ? $qb->find($id) : null;
     }
 
 }
