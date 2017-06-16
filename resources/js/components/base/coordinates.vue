@@ -5,13 +5,9 @@
 <script>
 import loadGoogleMapsAPI from 'load-google-maps-api';
 
-let gMap = {};
+let gMap = null;
+let dragSpot = null;
 
-let defaults = {
-    lat: 39.9612,
-    lng: -82.99882,
-    zoom: 15,
-}
 
 export default {
   name: 'coordinates-map',
@@ -32,10 +28,11 @@ export default {
     /**
      * Initilize Map
      */
+
     initMap () {
-
+        // Get zoom from parameter or config
         let zoom = parseInt(this.zoom ? this.zoom : config('zoom', 15));
-
+  
         this.center = new google.maps.LatLng(config('lat'), config('lng'));
 
         gMap = new google.maps.Map(this.$refs.map , {
@@ -47,13 +44,15 @@ export default {
         });
 
         // Set marker default location OR passed in coordinates
-        let dragSpotLocation = this.center
+        let dragSpotLocation = {}
         if (this.lat && this.lng) {
           dragSpotLocation = new google.maps.LatLng(this.lat, this.lng)
+        } else {
+          dragSpotLocation = this.center
         }
 
         // Create draggable marker
-        const dragSpot = new google.maps.Marker({
+        dragSpot = new google.maps.Marker({
           position: dragSpotLocation,
           map: gMap,
           draggable: true,
@@ -78,9 +77,33 @@ export default {
 
         return Promise.resolve();
     },
-    centerSpot() {
-    }
 
+    /** 
+     * Update Dragspot Location
+     */
+
+    updateDragSpotLocation () {
+      if (dragSpot && gMap) {
+        const updatedPosition = new google.maps.LatLng(this.lat, this.lng)
+        dragSpot.setPosition(updatedPosition)
+        gMap.setCenter(updatedPosition)
+      }
+    },
+
+    centerSpot() {}
+  },
+  watch: {
+    zoom: function (val) {
+      if (gMap) {
+        gMap.setZoom(parseInt(val))
+      }
+    },
+    lat: function (val) {
+      this.updateDragSpotLocation()
+    },
+    lng: function (val) {
+      this.updateDragSpotLocation()
+    }
   }
 }
 
