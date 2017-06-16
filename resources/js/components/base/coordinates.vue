@@ -93,11 +93,11 @@ export default {
     centerSpot() {}
   },
   watch: {
-    zoom: function (val) {
+    /*zoom: function (val) {
       if (gMap) {
         gMap.setZoom(parseInt(val))
       }
-    },
+    },*/
     lat: function (val) {
       this.updateDragSpotLocation()
     },
