@@ -76,6 +76,12 @@ class PublishService
         $this->include = array_get($options, 'include', []);
         $this->exclude = array_get($options, 'exclude', []);
 
+        if (!array_get($options, 'config')) {
+            $exclude = explode(',', $this->exclude);
+            $exclude[] = 'config';
+            $this->exclude = implode(',', $exclude);
+        }
+
         $this->publishHistory = new PublishHistory();
     }
 

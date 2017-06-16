@@ -18,7 +18,7 @@ class BeltCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt {action} {--force} {--include=} {--exclude=}';
+    protected $signature = 'belt {action} {--force} {--include=} {--exclude=} {--config}';
 
     /**
      * The console command description.
@@ -60,6 +60,7 @@ class BeltCommand extends Command
                 '--force' => (bool) array_get($options, 'force', false),
                 '--include' => (string) array_get($options, 'include'),
                 '--exclude' => (string) array_get($options, 'exclude'),
+                '--config' => (string) array_get($options, 'config'),
             ]);
         }
 
