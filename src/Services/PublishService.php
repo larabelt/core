@@ -73,8 +73,8 @@ class PublishService
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
-        $this->include = array_get($options, 'include', []);
-        $this->exclude = array_get($options, 'exclude', []);
+        $this->include = array_get($options, 'include', '');
+        $this->exclude = array_get($options, 'exclude', '');
 
         if (!array_get($options, 'config')) {
             $exclude = explode(',', $this->exclude);
