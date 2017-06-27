@@ -25,7 +25,7 @@ export default {
                     _.set(vnode.context, expression, editor.getContent());
                 });
             },
-            extended_valid_elements: 'a[role|aria*|tabindex]'
+            extended_valid_elements: 'a[role|aria*|tabindex|href|target|rel|media|hreflang|type]'
         }).then(response => {
             el.dataset.tinymceid = response[0].id;
             el.dataset.tinymcerecheck = el.value != '';
