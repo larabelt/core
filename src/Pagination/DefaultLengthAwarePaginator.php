@@ -13,6 +13,8 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
 
     /**
      * Build pagination query.
+     *
+     * @return DefaultLengthAwarePaginator
      */
     public function build()
     {
@@ -51,11 +53,9 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
             $request->page()
         );
 
-        $paginator->request = $request;
+        $this->setPaginator($paginator);
 
-        $paginator->appends($request->query());
-
-        $this->paginator = $paginator;
+        return $this;
     }
 
 }

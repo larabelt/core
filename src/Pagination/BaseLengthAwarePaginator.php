@@ -32,7 +32,7 @@ abstract class BaseLengthAwarePaginator
      * @param Builder $qb
      * @param PaginateRequest $request
      */
-    public function __construct(Builder $qb, PaginateRequest $request)
+    public function __construct(Builder $qb = null, PaginateRequest $request)
     {
         $this->qb = $qb;
 
@@ -45,6 +45,23 @@ abstract class BaseLengthAwarePaginator
     public function build()
     {
 
+    }
+
+    /**
+     * Set paginator
+     *
+     * @param LengthAwarePaginator $paginator
+     * @return $this
+     */
+    public function setPaginator(LengthAwarePaginator $paginator)
+    {
+        $paginator->request = $this->request;
+
+        $paginator->appends($this->request->query());
+
+        $this->paginator = $paginator;
+
+        return $this;
     }
 
     /**

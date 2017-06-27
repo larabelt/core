@@ -13,6 +13,8 @@ class GroupLengthAwarePaginator extends BaseLengthAwarePaginator
 
     /**
      * Build pagination query.
+     *
+     * @return GroupLengthAwarePaginator
      */
     public function build()
     {
@@ -42,11 +44,9 @@ class GroupLengthAwarePaginator extends BaseLengthAwarePaginator
             $request->page()
         );
 
-        $paginator->request = $request;
+        $this->setPaginator($paginator);
 
-        $paginator->appends($request->query());
-
-        $this->paginator = $paginator;
+        return $this;
     }
 
 }
