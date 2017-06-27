@@ -3,7 +3,7 @@ namespace Belt\Core\Testing;
 
 use Mockery as m;
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
 use Belt\Core\Role;
 use Illuminate\Database\Eloquent\Builder;
@@ -73,7 +73,7 @@ trait CommonMocks
      */
     function getPaginatorMock()
     {
-        $paginatorMock = m::mock(BaseLengthAwarePaginator::class);
+        $paginatorMock = m::mock(DefaultLengthAwarePaginator::class);
 
         return $paginatorMock;
     }

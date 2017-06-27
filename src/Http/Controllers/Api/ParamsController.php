@@ -34,7 +34,11 @@ class ParamsController extends ApiController
      */
     public function paginator(Builder $qb, PaginateRequest $request)
     {
-        return new GroupLengthAwarePaginator($qb, $request);
+        $paginator = new GroupLengthAwarePaginator($qb, $request);
+
+        $paginator->build();
+
+        return $paginator;
     }
 
     /**

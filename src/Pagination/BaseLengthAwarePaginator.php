@@ -2,8 +2,6 @@
 
 namespace Belt\Core\Pagination;
 
-use Event;
-use Belt\Core\Pagination\PaginationQueryModifier;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
  * Class BaseLengthAwarePaginator
  * @package Belt\Core\Pagination
  */
-class BaseLengthAwarePaginator
+abstract class BaseLengthAwarePaginator
 {
     /**
      * @var PaginateRequest
@@ -30,7 +28,7 @@ class BaseLengthAwarePaginator
     public $paginator;
 
     /**
-     * BaseLengthAwarePaginator constructor.
+     * DefaultLengthAwarePaginator constructor.
      * @param Builder $qb
      * @param PaginateRequest $request
      */
@@ -39,55 +37,14 @@ class BaseLengthAwarePaginator
         $this->qb = $qb;
 
         $this->request = $request;
-
-        $this->build();
     }
 
     /**
-     * Build pagination query.
+     *
      */
     public function build()
     {
 
-        $request = $this->request;
-
-        $needle = $request->needle();
-        if ($needle && $request->searchable) {
-            $this->qb->where(function ($subQB) use ($needle, $request) {
-                foreach ($request->searchable as $column) {
-                    $subQB->orWhere($column, 'LIKE', "%$needle%");
-                }
-            });
-        }
-
-        /**
-         * @var $queryModifier PaginationQueryModifier
-         */
-        foreach ($request->queryModifiers as $queryModifier) {
-            $queryModifier::modify($this->qb, $request);
-        }
-
-        $request->modifyQuery($this->qb);
-
-        $this->orderBy($request);
-
-        $count = $this->qb->count();
-
-        $this->qb->take($request->perPage());
-        $this->qb->offset($request->offset());
-
-        $paginator = new LengthAwarePaginator(
-            $request->items($this->qb),
-            $count,
-            $request->perPage(),
-            $request->page()
-        );
-
-        $paginator->request = $request;
-
-        $paginator->appends($request->query());
-
-        $this->paginator = $paginator;
     }
 
     /**
@@ -100,7 +57,6 @@ class BaseLengthAwarePaginator
             foreach (explode(',', $orderBy) as $orderBy) {
                 $prefix = substr($orderBy, 0, 1);
                 $sortBy = $prefix == '-' ? 'desc' : $request->sortBy();
-                //echo $orderBy . "\n";
                 $this->qb->orderBy(ltrim($orderBy, '-'), $sortBy);
             }
         }

@@ -31,6 +31,7 @@ class GroupLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $paginator = new GroupLengthAwarePaginator($qb, $request);
+        $paginator->build();
 
         $array = $paginator->toArray();
 

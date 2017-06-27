@@ -4,7 +4,7 @@ use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Exceptions;
 use Belt\Core\Testing\CommonMocks;
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
 use Belt\Core\Http\Requests\PaginateUsers;
 
@@ -39,7 +39,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
         # paginator
         $qbMock = $this->getPaginateQBMock();
         $paginator = $controller->paginator($qbMock, new PaginateRequest());
-        $this->assertInstanceOf(BaseLengthAwarePaginator::class, $paginator);
+        $this->assertInstanceOf(DefaultLengthAwarePaginator::class, $paginator);
 
         # getPaginateRequest
         $request = $controller->getPaginateRequest(PaginateRequest::class, []);

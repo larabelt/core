@@ -4,7 +4,7 @@ namespace Belt\Core\Http\Controllers;
 
 use Belt\Core\Http\Exceptions;
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -58,11 +58,15 @@ class ApiController extends Controller
     /**
      * @param Builder $qb
      * @param PaginateRequest $request
-     * @return BaseLengthAwarePaginator
+     * @return DefaultLengthAwarePaginator
      */
     public function paginator(Builder $qb, PaginateRequest $request)
     {
-        return new BaseLengthAwarePaginator($qb, $request);
+        $paginator = new DefaultLengthAwarePaginator($qb, $request);
+
+        $paginator->build();
+
+        return $paginator;
     }
 
     /**

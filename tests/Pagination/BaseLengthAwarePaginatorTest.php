@@ -2,11 +2,11 @@
 
 use Mockery as m;
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Core\Pagination\BaseLengthAwarePaginator;
+use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\Pagination\IsActiveQueryModifier;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
+class DefaultLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 {
     public function tearDown()
     {
@@ -14,14 +14,14 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::__construct
-     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::build
-     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::toArray
-     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::orderBy
+     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::__construct
+     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::build
+     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::toArray
+     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::orderBy
      */
     public function test()
     {
-        $model = new BaseLengthAwarePaginatorModelStub();
+        $model = new DefaultLengthAwarePaginatorModelStub();
 
         $qb = $model->newQuery();
 
@@ -37,7 +37,8 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
         $request->sortable[] = 'test.name';
         $request->queryModifiers[] = IsActiveQueryModifier::class;
 
-        $paginator = new BaseLengthAwarePaginator($qb, $request);
+        $paginator = new DefaultLengthAwarePaginator($qb, $request);
+        $paginator->build();
 
         $array = $paginator->toArray();
 
@@ -46,7 +47,7 @@ class BaseLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
 
 }
 
-class BaseLengthAwarePaginatorModelStub extends Model
+class DefaultLengthAwarePaginatorModelStub extends Model
 {
     public function newQuery()
     {
