@@ -56,10 +56,12 @@ class BaseService {
     }
 
     put(id, data = {}) {
-        data._method = 'put';
-        // data.append('_method', 'put');
+        if( data instanceof FormData ) {
+            data.append('_method', 'put');
+        } else {
+            data._method = 'put';
+        }
         return this.submit('post', this.url(id), data);
-        //return this.submit('put', this.url(id), data);
     }
 
     delete(id) {
