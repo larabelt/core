@@ -11,6 +11,7 @@ class BaseTable {
         this.morphable_type = options.morphable_type;
         this.morphable_id = options.morphable_id;
         this.service = null;
+        this.loading = false;
 
         // paginator
         this.items = {};
@@ -74,9 +75,11 @@ class BaseTable {
      * @returns {Promise}
      */
     index() {
+        this.loading = true;
         return new Promise((resolve, reject) => {
             this.service.get('', this.getQuery())
                 .then(response => {
+                    this.loading = false;
                     this.items = response.data.data;
                     this.total = response.data.total;
                     this.per_page = response.data.per_page;
