@@ -74,6 +74,9 @@ class ParamablesController extends ApiController
      */
     public function store(Requests\StoreParam $request, $paramable_type, $paramable_id)
     {
+        /**
+         * @var $paramable ParamableInterface
+         */
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
         $this->authorize('update', $paramable);
@@ -81,6 +84,8 @@ class ParamablesController extends ApiController
         $input = $request->all();
 
         $param = $paramable->saveParam($input['key'], $input['value']);
+
+        $paramable->purgeDuplicateParams($param);
 
         return response()->json($param, 201);
     }
@@ -110,6 +115,8 @@ class ParamablesController extends ApiController
         ]);
 
         $param->save();
+
+        $paramable->purgeDuplicateParams($param);
 
         return response()->json($param);
     }
@@ -148,6 +155,8 @@ class ParamablesController extends ApiController
         $this->authorize('update', $paramable);
 
         $this->contains($paramable, $param);
+
+        $paramable->purgeDuplicateParams($param);
 
         $param->delete();
 

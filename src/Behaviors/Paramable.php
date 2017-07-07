@@ -63,16 +63,16 @@ trait Paramable
     }
 
     /**
-     * @deprecated
+     * @todo reevalute if this should be kept
      *
-     * @param $param
+     * @param Param $param
      */
-    public function purgeDuplicateParams($param)
+    public function purgeDuplicateParams(Param $param)
     {
         $qb = $this->paramQB();
         $qb->where('id', '!=', $param->id);
-        $qb->where('paramable_type', $param->paramable_type);
-        $qb->where('paramable_id', $param->paramable_id);
+        $qb->where('paramable_type', $this->getMorphClass());
+        $qb->where('paramable_id', $this->id);
         $qb->where('key', $param->key);
 
         foreach ($qb->get() as $duplicate) {
