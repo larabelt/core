@@ -20,10 +20,7 @@ trait HasDriver
      *
      * @return string|null
      */
-    public function defaultDriverClass()
-    {
-        return null;
-    }
+    abstract public function defaultDriverClass();
 
     /**
      * Get driver class

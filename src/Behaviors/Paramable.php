@@ -48,10 +48,6 @@ trait Paramable
     {
         $param = $this->params->where('key', $key)->first();
 
-        if ($param) {
-            //$this->purgeDuplicateParams($param);
-        }
-
         return $param ? $param->value : $default;
     }
 
@@ -64,7 +60,7 @@ trait Paramable
     }
 
     /**
-     * @todo reevalute if this should be kept
+     * @todo re-evaluate if this should be kept
      *
      * @param Param $param
      */

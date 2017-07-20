@@ -39,13 +39,7 @@ abstract class BaseLengthAwarePaginator
         $this->request = $request;
     }
 
-    /**
-     *
-     */
-    public function build()
-    {
-
-    }
+    abstract public function build();
 
     /**
      * Set paginator

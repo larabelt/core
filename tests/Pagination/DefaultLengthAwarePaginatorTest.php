@@ -14,10 +14,11 @@ class DefaultLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::__construct
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::__construct
      * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::build
-     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::toArray
-     * @covers \Belt\Core\Pagination\DefaultLengthAwarePaginator::orderBy
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::setPaginator
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::toArray
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::orderBy
      */
     public function test()
     {

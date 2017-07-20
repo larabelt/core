@@ -50,16 +50,16 @@ class ParamablesController extends ApiController
         return $qb->first() ?: $this->abort(404);
     }
 
-    /**
-     * @param ParamableInterface $paramable
-     * @param Param $param
-     */
-    public function contains(ParamableInterface $paramable, Param $param)
-    {
-        if (!$paramable->params->contains($param->id)) {
-            $this->abort(404, 'item does not have this param');
-        }
-    }
+//    /**
+//     * @param ParamableInterface $paramable
+//     * @param Param $param
+//     */
+//    public function contains(ParamableInterface $paramable, Param $param)
+//    {
+//        if (!$paramable->params->contains($param->id)) {
+//            $this->abort(404, 'item does not have this param');
+//        }
+//    }
 
     /**
      * Display a listing of the resource.
@@ -116,17 +116,19 @@ class ParamablesController extends ApiController
      * @param Requests\UpdateParam $request
      * @param string $paramable_type
      * @param string $paramable_id
-     * @param Param $param
+     * @param mixed $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
+    //public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
+    public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, $id)
     {
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
         $this->authorize('update', $paramable);
 
-        $this->contains($paramable, $param);
+        //$this->contains($paramable, $param);
+        $param = $this->param($paramable_type, $paramable_id, $id);
 
         $input = $request->all();
 
@@ -165,17 +167,19 @@ class ParamablesController extends ApiController
     /**
      * Remove the specified resource from core.
      *
-     * @param Param $param
+     * @param mixed $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($paramable_type, $paramable_id, Param $param)
+    //public function destroy($paramable_type, $paramable_id, Param $param)
+    public function destroy($paramable_type, $paramable_id, $id)
     {
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
         $this->authorize('update', $paramable);
 
-        $this->contains($paramable, $param);
+        //$this->contains($paramable, $param);
+        $param = $this->param($paramable_type, $paramable_id, $id);
 
         $paramable->purgeDuplicateParams($param);
 

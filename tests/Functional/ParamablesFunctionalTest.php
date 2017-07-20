@@ -29,6 +29,10 @@ class ParamablesFunctionalTest extends Testing\BeltTestCase
         $response = $this->json('GET', "/api/v1/sections/1/params/$paramID");
         $response->assertStatus(200);
 
+        # show (with key, not id)
+        $response = $this->json('GET', "/api/v1/sections/1/params/class");
+        $response->assertStatus(200);
+
         # update
         $this->json('PUT', "/api/v1/sections/1/params/$paramID", [
             'value' => 'updated'
