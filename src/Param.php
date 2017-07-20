@@ -43,6 +43,20 @@ class Param extends Model
     }
 
     /**
+     * @param $value
+     * @return mixed
+     */
+    public function getValueAttribute($value)
+    {
+        $value = trim($value);
+
+        $value = strtolower($value) == 'true' ? true : $value;
+        $value = strtolower($value) == 'false' ? false : $value;
+
+        return $value;
+    }
+
+    /**
      * @param $param
      * @param array $options
      * @return Model

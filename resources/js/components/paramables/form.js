@@ -7,9 +7,10 @@ class Form extends BaseForm {
         super(options);
         let baseUrl = `/api/v1/${this.morphable_type}/${this.morphable_id}/params/`;
         this.service = new BaseService({baseUrl: baseUrl});
+
         this.setData({
             id: '',
-            key: '',
+            key: options.key ? options.key : '',
             value: '',
         });
     }

@@ -26,6 +26,8 @@ export default {
                 .then(() => {
                     this.table.index();
                     this.form.reset();
+                    this.paramValues.query.q = null;
+                    this.paramValues.items = [];
                 });
         },
         setValue(value) {

@@ -25,6 +25,12 @@ class ConfigController extends ApiController
 
         $path = $request->segment(4);
 
+        /**
+         * adding alternate method of sending key b/c certain values
+         * can trigger another route instead of this
+         */
+        $key = $key ?: $request->get('key');
+
         if ($key) {
             $path .= ".$key";
         }

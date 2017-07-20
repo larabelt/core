@@ -1,5 +1,6 @@
 <?php namespace Belt\Core\Behaviors;
 
+use Morph;
 use Belt\Core\Param;
 
 /**
@@ -78,6 +79,24 @@ trait Paramable
         foreach ($qb->get() as $duplicate) {
             $duplicate->delete();
         }
+    }
+
+    /**
+     * Morph param
+     *
+     * @param $key
+     * @return mixed
+     * @throws \Exception
+     */
+    public function morphParam($key)
+    {
+        $value = $this->param($key);
+
+        if ($value) {
+            return Morph::morph($key, $value);
+        }
+
+        throw new \Exception("invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()");
     }
 
 }

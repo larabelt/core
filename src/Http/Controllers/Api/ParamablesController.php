@@ -31,6 +31,26 @@ class ParamablesController extends ApiController
     }
 
     /**
+     * @param $paramable_type
+     * @param $paramable_id
+     * @param $id
+     */
+    public function param($paramable_type, $paramable_id, $id)
+    {
+        $qb = $this->params->query();
+        $qb->where('paramable_type', $paramable_type);
+        $qb->where('paramable_id', $paramable_id);
+
+        if (is_numeric($id)) {
+            $qb->where('id', $id);
+        } else {
+            $qb->where('key', $id);
+        }
+
+        return $qb->first() ?: $this->abort(404);
+    }
+
+    /**
      * @param ParamableInterface $paramable
      * @param Param $param
      */
@@ -126,17 +146,18 @@ class ParamablesController extends ApiController
      *
      * @param string $paramable_type
      * @param string $paramable_id
-     * @param Param $param
+     * @param mixed $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($paramable_type, $paramable_id, Param $param)
+    public function show($paramable_type, $paramable_id, $id)
     {
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
         $this->authorize('view', $paramable);
 
-        $this->contains($paramable, $param);
+        //$this->contains($paramable, $param);
+        $param = $this->param($paramable_type, $paramable_id, $id);
 
         return response()->json($param);
     }

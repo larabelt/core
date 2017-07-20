@@ -7,6 +7,7 @@ class Config {
      */
     constructor(options = {}) {
         this.service = null;
+        this.query = {};
         this.data = null;
     }
 
@@ -18,7 +19,7 @@ class Config {
      */
     load() {
         return new Promise((resolve, reject) => {
-            this.service.get('')
+            this.service.get('', this.query)
                 .then(response => {
                     this.data = response.data;
                     resolve(response.data);

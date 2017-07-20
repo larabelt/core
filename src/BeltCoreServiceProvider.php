@@ -102,11 +102,17 @@ class BeltCoreServiceProvider extends ServiceProvider
             $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
         }
 
-        // add other aliases
+        // add alias/facade
         $loader = AliasLoader::getInstance();
         $loader->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
         $loader->alias('Form', Collective\Html\FormFacade::class);
         $loader->alias('Html', Collective\Html\HtmlFacade::class);
+        $loader->alias('Morph', Belt\Core\Facades\MorphFacade::class);
+
+        // bind for facade
+        $this->app->bind('morph', function ($app) {
+            return new Belt\Core\Helpers\MorphHelper();
+        });
 
         # beltable values for global belt command
         $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
