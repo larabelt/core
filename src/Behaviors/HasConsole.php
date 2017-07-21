@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Behaviors;
 
+use Belt\Core\Helpers\DebugHelper;
 use Illuminate\Console\Command;
 
 /**
@@ -25,6 +26,8 @@ trait HasConsole
             return;
         }
 
+        $string = DebugHelper::buffer($string);
+
         $this->console->info($string, $verbosity);
     }
 
@@ -37,6 +40,8 @@ trait HasConsole
         if (!$this->console) {
             return;
         }
+
+        $string = DebugHelper::buffer($string);
 
         $this->console->warn($string, $verbosity);
     }

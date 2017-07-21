@@ -34,4 +34,27 @@ class DebugHelper
         return $sql;
     }
 
+    /**
+     * @param $contents
+     * @return string
+     */
+    public static function buffer($contents)
+    {
+
+        $cli = php_sapi_name() == 'cli' ? true : false;
+
+        ob_start();
+        if (!is_object($contents) && !is_array($contents)) {
+            echo $contents;
+        } else {
+            echo $cli ? '' : '<pre>';
+            print_r($contents);
+            echo $cli ? '' : '</pre>';
+        }
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        return $output;
+    }
+
 }
