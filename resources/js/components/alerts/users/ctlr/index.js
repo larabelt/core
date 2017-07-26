@@ -1,9 +1,9 @@
 // helpers
 import Form from 'belt/core/js/components/alerts/form';
-import Table from '../table';
+import Table from 'belt/core/js/components/alerts/users/table';
 
 // templates
-import index_html from '../templates/index.html';
+import index_html from 'belt/core/js/components/alerts/users/templates/index.html';
 
 export default {
     data() {

@@ -1,5 +1,5 @@
 // components
-import roles from '../roles/ctlr/index';
+import roles from 'belt/core/js/components/users/roles/ctlr/index';
 
 // templates
 import heading_html from 'belt/core/js/templates/heading.html';
