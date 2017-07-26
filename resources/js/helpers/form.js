@@ -1,4 +1,4 @@
-import Errors from './errors';
+import Errors from 'belt/core/js/helpers/errors';
 
 class BaseForm {
 

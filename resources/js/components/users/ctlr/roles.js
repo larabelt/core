@@ -3,8 +3,8 @@ import roles from '../roles/ctlr/index';
 
 // templates
 import heading_html from 'belt/core/js/templates/heading.html';
-import tabs_html from '../templates/tabs.html';
-import edit_html from '../templates/edit.html';
+import tabs_html from 'belt/core/js/components/users/templates/tabs.html';
+import edit_html from 'belt/core/js/components/users/templates/edit.html';
 
 export default {
     data() {

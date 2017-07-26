@@ -1,10 +1,10 @@
 // components
-import users from '../users/ctlr/index';
+import users from 'belt/core/js/components/teams/users/ctlr/index';
 
 // templates
 import heading_html from 'belt/core/js/templates/heading.html';
-import tabs_html from '../templates/tabs.html';
-import edit_html from '../templates/edit.html';
+import tabs_html from 'belt/core/js/components/teams/templates/tabs.html';
+import edit_html from 'belt/core/js/components/teams/templates/edit.html';
 
 export default {
     data() {

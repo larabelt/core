@@ -1,5 +1,5 @@
-import Form from './form';
-import template from './template.html';
+import Form from 'belt/core/js/components/contact/form';
+import template from 'belt/core/js/components/contact/template.html';
 
 export default {
     data() {

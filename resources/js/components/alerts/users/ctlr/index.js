@@ -1,5 +1,5 @@
 // helpers
-import Form from '../form';
+import Form from 'belt/core/js/components/alerts/form';
 import Table from '../table';
 
 // templates

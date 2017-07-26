@@ -1,12 +1,12 @@
 
 // helpers
-import Form from '../form';
+import Form from 'belt/core/js/components/teams/form';
 
 // templates make a change
 import heading_html from 'belt/core/js/templates/heading.html';
-import tabs_html from '../templates/tabs.html';
-import edit_html from '../templates/edit.html';
-import form_html from '../templates/form.html';
+import tabs_html from 'belt/core/js/components/teams/templates/tabs.html';
+import edit_html from 'belt/core/js/components/teams/templates/edit.html';
+import form_html from 'belt/core/js/components/teams/templates/form.html';
 
 export default {
     data() {

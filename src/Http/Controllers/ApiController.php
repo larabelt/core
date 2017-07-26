@@ -85,4 +85,20 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * @param $item
+     * @param $input
+     * @param $key
+     */
+    public function setIfNotEmpty($item, $input, $key)
+    {
+        if (is_array($key)) {
+            foreach ($key as $_key) {
+                $this->setIfNotEmpty($item, $input, $_key);
+            }
+        } elseif (array_key_exists($key, $input) && $value = $input[$key]) {
+            $item->$key = $value;
+        }
+    }
+
 }

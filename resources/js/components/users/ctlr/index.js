@@ -1,9 +1,9 @@
 // helpers
-import Table from '../table';
+import Table from 'belt/core/js/components/users/table';
 
 // templates make a change
 import heading_html from 'belt/core/js/templates/heading.html';
-import index_html from '../templates/index.html';
+import index_html from 'belt/core/js/components/users/templates/index.html';
 
 export default {
 

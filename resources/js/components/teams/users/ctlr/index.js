@@ -1,9 +1,9 @@
 // helpers
-import Form from '../form';
-import Table from '../table';
+import Form from 'belt/core/js/components/teams/users/form';
+import Table from 'belt/core/js/components/teams/users/table';
 
 // templates
-import index_html from '../templates/index.html';
+import index_html from 'belt/core/js/components/teams/users/templates/index.html';
 
 export default {
     data() {

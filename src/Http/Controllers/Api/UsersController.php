@@ -109,6 +109,10 @@ class UsersController extends ApiController
             'last_name',
             'mi',
             'email',
+            //'password',
+        ]);
+
+        $this->setIfNotEmpty($user, $input, [
             'password',
         ]);
 

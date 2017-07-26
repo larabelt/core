@@ -1,15 +1,15 @@
-import alerts from './components/alerts/routes';
-import roles from './components/roles/routes';
-import teams from './components/teams/routes';
-import users from './components/users/routes';
+import alerts from 'belt/core/js/components/alerts/routes';
+import roles from 'belt/core/js/components/roles/routes';
+import teams from 'belt/core/js/components/teams/routes';
+import users from 'belt/core/js/components/users/routes';
 import store from 'belt/core/js/store/index';
-import tinymce_directive from './directives/tinymce';
+import tinymce_directive from 'belt/core/js/directives/tinymce';
 
-import column_sorter from './components/base/column-sorter';
-import dropdown from './components/base/dropdown';
-import pagination from './components/base/pagination.vue';
-import modals from './components/base/modals/modals.vue';
-import modalDelete from './components/base/modals/modal-delete.vue';
+import column_sorter from 'belt/core/js/components/base/column-sorter';
+import dropdown from 'belt/core/js/components/base/dropdown';
+import pagination from 'belt/core/js/components/base/pagination.vue';
+import modals from 'belt/core/js/components/base/modals/modals.vue';
+import modalDelete from 'belt/core/js/components/base/modals/modal-delete.vue';
 
 Vue.component('column-sorter', column_sorter);
 Vue.component('dropdown', dropdown);

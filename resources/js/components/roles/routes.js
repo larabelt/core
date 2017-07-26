@@ -1,6 +1,6 @@
-import index from './ctlr/index';
-import create from './ctlr/create';
-import edit  from './ctlr/edit';
+import index from 'belt/core/js/components/roles/ctlr/index';
+import create from 'belt/core/js/components/roles/ctlr/create';
+import edit  from 'belt/core/js/components/roles/ctlr/edit';
 
 export default [
     {path: '/roles', component: index, canReuse: false, name: 'roles'},
