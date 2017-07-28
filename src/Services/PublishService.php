@@ -22,12 +22,12 @@ class PublishService
     /**
      * @var string
      */
-    public $include = null;
+    public $include = '';
 
     /**
      * @var string
      */
-    public $exclude = null;
+    public $exclude = '';
 
     /**
      * @var array|mixed
@@ -73,13 +73,15 @@ class PublishService
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
-        $this->include = array_get($options, 'include', '');
-        $this->exclude = array_get($options, 'exclude', '');
+
+        $include = array_get($options, 'include', '');
+        $exclude = array_get($options, 'exclude', '');
+
+        $this->include = array_filter(explode(',', $include));
+        $this->exclude = array_filter(explode(',', $exclude));
 
         if (!array_get($options, 'config')) {
-            $exclude = explode(',', $this->exclude);
-            $exclude[] = 'config';
-            $this->exclude = implode(',', $exclude);
+            $this->exclude[] = 'config/belt';
         }
 
         $this->publishHistory = new PublishHistory();
@@ -152,8 +154,11 @@ class PublishService
     public function publishDir($src_dir, $target_dir)
     {
 
-        $include = $this->include ? explode(',', $this->include) : [];
-        $exclude = $this->exclude ? explode(',', $this->exclude) : [];
+        //$include = $this->include ? explode(',', $this->include) : [];
+        //$exclude = $this->exclude ? explode(',', $this->exclude) : [];
+
+        $include = $this->include ?: [];
+        $exclude = $this->exclude ?: [];
 
         $files = $this->disk()->allFiles($src_dir);
 
