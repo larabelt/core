@@ -6,7 +6,6 @@ use Belt\Core\Testing\CommonMocks;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
-use Belt\Core\Http\Requests\PaginateUsers;
 
 class ApiControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,6 +16,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Http\Controllers\ApiController::paginator
      * @covers \Belt\Core\Http\Controllers\ApiController::getPaginateRequest
      * @covers \Belt\Core\Http\Controllers\ApiController::set
+     * @covers \Belt\Core\Http\Controllers\ApiController::setIfNotEmpty
      */
     public function test()
     {
@@ -53,7 +53,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
         }
         $this->assertTrue(isset($somethingStupidHappened));
 
-        #set
+        # set
         $user = new User();
         $controller->set($user, [
             'first_name' => 'clark',
@@ -66,6 +66,19 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('CLARK', $user->first_name);
         $this->assertEquals('KENT', $user->last_name);
 
+        # setIfNotEmpty
+        $user = new User();
+        $this->assertNull($user->password1);
+        $this->assertNull($user->password2);
+        $controller->setIfNotEmpty($user, [
+            'password1' => '',
+            'password2' => 'not-empty',
+        ], [
+            'password1',
+            'password2',
+        ]);
+        $this->assertNull($user->password1);
+        $this->assertNotNull($user->password2);
     }
 
 }
