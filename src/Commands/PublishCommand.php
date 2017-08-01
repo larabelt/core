@@ -31,8 +31,8 @@ class PublishCommand extends Command
      */
     protected $dirs = [
         'vendor/larabelt/core/config' => 'config/belt',
-        'vendor/larabelt/core/resources/js' => 'resources/belt/core/js',
-        'vendor/larabelt/core/resources/sass' => 'resources/belt/core/sass',
+        //'vendor/larabelt/core/resources/js' => 'resources/belt/core/js',
+        //'vendor/larabelt/core/resources/sass' => 'resources/belt/core/sass',
         'vendor/larabelt/core/database/factories' => 'database/factories',
         'vendor/larabelt/core/database/migrations' => 'database/migrations',
         'vendor/larabelt/core/database/seeds' => 'database/seeds',
