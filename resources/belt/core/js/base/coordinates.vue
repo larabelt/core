@@ -1,5 +1,10 @@
 <template>
-    <div class="coordinates" ref="map">... Map Loading ...</div>
+    <div>
+        <div class="btn-group">
+            <button class="btn btn-default" @click.prevent="centerSpot()"><i class="fa fa-arrows"></i></button>
+        </div>
+        <div class="coordinates" ref="map">... Map Loading ...</div>
+    </div>
 </template>
 
 <script>
@@ -8,13 +13,14 @@ import loadGoogleMapsAPI from 'load-google-maps-api';
 let gMap = null;
 let dragSpot = null;
 
-
 export default {
   name: 'coordinates-map',
   props: ['lat', 'lng', 'type', 'level', 'zoom'],
   data () {
     return {
-      center: ''
+      center: '',
+      dragSpot: null,
+      gMap: null,
     }
   },
   mounted () {
@@ -24,6 +30,10 @@ export default {
       .catch((err) => console.error(err));
   }, 
   methods: {
+
+    centerSpot() {
+        this.dragSpot.setPosition(this.gMap.getCenter());
+    },
 
     /**
      * Initilize Map
@@ -35,7 +45,7 @@ export default {
   
         this.center = new google.maps.LatLng(config('lat'), config('lng'));
 
-        gMap = new google.maps.Map(this.$refs.map , {
+        this.gMap = new google.maps.Map(this.$refs.map , {
           center: this.center,
           zoom: zoom,
           disableDefaultUI: false,
@@ -52,9 +62,9 @@ export default {
         }
 
         // Create draggable marker
-        dragSpot = new google.maps.Marker({
+        this.dragSpot = new google.maps.Marker({
           position: dragSpotLocation,
-          map: gMap,
+          map: this.gMap,
           draggable: true,
           icon: {
             path: google.maps.SymbolPath.CIRCLE,
@@ -68,7 +78,7 @@ export default {
 
         // Add listener, emit events and coords changed
         const _vue = this;
-        google.maps.event.addListener(dragSpot, 'dragend', function (event) {
+        google.maps.event.addListener(this.dragSpot, 'dragend', function (event) {
            _vue.$emit('spot-updated', {
              lat: this.getPosition().lat(),
              lng: this.getPosition().lng()
@@ -83,21 +93,15 @@ export default {
      */
 
     updateDragSpotLocation () {
-      if (dragSpot && gMap) {
+      if (this.dragSpot && this.gMap) {
         const updatedPosition = new google.maps.LatLng(this.lat, this.lng)
-        dragSpot.setPosition(updatedPosition)
-        gMap.setCenter(updatedPosition)
+        this.dragSpot.setPosition(updatedPosition)
+        this.gMap.setCenter(updatedPosition)
       }
     },
 
-    centerSpot() {}
   },
   watch: {
-    /*zoom: function (val) {
-      if (gMap) {
-        gMap.setZoom(parseInt(val))
-      }
-    },*/
     lat: function (val) {
       this.updateDragSpotLocation()
     },
@@ -106,7 +110,6 @@ export default {
     }
   }
 }
-
 
 /**
  * Helper Funtions
@@ -148,15 +151,8 @@ function config(key, _default) {
         return _default;
     }
 
-    if (_.get(defaults, key)) {
-        return _.get(defaults, key);
-    }
-
     return null;
 }
-
-
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -164,5 +160,4 @@ function config(key, _default) {
 .coordinates {
   height: 500px;
 }
-
 </style>
