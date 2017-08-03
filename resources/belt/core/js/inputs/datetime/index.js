@@ -57,11 +57,8 @@ export default {
         }
 
     },
-    watch: {},
     methods: {
         changeDate() {
-            console.log('change date');
-            console.log(this.table.query.foo);
             if (this.table) {
                 this.table.query[this.column] = this.time ? this.datetime : this.date;
                 this.table.index()

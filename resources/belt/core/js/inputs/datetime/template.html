@@ -1,5 +1,5 @@
 <span>
-    <div class="form-group" zclass="{ 'has-error': form && form.error(column) }">
+    <div class="form-group" :class="{ 'has-error': form && form.error(column) }">
         <label><slot></slot></label>
         <div class="form-inline">
             <div class="input-group date">
@@ -12,6 +12,8 @@
                 <input @change="changeTime" type="time" name="column_time" class="form-control" v-model="column_time">
             </div>
         </div>
-<!--        <span v-if="form" v-for="error in form.error(column)" class="text-danger">{{ error }}</span>-->
+        <template v-if="form">
+            <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
+        </template>
     </div>
 </span>
