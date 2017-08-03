@@ -51,6 +51,12 @@ class BaseTable {
         }
     }
 
+    pushQueryToRouter() {
+        if (this.router) {
+            this.router.push({query: this.getQuery()});
+        }
+    }
+
     getQuery(key = '') {
 
         if (key) {
