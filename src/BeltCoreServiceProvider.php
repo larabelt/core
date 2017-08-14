@@ -119,11 +119,11 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->app['belt']->publish('belt-core:publish');
         $this->app['belt']->seeders('BeltCoreSeeder');
 
-        // set guest user
-        if (!Auth::check()) {
-            $userClass = config('auth.providers.users.model');
-            Auth::setUser(new $userClass());
-        }
+//        // set guest user
+//        if (!Auth::check()) {
+//            $userClass = config('auth.providers.users.model');
+//            Auth::setUser(new $userClass());
+//        }
     }
 
     /**

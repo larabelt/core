@@ -48,6 +48,7 @@ class Kernel extends HttpKernel
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Session\Middleware\AuthenticateSession::class,
             BeltMiddleware\OptionalBasicAuth::class,
+            BeltMiddleware\GuestUser::class,
             'throttle:60,1',
             'request.replacements',
             'bindings',
