@@ -3,7 +3,7 @@
 namespace Belt\Core;
 
 use Belt;
-use Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre;
+use Auth, Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
@@ -118,6 +118,12 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
         $this->app['belt']->publish('belt-core:publish');
         $this->app['belt']->seeders('BeltCoreSeeder');
+
+        // set guest user
+        if (!Auth::check()) {
+            $userClass = config('auth.providers.users.model');
+            Auth::setUser(new $userClass());
+        }
     }
 
     /**
