@@ -49,8 +49,8 @@ class AdminAuthorize
         /* @var $route \Illuminate\Routing\Route */
         $user = $this->auth->user();
 
-        // if super, then super, permission granted!
-        if ($user->hasRole('SUPER') || $user->hasRole('ADMIN')) {
+        // if admin-user or a team user, permission granted!
+        if ($user->hasRole('ADMIN') || $user->teams->count()) {
             return $next($request);
         }
 

@@ -19,13 +19,17 @@ class TeamPolicyTest extends Testing\BeltTestCase
     public function test()
     {
 
-        $user1 = $this->getUser();
-        $team1 = factory(Team::class)->make();
-        $team1->users = new Collection([$user1]);
+        Team::unguard();
 
+        $team1 = factory(Team::class)->make(['id' => 1]);
+        $team1->id = 1;
+        $user1 = $this->getUser();
+        $user1->teams = new Collection([$team1]);
+
+        $team2 = factory(Team::class)->make(['id' => 2]);
+        $team2->id = 2;
         $user2 = $this->getUser();
-        $team2 = factory(Team::class)->make();
-        $team2->users = new Collection([$user2]);
+        $user2->teams = new Collection([$team2]);
 
         $policy = new TeamPolicy();
 
@@ -38,11 +42,11 @@ class TeamPolicyTest extends Testing\BeltTestCase
         $this->assertFalse($policy->update($user1, $team2));
 
         # delete
-        $this->assertTrue($policy->delete($user1, $team1));
-        $this->assertFalse($policy->delete($user1, $team2));
+        //$this->assertTrue($policy->delete($user1, $team1));
+        $this->assertFalse($policy->delete($user1, $team1));
 
         # create
-        $this->assertTrue($policy->create($user1));
+        $this->assertFalse($policy->create($user1));
     }
 
 }

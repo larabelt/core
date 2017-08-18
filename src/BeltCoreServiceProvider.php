@@ -124,6 +124,9 @@ class BeltCoreServiceProvider extends ServiceProvider
 //            $userClass = config('auth.providers.users.model');
 //            Auth::setUser(new $userClass());
 //        }
+
+        // view composers
+        view()->composer(['*layouts.admin.*'], Belt\Core\Composers\ActiveTeamComposer::class);
     }
 
     /**

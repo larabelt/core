@@ -1,0 +1,22 @@
+<?php
+
+namespace Belt\Core\Composers;
+
+use Belt\Core\Services\ActiveTeamService;
+use Illuminate\Contracts\View\View;
+
+class ActiveTeamComposer
+{
+
+    /**
+     * Bind data to the view.
+     *
+     * @param  View $view
+     * @return void
+     */
+    public function compose(View $view)
+    {
+        $view->with('team', ActiveTeamService::team());
+    }
+
+}

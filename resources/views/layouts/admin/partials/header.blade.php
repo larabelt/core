@@ -21,6 +21,9 @@
                             <i class="fa fa-5x fa-user-circle"></i>
                             <p>
                                 {{ Auth::user()->email }}
+                                @if($team)
+                                    <div><i class="fa fa-users"></i> {{ $team->name }}</div>
+                                @endif
                                 <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
                             </p>
                         </li>
@@ -37,7 +40,7 @@
                 </li>
                 <!-- Control Sidebar Toggle Button -->
                 <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    <a href="#control-sidebar-settings-tab" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
             </ul>
         </div>

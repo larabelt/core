@@ -66,6 +66,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Associated User Teams
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_users', 'user_id', 'team_id')
+            ->orderBy('teams.name');
+    }
+
+    /**
      * Set is_verified attribute
      *
      * @param $value

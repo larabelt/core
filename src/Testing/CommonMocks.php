@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Testing;
 
 use Mockery as m;
@@ -6,6 +7,7 @@ use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
 use Belt\Core\Role;
+use Belt\Core\Team;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -107,6 +109,11 @@ trait CommonMocks
 
         if ($type == 'admin') {
             $user->roles->push(factory(Role::class)->make(['name' => 'ADMIN']));
+        }
+
+        if ($type == 'team') {
+            Team::unguard();
+            $user->teams->push(factory(Team::class)->make(['id' => random_int(1, 999)]));
         }
 
         return $user;

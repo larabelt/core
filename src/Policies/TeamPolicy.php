@@ -15,12 +15,12 @@ class TeamPolicy extends BaseAdminPolicy
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  Team $team
+     * @param  Team $object
      * @return mixed
      */
-    public function view(User $auth, $team)
+    public function view(User $auth, $object)
     {
-        return $team->users->where('id', $auth->id)->first() ? true : false;
+        return $this->ofTeam($auth, $object);
     }
 
     /**
@@ -31,30 +31,30 @@ class TeamPolicy extends BaseAdminPolicy
      */
     public function create(User $auth)
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  Team $team
+     * @param  Team $object
      * @return mixed
      */
-    public function update(User $auth, $team)
+    public function update(User $auth, $object)
     {
-        return $team->users->where('id', $auth->id)->first() ? true : false;
+        return $this->ofTeam($auth, $object);
     }
 
     /**
      * Determine whether the user can delete the object.
      *
      * @param  User $auth
-     * @param  Team $team
+     * @param  Team $object
      * @return mixed
      */
-    public function delete(User $auth, $team)
+    public function delete(User $auth, $object)
     {
-        return $team->users->where('id', $auth->id)->first() ? true : false;
+        return false;
     }
 }

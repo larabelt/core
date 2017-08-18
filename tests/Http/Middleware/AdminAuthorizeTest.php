@@ -62,8 +62,9 @@ class AdminAuthorizeTest extends BeltTestCase
         $response = $middleware->handle($nonAjaxRequest, $next);
         $this->assertTrue($response);
 
-        # authenticated super user
-        $lameUser = m::mock(User::class);
+        # non-authenticated user
+        $lameUser = m::mock(User::class . '[hasRole]');
+        $lameUser->teams = new \Illuminate\Support\Collection([]);
         $lameUser->shouldReceive('hasRole')->andReturn(false);
         $lameGuard = m::mock(Guard::class);
         $lameGuard->shouldReceive('guest')->andReturn(false);
