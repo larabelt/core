@@ -35,18 +35,17 @@ class TeamPolicyTest extends Testing\BeltTestCase
 
         # view
         $this->assertTrue($policy->view($user1, $team1));
-        $this->assertFalse($policy->view($user1, $team2));
+        $this->assertNotTrue($policy->view($user1, $team2));
 
         # update
         $this->assertTrue($policy->update($user1, $team1));
-        $this->assertFalse($policy->update($user1, $team2));
+        $this->assertNotTrue($policy->update($user1, $team2));
 
         # delete
-        //$this->assertTrue($policy->delete($user1, $team1));
-        $this->assertFalse($policy->delete($user1, $team1));
+        $this->assertNotTrue($policy->delete($user1, $team1));
 
         # create
-        $this->assertFalse($policy->create($user1));
+        $this->assertNotTrue($policy->create($user1));
     }
 
 }

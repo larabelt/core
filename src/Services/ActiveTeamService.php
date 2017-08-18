@@ -31,6 +31,11 @@ class ActiveTeamService
     public $user;
 
     /**
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
+    public $teamQB;
+
+    /**
      * ActiveTeamService constructor.
      * @param array $params
      */
@@ -72,12 +77,11 @@ class ActiveTeamService
     }
 
     /**
-     * @param $id
-     * @return Team|null
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function findTeam($id)
+    public function teamQB()
     {
-        return Team::find($id);
+        return $this->teamQB ?: $this->teamQB = Team::query();
     }
 
     /**
@@ -85,7 +89,7 @@ class ActiveTeamService
      */
     public function setTeam($team)
     {
-        $team = $team instanceof Team ? $team: $this->findTeam($team);
+        $team = $team instanceof Team ? $team : $this->teamQB()->find($team);
 
         static::$team = $team;
 

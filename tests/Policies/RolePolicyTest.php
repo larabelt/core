@@ -19,10 +19,10 @@ class RolePolicyTest extends Testing\BeltTestCase
         $policy = new RolePolicy();
 
         # attach
-        $this->assertNull($policy->attach($user));
+        $this->assertNotTrue($policy->attach($user));
 
         # detach
-        $this->assertNull($policy->detach($user, 1));
+        $this->assertNotTrue($policy->detach($user, 1));
     }
 
 }

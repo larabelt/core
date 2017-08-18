@@ -21,11 +21,11 @@ class UserPolicyTest extends Testing\BeltTestCase
 
         # view
         $this->assertTrue($policy->view($user1, $user1));
-        $this->assertFalse($policy->view($user1, $user2));
+        $this->assertNotTrue($policy->view($user1, $user2));
 
         # update
         $this->assertTrue($policy->update($user1, $user1));
-        $this->assertFalse($policy->update($user1, $user2));
+        $this->assertNotTrue($policy->update($user1, $user2));
     }
 
 }
