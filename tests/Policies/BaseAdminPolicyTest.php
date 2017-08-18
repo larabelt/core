@@ -1,8 +1,6 @@
 <?php
 
-use Mockery as m;
 use Belt\Core\Testing;
-use Belt\Core\Role;
 use Belt\Core\Behaviors\Teamable;
 use Belt\Core\Behaviors\TeamableInterface;
 use Belt\Core\Policies\BaseAdminPolicy;
