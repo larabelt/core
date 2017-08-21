@@ -25,6 +25,11 @@ class ActiveTeam
     public $request;
 
     /**
+     * @var ActiveTeamService
+     */
+    public $service;
+
+    /**
      * Create a new filter instance.
      *
      * @param  Guard $auth
@@ -38,12 +43,15 @@ class ActiveTeam
      * @param Request $request
      * @return ActiveTeamService
      */
-    public function service(Request $request)
+    public function service(Request $request = null)
     {
-        return new ActiveTeamService([
-            'request' => $request,
+        $service = $this->service ?: $this->service = new ActiveTeamService([
             'user' => $this->auth->user(),
         ]);
+
+        $service->request = $request ?: $service->request;
+
+        return $service;
     }
 
     /**

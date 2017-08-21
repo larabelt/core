@@ -23,10 +23,16 @@ class GuestUser
     {
 
         if (!Auth::guard($guard)->check()) {
-            $userClass = config('auth.providers.users.model');
-            Auth::setUser(new $userClass());
+            Auth::setUser($this->getGuestUserObject());
         }
 
         return $next($request);
+    }
+
+    public function getGuestUserObject()
+    {
+        $userClass = config('auth.providers.users.model');
+
+        return new $userClass();
     }
 }
