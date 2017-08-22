@@ -5,6 +5,7 @@ namespace Belt\Core\Http\Controllers\Api;
 use Belt\Core\User;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 
 /**
  * Class UsersController
@@ -32,14 +33,16 @@ class UsersController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Requests\PaginateUsers $request)
+    public function index(Request $request)
     {
         $this->authorize('index', User::class);
 
-        $paginator = $this->paginator($this->users->query(), $request->reCapture());
+        $request = Requests\PaginateUsers::extend($request);
+
+        $paginator = $this->paginator($this->users->query(), $request);
 
         return response()->json($paginator->toArray());
     }

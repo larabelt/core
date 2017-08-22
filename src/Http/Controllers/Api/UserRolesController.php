@@ -6,6 +6,7 @@ use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Role;
 use Belt\Core\User;
 use Belt\Core\Http\Requests;
+use Illuminate\Http\Request;
 
 /**
  * Class UserRolesController
@@ -63,15 +64,15 @@ class UserRolesController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @param  int $user_id
      * @return \Illuminate\Http\Response
      */
-    public function index(Requests\PaginateUserRoles $request, $user_id)
+    public function index(Request $request, $user_id)
     {
         $this->authorize('view', User::class);
 
-        $request->reCapture();
+        $request = Requests\PaginateUserRoles::extend($request);
 
         $user = $this->user($user_id);
 

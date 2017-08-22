@@ -24,8 +24,8 @@ class BeltCoreTeamSeeds extends Seeder
         // awesome user
         $user = User::firstOrCreate([
             'first_name' => 'CAPTAIN',
-            'last_name' => 'AWESOME',
-            'email' => 'awesome@larabelt.org',
+            'last_name' => 'TEAM',
+            'email' => 'team@larabelt.org',
         ]);
         $user->update([
             'is_super' => false,

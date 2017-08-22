@@ -5,6 +5,7 @@ namespace Belt\Core\Http\Controllers\Api;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Role;
 use Belt\Core\Http\Requests;
+use Illuminate\Http\Request;
 
 class RolesController extends ApiController
 {
@@ -33,14 +34,16 @@ class RolesController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Requests\PaginateRoles $request)
+    public function index(Request $request)
     {
         $this->authorize('index', Role::class);
 
-        $paginator = $this->paginator($this->roles->query(), $request->reCapture());
+        $request = Requests\PaginateRoles::extend($request);
+
+        $paginator = $this->paginator($this->roles->query(), $request);
 
         return response()->json($paginator->toArray());
     }

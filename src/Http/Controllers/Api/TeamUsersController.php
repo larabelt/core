@@ -6,6 +6,7 @@ use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Team;
 use Belt\Core\Http\Requests;
 use Belt\Core\User;
+use Illuminate\Http\Request;
 
 /**
  * Class TeamUsersController
@@ -63,15 +64,15 @@ class TeamUsersController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @param  int $team_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Requests\PaginateTeamUsers $request, $team_id)
+    public function index(Request $request, $team_id)
     {
         $this->authorize('view', Team::class);
 
-        $request->reCapture();
+        $request = Requests\PaginateTeamUsers::extend($request);
 
         $team = $this->team($team_id);
 

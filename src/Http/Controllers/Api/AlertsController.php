@@ -6,6 +6,7 @@ use Belt\Core\Alert;
 use Belt\Core\Services\AlertService;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 
 /**
  * Class AlertsController
@@ -44,14 +45,16 @@ class AlertsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Requests\PaginateAlerts $request)
+    public function index(Request $request)
     {
         //$this->authorize('index', Alert::class);
 
-        $paginator = $this->paginator($this->alerts->query(), $request->reCapture());
+        $request = Requests\PaginateAlerts::extend($request);
+
+        $paginator = $this->paginator($this->alerts->query(), $request);
 
         return response()->json($paginator->toArray());
     }

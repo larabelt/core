@@ -5,6 +5,7 @@ namespace Belt\Core\Http\Controllers\Api;
 use Belt\Core\Team;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
+use Illuminate\Http\Request;
 
 /**
  * Class TeamsController
@@ -38,14 +39,16 @@ class TeamsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param $request
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Requests\PaginateTeams $request)
+    public function index(Request $request)
     {
         $this->authorize('index', Team::class);
 
-        $paginator = $this->paginator($this->teams->query(), $request->reCapture());
+        $request = Requests\PaginateTeams::extend($request);
+
+        $paginator = $this->paginator($this->teams->query(), $request);
 
         return response()->json($paginator->toArray());
     }
