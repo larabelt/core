@@ -73,6 +73,7 @@ class User extends Authenticatable
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'team_users', 'user_id', 'team_id')
+            //->where('teams.is_active', true)
             ->orderBy('teams.name');
     }
 

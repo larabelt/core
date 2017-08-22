@@ -11,7 +11,7 @@
     @include('belt-core::layouts.admin.partials.scripts-head-close')
     <link rel="stylesheet" href="/css/belt.css">
 </head>
-<body class="admin hold-transition skin-blue sidebar-mini">
+<body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }}">
 @include('belt-core::layouts.admin.partials.scripts-body-open')
 <div class="wrapper">
 @include('belt-core::layouts.admin.partials.header')
