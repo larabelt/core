@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Core\Composers;
+namespace Belt\Core\Http\ViewComposers;
 
 use Belt\Core\Services\ActiveTeamService;
 use Illuminate\Contracts\View\View;

@@ -126,7 +126,7 @@ class BeltCoreServiceProvider extends ServiceProvider
 //        }
 
         // view composers
-        view()->composer(['*layouts.admin.*'], Belt\Core\Composers\ActiveTeamComposer::class);
+        view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
     }
 
     /**

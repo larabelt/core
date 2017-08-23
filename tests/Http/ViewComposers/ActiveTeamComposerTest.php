@@ -3,7 +3,7 @@
 use Mockery as m;
 
 use Belt\Core\Team;
-use Belt\Core\Composers\ActiveTeamComposer;
+use Belt\Core\Http\ViewComposers\ActiveTeamComposer;
 use Belt\Core\Services\ActiveTeamService;
 use Belt\Core\Testing\BeltTestCase;
 use Illuminate\Contracts\View\View;
@@ -16,7 +16,7 @@ class ActiveTeamComposerTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Composers\ActiveTeamComposer::compose
+     * @covers \Belt\Core\Http\ViewComposers\ActiveTeamComposer::compose
      */
     public function test()
     {
