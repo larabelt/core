@@ -1,17 +1,28 @@
 <tr class="form-inline">
     <td>
         <div class="form-group" :class="{ 'has-error': form.error('key') }">
-            <input type="key" class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
+            <input class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
             <span v-for="error in form.error('key')" class="text-danger">{{ error }}</span>
         </div>
     </td>
     <td>
         <div class="form-group" :class="{ 'has-error': form.error('value') }">
-            <input type="text" class="form-control input-sm" v-model="form.value" placeholder="" @change="update()">
+
+            <template v-if="options">
+                <select :name="value" v-model="form.value" class="form-control" @change="update()">
+                    <template v-for="option, value in options">
+                        <option :value="value">{{ option }}</option>
+                    </template>
+                </select>
+            </template>
+            <template v-else>
+                <input class="form-control input-sm" v-model="form.value" placeholder="" @change="update()">
+            </template>
+
             <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
         </div>
     </td>
     <td class="text-right">
-        <modal-delete :item-id="form.id" _class="btn btn-sm btn-danger" :callingObject="table"></modal-delete>
+        <modal-delete v-if="canDelete" :item-id="form.id" _class="btn btn-sm btn-danger" :callingObject="table"></modal-delete>
     </td>
 </tr>

@@ -49,14 +49,6 @@ class BeltCoreServiceProvider extends ServiceProvider
     public function boot(GateContract $gate, Router $router)
     {
 
-        //$this->publishes([__DIR__ . '/../../resources' => resource_path('belt/core')]);
-        //$this->publishes([__DIR__ . '/../../database/factories' => database_path('factories')]);
-        //$this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations')]);
-        //$this->publishes([__DIR__ . '/../../database/seeds' => database_path('seeds')]);
-
-        // set view paths
-        // $this->loadViewsFrom(resource_path('belt/core/views'), 'belt-core');
-
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
 

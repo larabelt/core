@@ -95,4 +95,13 @@ trait Paramable
         throw new \Exception("invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()");
     }
 
+    /**
+     * Binds events to subclass
+     */
+    public static function bootParamable()
+    {
+        static::updating(function ($item) {
+
+        });
+    }
 }
