@@ -48,6 +48,8 @@ export default {
             this.$watch('form.' + this.column, function (newValue) {
                 this.setDatetimeFromStr(newValue);
             });
+
+            this.form[this.column] = this.datetime;
         }
 
         if (this.table) {
