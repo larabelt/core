@@ -1,52 +1,52 @@
 @import "admin-lte";
 
 .admin {
-  .box-body {
-    .btn-group {
-      margin-bottom: 10px;
+    .box-body {
+        .btn-group {
+            margin-bottom: 10px;
+        }
+        p.bg-primary, p.bg-info, p.bg-warning, p.bg-danger, p.bg-success {
+            padding: 10px;
+        }
     }
-    p.bg-primary, p.bg-info, p.bg-warning, p.bg-danger, p.bg-success {
-      padding: 10px;
+    .sub-tab-btn-group {
+        margin-bottom: 10px;
     }
-  }
-  section.content-header {
-    //margin-bottom: 10px;
-  }
 }
 
 .belt-pagination {
-  .pagination {
-    margin: 0 0;
-  }
+    .pagination {
+        margin: 0 0;
+    }
 }
 
 .btn-saveable {
-  width: 60px;
+    width: 60px;
 
-  &.saving {
-    background: rgba(red(#3c8dbc), green(#3c8dbc), blue(#3c8dbc), .5);
-  }
+    &.saving {
+        background: rgba(red(#3c8dbc), green(#3c8dbc), blue(#3c8dbc), .5);
+    }
 
-  &.saved {
-    background: green;
-  }
+    &.saved {
+        background: green;
+    }
 }
 
 .nav-tabs-standalone {
-  margin-top: 10px;
-  margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .alt-box-header {
-  border-bottom:1px solid #f4f4f4;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+    border-bottom: 1px solid #f4f4f4;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .alt-box-footer {
-  border-top:1px solid #f4f4f4;
-  padding-top: 10px;
-  margin-top: 10px;
+    border-top: 1px solid #f4f4f4;
+    padding-top: 10px;
+    margin-top: 10px;
 }
 
 @import "components/column-sorter";
