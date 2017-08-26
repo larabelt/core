@@ -1,13 +1,24 @@
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-bordered table-hover">
-            <tbody>
-            <create v-if="canCreateParams"></create>
-            <template v-for="param in table.items">
-                <edit :param="param" :config="config"></edit>
-            </template>
-            </tbody>
-        </table>
-        <pagination></pagination>
+        <template v-if="canCreateParams">
+            <h4>Create Param</h4>
+            <create></create>
+            <hr/>
+        </template>
+
+        <h4>Param List</h4>
+        <div v-if="table.items.length">
+            <table class="table table-bordered table-hover">
+                <tbody>
+                <template v-for="param in table.items">
+                    <edit :param="param" :config="config"></edit>
+                </template>
+                </tbody>
+            </table>
+            <pagination></pagination>
+        </div>
+        <div v-else>
+            <p style="font-style: italic;">No params are currently defined for this item.</p>
+        </div>
     </div>
 </div>

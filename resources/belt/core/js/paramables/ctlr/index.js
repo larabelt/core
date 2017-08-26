@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         canCreateParams() {
-            return _.get(this.config, 'data.can_create_params', true);
+            return _.get(this.config, 'data.can_create_params', false);
         }
     },
     watch: {
