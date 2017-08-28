@@ -1,4 +1,4 @@
-<form role="form" @submit.prevent="form.submit()" @keydown="form.errors.clear($event.target.name)">
+<form @submit.prevent="form.submit()" @keydown="form.errors.clear($event.target.name)">
     <div class="row">
         <div class="col-md-12">
             <div class="checkbox">
@@ -15,47 +15,49 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group" :class="{ 'has-error': form.error('first_name') }">
-                        <label for="first_name">First Name</label>
-                        <input type="text" class="form-control" v-model="form.first_name" placeholder="first name">
+                        <label for="first_name">First Name *</label>
+                        <input class="form-control" v-model="form.first_name" placeholder="first name">
                         <span v-for="error in form.error('first_name')" class="text-danger">{{ error }}</span>
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group" :class="{ 'has-error': form.error('mi') }">
                         <label for="mi">MI</label>
-                        <input type="text" class="form-control" v-model="form.mi" placeholder="mi">
+                        <input class="form-control" v-model="form.mi" placeholder="mi">
                         <span v-for="error in form.error('mi')" class="text-danger">{{ error }}</span>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-group" :class="{ 'has-error': form.error('last_name') }">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" class="form-control" v-model="form.last_name" placeholder="last name">
+                        <label for="last_name">Last Name *</label>
+                        <input class="form-control" v-model="form.last_name" placeholder="last name">
                         <span v-for="error in form.error('last_name')" class="text-danger">{{ error }}</span>
                     </div>
                 </div>
             </div>
             <div class="form-group" :class="{ 'has-error': form.error('email') }">
-                <label for="email">Email</label>
+                <label for="email">Email *</label>
                 <input type="email" class="form-control" v-model="form.email" placeholder="email">
                 <span v-for="error in form.error('email')" class="text-danger">{{ error }}</span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group" :class="{ 'has-error': form.error('password') }">
-                <label for="password">Password</label>
+                <label v-if="form.id" for="password">Password</label>
+                <label v-else for="password">Password *</label>
                 <input type="password" class="form-control" v-model="form.password" placeholder="password">
                 <span v-for="error in form.error('password')" class="text-danger">{{ error }}</span>
             </div>
             <div class="form-group" :class="{ 'has-error': form.error('password_confirmation') }">
-                <label for="password_confirmation">Password Confirmation</label>
+                <label v-if="form.id" for="password_confirmation">Password Confirmation</label>
+                <label v-else for="password_confirmation">Password Confirmation *</label>
                 <input type="password" class="form-control" v-model="form.password_confirmation" placeholder="password confirmation">
             </div>
         </div>
     </div>
 
     <div class="text-right">
-        <button type="submit" class="btn btn-primary" :disabled="form.errors.any()">
+        <button class="btn btn-primary" :disabled="form.errors.any()">
             <span v-if="form.saving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
             <span v-else>Save</span>
         </button>
