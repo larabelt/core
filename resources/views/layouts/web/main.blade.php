@@ -12,7 +12,7 @@
 
     <!-- Bootstrap -->
     <!-- Superhero Theme: http://bootswatch.com/superhero -->
-    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}" />
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -40,8 +40,8 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/manifest.js"></script>
-<script src="/js/vendor.js"></script>
-<script src="/js/web.js"></script>
+<script src="{{ mix('/js/manifest.js') }}"></script>
+<script src="{{ mix('/js/vendor.js') }}"></script>
+<script src="{{ mix('/js/web.js') }}"></script>
 </body>
 </html>
