@@ -5,7 +5,6 @@
 @else
     <script src="/plugins/tinymce/tinymce.min.js"></script>
 @endif
-<script src="/js/manifest.js"></script>
-<script src="/js/vendor.js"></script>
-<script src="/js/belt-all.js"></script>
-
+<script src="{{ mix('/js/manifest.js') }}"></script>
+<script src="{{ mix('/js/vendor.js') }}"></script>
+<script src="{{ mix('/js/belt-all.js') }}"></script>

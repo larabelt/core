@@ -2,21 +2,19 @@
 <html>
 <head>
     @include('belt-core::layouts.admin.partials.head')
-    <script>
-        window.larabelt = {};
-        window.larabelt.adminMode = {!! json_encode($team ? 'team' : 'admin') !!};
-    </script>
-    @include('belt-core::layouts.admin.partials.scripts-auth')
-    @include('belt-core::layouts.admin.partials.scripts-active-team')
-    @include('belt-core::layouts.admin.partials.scripts-head-close')
-    <link rel="stylesheet" href="/css/belt.css">
+    @include('belt-core::layouts.admin.scripts.head-open')
+    @include('belt-core::layouts.admin.scripts.auth')
+    @include('belt-core::layouts.admin.scripts.active-team')
+    @include('belt-core::layouts.admin.scripts.head-close')
+    <link rel="stylesheet" href="{{ mix('/css/belt.css') }}">
 </head>
 <body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }}">
-@include('belt-core::layouts.admin.partials.scripts-body-open')
+@include('belt-core::layouts.admin.scripts.body-open')
 <div class="wrapper">
-@include('belt-core::layouts.admin.partials.header')
 
-<!-- Left side column. contains the logo and sidebar -->
+    @include('belt-core::layouts.admin.partials.header')
+
+    <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
@@ -35,7 +33,6 @@
     @endif
 
     <!-- Main content -->
-        {{--<section class="content">--}}
         <section>
             <div class="row">
                 <div class="col-lg-12">
@@ -54,6 +51,6 @@
     </div>
 </div>
 <!-- ./wrapper -->
-@include('belt-core::layouts.admin.partials.scripts-body-close')
+@include('belt-core::layouts.admin.scripts.body-close')
 </body>
 </html>
