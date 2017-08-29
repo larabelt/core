@@ -8,7 +8,7 @@ import tinymce_directive from 'belt/core/js/directives/tinymce';
 import column_sorter from 'belt/core/js/base/column-sorter';
 import dropdown from 'belt/core/js/base/dropdown';
 import heading from 'belt/core/js/base/heading';
-import pagination from 'belt/core/js/base/pagination.vue';
+import pagination from 'belt/core/js/base/pagination';
 import modals from 'belt/core/js/base/modals/modals.vue';
 import modalDelete from 'belt/core/js/base/modals/modal-delete.vue';
 
