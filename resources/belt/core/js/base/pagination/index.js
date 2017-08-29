@@ -2,7 +2,6 @@ import html from 'belt/core/js/base/pagination/template.html';
 
 export default {
     data() {
-        console.log(this.$parent.table.query);
         return {
             max: 5,
             table: this.$parent.table,

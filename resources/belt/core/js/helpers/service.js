@@ -7,6 +7,7 @@ class BaseService {
      */
     constructor(options = {}) {
         this.baseUrl = options.baseUrl;
+        this.busy = null;
     }
 
     /**
@@ -36,12 +37,22 @@ class BaseService {
      * @param {object} data
      */
     submit(requestType, url, data = {}) {
+
+        /*if (this.busy) {
+            return new Promise((resolve, reject) => {
+
+            });
+        }*/
+
+        this.busy = true;
         return new Promise((resolve, reject) => {
             axios[requestType](url, data)
                 .then(response => {
+                    this.busy = false;
                     resolve(response);
                 })
                 .catch(error => {
+                    this.busy = false;
                     reject(error);
                 });
         });

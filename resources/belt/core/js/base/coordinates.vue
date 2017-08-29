@@ -1,9 +1,17 @@
 <template>
-    <div>
-        <div class="btn-group">
-            <button class="btn btn-default" @click.prevent="centerSpot()"><i class="fa fa-arrows"></i></button>
+    <div class="box box-primary">
+        <div class="box-header">
+            <i class="fa fa-map-marker"></i>
+            <h3 class="box-title">Map Helper</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-default" @click.prevent="centerSpot()" title="re-center red dot">
+                    <i class="fa fa-arrows"></i>
+                </button>
+            </div>
         </div>
-        <div class="coordinates" ref="map">... Map Loading ...</div>
+        <div class="box-body">
+            <div class="coordinates" ref="map">... Map Loading ...</div>
+        </div>
     </div>
 </template>
 
@@ -153,6 +161,7 @@ function config(key, _default) {
 
     return null;
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -160,4 +169,5 @@ function config(key, _default) {
 .coordinates {
   height: 500px;
 }
+
 </style>
