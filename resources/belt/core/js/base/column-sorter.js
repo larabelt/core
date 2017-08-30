@@ -3,24 +3,26 @@ export default {
     props: {
         column: String,
     },
+    data() {
+        return {
+            'table': this.$parent.table,
+        };
+    },
     computed: {
         show() {
             return this.table != undefined && this.table.total > 1;
         },
-        table() {
-            return this.$parent.table;
+        title() {
+            if (this.active() && 'desc' == this.sortBy()) {
+                return 'reverse sort by ' + this.column;
+            }
+
+            return 'sort by ' + this.column;
         },
     },
     methods: {
         active() {
             return this.column == this.table.getQuery('orderBy') ? 'active' : '';
-        },
-        sortBy() {
-            if (this.column == this.table.getQuery('orderBy') && this.table.getQuery('sortBy') == 'asc') {
-                return 'desc';
-            }
-
-            return 'asc';
         },
         paginate() {
             this.table.updateQuery(this.query());
@@ -28,6 +30,12 @@ export default {
             if (this.table.router) {
                 this.table.router.push({query: this.table.getQuery()});
             }
+        },
+        sortBy() {
+            if (this.column == this.table.getQuery('orderBy') && this.table.getQuery('sortBy') == 'asc') {
+                return 'desc';
+            }
+            return 'asc';
         },
         query() {
             return {
@@ -41,7 +49,7 @@ export default {
     template: `
         <span v-if="show">
             <span class="belt-column-sorter pull-right" :class="[active(), sortBy()]">
-                <a href="" @click.prevent="paginate($event)">
+                <a href="" @click.prevent="paginate($event)" :title="title">
                     <i class="fa fa-arrows-v"></i>
                     <i class="fa fa-sort-amount-asc"></i>
                     <i class="fa fa-sort-amount-desc"></i>

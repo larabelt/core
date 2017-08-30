@@ -61,6 +61,29 @@ class BaseForm {
     }
 
     /**
+     * Determine if value has changed
+     *
+     * @param key
+     * @returns {boolean}
+     */
+    dirty(key) {
+
+        if (!key) {
+            for (let property in this.originalData) {
+                if (this[property] != this.originalData[property]) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        let original = this.originalData[key];
+        let current = this[key];
+
+        return original != current;
+    }
+
+    /**
      * Reset the form fields.
      */
     reset() {
