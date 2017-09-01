@@ -30,6 +30,11 @@ export default {
             if (this.table.router) {
                 this.table.router.push({query: this.table.getQuery()});
             }
+            if (this.table.name) {
+                History.set(this.table.name, 'table.query.orderBy', this.table.query.orderBy);
+                History.set(this.table.name, 'table.query.sortBy', this.table.query.sortBy);
+                History.set(this.table.name, 'table.query.page', this.table.query.page);
+            }
         },
         sortBy() {
             if (this.column == this.table.getQuery('orderBy') && this.table.getQuery('sortBy') == 'asc') {

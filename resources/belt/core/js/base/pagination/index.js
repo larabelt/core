@@ -77,6 +77,10 @@ export default {
             if (this.table.router) {
                 this.table.router.push({query: this.table.getQuery()});
             }
+            if (this.table.name) {
+                History.set(this.table.name, 'table.query.perPage', this.table.query.perPage);
+                History.set(this.table.name, 'table.query.page', this.table.query.page);
+            }
         },
         isActive(id) {
             return id == this.table.current_page;

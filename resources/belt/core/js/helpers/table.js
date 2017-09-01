@@ -30,6 +30,8 @@ class BaseTable {
             sortBy: 'asc',
         };
 
+        this.name = '';
+
         if (options.query) {
             this.updateQuery(options.query);
         }
@@ -38,6 +40,13 @@ class BaseTable {
     updateQuery(query) {
         for (let field in query) {
             this.query[field] = query[field];
+        }
+    }
+
+    updateQueryFromHisory() {
+        if (this.name) {
+            let query = History.get(this.name, 'table.query', {});
+            this.updateQuery(query);
         }
     }
 

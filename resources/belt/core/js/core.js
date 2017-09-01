@@ -14,6 +14,8 @@ import modalDelete from 'belt/core/js/base/modals/modal-delete.vue';
 
 import meta from 'belt/core/js/mixins/meta/index';
 
+import History from 'belt/core/js/helpers/history';
+
 Vue.mixin(meta);
 Vue.component('column-sorter', column_sorter);
 Vue.component('dropdown', dropdown);
@@ -24,6 +26,7 @@ Vue.component('modal-delete', modalDelete);
 Vue.directive('tinymce', tinymce_directive);
 
 window.Events = new Vue({});
+window.History = new History({});
 
 export default class BeltCore {
 
