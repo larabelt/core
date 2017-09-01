@@ -1,24 +1,26 @@
 <tr class="form-inline">
     <td>
-        <div class="form-group" :class="{ 'has-error': form.error('key') }">
-            <input class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
-            <span v-for="error in form.error('key')" class="text-danger">{{ error }}</span>
+        <div class="form-group" :class="{ 'has-warning': dirty }">
+            <div class="input-group">
+                <input class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
+                <span class="input-group-addon">
+                    <i class="fa fa-save"></i>
+                </span>
+            </div>
         </div>
     </td>
     <td>
         <div class="form-group" :class="{ 'has-error': form.error('value') }">
-
             <template v-if="options">
-                <select :name="value" v-model="form.value" class="form-control" @change="update()">
+                <select name="value" v-model="form.value" class="form-control" @change="triggerScan()">
                     <template v-for="option, value in options">
                         <option :value="value">{{ option }}</option>
                     </template>
                 </select>
             </template>
             <template v-else>
-                <input class="form-control input-sm" v-model="form.value" placeholder="" @change="update()">
+                <input class="form-control input-sm" v-model="form.value" placeholder="" @keyup="triggerScan()">
             </template>
-
             <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
         </div>
     </td>
