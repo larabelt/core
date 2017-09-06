@@ -1,3 +1,5 @@
+import Cookies from 'belt/core/js/helpers/cookies';
+
 class History {
 
     /**
@@ -17,7 +19,7 @@ class History {
         return JSON.parse(value);
     }
 
-    set (group, path, value) {
+    set(group, path, value) {
 
         let object = this.parseGroup(group);
 
@@ -26,9 +28,35 @@ class History {
         localStorage.setItem(group, JSON.stringify(object));
     }
 
-    get (group, path, _default) {
+    get(group, path, _default) {
 
         let object = this.parseGroup(group);
+
+        let result = _.get(object, path, _default);
+
+        return result;
+    }
+
+    parseGroupCookie(group) {
+        let value = (new Cookies).get(group);
+
+        value = value === null ? '{}' : value;
+
+        return JSON.parse(value);
+    }
+
+    setCookie(group, path, value) {
+
+        let object = this.parseGroupCookie(group);
+
+        _.set(object, path, value);
+
+        (new Cookies).set(group, JSON.stringify(object));
+    }
+
+    getCookie(group, path, _default) {
+
+        let object = this.parseGroupCookie(group);
 
         let result = _.get(object, path, _default);
 

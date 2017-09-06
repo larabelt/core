@@ -1,3 +1,7 @@
+@php
+    $collapsed = \Belt\Core\Helpers\CookieHelper::getJson('adminlte', 'collapsed', false);
+@endphp
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,8 @@
     @include('belt-core::layouts.admin.scripts.head-close')
     <link rel="stylesheet" href="{{ mix('/css/belt.css') }}">
 </head>
-<body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }}">
+
+<body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }}">
 @include('belt-core::layouts.admin.scripts.body-open')
 <div class="wrapper">
 

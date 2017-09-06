@@ -3,7 +3,7 @@
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
         <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-        <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+        <li class="active"><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -117,7 +117,7 @@
         <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
         <!-- /.tab-pane -->
         <!-- Settings tab content -->
-        <div class="tab-pane" id="control-sidebar-settings-tab">
+        <div class="tab-pane active" id="control-sidebar-settings-tab">
             @if(Auth::user()->teams->count() > 1)
                 @include('belt-core::layouts.admin.partials.sidebar-right-teams')
             @endif
