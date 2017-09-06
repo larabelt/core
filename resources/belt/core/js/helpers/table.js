@@ -37,19 +37,30 @@ class BaseTable {
         }
     }
 
+    /**
+     * update table query
+     *
+     * @param query
+     */
     updateQuery(query) {
         for (let field in query) {
             this.query[field] = query[field];
         }
     }
 
-    updateQueryFromHisory() {
+    /**
+     * update table query from History
+     */
+    updateQueryFromHistory() {
         if (this.name) {
             let query = History.get(this.name, 'table.query', {});
             this.updateQuery(query);
         }
     }
 
+    /**
+     * update table from router (ie, the browser url)
+     */
     updateQueryFromRouter() {
         if (this.router && this.router.currentRoute) {
             let query = {};
@@ -60,12 +71,29 @@ class BaseTable {
         }
     }
 
+    /**
+     * update router from table query
+     */
+    pushQueryToHistory() {
+        if (this.name) {
+            //History.set(this.table.name, 'table.query.page', 1);
+            //History.set(this.table.name, 'table.query.q', this.table.query.q);
+            History.set(this.name, 'table.query', this.query);
+        }
+    }
+
+    /**
+     * update router from table query
+     */
     pushQueryToRouter() {
         if (this.router) {
             this.router.push({query: this.getQuery()});
         }
     }
 
+    /**
+     * get table query
+     */
     getQuery(key = '') {
 
         if (key) {
@@ -127,6 +155,17 @@ class BaseTable {
                     reject(error.response.data);
                 });
         });
+    }
+
+    /**
+     * empty table
+     */
+    empty() {
+        this.items = {};
+        this.total = null;
+        this.current_page = 1;
+        this.from = null;
+        this.to = null;
     }
 
 }

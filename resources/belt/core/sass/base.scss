@@ -12,6 +12,25 @@
     .sub-tab-btn-group {
         margin-bottom: 10px;
     }
+    .filter-set {
+        padding:0 0 10px;
+        .filter {
+            margin-right: 10px;
+        }
+        .filter-set-badges {
+            margin-bottom: 10px;
+        }
+        .filter-set-badges-heading {
+            font-weight: 700;
+            float: left;
+            margin-right: 10px;
+        }
+        .filter-badge {
+            background-color: #d2d6de;
+            padding: 0px 5px;
+            margin-right: 5px;
+        }
+    }
 }
 
 .belt-pagination {

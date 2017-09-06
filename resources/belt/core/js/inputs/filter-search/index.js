@@ -4,38 +4,19 @@ import html from 'belt/core/js/inputs/filter-search/template.html';
 
 export default {
     mixins: [base],
-    props: {
-        //table: {default: null},
-        //form: {default: null},
-    },
     data() {
-        return {};
-    },
-    computed: {
-        showClear() {
-            return this.table.query.q;
-        }
-    },
-    created() {
-
+        return {
+            needle: '',
+        };
     },
     methods: {
         filter: debounce(function () {
-            this.table.query.page = 1;
-            this.table.index();
-            this.history();
+            this.$emit('filter-search-update', {page: 1, q: this.needle});
         }, 250),
         clear() {
-            this.table.query.q = '';
-            this.table.index();
-            this.history();
+            this.needle = '';
+            this.$emit('filter-search-update', {q: ''});
         },
-        history() {
-            if (this.table.name) {
-                History.set(this.table.name, 'table.query.page', 1);
-                History.set(this.table.name, 'table.query.q', this.table.query.q);
-            }
-        }
     },
     template: html
 }
