@@ -18,6 +18,13 @@ class BeltCoreServiceProvider extends ServiceProvider
 {
 
     /**
+     * The Larabelt toolkit version.
+     *
+     * @var string
+     */
+    const VERSION = '1.2.6';
+
+    /**
      * The policy mappings for the application.
      *
      * @var array
