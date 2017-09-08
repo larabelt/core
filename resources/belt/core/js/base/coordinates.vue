@@ -22,7 +22,9 @@
 import loadGoogleMapsAPI from 'load-google-maps-api';
 import BaseTable from 'belt/core/js/helpers/table';
 import BaseService from 'belt/core/js/helpers/service';
-
+/**
+* @todo create/add parameter to limit places results to nearby items
+*/
 class PlacesTable extends BaseTable {
     constructor(options = {}) {
         super(options);
@@ -30,7 +32,7 @@ class PlacesTable extends BaseTable {
         this.query.orderBy = 'id';
         this.query.sortBy = 'desc';
         this.query.perPage = 5000;
-        this.query.in_category='terminal,baggage';
+        //this.query.in_category='terminal,baggage';
     }
 }
 
