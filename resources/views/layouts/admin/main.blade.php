@@ -10,7 +10,7 @@
     @include('belt-core::layouts.admin.scripts.auth')
     @include('belt-core::layouts.admin.scripts.active-team')
     @include('belt-core::layouts.admin.scripts.head-close')
-    <link rel="stylesheet" href="{{ mix('/css/belt.css') }}">
+    <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
 </head>
 
 <body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }}">
