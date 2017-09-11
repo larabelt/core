@@ -26,7 +26,8 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
         $qb = m::mock(Builder::class);
         $qb->shouldReceive('where')->once()->withArgs(['is_active', true]);
         $request = new PaginateRequest(['is_active' => true]);
-        IsActiveQueryModifier::modify($qb, $request);
+        $modifer = new IsActiveQueryModifier($qb, $request);
+        $modifer->modify($qb, $request);
 
         # elastic
         $query = [];

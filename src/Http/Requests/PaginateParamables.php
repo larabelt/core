@@ -1,6 +1,7 @@
 <?php
 namespace Belt\Core\Http\Requests;
 
+use Belt;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -24,6 +25,11 @@ class PaginateParamables extends PaginateRequest
         'params.key',
         'params.value',
     ];
+
+    /**
+     * @var Belt\Core\Pagination\PaginationQueryModifier[]
+     */
+    public $queryModifiers = [];
 
     public function modifyQuery(Builder $query)
     {

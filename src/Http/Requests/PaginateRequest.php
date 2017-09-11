@@ -11,6 +11,16 @@ class PaginateRequest extends Request
 {
 
     /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    public $modelClass;
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
+    public $model;
+
+    /**
      * @var integer
      */
     public $perPage = 20;
@@ -182,12 +192,69 @@ class PaginateRequest extends Request
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function model()
+    {
+        return $this->model ?: $this->model = new $this->modelClass();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function qb()
+    {
+        return $this->model()->newQuery();
+    }
+
+    /**
+     * @return string
+     */
+    public function fullKey()
+    {
+        return sprintf('%s.%s', $this->model()->getTable(), $this->model()->getKeyName());
+    }
+
+    /**
+     * @return string
+     */
+    public function morphClass()
+    {
+        return $this->model()->getMorphClass();
+    }
+
+    /**
      * @param Builder $query
      * @return Collection
      */
     public function items(Builder $query)
     {
         return $query->get();
+    }
+
+    /**
+     * @param Builder $query
+     * @return Collection
+     */
+    public function refetch(Builder $query)
+    {
+        $items = new Collection();
+
+        $ids = $query->get([$this->fullKey()]);
+        foreach ($ids->pluck('id')->all() as $id) {
+            $item = $this->item($id);
+            $items->add($item);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function item($id)
+    {
+        return $this->qb()->find($id);
     }
 
 }

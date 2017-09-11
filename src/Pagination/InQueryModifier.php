@@ -5,7 +5,7 @@ namespace Belt\Core\Pagination;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Illuminate\Database\Eloquent\Builder;
 
-class TeamableQueryModifier extends PaginationQueryModifier
+class InQueryModifier extends PaginationQueryModifier
 {
     /**
      * Modify the query
@@ -16,8 +16,12 @@ class TeamableQueryModifier extends PaginationQueryModifier
      */
     public function modify(Builder $qb, PaginateRequest $request)
     {
-        if ($team_id = $request->query->get('team_id')) {
-            $qb->where('team_id', $team_id);
+        if ($in = $request->query->get('in')) {
+            $qb->whereIn($request->fullKey(), explode(',', $in));
+        }
+
+        if ($not_in = $request->query->get('not_in')) {
+            $qb->whereNotIn($request->fullKey(), explode(',', $not_in));
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 use Mockery as m;
 use Belt\Core\Testing;
 
@@ -19,50 +20,39 @@ class PaginateTeamUsersTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::modifyQuery
-     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::userRepo
      * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::items
-     * @covers \Belt\Core\Http\Requests\PaginateTeamUsers::item
      */
     public function test()
     {
-        $user1 = new User();
-        $user1->id = 1;
-        $user1->email = 'test@test.com';
+        # modifyQuery (not === false)
+        $qb1 = m::mock(Builder::class);
+        $qb1->shouldReceive('join')->once()->with('team_users', 'team_users.user_id', '=', 'users.id');
+        $qb1->shouldReceive('where')->once()->with('team_users.team_id', 1);
+        $request = new PaginateTeamUsers(['team_id' => 1]);
+        $request->modifyQuery($qb1);
+        $this->assertNotEmpty($request->joins['team_users']);
+        foreach ($request->joins as $join) {
+            $join($qb1, $request);
+        }
 
-        $qbMock = m::mock(Builder::class);
-        $qbMock->shouldReceive('join')->once()->with('team_users', 'team_users.user_id', '=', 'users.id');
-        $qbMock->shouldReceive('where')->once()->with('team_users.team_id', 1);
-        $qbMock->shouldReceive('get')->once()->with(['users.id'])->andReturn(new Collection([$user1]));
-        $qbMock->shouldReceive('find')->times(2)->with(1)->andReturn($user1);
-        $qbMock->shouldReceive('leftJoin')->once()->with('team_users',
+        # modifyQuery (not === true)
+        $qb2 = m::mock(Builder::class);
+        $qb2->shouldReceive('leftJoin')->once()->with('team_users',
             m::on(function (\Closure $closure) {
-                $subQBMock = m::mock(Builder::class);
-                $subQBMock->shouldReceive('on')->once()->with('team_users.user_id', '=', 'users.id');
-                $subQBMock->shouldReceive('where')->once()->with('team_users.team_id', 1);
-                $closure($subQBMock);
+                $sub = m::mock(Builder::class);
+                $sub->shouldReceive('on')->once()->with('team_users.user_id', '=', 'users.id');
+                $sub->shouldReceive('where')->once()->with('team_users.team_id', 1);
+                $closure($sub);
                 return is_callable($closure);
             })
         );
-        $qbMock->shouldReceive('whereNull')->once()->with('team_users.id');
-
-        $paginateRequest = new PaginateTeamUsers(['user_id' => 1, 'team_id' => 1]);
-
-        # userRepo
-        $this->assertNull($paginateRequest->userRepo);
-        $paginateRequest->userRepo();
-        $this->assertInstanceOf(User::class, $paginateRequest->userRepo);
-
-        # item
-        $paginateRequest->userRepo = $qbMock;
-        $this->assertEquals($user1, $paginateRequest->item(1));
-
-        # items
-        $paginateRequest->items($qbMock);
-
-        # modifyQuery
-        $paginateRequest->modifyQuery($qbMock);
-        $paginateRequest->merge(['not' => true]);
-        $paginateRequest->modifyQuery($qbMock);
+        $qb2->shouldReceive('whereNull')->once()->with('team_users.id');
+        $request = new PaginateTeamUsers(['team_id' => 1, 'not' => true]);
+        $request->modifyQuery($qb2);
+        $this->assertNotEmpty($request->joins['team_users']);
+        foreach ($request->joins as $join) {
+            $join($qb2, $request);
+        }
     }
 
 }

@@ -54,7 +54,6 @@ export default {
   },
   mounted () {
     _vue = this
-  console.log(_vue)
     // Fetch google maps API
     loadGoogleMapsAPI({ key: config('gmaps_api_key')})
       .then(() => this.initMap())

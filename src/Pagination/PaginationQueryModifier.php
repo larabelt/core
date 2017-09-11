@@ -11,5 +11,29 @@ use Illuminate\Database\Eloquent\Builder;
  */
 abstract class PaginationQueryModifier
 {
-    abstract public static function modify(Builder $qb, PaginateRequest $request);
+    /**
+     * @var \Illuminate\Database\Eloquent\Builder
+     */
+    public $qb;
+
+    /**
+     * @var PaginateRequest
+     */
+    public $request;
+
+    public function __construct(Builder $qb, PaginateRequest $request)
+    {
+        $this->qb = $qb;
+        $this->request = $request;
+    }
+
+    /**
+     * Modify query
+     *
+     * @param Builder $qb
+     * @param PaginateRequest $request
+     * @return mixed
+     */
+    abstract public function modify(Builder $qb, PaginateRequest $request);
+
 }

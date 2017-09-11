@@ -25,7 +25,8 @@ class TeamableQueryModifierTest extends Testing\BeltTestCase
         $qb = m::mock(Builder::class);
         $qb->shouldReceive('where')->once()->withArgs(['team_id', 1]);
         $request = new PaginateRequest(['team_id' => 1]);
-        TeamableQueryModifier::modify($qb, $request);
+        $modifer = new TeamableQueryModifier($qb, $request);
+        $modifer->modify($qb, $request);
 
     }
 

@@ -34,10 +34,21 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
          * @var $queryModifier PaginationQueryModifier
          */
         foreach ($request->queryModifiers as $queryModifier) {
-            $queryModifier::modify($this->qb, $request);
+            //$queryModifier::modify($this->qb, $request);
+            $modifier = new $queryModifier($this->qb, $request);
+            $modifier->modify($this->qb, $request);
         }
 
         $request->modifyQuery($this->qb);
+
+        /**
+         * Apply join statements via closures
+         */
+        $refetch = false;
+        foreach ($request->joins as $join) {
+            $refetch = true;
+            $join($this->qb, $request);
+        }
 
         $this->orderBy($request);
 
@@ -46,8 +57,10 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
         $this->qb->take($request->perPage());
         $this->qb->offset($request->offset());
 
+        $items = $refetch ? $request->refetch($this->qb) : $request->items($this->qb);
+
         $paginator = new LengthAwarePaginator(
-            $request->items($this->qb),
+            $items,
             $count,
             $request->perPage(),
             $request->page()

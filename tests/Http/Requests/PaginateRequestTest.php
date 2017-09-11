@@ -1,9 +1,12 @@
 <?php
 
 use Mockery as m;
+use Belt\Core\Testing;
+use Belt\Core\User;
 use Belt\Core\Http\Requests\PaginateRequest;
+use Illuminate\Database\Eloquent\Builder;
 
-class PaginateRequestTest extends \PHPUnit_Framework_TestCase
+class PaginateRequestTest extends Testing\BeltTestCase
 {
     public function tearDown()
     {
@@ -21,6 +24,12 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Http\Requests\PaginateRequest::items
      * @covers \Belt\Core\Http\Requests\PaginateRequest::reCapture
      * @covers \Belt\Core\Http\Requests\PaginateRequest::extend
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::model
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::qb
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::fullKey
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::morphClass
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::refetch
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::item
      */
     public function test()
     {
@@ -61,10 +70,41 @@ class PaginateRequestTest extends \PHPUnit_Framework_TestCase
         $request->reCapture();
         $this->assertNotEmpty($request->server);
 
-        #extend
+        # extend
         $request = new \Illuminate\Http\Request(['foo' => 'bar']);
         $request = PaginateRequest::extend($request);
         $this->assertEquals('bar', $request->get('foo'));
+
+        # model
+        $request->modelClass = User::class;
+        $this->assertInstanceOf(User::class, $request->model());
+
+        # qb
+        $this->assertInstanceOf(Builder::class, $request->qb());
+
+        # morphClass
+        $this->assertEquals('users', $request->morphClass());
+
+        # fullKey
+        $this->assertEquals('users.id', $request->fullKey());
+
+        # item
+        User::unguard();
+        $user = factory(User::class)->make(['id' => 1]);
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('find')->andReturn($user);
+        $userRepo = m::mock(User::class);
+        $userRepo->shouldReceive('newQuery')->andReturn($qb);
+        $userRepo->shouldReceive('getTable')->andReturn('users');
+        $userRepo->shouldReceive('getKeyName')->andReturn('id');
+        $request->model = $userRepo;
+        $this->assertEquals($user, $request->item(1));
+
+        # refetch
+        $users = new \Illuminate\Database\Eloquent\Collection([$user]);
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('get')->with(['users.id'])->andReturn($users);
+        $request->refetch($qb);
     }
 
 }
