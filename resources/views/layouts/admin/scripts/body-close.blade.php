@@ -1,7 +1,7 @@
 @yield('scripts-body-close')
 
 @if(env('APP_DEBUG'))
-    <script src="{{ static_url('/plugins/tinymce/tinymce.dev.js') }}"></script>
+    <script src="{{ static_url('/plugins/tinymce/tinymce.js') }}"></script>
 @else
     <script src="{{ static_url('/plugins/tinymce/tinymce.min.js') }}"></script>
 @endif
