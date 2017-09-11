@@ -195,6 +195,12 @@ class BaseForm {
         }
     }
 
+    /**
+     * Get error value
+     *
+     * @param field
+     * @returns {*}
+     */
     error(field) {
         return this.errors.get(field);
     }
@@ -205,12 +211,10 @@ class BaseForm {
      * @param {object} data
      */
     onSuccess(data) {
-        //this.reset();
         this.saving = null;
         this.errors.clear();
         this.setData(data);
     }
-
 
     /**
      * Handle a failed form submission.
@@ -223,6 +227,7 @@ class BaseForm {
             this.errors.record(response.data);
         }
     }
+
 }
 
 export default BaseForm;
