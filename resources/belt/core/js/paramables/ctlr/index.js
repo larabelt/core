@@ -43,18 +43,30 @@ export default {
     watch: {
         'paramable.id': function (new_paramable_id) {
             if (new_paramable_id && !this.config) {
-                this.config = new Config({type: this.morphable_type, template: this.paramable.template});
-                this.config.load()
-                    .then((response) => {
-
-                    });
+                this.fetchConfig();
+                // this.config = new Config({type: this.morphable_type, template: this.paramable.template});
+                // this.config.load()
+                //     .then((response) => {
+                //
+                //     });
             }
+        },
+        'paramable.template': function () {
+            this.fetchConfig();
         }
     },
     mounted() {
         this.table.index();
     },
     methods: {
+        fetchConfig() {
+            this.config = new Config();
+            this.config.setService(this.morphable_type, this.paramable.template);
+            this.config.load()
+                .then((response) => {
+                    this.table.index();
+                });
+        },
         scan() {
             this.dirty = false;
             this.eventBus.$emit('scan');
