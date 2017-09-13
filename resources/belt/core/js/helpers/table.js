@@ -117,19 +117,27 @@ class BaseTable {
      * @param query
      * @returns {Promise}
      */
-    index() {
+    index(append = false) {
         this.loading = true;
         return new Promise((resolve, reject) => {
             this.service.get('', this.getQuery())
                 .then(response => {
                     this.loading = false;
-                    this.items = response.data.data;
                     this.total = response.data.total;
                     this.per_page = response.data.per_page;
                     this.current_page = response.data.current_page;
                     this.last_page = response.data.last_page;
                     this.from = response.data.from;
                     this.to = response.data.to;
+
+                    if( append ) {
+                        _.each(response.data.data, item => {
+                            this.items.push(item);
+                        });
+                    } else {
+                        this.items = response.data.data;
+                    }
+
                     resolve(response.data);
                 })
                 .catch(error => {
