@@ -62,7 +62,7 @@
 
 </script>
 
-<style lang="sass" scoped>
+<style>
     .modal-delete-trigger {
         cursor: pointer;
     }

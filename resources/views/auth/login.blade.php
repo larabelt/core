@@ -16,7 +16,7 @@
                 {{ Form::submit('Login', array('class'=>'btn btn-large btn-primary btn-block'))}}
                 {{ Form::close() }}
                 <br/>
-                <span class="pull-left"><a class="btn" href="/users/reset-password">FORGOT YOUR PASSWORD?</a></span>
+                <span class="pull-left"><a class="btn" href="/password/forgot">FORGOT YOUR PASSWORD?</a></span>
             </div>
         </div>
     </div>

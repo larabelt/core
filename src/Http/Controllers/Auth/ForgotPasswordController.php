@@ -39,6 +39,6 @@ class ForgotPasswordController extends BaseController
      */
     public function showLinkRequestForm()
     {
-        return view('belt-core::auth.passwords.email');
+        return view('belt-core::auth.passwords.forgot');
     }
 }
