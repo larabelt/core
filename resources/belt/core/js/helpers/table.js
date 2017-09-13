@@ -117,7 +117,7 @@ class BaseTable {
      * @param query
      * @returns {Promise}
      */
-    index(append = false) {
+    index(options = {}) {
         this.loading = true;
         return new Promise((resolve, reject) => {
             this.service.get('', this.getQuery())
@@ -130,7 +130,7 @@ class BaseTable {
                     this.from = response.data.from;
                     this.to = response.data.to;
 
-                    if( append ) {
+                    if( options.append ) {
                         _.each(response.data.data, item => {
                             this.items.push(item);
                         });
