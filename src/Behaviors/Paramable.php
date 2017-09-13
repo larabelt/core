@@ -15,7 +15,7 @@ trait Paramable
      */
     public function params()
     {
-        return $this->morphMany(Param::class, 'paramable')->orderBy('params.id');
+        return $this->morphMany(Param::class, 'paramable')->orderBy('params.key');
     }
 
     /**
@@ -27,14 +27,17 @@ trait Paramable
     {
         $this->load('params');
 
-        $param = $this->params->where('key', $key)->first();
+//        $param = $this->params->where('key', $key)->first();
+//        if ($param) {
+//            $param->update(['value' => $value]);
+//            //$this->purgeDuplicateParams($param);
+//        } else {
+//            $param = $this->params()->save(new Param(['key' => $key, 'value' => $value]));
+//        }
 
-        if ($param) {
-            $param->update(['value' => $value]);
-            //$this->purgeDuplicateParams($param);
-        } else {
-            $param = $this->params()->save(new Param(['key' => $key, 'value' => $value]));
-        }
+        $param = $this->params()->firstOrNew(['key' => $key]);
+        $param->value = $value;
+        $param->save();
 
         return $param;
     }
@@ -100,8 +103,6 @@ trait Paramable
      */
     public static function bootParamable()
     {
-        static::updating(function ($item) {
-
-        });
+        static::observe(IncludesTemplateObserver::class);
     }
 }

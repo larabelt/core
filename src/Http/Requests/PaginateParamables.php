@@ -9,7 +9,7 @@ class PaginateParamables extends PaginateRequest
 {
     public $perPage = 10;
 
-    public $orderBy = 'params.id';
+    public $orderBy = 'params.key';
 
     public $sortable = [
         'params.id',

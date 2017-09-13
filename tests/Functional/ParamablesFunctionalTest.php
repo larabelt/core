@@ -11,10 +11,6 @@ class ParamablesFunctionalTest extends Testing\BeltTestCase
         $this->refreshDB();
         $this->actAsSuper();
 
-        # index
-        $response = $this->json('GET', '/api/v1/sections/1/params');
-        $response->assertStatus(200);
-
         # store
         $response = $this->json('POST', '/api/v1/sections/1/params', [
             'key' => 'class',
@@ -22,6 +18,10 @@ class ParamablesFunctionalTest extends Testing\BeltTestCase
         ]);
         $response->assertStatus(201);
         $paramID = array_get($response->json(), 'id');
+
+        # index
+        $response = $this->json('GET', '/api/v1/sections/1/params');
+        $response->assertStatus(200);
 
         # show
         $response = $this->json('GET', "/api/v1/sections/2/params/$paramID");

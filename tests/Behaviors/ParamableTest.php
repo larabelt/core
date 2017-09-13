@@ -45,17 +45,11 @@ class ParamableTest extends Testing\BeltTestCase
         $this->assertEquals('default', $paramable->param('missing', 'default'));
         $this->assertEquals(null, $paramable->param('invalid'));
 
-        # saveParam (update)
-        $param = m::mock(Param::class . '[update]');
-        $param->setAttribute('key', 'foo');
-        $param->shouldReceive('update')->once()->with(['value' => 'new'])->andReturnSelf();
-        $paramable->params = new Collection();
-        $paramable->params->add($param);
-        $paramable->saveParam('foo', 'new');
-
-        # saveParam (create)
+        # saveParam (create/update)
+        $param = m::mock(Param::class . '[save]');
+        $param->shouldReceive('save')->once()->andReturnSelf();
         $morphMany = m::mock(MorphMany::class);
-        $morphMany->shouldReceive('save')->once();
+        $morphMany->shouldReceive('firstOrNew')->once()->andReturn($param);
         $paramable = m::mock(ParamableStub::class . '[params]');
         $paramable->params = new Collection();
         $paramable->shouldReceive('params')->once()->andReturn($morphMany);

@@ -37,18 +37,14 @@ export default {
     },
     computed: {
         canCreateParams() {
-            return _.get(this.config, 'can_create_params', false);
+            return false;
+            //return _.get(this.config, 'can_create_params', false);
         }
     },
     watch: {
         'paramable.id': function (new_paramable_id) {
             if (new_paramable_id && !this.config) {
                 this.fetchConfig();
-                // this.config = new Config({type: this.morphable_type, template: this.paramable.template});
-                // this.config.load()
-                //     .then((response) => {
-                //
-                //     });
             }
         },
         'paramable.template': function () {
@@ -57,9 +53,11 @@ export default {
     },
     mounted() {
         this.table.index();
+        console.log('hello');
     },
     methods: {
         fetchConfig() {
+            this.table.empty();
             this.config = new Config();
             this.config.setService(this.morphable_type, this.paramable.template);
             this.config.load()

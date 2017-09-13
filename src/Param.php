@@ -75,7 +75,7 @@ class Param extends Model
 
         $clone = $param->replicate();
         $clone->paramable_id = array_get($options, 'paramable_id');
-        $clone->push();
+        $clone->save();
 
         return $clone;
     }
