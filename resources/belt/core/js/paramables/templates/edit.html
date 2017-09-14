@@ -1,6 +1,6 @@
 <tr class="form-inline">
     <td>
-        <div class="form-group" :class="{ 'has-warning': dirty }">
+        <div :class="{ 'has-warning': dirty }">
             <div class="input-group">
                 <input class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
                 <span class="input-group-addon">
@@ -10,7 +10,7 @@
         </div>
     </td>
     <td>
-        <div class="form-group" :class="{ 'has-error': form.error('value') }">
+        <div :class="{ 'has-error': form.error('value') }">
             <template v-if="options">
                 <select name="value" v-model="form.value" class="form-control" @change="triggerScan()">
                     <template v-for="option, value in options">
@@ -19,12 +19,12 @@
                 </select>
             </template>
             <template v-else>
-                <input class="form-control input-sm" v-model="form.value" placeholder="" @keyup="triggerScan()">
+                <input class="form-control input-sm" v-model="form.value" placeholder="" @keyup="triggerScan()" style="width:100%;">
             </template>
             <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
         </div>
     </td>
-    <td class="text-right">
+    <td class="text-right" width="100">
         <modal-delete v-if="canDelete" :item-id="form.id" _class="btn btn-sm btn-danger" :callingObject="table"></modal-delete>
     </td>
 </tr>
