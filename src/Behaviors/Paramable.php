@@ -2,6 +2,7 @@
 
 use Morph;
 use Belt\Core\Param;
+use Belt\Core\Observers\ParamableObserver;
 
 /**
  * Class Paramable
@@ -103,6 +104,6 @@ trait Paramable
      */
     public static function bootParamable()
     {
-        static::observe(IncludesTemplateObserver::class);
+        static::observe(ParamableObserver::class);
     }
 }
