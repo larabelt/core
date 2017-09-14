@@ -8,7 +8,7 @@
 
         <h4>Param List
             <span class="pull-right">
-                <button class="btn btn-xs btn-primary" :disabled="!dirty" @click.prevent="update()">
+                <button class="btn btn-xs" :class="{'btn-default': !dirty, 'btn-primary': dirty}" :disabled="!dirty" @click.prevent="update()">
                     <span>Update Params</span>
                 </button>
             </span>

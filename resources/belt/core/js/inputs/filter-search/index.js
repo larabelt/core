@@ -9,6 +9,13 @@ export default {
             needle: '',
         };
     },
+    watch: {
+        'table.query.q': function (new_needle) {
+            if (new_needle) {
+                this.needle = new_needle;
+            }
+        }
+    },
     methods: {
         filter: debounce(function () {
             this.$emit('filter-search-update', {page: 1, q: this.needle});
