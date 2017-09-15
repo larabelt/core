@@ -12,6 +12,14 @@ trait Paramable
 {
 
     /**
+     * Binds events to subclass
+     */
+    public static function bootParamable()
+    {
+        static::observe(ParamableObserver::class);
+    }
+
+    /**
      * @return mixed
      */
     public function params()
@@ -27,15 +35,6 @@ trait Paramable
     public function saveParam($key, $value)
     {
         $this->load('params');
-
-//        $param = $this->params->where('key', $key)->first();
-//        if ($param) {
-//            $param->update(['value' => $value]);
-//            //$this->purgeDuplicateParams($param);
-//        } else {
-//            $param = $this->params()->save(new Param(['key' => $key, 'value' => $value]));
-//        }
-
         $param = $this->params()->firstOrNew(['key' => $key]);
         $param->value = $value;
         $param->save();
@@ -53,6 +52,61 @@ trait Paramable
         $param = $this->params->where('key', $key)->first();
 
         return $param ? $param->value : $default;
+    }
+
+    /**
+     * Morph param
+     *
+     * @param $key
+     * @return mixed
+     * @throws \Exception
+     */
+    public function morphParam($key)
+    {
+        $value = $this->param($key);
+
+        if ($value) {
+            return Morph::morph($key, $value);
+        }
+
+        throw new \Exception('Invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()');
+    }
+
+    /**
+     * Return items associated with the given param
+     *
+     * @param $query
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public function scopeHasParam($query, $key, $value = null)
+    {
+        $query->whereHas('params', function ($query) use ($key, $value) {
+            $query->where('params.key', $key);
+            if ($value) {
+                $query->where('params.value', $value);
+            }
+        });
+
+        return $query;
+    }
+
+    /**
+     * Return items associated with the given param
+     *
+     * @param $query
+     * @param $key
+     * @return mixed
+     */
+    public function scopeHasParamNotNull($query, $key)
+    {
+        $query->whereHas('params', function ($query) use ($key) {
+            $query->where('params.key', $key);
+            $query->whereNotNull('params.value');
+        });
+
+        return $query;
     }
 
     /**
@@ -81,29 +135,4 @@ trait Paramable
         }
     }
 
-    /**
-     * Morph param
-     *
-     * @param $key
-     * @return mixed
-     * @throws \Exception
-     */
-    public function morphParam($key)
-    {
-        $value = $this->param($key);
-
-        if ($value) {
-            return Morph::morph($key, $value);
-        }
-
-        throw new \Exception("invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()");
-    }
-
-    /**
-     * Binds events to subclass
-     */
-    public static function bootParamable()
-    {
-        static::observe(ParamableObserver::class);
-    }
 }
