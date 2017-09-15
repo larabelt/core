@@ -30,7 +30,7 @@
     "rap2hpoutre/laravel-log-viewer": "^0.8.0"
   },
   "suggest": {
-    "guzzlehttp/guzzle": "Required to use some services",
+    "guzzlehttp/guzzle": "Required to use some services"
   },
   "autoload": {
     "psr-4": {
