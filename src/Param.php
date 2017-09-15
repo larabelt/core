@@ -56,13 +56,13 @@ class Param extends Model
         return $value;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-     */
-    public function owner()
-    {
-        return $this->morphTo('paramable');
-    }
+//    /**
+//     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+//     */
+//    public function owner()
+//    {
+//        return $this->morphTo('paramable');
+//    }
 
     /**
      * @param $param
