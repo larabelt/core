@@ -25,6 +25,8 @@ class ParamableTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\Paramable::paramQB
      * @covers \Belt\Core\Behaviors\Paramable::purgeDuplicateParams
      * @covers \Belt\Core\Behaviors\Paramable::morphParam
+     * @covers \Belt\Core\Behaviors\Paramable::scopeHasParam
+     * @covers \Belt\Core\Behaviors\Paramable::scopeHasParamNotNull
      */
     public function test()
     {
@@ -93,6 +95,34 @@ class ParamableTest extends Testing\BeltTestCase
         } catch(\Exception $e) {
 
         }
+
+        # scopeHasParamNotNull
+        $paramable = new ParamableStub();
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('whereHas')->once()->with('params',
+            m::on(function (\Closure $closure) {
+                $qb = m::mock(Builder::class);
+                $qb->shouldReceive('where')->with('params.key', 'test');
+                $qb->shouldReceive('whereNotNull')->with('params.value');
+                $closure($qb);
+                return is_callable($closure);
+            })
+        );
+        $paramable->scopeHasParamNotNull($qb, 'test');
+
+        # scopeHasParam
+        $paramable = new ParamableStub();
+        $qb = m::mock(Builder::class);
+        $qb->shouldReceive('whereHas')->once()->with('params',
+            m::on(function (\Closure $closure) {
+                $qb = m::mock(Builder::class);
+                $qb->shouldReceive('where')->with('params.key', 'foo');
+                $qb->shouldReceive('where')->with('params.value', 'bar');
+                $closure($qb);
+                return is_callable($closure);
+            })
+        );
+        $paramable->scopeHasParam($qb, 'foo', 'bar');
 
     }
 
