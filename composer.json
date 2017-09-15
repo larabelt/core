@@ -16,6 +16,7 @@
     "php": ">=5.6.4",
     "barryvdh/laravel-cors": "^0.9.2",
     "doctrine/dbal": "^2.5",
+    "guzzlehttp/guzzle": "6.2.*",
     "kalnoy/nestedset": "^4.2",
     "kint-php/kint": "^2.0",
     "laravel/framework": ">=5.4.0",
@@ -28,9 +29,6 @@
     "barryvdh/laravel-debugbar": "^2.3",
     "barryvdh/laravel-ide-helper": "2.2.3",
     "rap2hpoutre/laravel-log-viewer": "^0.8.0"
-  },
-  "suggest": {
-    "guzzlehttp/guzzle": "Required to use some services"
   },
   "autoload": {
     "psr-4": {
