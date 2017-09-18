@@ -1,0 +1,9 @@
+<span v-if="show">
+    <span class="belt-column-sorter pull-right" :class="{active: active, asc: asc, desc: !asc}">
+        <a href="" @click.prevent="paginate($event)" :title="title">
+            <i class="fa fa-arrows-v"></i>
+            <i class="fa fa-sort-amount-asc"></i>
+            <i class="fa fa-sort-amount-desc"></i>
+        </a>
+    </span>
+</span>

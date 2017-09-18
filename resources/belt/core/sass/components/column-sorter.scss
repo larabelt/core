@@ -22,13 +22,13 @@
         }
 
         &.asc {
-            .fa-sort-amount-desc {
+            .fa-sort-amount-asc {
                 display: inline-block;
             }
         }
 
         &.desc {
-            .fa-sort-amount-asc {
+            .fa-sort-amount-desc {
                 display: inline-block;
             }
         }
