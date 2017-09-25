@@ -49,7 +49,12 @@ export default {
       dragSpot: null,
       gMap: null,
       table: new PlacesTable(),
-      toast: ''
+      toast: '',
+      markers: [],
+      windows: [],
+      active: {
+        place: null
+      }
     }
   },
   mounted () {
@@ -60,7 +65,15 @@ export default {
       .then(() => this.table.index())
       .then(() => this.addPlaces())
       .catch((err) => console.error(err));
-  }, 
+  },
+  computed: {
+    activePlace () {
+      return this.markers.find(m => m.id === this.active.place)
+    },
+    activeWindow () {
+      return this.windows.find(w => w.id === this.active.place)
+    }
+  },
   methods: {
 
     centerSpot() {
@@ -74,7 +87,7 @@ export default {
     initMap () {
         // Get zoom from parameter or config
         let zoom = parseInt(this.zoom ? this.zoom : config('zoom', 15));
-  
+
         this.center = new google.maps.LatLng(config('lat'), config('lng'));
 
         this.gMap = new google.maps.Map(this.$refs.map , {
@@ -121,7 +134,7 @@ export default {
         return Promise.resolve();
     },
 
-    /** 
+    /**
      * Update Dragspot Location
      */
 
@@ -154,26 +167,15 @@ export default {
 
     addPlaceMarker (place) {
       if (!place.address) { return }
-      const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(place.address.lat, place.address.lng),
-        map: this.gMap,
-        draggable: true,
-        zIndex: 1, 
-        placeId: place.id,
-        addressId: place.address.id, 
-        placeName: place.name,
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 9,
-          strokeOpacity: 0.0,
-          strokeColor: 'red',
-          fillOpacity: 1.0,
-          fillColor: 'gray'
-        }
-      })
 
+      // create marker
+      const marker = createMarker(place)
+      marker.setMap(this.gMap)
+      marker.id = place.id
+      this.markers.push(marker)
+
+       // bind marker events
       google.maps.event.addListener(marker, 'dragend', function (event) {
-        // event.stopPropagation()
         const payload = {
           lat: this.getPosition().lat(),
           lng: this.getPosition().lng()
@@ -185,8 +187,46 @@ export default {
         window.location.href = `/admin/belt/spot/places/edit/${this.placeId}/addresses`;
       })
 
+      marker.addListener('mouseover', function () {
+        if (_vue.active.place && (_vue.active.place !== this.id)) {
+          // console.log('hide spot from MOUSEOVER')
+          _vue.hidePlace(_vue.active.place)
+        }
+        _vue.showPlace(this.id)
+      })
 
-    }
+      marker.addListener('mouseout', function () {
+        // console.log('hide spot from mouse OUT: %s', this.id)
+        _vue.hidePlace(this.id)
+      })
+
+      // create infoWindow
+      const infoWindow = createInfoWindow(place)
+      infoWindow.id = place.id
+      this.windows.push(infoWindow)
+
+    },
+
+    showPlace (id) {
+      // Update active id
+      this.active.place = id
+      
+      // guard
+      if (!this.activePlace) { return }
+
+      // Open window
+      this.activeWindow.open(this.gMap, this.activePlace)
+    },
+
+    hidePlace (id) {
+      // Guard
+      const window = this.windows.find(w => w.id === id)
+
+      if (!window) { return }
+
+      // Close Window
+      window.close()
+    },
   },
   watch: {
     lat: function (val) {
@@ -252,6 +292,36 @@ function saveOutsidePlace (placeId, addressId, placeName, payload) {
 function delay(time) {
   return new Promise(resolve => {
     setTimeout(() => resolve(), time)
+  })
+}
+
+function createInfoWindow (place) {
+  const contentString = '<div class="c-info-window">'+
+        `<h5 class="c-info-window__headline">${place.name}</h5>`+
+        '</div>';
+
+  return new google.maps.InfoWindow({
+      content: contentString,
+      id: place.id
+  })
+}
+
+function createMarker (place) {
+  return new google.maps.Marker({
+    position: new google.maps.LatLng(place.address.lat, place.address.lng),
+    draggable: true,
+    zIndex: 1,
+    placeId: place.id,
+    addressId: place.address.id,
+    placeName: place.name,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 9,
+      strokeOpacity: 0.0,
+      strokeColor: 'red',
+      fillOpacity: 1.0,
+      fillColor: 'gray'
+    }
   })
 }
 
