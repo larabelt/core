@@ -24,7 +24,4 @@
             <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
         </div>
     </td>
-    <td class="text-right" width="100">
-        <modal-delete v-if="canDelete" :item-id="form.id" _class="btn btn-sm btn-danger" :callingObject="table"></modal-delete>
-    </td>
 </tr>

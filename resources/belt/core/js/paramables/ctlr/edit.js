@@ -5,31 +5,28 @@ import html from 'belt/core/js/paramables/templates/edit.html';
 export default {
     mixins: [shared],
     props: {
-        config: {default: {}},
         param: {default: {}},
     },
     data() {
         return {
             eventBus: this.$parent.eventBus,
-            table: this.$parent.table,
-            form: new Form({morphable_type: this.morphable_type, morphable_id: this.morphable_id}),
+            form: new Form({morphable_type: this.$parent.paramable_type, morphable_id: this.$parent.paramable_id}),
         }
     },
     computed: {
-        canDelete() {
-            if (!this.config) {
-                return true;
-            }
-            return !_.has(this.config, 'params.' + this.param.key)
+        config() {
+            return this.$parent.config;
         },
         dirty() {
             return this.form.dirty('value');
         },
         options() {
-            if (!this.config) {
-                return false;
-            }
-            return _.get(this.config, 'params.' + this.param.key, false);
+            return this.config ? _.get(this.config, 'params.' + this.param.key, false) : false;
+        }
+    },
+    watch: {
+        'param.id': function () {
+            this.reset();
         }
     },
     mounted() {
@@ -39,9 +36,13 @@ export default {
         this.eventBus.$on('update', () => {
             this.update();
         });
-        this.form.show(this.param.id);
+        this.reset();
     },
     methods: {
+        reset() {
+            this.form.reset();
+            this.form.setData(this.param);
+        },
         scan() {
             if (this.dirty) {
                 this.$parent.dirty = true;
