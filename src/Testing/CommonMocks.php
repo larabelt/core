@@ -64,7 +64,7 @@ trait CommonMocks
         $qbMock->shouldReceive('orderBy')->once()->with($request->orderBy(), $request->sortBy());
         $qbMock->shouldReceive('count')->once()->andReturn($request->perPage());
         $qbMock->shouldReceive('take')->once()->with($request->perPage());
-        $qbMock->shouldReceive('offset')->once()->with($request->offset());
+        //$qbMock->shouldReceive('offset')->once()->with($request->offset());
         $qbMock->shouldReceive('get')->once()->andReturn($results);
 
         return $qbMock;

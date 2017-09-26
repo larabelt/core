@@ -17,10 +17,10 @@ class LoginControllerTest extends Testing\BeltTestCase
     }
 
     /**
-     * @cover \Belt\Core\Http\Controllers\LoginController::__construct
-     * @cover \Belt\Core\Http\Controllers\LoginController::showLoginForm
-     * @cover \Belt\Core\Http\Controllers\LoginController::logout
-     * @cover \Belt\Core\Http\Controllers\LoginController::redirectTo
+     * @cover \Belt\Core\Http\Controllers\Auth\LoginController::__construct
+     * @cover \Belt\Core\Http\Controllers\Auth\LoginController::showLoginForm
+     * @cover \Belt\Core\Http\Controllers\Auth\LoginController::logout
+     * @cover \Belt\Core\Http\Controllers\Auth\LoginController::redirectTo
      */
     public function test()
     {

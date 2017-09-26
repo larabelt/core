@@ -1,5 +1,6 @@
 <?php
 
+use Mockery as m;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Exceptions;
 use Belt\Core\Testing\CommonMocks;
@@ -10,6 +11,11 @@ use Belt\Core\User;
 class ApiControllerTest extends \PHPUnit_Framework_TestCase
 {
     use CommonMocks;
+
+    public function tearDown()
+    {
+        m::close();
+    }
 
     /**
      * @covers \Belt\Core\Http\Controllers\ApiController::abort

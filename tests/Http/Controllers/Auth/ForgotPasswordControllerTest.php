@@ -9,12 +9,11 @@ class ForgotPasswordControllerTest extends Testing\BeltTestCase
 {
 
     /**
-     * @cover \Belt\Core\Http\Controllers\ForgotPasswordController::__construct
-     * @cover \Belt\Core\Http\Controllers\ForgotPasswordController::showLinkRequestForm
+     * @cover \Belt\Core\Http\Controllers\Auth\ForgotPasswordController::__construct
+     * @cover \Belt\Core\Http\Controllers\Auth\ForgotPasswordController::showLinkRequestForm
      */
     public function test()
     {
-
         # __construct
         $controller = new ForgotPasswordController();
 

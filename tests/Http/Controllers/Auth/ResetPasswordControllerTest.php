@@ -10,12 +10,11 @@ class ResetPasswordControllerTest extends Testing\BeltTestCase
 {
 
     /**
-     * @cover \Belt\Core\Http\Controllers\ResetPasswordController::__construct
-     * @cover \Belt\Core\Http\Controllers\ResetPasswordController::showResetForm
+     * @cover \Belt\Core\Http\Controllers\Auth\ResetPasswordController::__construct
+     * @cover \Belt\Core\Http\Controllers\Auth\ResetPasswordController::showResetForm
      */
     public function test()
     {
-
         # __construct
         $controller = new ResetPasswordController();
 

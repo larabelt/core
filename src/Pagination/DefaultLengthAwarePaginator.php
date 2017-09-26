@@ -54,15 +54,20 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
 
         $count = $this->qb->count();
 
-        $this->qb->take($request->perPage());
-        $this->qb->offset($request->offset());
+        $perPage = $request->perPage();
+        if ($perPage) {
+            $this->qb->take($perPage);
+            if ($offset = $request->offset()) {
+                $this->qb->offset($offset);
+            }
+        }
 
         $items = $refetch ? $request->refetch($this->qb) : $request->items($this->qb);
 
         $paginator = new LengthAwarePaginator(
             $items,
             $count,
-            $request->perPage(),
+            $perPage ?: $count,
             $request->page()
         );
 

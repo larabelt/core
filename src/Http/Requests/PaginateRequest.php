@@ -136,6 +136,10 @@ class PaginateRequest extends Request
             return (int) $perPage;
         }
 
+        if ((int) $perPage == 0 && $this->has('perPage')) {
+            return false;
+        }
+
         return (int) $this->perPage;
     }
 
