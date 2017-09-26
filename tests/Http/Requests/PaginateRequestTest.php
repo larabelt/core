@@ -105,6 +105,13 @@ class PaginateRequestTest extends Testing\BeltTestCase
         $qb = m::mock(Builder::class);
         $qb->shouldReceive('get')->with(['users.id'])->andReturn($users);
         $request->refetch($qb);
+
+        # perPage
+        $request = new PaginateRequest(['perPage' => 0]);
+        $this->assertEmpty($request->perPage());
+        $request = new PaginateRequest();
+        $request->perPage = 0;
+        $this->assertEmpty($request->perPage());
     }
 
 }
