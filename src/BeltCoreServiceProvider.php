@@ -67,6 +67,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->commands(Belt\Core\Commands\BeltCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestDBCommand::class);
+        $this->commands(Belt\Core\Commands\UpdateCommand::class);
 
         // morphMap
         Relation::morphMap([

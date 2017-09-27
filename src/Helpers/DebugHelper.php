@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Helpers;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -55,6 +56,34 @@ class DebugHelper
         ob_end_clean();
 
         return $output;
+    }
+
+    /**
+     * @param $data
+     * @param bool $return
+     * @return mixed
+     * @credit https://stackoverflow.com/a/35207172/1662866
+     */
+    public static function varExportShort($data, $return = true)
+    {
+        $dump = var_export($data, true);
+
+        $dump = preg_replace('#(?:\A|\n)([ ]*)array \(#i', '[', $dump); // Starts
+        $dump = preg_replace('#\n([ ]*)\),#', "\n$1],", $dump); // Ends
+        $dump = preg_replace('#=> \[\n\s+\],\n#', "=> [],\n", $dump); // Empties
+
+        if (gettype($data) == 'object') { // Deal with object states
+            $dump = str_replace('__set_state(array(', '__set_state([', $dump);
+            $dump = preg_replace('#\)\)$#', "])", $dump);
+        } else {
+            $dump = preg_replace('#\)$#', "]", $dump);
+        }
+
+        if ($return === true) {
+            return $dump;
+        } else {
+            echo $dump;
+        }
     }
 
 }
