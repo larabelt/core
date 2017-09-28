@@ -68,6 +68,11 @@
     margin-top: 10px;
 }
 
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 @import "components/column-sorter";
 @import "components/dropdown";
 @import "components/form-roles";
