@@ -17,7 +17,7 @@ class IsActiveQueryModifier extends PaginationQueryModifier
     public function modify(Builder $qb, PaginateRequest $request)
     {
         if ($request->query->has('is_active')) {
-            $qb->where('is_active', $request->query->get('is_active'));
+            $qb->where($request->morphClass() . '.is_active', $request->query->get('is_active'));
         }
     }
 

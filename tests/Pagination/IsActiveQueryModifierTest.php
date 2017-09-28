@@ -24,17 +24,27 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
     {
         # modify
         $qb = m::mock(Builder::class);
-        $qb->shouldReceive('where')->once()->withArgs(['is_active', true]);
-        $request = new PaginateRequest(['is_active' => true]);
+        $qb->shouldReceive('where')->once()->withArgs(['test.is_active', true]);
+        $request = new IsActiveQueryModifierTestPaginateRequestStub(['is_active' => true]);
         $modifer = new IsActiveQueryModifier($qb, $request);
         $modifer->modify($qb, $request);
 
         # elastic
         $query = [];
-        $request = new PaginateRequest(['is_active' => true]);
+        $request = new IsActiveQueryModifierTestPaginateRequestStub(['is_active' => true]);
         $query = IsActiveQueryModifier::elastic($query, $request);
         $this->assertEquals(true, array_get($query, 'bool.must.0.terms.is_active.0'));
 
     }
 
+}
+
+class IsActiveQueryModifierTestPaginateRequestStub extends PaginateRequest {
+    /**
+     * @return string
+     */
+    public function morphClass()
+    {
+        return 'test';
+    }
 }
