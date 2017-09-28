@@ -52,7 +52,13 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
 
         $this->orderBy($request);
 
-        $count = $this->qb->count();
+        $count = 0;
+        try {
+            // raw selects can break this
+            $count = $this->qb->count();
+        } catch (\Exception $e) {
+
+        }
 
         $perPage = $request->perPage();
         if ($perPage) {
@@ -63,6 +69,12 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
         }
 
         $items = $refetch ? $request->refetch($this->qb) : $request->items($this->qb);
+
+        // fake the count if raw select breaks count() above
+        if (!$count && $items->count()) {
+            $count = ($request->page() * $perPage) - $perPage + $items->count();
+            $count = $items->count() < $perPage ? $count : $count + 1;
+        }
 
         $paginator = new LengthAwarePaginator(
             $items,
