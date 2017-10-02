@@ -8,6 +8,7 @@ class UrlHelperTest extends BeltTestCase
 
     /**
      * @covers \Belt\Core\Helpers\UrlHelper::staticUrl
+     * @covers \Belt\Core\Helpers\UrlHelper::normalize
      */
     public function test()
     {
@@ -19,5 +20,8 @@ class UrlHelperTest extends BeltTestCase
         putenv("APP_STATIC_URL=http://static.local.domain");
         $this->assertEquals('http://static.local.domain/test', UrlHelper::staticUrl('test'));
 
+        # normalize
+        $this->assertEquals('/foo/bar', UrlHelper::normalize('foo/bar/'));
+        $this->assertEquals('http://foo.bar', UrlHelper::normalize('http://foo.bar/'));
     }
 }

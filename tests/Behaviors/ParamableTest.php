@@ -26,7 +26,7 @@ class ParamableTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\Paramable::purgeDuplicateParams
      * @covers \Belt\Core\Behaviors\Paramable::morphParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasParam
-     * @covers \Belt\Core\Behaviors\Paramable::scopeHasParamNotNull
+     * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
      */
     public function test()
     {
@@ -96,7 +96,7 @@ class ParamableTest extends Testing\BeltTestCase
 
         }
 
-        # scopeHasParamNotNull
+        # scopeHasDefinedParam
         $paramable = new ParamableStub();
         $qb = m::mock(Builder::class);
         $qb->shouldReceive('whereHas')->once()->with('params',
@@ -108,7 +108,7 @@ class ParamableTest extends Testing\BeltTestCase
                 return is_callable($closure);
             })
         );
-        $paramable->scopeHasParamNotNull($qb, 'test');
+        $paramable->scopeHasDefinedParam($qb, 'test');
 
         # scopeHasParam
         $paramable = new ParamableStub();

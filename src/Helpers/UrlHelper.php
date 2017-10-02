@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Helpers;
 
-use Belt\Core\Helpers\StrHelper;
+use Sabre\Uri;
 
 /**
  * Class UrlHelper
@@ -24,9 +24,18 @@ class UrlHelper
         }
 
         $url = sprintf('%s/%s', $static_url, $path);
-        $url = StrHelper::normalizeUrl($url);
+        $url = self::normalize($url);
 
         return $url;
+    }
+
+    /**
+     * @param $str
+     * @return string
+     */
+    public static function normalize($str)
+    {
+        return rtrim(Uri\normalize($str), '/');
     }
 
 }

@@ -99,10 +99,11 @@ trait Paramable
      * @param $key
      * @return mixed
      */
-    public function scopeHasParamNotNull($query, $key)
+    public function scopeHasDefinedParam($query, $key)
     {
         $query->whereHas('params', function ($query) use ($key) {
             $query->where('params.key', $key);
+            $query->where('params.value', '!=', '');
             $query->whereNotNull('params.value');
         });
 

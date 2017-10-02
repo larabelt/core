@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Helpers;
 
-use Sabre\Uri;
+use Belt\Core\Helpers\UrlHelper;
 
 /**
  * Class StrHelper
@@ -91,9 +91,14 @@ class StrHelper
         return is_array($array) ? $array : false;
     }
 
+    /**
+     * @deprecated
+     * @param $str
+     * @return string
+     */
     public static function normalizeUrl($str)
     {
-        return rtrim(Uri\normalize($str), '/');
+        return UrlHelper::normalize($str);
     }
 
 }
