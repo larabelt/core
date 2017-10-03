@@ -112,6 +112,20 @@ class PaginateRequestTest extends Testing\BeltTestCase
         $request = new PaginateRequest();
         $request->perPage = 0;
         $this->assertEmpty($request->perPage());
+
+        # orderBy
+        $request = new PaginateRequest();
+        $request->orderBy = 'test.id';
+        $request->sortable[] = 'test.id';
+        $request->sortable[] = 'test.name';
+        $request->merge(['orderBy' => 'test.name']);
+        $this->assertEquals('test.name', $request->orderBy());
+        $request->merge(['orderBy' => '-test.name']);
+        $this->assertEquals('-test.name', $request->orderBy());
+        $request->merge(['orderBy' => '-test.name,test.id']);
+        $this->assertEquals('-test.name,test.id', $request->orderBy());
+        $request->merge(['orderBy' => '-test.name,test.not_allowed']);
+        $this->assertEquals('test.id', $request->orderBy());
     }
 
 }

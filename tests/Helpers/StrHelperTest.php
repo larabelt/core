@@ -9,6 +9,7 @@ class StrHelperTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Helpers\StrHelper::isJson
      * @covers \Belt\Core\Helpers\StrHelper::strToArguments
      * @covers \Belt\Core\Helpers\StrHelper::strToArray
+     * @covers \Belt\Core\Helpers\StrHelper::normalizeUrl
      */
     public function testisJson()
     {
@@ -34,5 +35,9 @@ class StrHelperTest extends \PHPUnit_Framework_TestCase
         # strToArguments w/mal-formed array
         //$arguments = StrHelper::strToArguments("test, ['foo'=>'bar']asdf");
         //$this->assertEquals(null, $arguments[1]);
+
+        # normalizeUrl
+        $this->assertEquals('/foo/bar', StrHelper::normalizeUrl('foo/bar/'));
+        $this->assertEquals('http://foo.bar', StrHelper::normalizeUrl('http://foo.bar/'));
     }
 }

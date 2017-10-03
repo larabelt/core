@@ -14,6 +14,7 @@ class DebugHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers \Belt\Core\Helpers\DebugHelper::buffer
      * @covers \Belt\Core\Helpers\DebugHelper::getSql
+     * @covers \Belt\Core\Helpers\DebugHelper::varExportShort
      */
     public function test()
     {
@@ -27,6 +28,23 @@ class DebugHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(str_contains($response, ['foo']));
         $this->assertTrue(str_contains($response, ['bar']));
         $this->assertEquals('foo', DebugHelper::buffer('foo'));
+
+        # varExportShort (return)
+        $response = DebugHelper::varExportShort(['foo' => 'bar']);
+        $this->assertTrue(str_contains($response, ['[', ']']));
+
+        # varExportShort (object)
+        $object = new \stdClass();
+        $object->foo = 'bar';
+        $response = DebugHelper::varExportShort($object);
+        $this->assertTrue(str_contains($response, ['[', ']']));
+
+        # varExportShort (echo)
+        ob_start();
+        DebugHelper::varExportShort(['foo' => 'bar'], false);
+        $response = ob_get_contents();
+        ob_end_clean();
+        $this->assertTrue(str_contains($response, ['[', ']']));
     }
 }
 
