@@ -103,6 +103,7 @@ class ParamableTest extends Testing\BeltTestCase
             m::on(function (\Closure $closure) {
                 $qb = m::mock(Builder::class);
                 $qb->shouldReceive('where')->with('params.key', 'test');
+                $qb->shouldReceive('where')->with('params.value', '!=', '');
                 $qb->shouldReceive('whereNotNull')->with('params.value');
                 $closure($qb);
                 return is_callable($closure);
