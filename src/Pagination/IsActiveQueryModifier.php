@@ -21,22 +21,4 @@ class IsActiveQueryModifier extends PaginationQueryModifier
         }
     }
 
-    /**
-     * Modify the query
-     *
-     * @param  array $query
-     * @param  PaginateRequest $request
-     * @return $query
-     */
-    public static function elastic(array $query, PaginateRequest $request)
-    {
-
-        if ($request->query->has('is_active')) {
-            $query['bool']['must'][]['terms'] = [
-                'is_active' => [$request->query->get('is_active') ? true : false],
-            ];
-        }
-
-        return $query;
-    }
 }

@@ -25,4 +25,15 @@ class ArrayHelper
         return array_keys($arr) !== range(0, count($arr) - 1);
     }
 
+    /**
+     * Get last item in array
+     *
+     * @param array $arr
+     * @return mixed
+     */
+    public static function last(array $arr)
+    {
+        return array_values(array_slice($arr, -1))[0];
+    }
+
 }

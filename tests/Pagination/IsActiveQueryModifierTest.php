@@ -18,7 +18,6 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Pagination\IsActiveQueryModifier::modify
-     * @covers \Belt\Core\Pagination\IsActiveQueryModifier::elastic
      */
     public function test()
     {
@@ -29,11 +28,11 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
         $modifer = new IsActiveQueryModifier($qb, $request);
         $modifer->modify($qb, $request);
 
-        # elastic
-        $query = [];
-        $request = new IsActiveQueryModifierTestPaginateRequestStub(['is_active' => true]);
-        $query = IsActiveQueryModifier::elastic($query, $request);
-        $this->assertEquals(true, array_get($query, 'bool.must.0.terms.is_active.0'));
+//        # elastic
+//        $query = [];
+//        $request = new IsActiveQueryModifierTestPaginateRequestStub(['is_active' => true]);
+//        $query = IsActiveQueryModifier::elastic($query, $request);
+//        $this->assertEquals(true, array_get($query, 'bool.must.0.terms.is_active.0'));
 
     }
 
