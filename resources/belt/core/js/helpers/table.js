@@ -26,8 +26,7 @@ class BaseTable {
             page: 1,
             perPage: null,
             q: null,
-            orderBy: null,
-            sortBy: 'asc',
+            orderBy: null
         };
 
         this.name = '';
