@@ -24,7 +24,7 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu">
+            <ul class="sidebar-menu" data-widget="tree">
                 @include('belt-core::layouts.admin.partials.sidebar-left')
             </ul>
         </section>
