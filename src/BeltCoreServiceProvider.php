@@ -3,7 +3,7 @@
 namespace Belt\Core;
 
 use Belt;
-use Auth, Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre;
+use Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;

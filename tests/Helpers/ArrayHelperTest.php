@@ -7,6 +7,7 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Belt\Core\Helpers\ArrayHelper::isAssociative
+     * @covers \Belt\Core\Helpers\ArrayHelper::last
      */
     public function testisJson()
     {
@@ -18,5 +19,9 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse(ArrayHelper::isAssociative([]));
         $this->assertFalse(ArrayHelper::isAssociative(['foo', 'bar']));
+
+        # last
+        $arr = ['foo', 'bar'];
+        $this->assertEquals('bar', ArrayHelper::last($arr));
     }
 }
