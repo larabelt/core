@@ -18,7 +18,7 @@ trait IsNested
     {
         $hierarchy = [];
 
-        $ancestors = $this->ancestors()->get();
+        $ancestors = $this->getAncestors();
 
         if ($ancestors->count()) {
             foreach ($ancestors as $ancestor) {
