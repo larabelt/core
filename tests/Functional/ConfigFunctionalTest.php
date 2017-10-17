@@ -12,14 +12,24 @@ class ConfigFunctionalTest extends Testing\BeltTestCase
         $this->actAsSuper();
 
         app()['config']->set('test', [
-            'key1' => 'value1',
-            'key2' => 'value2',
+            'foo' => 'bar',
+            'other' => [
+                'key1' => 'value1',
+                'key2' => 'value2',
+            ],
         ]);
 
-        Route::get('one/two/config/test/{any?}', ConfigController::class . '@show');
+        $routes = Route::getRoutes();
+        $catchAllRoute = $routes->getByAction('Belt\Content\Http\Controllers\CatchAllController@web');
+        $catchAllRoute->setUri('something-else-so-catchall-does-not-happen');
 
-        $response = $this->json('GET', '/one/two/config/test/key1');
+        Route::get('/one/two/config/test/{any?}', ConfigController::class . '@show');
 
+        $response = $this->json('GET', '/one/two/config/test/foo');
+        $response->assertStatus(200);
+        $this->assertEquals('bar', $response->json());
+
+        $response = $this->json('GET', '/one/two/config/test', ['key' => 'other.key1']);
         $response->assertStatus(200);
         $this->assertEquals('value1', $response->json());
     }
