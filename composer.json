@@ -22,7 +22,7 @@
     "laravel/framework": ">=5.4.0",
     "laravelcollective/html": "5.4.1",
     "riimu/kit-phpencoder": "^2.1",
-    "rutorika/sortable": "3.2.*",
+    "rutorika/sortable": "3.4.*",
     "sabre/uri": "^2"
   },
   "require-dev": {
