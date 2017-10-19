@@ -1,11 +1,21 @@
 <?php namespace Belt\Core\Behaviors;
 
+use Belt;
+
 /**
  * Class Sluggable
  * @package Belt\Core\Behaviors
  */
 trait Sluggable
 {
+
+    /**
+     * Binds events to subclass
+     */
+    public static function bootSluggable()
+    {
+        static::observe(Belt\Core\Observers\SluggableObserver::class);
+    }
 
     /**
      * @return mixed

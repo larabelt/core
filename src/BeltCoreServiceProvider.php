@@ -22,7 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.4.8';
+    const VERSION = '1.4.9';
 
     /**
      * The policy mappings for the application.
@@ -76,15 +76,6 @@ class BeltCoreServiceProvider extends ServiceProvider
             'teams' => Belt\Core\Team::class,
             'users' => Belt\Core\User::class,
         ]);
-
-        // add sluggable behavior
-        $this->app['events']->listen('eloquent.saving*', function ($eventName, array $data) {
-            foreach ($data as $model) {
-                if ($model instanceof Belt\Core\Behaviors\SluggableInterface) {
-                    $model->slugify();
-                }
-            }
-        });
 
         // route model binding
         $router->model('alert', Belt\Core\Alert::class, function ($value) {
