@@ -1,10 +1,17 @@
 import html from 'belt/core/js/base/pagination/template.html';
 
 export default {
+    props: {
+        table: {
+            default: function () {
+                return this.$parent.table;
+            }
+        },
+    },
     data() {
         return {
             max: 5,
-            table: this.$parent.table,
+            //table: this.$parent.table,
             perPages: {
                 10: 10,
                 50: 50,
