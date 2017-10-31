@@ -2,6 +2,17 @@ import html from 'belt/core/js/base/pagination/template.html';
 
 export default {
     props: {
+        perPages: {
+            default: function () {
+                return [
+                    10,
+                    50,
+                    100,
+                    500,
+                    1000,
+                ]
+            }
+        },
         table: {
             default: function () {
                 return this.$parent.table;
@@ -11,14 +22,6 @@ export default {
     data() {
         return {
             max: 5,
-            //table: this.$parent.table,
-            perPages: {
-                10: 10,
-                50: 50,
-                100: 100,
-                500: 500,
-                1000: 1000,
-            }
         }
     },
     computed: {
@@ -27,7 +30,7 @@ export default {
                 return false;
             }
 
-            return this.table.total > 50 || this.table.total > this.table.per_page;
+            return this.table.total > 0 || this.table.total > this.table.per_page;
         },
         perPage() {
             return this.table.per_page ? this.table.per_page : 13;
