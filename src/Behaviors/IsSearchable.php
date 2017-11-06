@@ -18,9 +18,24 @@ trait IsSearchable
      */
     public function toSearchableArray()
     {
+        return $this->__toSearchableArray();
+    }
+
+    public function __toSearchableArray()
+    {
         $this->setAppends([]);
 
-        return $this->toArray();
+        $array = $this->toArray();
+
+        foreach ($this->dates as $column) {
+            $array[$column] = strtotime($this->$column);
+        }
+
+        foreach($this->relationsToArray() as $relationKey => $relationArray) {
+            $array[$relationKey] = $relationArray;
+        }
+
+        return $array;
     }
 
 }
