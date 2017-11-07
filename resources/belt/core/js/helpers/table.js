@@ -102,7 +102,7 @@ class BaseTable {
         let query = {};
 
         for (let field in this.query) {
-            if (this.query[field]) {
+            if (_.has(this.query, field)) {
                 query[field] = this.query[field];
             }
         }
