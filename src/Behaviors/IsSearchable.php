@@ -27,7 +27,7 @@ trait IsSearchable
 
         $array = $this->toArray();
 
-        foreach ($this->dates as $column) {
+        foreach ($this->getDates() as $column) {
             $array[$column] = strtotime($this->$column);
         }
 
