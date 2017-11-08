@@ -40,14 +40,34 @@ trait IsNested
     }
 
     /**
+     * @return array
+     */
+    public function getNestedNames()
+    {
+        $names = $this->getAncestors()->pluck('name')->all();
+        $names[] = $this->name;
+
+        return $names;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNestedSlugs()
+    {
+        $slugs = $this->getAncestors()->pluck('slug')->all();
+        $slugs[] = $this->slug;
+
+        return $slugs;
+    }
+
+    /**
      * @param string $glue
      * @return string
      */
     public function getNestedName($glue = ' > ')
     {
-        $names = $this->getAncestors()->pluck('name')->all();
-
-        $names[] = $this->name;
+        $names = $this->getNestedNames();
 
         return implode($glue, $names);
     }
