@@ -17,6 +17,8 @@ class IsNestedTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\IsNested::getHierarchyAttribute
      * @covers \Belt\Core\Behaviors\IsNested::getNestedName
      * @covers \Belt\Core\Behaviors\IsNested::getNestedNameAttribute
+     * @covers \Belt\Core\Behaviors\IsNested::getNestedNames
+     * @covers \Belt\Core\Behaviors\IsNested::getNestedSlugs
      */
     public function test()
     {
@@ -30,6 +32,8 @@ class IsNestedTest extends Testing\BeltTestCase
         # getNestedNameAttribute
         $nested = $this->getNestedWithAncestors();
         $this->assertEquals('One > Two > Three > Four', $nested->nested_name);
+        $this->assertEquals(['One', 'Two', 'Three', 'Four'], $nested->getNestedNames());
+        $this->assertEquals(['one', 'two', 'three', 'four'], $nested->getNestedSlugs());
     }
 
     public function getNestedWithAncestors()

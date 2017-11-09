@@ -1,0 +1,12 @@
+<span>
+    <div class="form-group filter pull-left">
+        <label><slot>Priority</slot></label>
+        <div class="form-group">
+            <select class="form-control" v-model="priority" title="item priority" @change="change()">
+                <template v-for="option in options">
+                    <option :value="option">{{ option }} or higher</option>
+                </template>
+            </select>
+        </div>
+    </div>
+</span>

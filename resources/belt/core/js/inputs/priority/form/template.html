@@ -1,0 +1,13 @@
+<span>
+    <div class="form-group" :class="{ 'has-error': form && form.error('priority') }">
+        <label><slot>Priority</slot></label>
+        <div class="form-group">
+            <select class="form-control" v-model="form.priority" title="item priority">
+                <template v-for="option in options">
+                    <option :value="option">{{ option }}</option>
+                </template>
+            </select>
+        </div>
+        <span v-for="error in form.error('priority')" class="text-danger">{{ error }}</span>
+    </div>
+</span>
