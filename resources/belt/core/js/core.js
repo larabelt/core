@@ -28,6 +28,9 @@ Vue.directive('tinymce', tinymce_directive);
 window.Events = new Vue({});
 window.History = new History({});
 
+window.larabelt = _.get(window, 'larabelt', {});
+window.larabelt.core = _.get(window, 'larabelt.core', {});
+
 export default class BeltCore {
 
     constructor(components = []) {
