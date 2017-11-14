@@ -14,9 +14,6 @@
     <!-- Superhero Theme: http://bootswatch.com/superhero -->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,12 +33,14 @@
 </div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="/js/jquery.min.js"></script>
+{{--<script src="/js/jquery.min.js"></script>--}}
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="/js/bootstrap.min.js"></script>
-<script src="{{ mix('/js/manifest.js') }}"></script>
-<script src="{{ mix('/js/vendor.js') }}"></script>
-<script src="{{ mix('/js/web.js') }}"></script>
+{{--<script src="/js/bootstrap.min.js"></script>--}}
+
+<script src="{{ static_url(mix('/js/manifest.js')) }}"></script>
+<script src="{{ static_url(mix('/js/vendor.js')) }}"></script>
+<script src="{{ static_url(mix('/js/web.js')) }}"></script>
+
 </body>
 </html>

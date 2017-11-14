@@ -64,6 +64,7 @@ class UsersController extends ApiController
         $user = $this->users->create(['email' => $input['email']]);
 
         $this->set($user, $input, [
+            'is_opted_in',
             'is_active',
             'is_verified',
             'first_name',
@@ -106,6 +107,7 @@ class UsersController extends ApiController
         $input = $request->all();
 
         $this->set($user, $input, [
+            'is_opted_in',
             'is_active',
             'is_verified',
             'first_name',

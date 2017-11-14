@@ -2,8 +2,7 @@
 
 namespace Belt\Core;
 
-use Belt;
-use Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre;
+use Belt, Barryvdh, Collective, Event, Illuminate, Laravel, Rap2hpoutre;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
@@ -22,7 +21,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.4.32';
+    const VERSION = '1.4.33';
 
     /**
      * The policy mappings for the application.
@@ -45,7 +44,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         include __DIR__ . '/../routes/admin.php';
         include __DIR__ . '/../routes/api.php';
         include __DIR__ . '/../routes/manage.php';
-        include __DIR__ . '/../routes/web.php';
+        include __DIR__ . '/../routes/web/base.php';
     }
 
     /**
@@ -69,6 +68,12 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->commands(Belt\Core\Commands\TestDBCommand::class);
         $this->commands(Belt\Core\Commands\UpdateCommand::class);
 
+        // events
+        Event::subscribe(Belt\Core\Listeners\UserEventSubscriber::class);
+
+        // observers
+        Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
+
         // morphMap
         Relation::morphMap([
             'params' => Belt\Core\Param::class,
@@ -81,17 +86,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         $router->model('alert', Belt\Core\Alert::class, function ($value) {
             return Belt\Core\Alert::sluggish($value)->first();
         });
-        //$router->model('param', Belt\Core\Param::class);
         $router->model('user', Belt\Core\User::class);
-
-        // load other packages
-        $this->app->register(Collective\Html\HtmlServiceProvider::class);
-        $this->app->register(Barryvdh\Cors\ServiceProvider::class);
-        if (env('APP_ENV') == 'local') {
-            $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-            $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
-            $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
-        }
 
         // add alias/facade
         $loader = AliasLoader::getInstance();
@@ -105,13 +100,22 @@ class BeltCoreServiceProvider extends ServiceProvider
             return new Belt\Core\Helpers\MorphHelper();
         });
 
-        # beltable values for global belt command
+        // beltable values for global belt command
         $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
         $this->app['belt']->publish('belt-core:publish');
         $this->app['belt']->seeders('BeltCoreSeeder');
 
         // view composers
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
+
+        // load other packages
+        $this->app->register(Collective\Html\HtmlServiceProvider::class);
+        $this->app->register(Barryvdh\Cors\ServiceProvider::class);
+        if (env('APP_DEBUG') === true) {
+            $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
+        }
     }
 
     /**

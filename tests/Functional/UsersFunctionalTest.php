@@ -1,12 +1,15 @@
 <?php
 
 use Belt\Core\Testing;
+use Illuminate\Support\Facades\Queue;
 
 class UsersFunctionalTest extends Testing\BeltTestCase
 {
 
     public function test()
     {
+        Queue::fake();
+
         $this->refreshDB();
         $this->actAsSuper();
 

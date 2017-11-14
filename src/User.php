@@ -45,6 +45,7 @@ class User extends Authenticatable
     protected $attributes = [
         'is_active' => 1,
         'is_verified' => 0,
+        'is_opted_in' => 0,
     ];
 
     /**
@@ -75,6 +76,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class, 'team_users', 'user_id', 'team_id')
             //->where('teams.is_active', true)
             ->orderBy('teams.name');
+    }
+
+    /**
+     * Set opted_in attribute
+     *
+     * @param $value
+     */
+    public function setIsOptedInAttribute($value)
+    {
+        $this->attributes['is_opted_in'] = boolval($value);
     }
 
     /**
