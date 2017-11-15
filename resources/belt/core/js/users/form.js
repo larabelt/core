@@ -15,6 +15,8 @@ class UserForm extends BaseForm {
             last_name: '',
             mi: '',
             email: '',
+            password: '',
+            password_confirmation: '',
         })
     }
 

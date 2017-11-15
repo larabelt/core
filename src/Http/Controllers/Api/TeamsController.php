@@ -69,6 +69,7 @@ class TeamsController extends ApiController
         $team = $this->teams->create(['name' => $input['name']]);
 
         $this->set($team, $input, [
+            'default_user_id',
             'is_active',
             'slug',
             'body',
@@ -112,6 +113,7 @@ class TeamsController extends ApiController
         $input = $request->all();
 
         $this->set($team, $input, [
+            'default_user_id',
             'is_active',
             'name',
             'slug',

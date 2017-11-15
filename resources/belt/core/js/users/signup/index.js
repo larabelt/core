@@ -1,24 +1,27 @@
-import Form from 'belt/core/js/users/signup/form';
+import userForm from 'belt/core/js/users/signup/form';
 import html from 'belt/core/js/users/signup/template.html';
 
 export default {
     props: {
         redirect: {
             default: '/users/welcome'
-        }
-    },
-    data() {
-        return {
-            form: new Form(),
-        }
+        },
+        label_is_opted_in: {
+            default: 'Yes! Sign me up for the occasional update.'
+        },
+        label_submit_button: {
+            default: 'Sign Up'
+        },
     },
     methods: {
         submit() {
-            this.form.submit()
-                .then(() => {
-                    window.location.replace(this.redirect);
-                });
+            if (this.redirect) {
+                window.location.replace(this.redirect);
+            }
         }
+    },
+    components: {
+        userForm
     },
     template: html,
 }

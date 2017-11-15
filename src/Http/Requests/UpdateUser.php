@@ -2,13 +2,14 @@
 
 namespace Belt\Core\Http\Requests;
 
+use Belt;
 use Illuminate\Validation\Rule;
 
 /**
  * Class UpdateUser
  * @package Belt\Core\Http\Requests
  */
-class UpdateUser extends FormRequest
+class UpdateUser extends Belt\Core\Http\Requests\UserRequest
 {
 
     /**

@@ -72,6 +72,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         Event::subscribe(Belt\Core\Listeners\UserEventSubscriber::class);
 
         // observers
+        Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
 
         // morphMap
@@ -107,6 +108,7 @@ class BeltCoreServiceProvider extends ServiceProvider
 
         // view composers
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
+        view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);

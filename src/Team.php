@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core;
 
 use Belt;
@@ -37,6 +38,14 @@ class Team extends Model implements
     protected $attributes = [
         'is_active' => 1,
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function defaultUser()
+    {
+        return $this->belongsTo(User::class, 'default_user_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
