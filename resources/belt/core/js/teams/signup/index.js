@@ -22,13 +22,10 @@ export default {
     },
     data() {
         return {
+            auth: {},
+            team: {id: null},
             step: 1,
-            team: {
-                id: null,
-            },
-            user: {
-                id: null,
-            },
+            user: {id: null},
         }
     },
     methods: {
@@ -43,6 +40,12 @@ export default {
                 window.location.replace(this.redirect);
             }
         },
+    },
+    mounted() {
+        this.auth = _.get(window, 'larabelt.auth.email');
+        if (this.auth) {
+            this.step = 2;
+        }
     },
     components: {
         userForm,

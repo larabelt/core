@@ -1,5 +1,5 @@
 <div>
-    <p>
+    <div v-if="!auth" class="team-signup-progress">
         <span class="label label-default" :class="{'label-primary': step == 1}">
             <slot name="step1_text">Step 1: User Info</slot>
         </span>
@@ -7,7 +7,7 @@
         <span class="label label-default" :class="{'label-primary': step == 2}">
             <slot name="step2_text">Step 2: Team Info</slot>
         </span>
-    </p>
+    </div>
     <template v-if="step == 1">
         <user-form
                 @user-signup-success="advance"

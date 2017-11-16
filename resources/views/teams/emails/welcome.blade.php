@@ -1,5 +1,3 @@
 <p>Welcome {{ $user->first_name }},</p>
 
-<p>Enjoy our site.</p>
-
-<a href="{{ env('APP_URL') }}/login">Login Here.</a>
+<p>Your team {{ $team->name }} has been created. It will be reviewed shortly.</p>

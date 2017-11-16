@@ -7,6 +7,8 @@ class TeamsFunctionalTest extends Testing\BeltTestCase
 
     public function test()
     {
+        Queue::fake();
+
         $this->refreshDB();
         $this->actAsSuper();
 

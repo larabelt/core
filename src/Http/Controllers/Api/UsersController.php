@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
+use Belt;
 use Belt\Core\User;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
@@ -74,6 +75,8 @@ class UsersController extends ApiController
         ]);
 
         $user->save();
+
+        event(new Belt\Core\Events\UserCreated($user));
 
         return response()->json($user, 201);
     }

@@ -7,10 +7,10 @@ use Belt\Core\Events;
 use Belt\Core\Listeners;
 
 /**
- * Class UserEventSubscriber
+ * Class TeamEventSubscriber
  * @package Belt\Core\Listeners
  */
-class UserEventSubscriber
+class TeamEventSubscriber
 {
     /**
      * Register the listeners for the subscriber.
@@ -19,8 +19,8 @@ class UserEventSubscriber
      */
     public function subscribe($events)
     {
-        if (config('belt.core.users.send_welcome_email')) {
-            $events->listen(Events\UserCreated::class, Listeners\SendUserWelcomeEmail::class);
+        if (config('belt.core.teams.send_welcome_email')) {
+            $events->listen(Events\TeamCreated::class, Listeners\SendTeamWelcomeEmail::class);
         }
     }
 

@@ -1,5 +1,3 @@
 Welcome {{ $user->first_name }},
 
-Enjoy our site.
-
-Login at {{ env('APP_URL') }}/login
+Your team {{ $team->name }} has been created. It will be reviewed shortly.

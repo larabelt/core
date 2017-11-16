@@ -3,14 +3,14 @@
 namespace Belt\Core\Listeners;
 
 use Belt, Mail;
-use Belt\Core\Events\UserCreated;
+use Belt\Core\Events\TeamCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
- * Class UserWelcomeEmail
+ * Class TeamWelcomeEmail
  * @package Belt\Core\Listeners
  */
-class SendUserWelcomeEmail implements ShouldQueue
+class SendTeamWelcomeEmail implements ShouldQueue
 {
     /**
      * The number of times the job may be attempted.
@@ -30,14 +30,16 @@ class SendUserWelcomeEmail implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  UserCreated $event
+     * @param  TeamCreated $event
      * @return void
      */
-    public function handle(UserCreated $event)
+    public function handle(TeamCreated $event)
     {
-        $user = $event->user;
+        $team = $event->team;
+        $user = $event->team->defaultUser;
 
-        $mailable = new Belt\Core\Mail\UserWelcomeEmail([
+        $mailable = new Belt\Core\Mail\TeamWelcomeEmail([
+            'team' => $team,
             'user' => $user,
         ]);
 

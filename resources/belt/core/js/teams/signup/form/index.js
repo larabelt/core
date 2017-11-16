@@ -9,7 +9,8 @@ export default {
     },
     methods: {
         submit() {
-            this.form.default_user_id = this.$parent.user.id;
+            let auth = _.get(window, 'larabelt.auth.email');
+            this.form.default_user_id = auth ? '[auth.id]' : this.$parent.user.id;
             this.form.submit()
                 .then((response) => {
                     this.$emit('team-signup-success', response);

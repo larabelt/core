@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
+use Belt;
 use Belt\Core\Team;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
@@ -76,6 +77,8 @@ class TeamsController extends ApiController
         ]);
 
         $team->save();
+
+        event(new Belt\Core\Events\TeamCreated($team));
 
         return response()->json($team, 201);
     }
