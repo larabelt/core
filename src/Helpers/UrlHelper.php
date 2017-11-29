@@ -38,4 +38,26 @@ class UrlHelper
         return rtrim(Uri\normalize($str), '/');
     }
 
+    /**
+     * See if url opens
+     *
+     * @param string $url
+     * @return boolean
+     */
+    public static function exists($url)
+    {
+        $exists = true;
+
+        try {
+            $headers = @get_headers($url);
+            if (!$headers || $headers[0] == 'HTTP/1.1 404 Not Found') {
+                $exists = false;
+            }
+        } catch (\Exception $e) {
+            $exists = false;
+        }
+
+        return $exists;
+    }
+
 }
