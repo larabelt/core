@@ -150,13 +150,13 @@ class ContactService
      */
     public function setRequest(Request $request)
     {
+        if ($template = $request->get('template')) {
+            $this->setTemplate($template);
+        }
+
         $requestClass = $this->config('request_class');
         if ($requestClass && is_subclass_of($requestClass, BaseRequestInterface::class)) {
             $request = $requestClass::extend($request);
-        }
-
-        if ($template = $request->get('template')) {
-            $this->setTemplate($template);
         }
 
         $this->request = $request;
