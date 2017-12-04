@@ -1,11 +1,16 @@
 <?php
+
 namespace Belt\Core\Http\Requests;
 
+use Belt;
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Validation\Rules;
 
-class FormRequest extends BaseFormRequest
+class FormRequest extends BaseFormRequest implements
+    Belt\Core\Http\Requests\BaseRequestInterface
 {
+
+    use Belt\Core\Http\Requests\BaseRequest;
 
     public function wantsJson()
     {
