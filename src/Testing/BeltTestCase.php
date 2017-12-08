@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Testing;
 
 use Belt\Core\User;
@@ -22,6 +23,18 @@ abstract class BeltTestCase extends TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+
+    /**
+     * Update db config. Adding this to avoid errors. ENV values in phpunit.xml aren't passing through.
+     *
+     * @todo this seems like a hack. get config to work and remove this.
+     */
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->refreshDB();
+    }
 
     /**
      * @throws \Exception
