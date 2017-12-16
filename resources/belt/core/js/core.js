@@ -1,3 +1,5 @@
+import 'belt/core/js/belt-bootstrap';cd
+
 import alerts from 'belt/core/js/alerts/routes';
 import roles from 'belt/core/js/roles/routes';
 import teams from 'belt/core/js/teams/routes';
