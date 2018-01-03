@@ -13,7 +13,17 @@ class AlertService
 {
 
     /**
-     * @return null
+     * Setup cache if missing
+     */
+    public function init()
+    {
+        if (!Cache::has('alerts')) {
+            $this->cache();
+        }
+    }
+
+    /**
+     * Save alerts to cache
      */
     public function cache()
     {
