@@ -2,13 +2,17 @@
 
 namespace Belt\Core\Http\Requests;
 
+use Belt;
 use Belt\Core\Pagination\PaginationQueryModifier;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaginateRequest extends Request
+class PaginateRequest extends Request implements
+    Belt\Core\Http\Requests\BaseRequestInterface
 {
+
+    use Belt\Core\Http\Requests\BaseRequest;
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -78,29 +82,6 @@ class PaginateRequest extends Request
         $this->headers = $captured->headers;
 
         return $this;
-    }
-
-    /**
-     * Create new PageRequest instance extending a regular Request instance
-     *
-     * @param Request $request
-     * @return static
-     */
-    public static function extend(Request $request)
-    {
-        $new = new static();
-
-        $new->initialize(
-            $request->query->all(),
-            $request->request->all(),
-            $request->attributes->all(),
-            $request->cookies->all(),
-            $request->files->all(),
-            $request->server->all(),
-            $request->content
-        );
-
-        return $new;
     }
 
     /**

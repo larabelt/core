@@ -41,7 +41,12 @@
                 <tr v-for="user in table.items">
                     <td>{{ user.email }}</td>
                     <td class="text-right">
-                        <a class="btn btn-xs btn-danger" @click="table.destroy(user.id)" title="unlink this user"><i class="fa fa-unlink"></i></a>
+                        <template v-if="team.default_user_id == user.id">
+                            default
+                        </template>
+                        <template v-else>
+                            <a class="btn btn-xs btn-danger" @click="table.destroy(user.id)" title="unlink this user"><i class="fa fa-unlink"></i></a>
+                        </template>
                     </td>
                 </tr>
                 </tbody>

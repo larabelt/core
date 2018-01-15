@@ -19,17 +19,10 @@ export default {
         edit: users,
     },
     mounted() {
-        //this.table.index();
+
     },
     methods: {
-        // attach(id) {
-        //     this.form.setData({id: id});
-        //     this.form.store()
-        //         .then(response => {
-        //             this.table.index();
-        //             this.detached.index();
-        //         })
-        // }
+
     },
     template: edit_html
 }

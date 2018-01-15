@@ -145,6 +145,8 @@ class TeamUsersController extends ApiController
 
         $team->users()->detach($id);
 
+        $team->touch();
+
         return response()->json(null, 204);
     }
 

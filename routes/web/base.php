@@ -13,8 +13,7 @@ Route::group(['middleware' => ['web']], function () {
     # password recovery
     Route::get('password/forgot', Controllers\Auth\ForgotPasswordController::class . '@showLinkRequestForm');
     Route::post('password/forgot', Controllers\Auth\ForgotPasswordController::class . '@sendResetLinkEmail');
-    Route::get('password/reset/{token}', Controllers\Auth\ResetPasswordController::class . '@showResetForm')
-        ->name('password.reset');
+    Route::get('password/reset/{token}', Controllers\Auth\ResetPasswordController::class . '@showResetForm')->name('password.reset');
     Route::post('password/reset', Controllers\Auth\ResetPasswordController::class . '@reset');
 
     # home
@@ -23,7 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     # debug
-    if (env('APP_ENV') == 'local') {
+    if (env('APP_DEBUG') === true) {
         Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     }
 });

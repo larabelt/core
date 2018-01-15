@@ -10,10 +10,13 @@ class UserForm extends BaseForm {
         this.setData({
             id: '',
             is_active: 0,
+            is_opted_in: 0,
             first_name: '',
             last_name: '',
             mi: '',
             email: '',
+            password: '',
+            password_confirmation: '',
         })
     }
 

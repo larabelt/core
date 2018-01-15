@@ -7,9 +7,8 @@
 <head>
     @include('belt-core::layouts.admin.partials.head')
     @include('belt-core::layouts.admin.scripts.head-open')
-    @include('belt-core::layouts.admin.scripts.auth')
-    @include('belt-core::layouts.admin.scripts.active-team')
     @include('belt-core::layouts.admin.scripts.head-close')
+    @include('belt-core::layouts.admin.scripts.window-config')
     <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
 </head>
 

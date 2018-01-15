@@ -2,8 +2,9 @@
 
 namespace Belt\Core\Http\ViewComposers;
 
-use Cache, Cookie;
+use Belt, Cache, Cookie;
 use Belt\Core\Alert;
+use Belt\Core\Services\AlertService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 
@@ -15,10 +16,18 @@ class AlertsComposer
     public $alerts;
 
     /**
+     * @var AlertService
+     */
+    public $service;
+
+    /**
      * Create a new profile composer.
      */
     public function __construct()
     {
+
+        $this->service()->init();
+
         $alerts = Cache::get('alerts');
 
         if ($alerts && $alerts->count() && $alerts instanceof Collection) {
@@ -34,6 +43,14 @@ class AlertsComposer
 
             $this->alerts = $alerts->count() ? $alerts : null;
         }
+    }
+
+    /**
+     * @return AlertService
+     */
+    public function service()
+    {
+        return $this->service ?: $this->service = new AlertService();
     }
 
     /**

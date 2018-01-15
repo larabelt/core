@@ -45,7 +45,10 @@ class TeamPolicyTest extends Testing\BeltTestCase
         $this->assertNotTrue($policy->delete($user1, $team1));
 
         # create
+        app()['config']->set('belt.core.teams.allow_public_signup', false);
         $this->assertNotTrue($policy->create($user1));
+        app()['config']->set('belt.core.teams.allow_public_signup', true);
+        $this->assertTrue($policy->create($user1));
     }
 
 }

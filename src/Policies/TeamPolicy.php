@@ -31,7 +31,11 @@ class TeamPolicy extends BaseAdminPolicy
      */
     public function create(User $auth)
     {
-        return false;
+        $permission = parent::create($auth);
+
+        if ($permission || config('belt.core.teams.allow_public_signup')) {
+            return true;
+        }
     }
 
     /**

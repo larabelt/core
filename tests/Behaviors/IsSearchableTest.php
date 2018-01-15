@@ -3,6 +3,7 @@
 use Mockery as m;
 use Belt\Core\Behaviors\IsSearchable;
 use Belt\Core\Testing;
+use Belt\Core\User;
 
 class IsSearchableTest extends Testing\BeltTestCase
 {
@@ -14,6 +15,7 @@ class IsSearchableTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Behaviors\IsSearchable::toSearchableArray
+     * @covers \Belt\Core\Behaviors\IsSearchable::__toSearchableArray
      */
     public function test()
     {
@@ -45,6 +47,16 @@ class IsSearchableStub extends Testing\BaseModelStub
     public function getTestAttribute()
     {
         return 'bar2';
+    }
+
+    public function relationsToArray()
+    {
+        User::unguard();
+        $user = factory(User::class)->make();
+
+        return [
+            'user' => $user->toArray(),
+        ];
     }
 
 }

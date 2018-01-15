@@ -54,7 +54,11 @@ class BaseForm {
         let formData = new FormData();
 
         for (let property in this.originalData) {
-            formData.append(property, this[property]);
+            if (this[property]) {
+                formData.append(property, this[property]);
+            } else {
+                formData.append(property, '');
+            }
         }
 
         return formData;

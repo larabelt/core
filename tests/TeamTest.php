@@ -3,8 +3,7 @@
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Team;
 use Belt\Core\User;
-
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TeamTest extends BeltTestCase
@@ -14,6 +13,7 @@ class TeamTest extends BeltTestCase
      * @covers \Belt\Core\Team::setIsActiveAttribute
      * @covers \Belt\Core\Team::setNameAttribute
      * @covers \Belt\Core\Team::users
+     * @covers \Belt\Core\Team::defaultUser
      */
     public function test()
     {
@@ -30,6 +30,9 @@ class TeamTest extends BeltTestCase
         $this->assertInstanceOf(BelongsToMany::class, $team->users());
         $team->users->add(factory(User::class)->make(['email' => 'test@test.com']));
         $this->assertEquals(1, $team->users->count());
+
+        # defaultUser relationship
+        $this->assertInstanceOf(BelongsTo::class, $team->defaultUser());
 
         # setters
         $this->assertEquals('TEST', $team->__toString());

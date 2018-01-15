@@ -1,9 +1,7 @@
-// helpers
+import TeamForm from 'belt/core/js/teams/form';
 import Form from 'belt/core/js/teams/users/form';
 import Table from 'belt/core/js/teams/users/table';
-
-// templates
-import index_html from 'belt/core/js/teams/users/templates/index.html';
+import html from 'belt/core/js/teams/users/templates/index.html';
 
 export default {
     data() {
@@ -21,10 +19,12 @@ export default {
                 morphable_type: this.$parent.morphable_type,
                 morphable_id: this.$parent.morphable_id,
             }),
+            team: new TeamForm(),
         }
     },
     mounted() {
         this.table.index();
+        this.team.show(this.$parent.morphable_id);
     },
     methods: {
         attach(id) {
@@ -39,5 +39,5 @@ export default {
             this.detached.query.q = '';
         },
     },
-    template: index_html
+    template: html
 }

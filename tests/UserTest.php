@@ -22,6 +22,7 @@ class UserTest extends BeltTestCase
      * @covers \Belt\Core\User::roles
      * @covers \Belt\Core\User::hasRole
      * @covers \Belt\Core\User::getFullNameAttribute
+     * @covers \Belt\Core\User::setIsOptedInAttribute
      */
     public function test()
     {
@@ -33,6 +34,7 @@ class UserTest extends BeltTestCase
         $user->email = ' TEST@TEST.COM ';
         $user->is_verified = 1;
         $user->is_active = 1;
+        $user->is_opted_in = 1;
         $user->first_name = ' test ';
         $user->last_name = ' test ';
         $user->mi = ' test ';
@@ -60,6 +62,7 @@ class UserTest extends BeltTestCase
         $this->assertEquals('test@test.com', $user->__toString());
         $this->assertEquals(true, $attributes['is_verified']);
         $this->assertEquals(true, $attributes['is_active']);
+        $this->assertEquals(true, $attributes['is_opted_in']);
         $this->assertEquals('TEST', $attributes['last_name']);
         $this->assertEquals('TEST', $attributes['first_name']);
         $this->assertEquals('T', $attributes['mi']);

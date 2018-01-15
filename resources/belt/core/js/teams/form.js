@@ -9,6 +9,7 @@ class TeamForm extends BaseForm {
         this.routeEditName = 'teams.edit';
         this.setData({
             id: '',
+            default_user_id: null,
             is_active: 0,
             name: '',
             slug: '',

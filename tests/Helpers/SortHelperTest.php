@@ -11,11 +11,17 @@ class SortHelperTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Helpers\SortHelper::setFromString
      * @covers \Belt\Core\Helpers\SortHelper::getByColumn
      */
-    public function testisJson()
+    public function test()
     {
 
+        # case 1
         $helper = new SortHelper('-places.rating,places.name');
         $order = $helper->getByColumn('name');
         $this->assertEquals('asc', $order->dir);
+
+        # case 2
+        $helper = new SortHelper('tag:44,places.name');
+        $order = $helper->getByColumn('tag');
+        $this->assertNotEmpty($order->params);
     }
 }

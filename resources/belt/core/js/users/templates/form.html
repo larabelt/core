@@ -5,9 +5,20 @@
                 <label>
                     <input type="checkbox"
                            v-model="form.is_active"
-                           :true-value="1"
-                           :false-value="0"
+                           :true-value="true"
+                           :false-value="false"
                     > Is Active
+                </label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           v-model="form.is_opted_in"
+                           :true-value="true"
+                           :false-value="false"
+                    > Is Opted in
                 </label>
             </div>
         </div>

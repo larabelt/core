@@ -2,10 +2,10 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
-use Mail;
-use Belt\Core\Http\Requests;
+use Belt;
 use Belt\Core\Http\Controllers\ApiController;
-use Belt\Core\Mail\ContactSubmitted;
+use Belt\Core\Services\ContactService;
+use Illuminate\Http\Request;
 
 /**
  * Class ContactController
@@ -13,22 +13,39 @@ use Belt\Core\Mail\ContactSubmitted;
  */
 class ContactController extends ApiController
 {
-
+    /**
+     * @var ContactService
+     */
+    private $service;
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Requests\PostContact $request
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return ContactService
      */
-    public function store(Requests\PostContact $request)
+    public function service(Request $request)
     {
-        /**
-         * @todo queue contact request
-         */
+        $service = $this->service ?: new ContactService();
 
-        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactSubmitted($request->all()));
+        $service->setRequest($request);
+
+        return $this->service = $service;
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function store(Request $request)
+    {
+
+        $service = $this->service($request);
+
+        if (!$service->validates()) {
+            return response()->json($service->errors(), 422);
+        }
+
+        $service->queue();
 
         return response()->json([], 201);
     }

@@ -13,8 +13,8 @@ export default {
     },
     data() {
         return {
-            'column_date': '',
-            'column_time': '',
+            column_date: '',
+            column_time: '',
         };
     },
     computed: {
@@ -23,6 +23,8 @@ export default {
                 let date = moment(this.column_date);
                 return date.format("YYYY-MM-DD");
             }
+
+            return null;
         },
         datetime() {
             if (this.column_date) {
@@ -30,26 +32,32 @@ export default {
                 let datetime = moment(this.column_date + ' ' + column_time);
                 return datetime.format("YYYY-MM-DD HH:mm:00");
             }
+
+            return null;
         },
     },
     created() {
 
         if (this.form) {
 
-            // set default date
-            let values = this.default_date.split(',');
-            let datetime = moment();
-            this.column_date = datetime.add(values[0], values[1]).format("YYYY-MM-DD");
+            if (this.default_date) {
+                // set default date
+                let values = this.default_date.split(',');
+                let datetime = moment();
+                this.column_date = datetime.add(values[0], values[1]).format("YYYY-MM-DD");
 
-            // set default time
-            this.column_time = this.default_time;
+                // set default time
+                this.column_time = this.default_time;
+
+                this.form[this.column] = this.datetime;
+            }
 
             // set dynamic form watcher
             this.$watch('form.' + this.column, function (newValue) {
                 this.setDatetimeFromStr(newValue);
             });
 
-            this.form[this.column] = this.datetime;
+
         }
 
         if (this.table) {
@@ -79,9 +87,14 @@ export default {
             }
         },
         setDatetimeFromStr(str) {
-            let datetime = moment(str);
-            this.column_date = datetime.format("YYYY-MM-DD");
-            this.column_time = datetime.format("HH:mm");
+            if (str) {
+                let datetime = moment(str);
+                this.column_date = datetime.format("YYYY-MM-DD");
+                this.column_time = datetime.format("HH:mm");
+            } else {
+                this.column_date = '';
+                this.column_time = '';
+            }
         }
     },
     template: html

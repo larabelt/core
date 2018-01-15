@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
+use Belt;
 use Belt\Core\User;
 use Belt\Core\Http\Requests;
 use Belt\Core\Http\Controllers\ApiController;
@@ -64,6 +65,7 @@ class UsersController extends ApiController
         $user = $this->users->create(['email' => $input['email']]);
 
         $this->set($user, $input, [
+            'is_opted_in',
             'is_active',
             'is_verified',
             'first_name',
@@ -73,6 +75,8 @@ class UsersController extends ApiController
         ]);
 
         $user->save();
+
+        event(new Belt\Core\Events\UserCreated($user));
 
         return response()->json($user, 201);
     }
@@ -106,6 +110,7 @@ class UsersController extends ApiController
         $input = $request->all();
 
         $this->set($user, $input, [
+            'is_opted_in',
             'is_active',
             'is_verified',
             'first_name',
