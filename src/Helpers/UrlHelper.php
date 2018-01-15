@@ -49,7 +49,7 @@ class UrlHelper
         $exists = true;
 
         try {
-            $headers = @get_headers($url);
+            $headers = get_headers($url);
             if (!$headers || $headers[0] == 'HTTP/1.1 404 Not Found') {
                 $exists = false;
             }

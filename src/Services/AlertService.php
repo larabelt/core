@@ -23,11 +23,21 @@ class AlertService
     }
 
     /**
+     * Get Alert query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query()
+    {
+        return Alert::query();
+    }
+
+    /**
      * Save alerts to cache
      */
     public function cache()
     {
-        $alerts = Alert::active()->get();
+        $alerts = $this->query()->active()->get();
 
         $alerts = $alerts->keyBy('id');
 

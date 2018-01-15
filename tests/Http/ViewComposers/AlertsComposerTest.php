@@ -29,6 +29,7 @@ class AlertsComposerTest extends BeltTestCase
             new Alert(['id' => 3]),
         ]);
 
+        Cache::shouldReceive('has')->once()->with('alerts')->andReturn(true);
         Cache::shouldReceive('get')->once()->with('alerts')->andReturn($alerts);
         $this->app['request']->cookies->set('alerts', '1,2');
 
