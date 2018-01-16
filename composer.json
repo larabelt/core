@@ -1,7 +1,7 @@
 {
   "name": "larabelt/core",
   "description": "Core package for any LaraBelt app.",
-  "keywords": ["cms", "laravel"],
+  "keywords": ["cms", "laravel", "larabelt"],
   "license": "MIT",
   "authors": [
     {
