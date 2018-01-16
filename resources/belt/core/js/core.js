@@ -1,4 +1,4 @@
-import 'belt/core/js/belt-bootstrap';cd
+import 'belt/core/js/belt-bootstrap';
 
 import alerts from 'belt/core/js/alerts/routes';
 import roles from 'belt/core/js/roles/routes';
