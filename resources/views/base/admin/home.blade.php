@@ -6,8 +6,11 @@
 
 @section('main')
 
-    <div id="belt-core">
-        <router-view></router-view>
-    </div>
+    <section class="content-header">
+        <h1><span></span><small></small></h1>
+    </section>
+    <section class="content">
+
+    </section>
 
 @stop

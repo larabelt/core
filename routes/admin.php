@@ -13,7 +13,7 @@ Route::group([
 
         # admin home
         Route::get('', function () {
-            return view('belt-core::base.admin.dashboard');
+            return view('belt-core::base.admin.home');
         });
     }
 );
