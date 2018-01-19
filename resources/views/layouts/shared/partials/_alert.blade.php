@@ -1,6 +1,4 @@
-<div id="alert-{{ $alert->id }}" class="alert alert-warning" role="alert">
-    {{ $alert->name }}: {{ $alert->body }}
-    <span class="pull-right">
-        <alert-dismissal :id="{{ $alert->id }}"></alert-dismissal>
-    </span>
-</div>
+<alert-dismissal alert="{{ $alert->toJson() }}">
+    {{--<span slot="msg">{{ $alert->name }}: {{ $alert->body }}</span>--}}
+    {{--<span slot="close"><span class="pull-right"><i class="fa fa-times"></i></span></span>--}}
+</alert-dismissal>
