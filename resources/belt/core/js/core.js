@@ -6,7 +6,6 @@ import teams from 'belt/core/js/teams/routes';
 import users from 'belt/core/js/users/routes';
 
 import store from 'belt/core/js/store/index';
-import tinymce_directive from 'belt/core/js/directives/tinymce';
 
 import column_sorter from 'belt/core/js/base/column-sorter';
 import dropdown from 'belt/core/js/base/dropdown';
@@ -26,7 +25,25 @@ Vue.component('heading', heading);
 Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
-Vue.directive('tinymce', tinymce_directive);
+
+import ckeditor from 'belt/core/js/editors/ckeditor.vue';
+import tinymce from 'belt/core/js/editors/tinymce.vue';
+import codemirror from 'belt/core/js/editors/codemirror.vue';
+import textarea from 'belt/core/js/editors/textarea.vue';
+switch(process.env.MIX_LARABELT_EDITOR)
+{
+    case 'codemirror':
+        Vue.component('belt-editor', codemirror);
+        break;
+    case 'ckeditor':
+        Vue.component('belt-editor', ckeditor);
+        break;
+    case 'tinymce':
+        Vue.component('belt-editor', tinymce);
+        break;
+    default:
+        Vue.component('belt-editor', textarea);
+}
 
 window.Events = new Vue({});
 window.History = new History({});
