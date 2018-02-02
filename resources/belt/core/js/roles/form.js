@@ -10,7 +10,10 @@ class RoleForm extends BaseForm {
         this.setData({
             id: '',
             name: '',
-            slug: '',
+            title: '',
+            level: '',
+            scope: '',
+            description: '',
         })
     }
 

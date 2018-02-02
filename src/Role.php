@@ -1,18 +1,19 @@
 <?php
+
 namespace Belt\Core;
 
 use Belt;
-use Illuminate\Database\Eloquent\Model;
+use Silber\Bouncer\Database\Role as BaseRole;
 
 /**
  * Class Role
  * @package Belt\Core
  */
-class Role extends Model implements
-    Belt\Core\Behaviors\SluggableInterface
+class Role extends BaseRole
+    implements Belt\Core\Behaviors\PermissibleInterface
 {
 
-    use Belt\Core\Behaviors\Sluggable;
+    use Belt\Core\Behaviors\Permissible;
 
     /**
      * @var string
@@ -20,21 +21,18 @@ class Role extends Model implements
     protected $morphClass = 'roles';
 
     /**
-     * @var string
-     */
-    protected $table = 'roles';
-
-    /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $appends = ['super'];
 
-    /**
-     * @param $value
-     */
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = strtoupper(trim($value));
-    }
+//    /**
+//     * Get the class name for polymorphic relations.
+//     *
+//     * @return string
+//     */
+//    public function getMoxrphClass()
+//    {
+//        return $this->morphClass;
+//    }
 
 }

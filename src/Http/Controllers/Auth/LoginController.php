@@ -56,7 +56,7 @@ class LoginController extends BaseController
     {
         $user = $this->guard()->user();
 
-        if ($user->hasRole('ADMIN') || $user->teams->count()) {
+        if ($user->can('admin-dashboard') || $user->teams->count()) {
             return '/admin';
         }
 

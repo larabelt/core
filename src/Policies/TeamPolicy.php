@@ -15,12 +15,12 @@ class TeamPolicy extends BaseAdminPolicy
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  Team $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $object)
+    public function view(User $auth, $arguments = null)
     {
-        return $this->ofTeam($auth, $object);
+        return $this->ofTeam($auth, $arguments);
     }
 
     /**
@@ -42,22 +42,22 @@ class TeamPolicy extends BaseAdminPolicy
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  Team $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function update(User $auth, $object)
+    public function update(User $auth, $arguments = null)
     {
-        return $this->ofTeam($auth, $object);
+        return $this->ofTeam($auth, $arguments);
     }
 
     /**
      * Determine whether the user can delete the object.
      *
      * @param  User $auth
-     * @param  Team $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function delete(User $auth, $object)
+    public function delete(User $auth, $arguments = null)
     {
         return false;
     }

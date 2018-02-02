@@ -45,7 +45,7 @@ class TeamsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Team::class);
+        $this->authorize('view', Team::class);
 
         $request = Requests\PaginateTeams::extend($request);
 

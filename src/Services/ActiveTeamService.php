@@ -69,7 +69,7 @@ class ActiveTeamService
      */
     public function isAuthorized($team_id)
     {
-        if ($this->user->is_super) {
+        if ($this->user->super) {
             return true;
         }
 
@@ -95,7 +95,6 @@ class ActiveTeamService
 
         Session::put('active_team_id', $team->id);
 
-        //if ($this->request && in_array($this->request->method(), ['POST', 'PUT'])) {
         if ($this->request) {
             $this->request->merge(['team_id' => $team->id]);
         }

@@ -2,7 +2,7 @@
     <li :class="{active: $router.currentRoute.name == 'users.edit'}">
         <router-link :to="{ name: 'users.edit', params: {id: $route.params.id}}">Main</router-link>
     </li>
-    <li :class="{active: $router.currentRoute.name == 'users.roles'}">
-        <router-link :to="{ name: 'users.roles', params: {id: $route.params.id}}">Roles</router-link>
+    <li :class="{active: $router.currentRoute.name == 'users.access'}">
+        <router-link :to="{ name: 'users.access', params: {id: $route.params.id}}">Access</router-link>
     </li>
 </ul>

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use Silber\Bouncer\BouncerFacade;
+use Belt\Core\Ability;
 use Belt\Core\Role;
 
 class BeltCoreRoleSeeds extends Seeder
@@ -13,7 +15,8 @@ class BeltCoreRoleSeeds extends Seeder
      */
     public function run()
     {
-        Role::firstOrCreate(['name' => 'ADMIN']);
-        Role::firstOrCreate(['name' => 'EDITOR']);
+        Role::firstOrCreate(['name' => 'super']);
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'editor']);
     }
 }

@@ -17,6 +17,7 @@ class UserForm extends BaseForm {
             email: '',
             password: '',
             password_confirmation: '',
+            roles: {},
         })
     }
 

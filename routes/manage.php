@@ -2,7 +2,8 @@
 
 Route::group([
     'prefix' => 'home',
-    'middleware' => ['web', 'auth']
+    'middleware' => ['web', 'auth'],
+    //'middleware' => ['web'],
 ],
     function () {
         Route::get('', function () {

@@ -12,9 +12,7 @@ class BaseAdminPolicyTest extends Testing\BeltTestCase
     use Testing\CommonMocks;
 
     /**
-     * @covers \Belt\Core\Policies\BaseAdminPolicy::before
      * @covers \Belt\Core\Policies\BaseAdminPolicy::teamService
-     * @covers \Belt\Core\Policies\BaseAdminPolicy::index
      * @covers \Belt\Core\Policies\BaseAdminPolicy::view
      * @covers \Belt\Core\Policies\BaseAdminPolicy::create
      * @covers \Belt\Core\Policies\BaseAdminPolicy::update
@@ -40,13 +38,13 @@ class BaseAdminPolicyTest extends Testing\BeltTestCase
         # teamService
         $this->assertInstanceOf(ActiveTeamService::class, $policy->teamService());
 
-        # before
-        $this->assertTrue($policy->before($super, 1));
-        $this->assertTrue($policy->before($admin, 1));
-        $this->assertNotTrue($policy->before($user, 1));
+//        # before
+//        $this->assertTrue($policy->before($super, 1));
+//        $this->assertTrue($policy->before($admin, 1));
+//        $this->assertNotTrue($policy->before($user, 1));
 
-        # index
-        $this->assertNotTrue($policy->index($user));
+//        # index
+//        $this->assertNotTrue($policy->index($user));
 
         # view
         $this->assertNotTrue($policy->view($user, $stub));

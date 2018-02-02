@@ -5,9 +5,11 @@ namespace Belt\Core\Policies;
 use Belt\Core\Behaviors\TeamableInterface;
 use Belt\Core\User;
 use Belt\Core\Team;
+use Belt\Core\Services\ActiveTeamService;
+use Belt\Core\Services\PermissibleService;
+use Belt\Core\Services\PermissibleServiceTrait;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
-use Belt\Core\Services\ActiveTeamService;
 
 /**
  * Class BaseAdminPolicy
@@ -22,45 +24,25 @@ class BaseAdminPolicy
      */
     public $teamService;
 
+    /**
+     * @return ActiveTeamService
+     */
     public function teamService()
     {
         return $this->teamService ?: $this->teamService = new ActiveTeamService();
     }
 
     /**
-     * @param $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->hasRole('ADMIN')) {
-            return true;
-        }
-    }
-
-    /**
-     * Determine whether the user can view list of objects
-     *
-     * @param  User $auth
-     * @return mixed
-     */
-    public function index(User $auth)
-    {
-
-    }
-
-    /**
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $object)
+    public function view(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($arguments instanceof TeamableInterface) {
+            return $this->ofTeam($auth, $arguments->team);
         }
     }
 
@@ -84,13 +66,13 @@ class BaseAdminPolicy
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function update(User $auth, $object)
+    public function update(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($arguments instanceof TeamableInterface) {
+            return $this->ofTeam($auth, $arguments->team);
         }
     }
 
@@ -98,13 +80,13 @@ class BaseAdminPolicy
      * Determine whether the user can delete the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function delete(User $auth, $object)
+    public function delete(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($arguments instanceof TeamableInterface) {
+            return $this->ofTeam($auth, $arguments->team);
         }
     }
 
@@ -115,12 +97,13 @@ class BaseAdminPolicy
      * @param Team $team
      * @return bool
      */
-    public function ofTeam(User $auth, Team $team)
+    public function ofTeam(User $auth, Team $team = null)
     {
-        $this->teamService()->user = $auth;
-
-        if ($this->teamService()->isAuthorized($team->id)) {
-            return true;
+        if ($team) {
+            $this->teamService()->user = $auth;
+            if ($this->teamService()->isAuthorized($team->id)) {
+                return true;
+            }
         }
     }
 }

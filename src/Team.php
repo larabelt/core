@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @package Belt\Core
  */
 class Team extends Model implements
+    Belt\Core\Behaviors\PermissibleInterface,
     Belt\Core\Behaviors\SluggableInterface
 {
 
+    use Belt\Core\Behaviors\Permissible;
     use Belt\Core\Behaviors\Sluggable;
 
     /**

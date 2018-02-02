@@ -40,10 +40,13 @@ class UpdateService
     public function update()
     {
         switch ($this->version) {
-            case '1.2.15':
-                if (belt()->uses('content')) {
-                    $this->__update('templates1.php');
-                }
+//            case '1.2.15':
+//                if (belt()->uses('content')) {
+//                    $this->__update('templates1.php');
+//                }
+//                break;
+            case '1.5.0':
+                $this->__update('admin_roles.php');
                 break;
         }
     }

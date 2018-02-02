@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Testing;
 
+use Illuminate\Contracts\Auth\Access\Gate;
 use Belt\Core\User;
 use Belt\Core\Helpers\BeltHelper;
 use Illuminate\Foundation\Testing\TestCase;
@@ -49,7 +50,9 @@ abstract class BeltTestCase extends TestCase
      */
     public function actAsSuper()
     {
+        User::unguard();
         $super = factory(User::class)->make(['is_super' => true]);
+        //$super->setSuper(true);
         $this->actingAs($super);
     }
 

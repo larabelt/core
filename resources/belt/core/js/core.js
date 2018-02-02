@@ -4,6 +4,7 @@ import alerts from 'belt/core/js/alerts/routes';
 import roles from 'belt/core/js/roles/routes';
 import teams from 'belt/core/js/teams/routes';
 import users from 'belt/core/js/users/routes';
+
 import store from 'belt/core/js/store/index';
 import tinymce_directive from 'belt/core/js/directives/tinymce';
 

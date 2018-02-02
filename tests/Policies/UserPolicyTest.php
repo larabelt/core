@@ -23,10 +23,12 @@ class UserPolicyTest extends Testing\BeltTestCase
         # view
         $this->assertTrue($policy->view($user1, $user1));
         $this->assertNotTrue($policy->view($user1, $user2));
+        $this->assertNotTrue($policy->view($user1, new \stdClass()));
 
         # update
         $this->assertTrue($policy->update($user1, $user1));
         $this->assertNotTrue($policy->update($user1, $user2));
+        $this->assertNotTrue($policy->update($user1, new \stdClass()));
 
         # create
         app()['config']->set('belt.core.users.allow_public_signup', false);

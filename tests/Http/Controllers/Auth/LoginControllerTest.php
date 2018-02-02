@@ -53,7 +53,7 @@ class LoginControllerStub1 extends LoginController
 {
     public function guard()
     {
-        $user = factory(User::class)->make(['is_super' => false]);
+        $user = factory(User::class)->make();
         $user->roles = new Collection();
         $user->teams = new Collection();
 
@@ -68,8 +68,8 @@ class LoginControllerStub2 extends LoginController
 {
     public function guard()
     {
-        $user = factory(User::class)->make(['is_super' => true]);
-        $user->teams = new Collection();
+        $user = m::mock(User::class);
+        $user->shouldReceive('can')->with('admin-dashboard')->andReturn(true);
 
         $guard = m::mock(StatefulGuard::class);
         $guard->shouldReceive('user')->once()->andReturn($user);
@@ -84,7 +84,7 @@ class LoginControllerStub3 extends LoginController
     {
         $team = factory(Team::class)->make();
 
-        $user = factory(User::class)->make(['is_super' => false]);
+        $user = factory(User::class)->make();
         $user->teams = new Collection([$team]);
 
         $guard = m::mock(StatefulGuard::class);

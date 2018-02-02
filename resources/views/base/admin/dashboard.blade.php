@@ -1,8 +1,8 @@
 @extends('belt-core::layouts.admin.main')
 
-@section('heading-title', 'tmp')
-@section('heading-subtitle', 'tmp')
-@section('heading-active', 'tmp')
+@section('heading-title', '')
+@section('heading-subtitle', '')
+@section('heading-active', '')
 
 @section('main')
 

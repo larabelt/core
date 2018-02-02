@@ -25,7 +25,8 @@
     "laravelcollective/html": "5.4.1",
     "riimu/kit-phpencoder": "^2.1",
     "rutorika/sortable": "3.4.*",
-    "sabre/uri": "^2"
+    "sabre/uri": "^2",
+    "silber/bouncer": "v1.0.0-rc.1"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^2.3",

@@ -24,9 +24,9 @@ class RolesFunctionalTest extends Testing\BeltTestCase
         $response->assertStatus(200);
 
         # update
-        $this->json('PUT', "/api/v1/roles/$roleID", ['name' => 'updated']);
+        $this->json('PUT', "/api/v1/roles/$roleID", ['title' => 'updated']);
         $response = $this->json('GET', "/api/v1/roles/$roleID");
-        $response->assertJson(['name' => 'UPDATED']);
+        $response->assertJson(['title' => 'updated']);
 
         # delete
         $response = $this->json('DELETE', "/api/v1/roles/$roleID");

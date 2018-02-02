@@ -13,8 +13,11 @@ class BeltCoreAlertSeeds extends Seeder
      */
     public function run()
     {
-        factory(Alert::class, 5)->create()->each(function ($alert) {
-
-        });
+        factory(Alert::class, 1)->create([
+            'is_active' => true,
+            'starts_at' => strtotime('-1 day'),
+            'ends_at' => strtotime('+100 days'),
+        ]);
+        factory(Alert::class, 5)->create(['is_active' => false]);
     }
 }

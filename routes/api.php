@@ -34,6 +34,13 @@ Route::group([
             Route::post('', Api\ParamablesController::class . '@store');
         });
 
+        # abilities
+        Route::get('abilities/{id}', Api\AbilitiesController::class . '@show');
+        Route::put('abilities/{id}', Api\AbilitiesController::class . '@update');
+        Route::delete('abilities/{id}', Api\AbilitiesController::class . '@destroy');
+        Route::get('abilities', Api\AbilitiesController::class . '@index');
+        Route::post('abilities', Api\AbilitiesController::class . '@store');
+
         # roles
         Route::get('roles/{id}', Api\RolesController::class . '@show');
         Route::put('roles/{id}', Api\RolesController::class . '@update');
@@ -56,12 +63,26 @@ Route::group([
         Route::get('teams', Api\TeamsController::class . '@index');
         Route::post('teams', Api\TeamsController::class . '@store');
 
-        # user-roles
-        Route::group(['prefix' => 'users/{user_id}/roles'], function () {
-            Route::get('{id}', Api\UserRolesController::class . '@show');
-            Route::delete('{id}', Api\UserRolesController::class . '@destroy');
-            Route::get('', Api\UserRolesController::class . '@index');
-            Route::post('', Api\UserRolesController::class . '@store');
+        # assigned roles
+        Route::group([
+            'prefix' => '{subject_type}/{subject_id}/roles',
+            'middleware' => 'request.injections:subject_type,subject_id',
+        ], function () {
+            Route::get('{role}', Api\AssignedRolesController::class . '@show');
+            Route::delete('{role}', Api\AssignedRolesController::class . '@destroy');
+            Route::get('', Api\AssignedRolesController::class . '@index');
+            Route::post('', Api\AssignedRolesController::class . '@store');
+        });
+
+        # permissions
+        Route::group([
+            'prefix' => '{entity_type}/{entity_id}/permissions',
+            'middleware' => 'request.injections:entity_type,entity_id',
+        ], function () {
+            Route::get('{ability_id}', Api\PermissionsController::class . '@show');
+            Route::delete('{ability_id}', Api\PermissionsController::class . '@destroy');
+            Route::get('', Api\PermissionsController::class . '@index');
+            Route::post('', Api\PermissionsController::class . '@store');
         });
 
         # users
