@@ -18,6 +18,9 @@ Route::group([
         # contact
         Route::post('contact', Api\ContactController::class . '@store');
 
+        # index
+        Route::get('index', Api\IndexController::class . '@index');
+
         # params
         Route::get('param-keys', Api\ParamsController::class . '@keys');
         Route::get('param-values', Api\ParamsController::class . '@values');

@@ -17,6 +17,25 @@ trait HasConsole
     public $console;
 
     /**
+     * @param $console
+     * @return $this
+     */
+    public function setConsole(Command $console = null)
+    {
+        $this->console = $console;
+
+        return $this;
+    }
+
+    /**
+     * @return Command
+     */
+    public function getConsole()
+    {
+        return $this->console;
+    }
+
+    /**
      * @param $string
      * @param null $verbosity
      */
