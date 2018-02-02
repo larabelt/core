@@ -1,5 +1,6 @@
 <?php
 
+use Mockery as m;
 use Belt\Core\Testing;
 use Belt\Core\Behaviors\Teamable;
 use Belt\Core\Behaviors\TeamableInterface;
@@ -8,6 +9,10 @@ use Belt\Core\Services\ActiveTeamService;
 
 class BaseAdminPolicyTest extends Testing\BeltTestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
 
     use Testing\CommonMocks;
 

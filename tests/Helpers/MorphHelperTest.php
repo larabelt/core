@@ -22,6 +22,7 @@ class MorphHelperTest extends BeltTestCase
     /**
      * @covers \Belt\Core\Helpers\MorphHelper::map
      * @covers \Belt\Core\Helpers\MorphHelper::type2Class
+     * @covers \Belt\Core\Helpers\MorphHelper::type2Table
      * @covers \Belt\Core\Helpers\MorphHelper::type2QB
      * @covers \Belt\Core\Helpers\MorphHelper::morph
      */
@@ -39,6 +40,9 @@ class MorphHelperTest extends BeltTestCase
 
         # type2QB
         $this->assertInstanceOf(Builder::class, $morphHelper->type2QB('teams'));
+
+        # type2Table
+        $this->assertEquals('users', $morphHelper->type2Table('users'));
 
         # morph
         $qb = m::mock(Builder::class);

@@ -4,6 +4,7 @@ use Mockery as m;
 use Belt\Core\Behaviors\IsNested;
 use Belt\Core\Behaviors\IsNestedInterface;
 use Belt\Core\Testing;
+use Illuminate\Database\Eloquent\Model;
 
 class IsNestedTest extends Testing\BeltTestCase
 {
@@ -66,7 +67,7 @@ class IsNestedTest extends Testing\BeltTestCase
 
 }
 
-class IsNestedStub extends Testing\BaseModelStub
+class IsNestedStub extends Model
     implements IsNestedInterface
 {
     use IsNested;
