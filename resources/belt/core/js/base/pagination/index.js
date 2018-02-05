@@ -33,7 +33,7 @@ export default {
             return this.table.total > 0 || this.table.total > this.table.per_page;
         },
         perPage() {
-            return this.table.per_page ? this.table.per_page : 13;
+            return this.table.per_page ? this.table.per_page : 10;
         },
         isNotFirst() {
             return this.table.current_page != 1

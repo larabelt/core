@@ -1,9 +1,6 @@
-// helpers
 import Table from 'belt/core/js/teams/table';
-
-// templates make a change
 import heading_html from 'belt/core/js/templates/heading.html';
-import index_html from 'belt/core/js/teams/templates/index.html';
+import index_html from 'belt/core/js/teams/list/template.html';
 
 export default {
 

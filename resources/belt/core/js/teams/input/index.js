@@ -1,5 +1,5 @@
 import debounce from 'debounce';
-import index from 'belt/core/js/teams/ctlr/index';
+import list from 'belt/core/js/teams/list';
 import Form from 'belt/core/js/teams/form';
 import Table from 'belt/core/js/teams/table';
 import html from 'belt/core/js/teams/input/template.html';
@@ -42,7 +42,7 @@ export default {
         }
     },
     components: {
-        index
+        list
     },
     template: html
 }

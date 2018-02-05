@@ -1,10 +1,6 @@
-// components
-import users from 'belt/core/js/teams/users/ctlr/index';
-
-// templates
 import heading_html from 'belt/core/js/templates/heading.html';
-import tabs_html from 'belt/core/js/teams/templates/tabs.html';
-import edit_html from 'belt/core/js/teams/templates/edit.html';
+import tabs_html from 'belt/core/js/teams/edit/tabs.html';
+import html from 'belt/core/js/teams/edit/template.html';
 
 export default {
     data() {
@@ -16,13 +12,7 @@ export default {
     components: {
         heading: {template: heading_html},
         tabs: {template: tabs_html},
-        edit: users,
+        edit: {},
     },
-    mounted() {
-
-    },
-    methods: {
-
-    },
-    template: edit_html
+    template: html,
 }
