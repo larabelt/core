@@ -13,11 +13,14 @@ class PaginateIndex extends PaginateRequest
      */
     public $modelClass = Belt\Core\Index::class;
 
-    public $perPage = 5;
+    public $perPage = 20;
 
     public $orderBy = 'index.id';
 
     public $sortable = [
+        'index.id',
+        'index.indexable_id',
+        'index.indexable_type',
         'index.name',
     ];
 
