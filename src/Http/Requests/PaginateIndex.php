@@ -62,6 +62,15 @@ class PaginateIndex extends PaginateRequest
                 $query->where('index.' . $key, $value);
             }
         }
+
+        if ($groupBy = $this->get('groupBy')) {
+            if ($groupBy == 'indexable_type') {
+                $query->select(['index.indexable_type']);
+                $query->groupBy('index.indexable_type');
+                $this->orderBy = 'index.indexable_type';
+            }
+        }
+
     }
 
 }

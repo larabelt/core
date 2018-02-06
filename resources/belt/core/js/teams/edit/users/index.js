@@ -8,20 +8,32 @@ export default {
     mixins: [edit],
     components: {
         edit: {
+            props: {
+                morphable_type: {
+                    default: function () {
+                        return this.$parent.morphable_type;
+                    }
+                },
+                morphable_id: {
+                    default: function () {
+                        return this.$parent.morphable_id;
+                    }
+                },
+            },
             data() {
                 return {
                     detached: new Table({
-                        morphable_type: this.$parent.morphable_type,
-                        morphable_id: this.$parent.morphable_id,
+                        morphable_type: this.morphable_type,
+                        morphable_id: this.morphable_id,
                         query: {not: 1},
                     }),
                     table: new Table({
-                        morphable_type: this.$parent.morphable_type,
-                        morphable_id: this.$parent.morphable_id,
+                        morphable_type: this.morphable_type,
+                        morphable_id: this.morphable_id,
                     }),
                     form: new Form({
-                        morphable_type: this.$parent.morphable_type,
-                        morphable_id: this.$parent.morphable_id,
+                        morphable_type: this.morphable_type,
+                        morphable_id: this.morphable_id,
                     }),
                     team: new TeamForm(),
                 }
