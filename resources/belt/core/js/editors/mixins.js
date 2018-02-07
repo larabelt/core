@@ -4,20 +4,25 @@ export default {
     },
     data() {
         return {
-            content: ''
+            content: '',
+            watchLoaded: false,
         }
     },
     props: ['value'],
     methods: {
         updateValue(value) {
             this.$emit('input',String(this.content));
+        },
+        storeValue() {
+            if( this.value && !this.watchLoaded ) {
+                this.watchLoaded = true;
+                this.content = this.value;
+            }
         }
     },
     watch: {
         value() {
-            if( this.value ) {
-                this.content = this.value;
-            }
+            this.storeValue();
         }
     }
 }
