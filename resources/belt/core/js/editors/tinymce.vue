@@ -1,5 +1,6 @@
 <template>
     <vue-mce v-model="content"
+             :initial-value="value"
              :config="config"
              v-on:input="updateValue"></vue-mce>
 </template>

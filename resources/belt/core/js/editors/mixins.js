@@ -15,7 +15,9 @@ export default {
     },
     watch: {
         value() {
-            this.content = this.value;
+            if( this.value ) {
+                this.content = this.value;
+            }
         }
     }
 }
