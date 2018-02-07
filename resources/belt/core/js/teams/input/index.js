@@ -1,4 +1,3 @@
-import debounce from 'debounce';
 import list from 'belt/core/js/teams/list';
 import Form from 'belt/core/js/teams/form';
 import Table from 'belt/core/js/teams/table';
@@ -21,9 +20,9 @@ export default {
         }
     },
     methods: {
-        filter: debounce(function () {
+        filter: _.debounce(function (query) {
             this.table.index();
-        }),
+        }, 500),
         toggle() {
             if (!this.search) {
                 this.table.index();
