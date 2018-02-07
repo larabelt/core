@@ -6,7 +6,7 @@
 
 <script>
     import { codemirror } from 'vue-codemirror'
-    import 'codemirror/lib/codemirror.css'
+    import 'codemirror/theme/bespin.css'
     import editorMixins from 'belt/core/js/editors/mixins';
 
     export default {
