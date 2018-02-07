@@ -60,7 +60,8 @@ class ActiveTeamService
     public function getActiveTeamId()
     {
         //return $this->request->get('active_team_id') ?: Session::get('active_team_id');
-        return $this->request->query->get('team_id') ?: Session::get('active_team_id');
+        //return $this->request->query->get('team_id') ?: Session::get('active_team_id');
+        return $this->request->get('active_team_id') ?: Session::get('active_team_id');
     }
 
     /**
