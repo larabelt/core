@@ -1,6 +1,7 @@
 import Vuex from 'vuex';
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+
 import 'admin-lte';
 import 'belt/core/js/adminlte/helper';
 import 'bootstrap-sass';
