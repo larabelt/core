@@ -4,6 +4,9 @@
 </template>
 
 <script>
+/*
+    WIll need to require this in the package.json when working on this again.  Or find a new package. "vue-ckeditor2": "^1.21.0",
+*/
     import ckeditorSource from 'ckeditor';
     import ckeditorVue from 'vue-ckeditor2';
     import editorMixins from 'belt/core/js/editors/mixins';

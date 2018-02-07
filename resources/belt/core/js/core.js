@@ -26,7 +26,6 @@ Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 
-import ckeditor from 'belt/core/js/editors/ckeditor.vue';
 import tinymce from 'belt/core/js/editors/tinymce.vue';
 import codemirror from 'belt/core/js/editors/codemirror.vue';
 import textarea from 'belt/core/js/editors/textarea.vue';
@@ -34,9 +33,6 @@ switch(process.env.MIX_LARABELT_EDITOR)
 {
     case 'codemirror':
         Vue.component('belt-editor', codemirror);
-        break;
-    case 'ckeditor':
-        Vue.component('belt-editor', ckeditor);
         break;
     case 'tinymce':
         Vue.component('belt-editor', tinymce);
