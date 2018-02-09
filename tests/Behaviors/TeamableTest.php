@@ -1,11 +1,16 @@
 <?php
 
+use Mockery as m;
 use Belt\Core\Behaviors\Teamable;
 use Belt\Core\Testing;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TeamableTest extends Testing\BeltTestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
 
     /**
      * @covers \Belt\Core\Behaviors\Teamable::team

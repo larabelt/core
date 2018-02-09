@@ -64,6 +64,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         // commands
         $this->commands(Belt\Core\Commands\AlertCommand::class);
         $this->commands(Belt\Core\Commands\BeltCommand::class);
+        $this->commands(Belt\Core\Commands\IndexCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestDBCommand::class);
         $this->commands(Belt\Core\Commands\UpdateCommand::class);
@@ -119,6 +120,11 @@ class BeltCoreServiceProvider extends ServiceProvider
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
+        }
+
+        // set index service
+        if (config('belt.core.index.enabled')) {
+            Belt\Core\Services\IndexService::enable();
         }
     }
 

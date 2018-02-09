@@ -6,6 +6,7 @@ use Belt\Core\Listeners;
 use Belt\Core\Mail\UserWelcomeEmail;
 use Belt\Core\Testing;
 use Belt\Core\User;
+use Belt\Core\Facades\MorphFacade as Morph;
 use Illuminate\Support\Facades\Mail;
 
 class SendUserWelcomeEmailTest extends Testing\BeltTestCase
@@ -23,10 +24,13 @@ class SendUserWelcomeEmailTest extends Testing\BeltTestCase
     public function test()
     {
         Mail::fake();
+        User::unguard();
 
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->make(['id' => 123]);
 
         $event = new Events\UserCreated($user);
+
+        Morph::shouldReceive('morph')->with('users', 123)->andReturn($user);
 
         $listener = new Listeners\SendUserWelcomeEmail();
         $listener->handle($event);
