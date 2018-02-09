@@ -70,5 +70,12 @@ Route::group([
         Route::delete('users/{user}', Api\UsersController::class . '@destroy');
         Route::get('users', Api\UsersController::class . '@index');
         Route::post('users', Api\UsersController::class . '@store');
+
+        # work_requests
+        Route::get('work-requests/{workRequest}', Api\WorkRequestsController::class . '@show');
+        Route::put('work-requests/{workRequest}', Api\WorkRequestsController::class . '@update');
+        Route::delete('work-requests/{workRequest}', Api\WorkRequestsController::class . '@destroy');
+        Route::get('work-requests', Api\WorkRequestsController::class . '@index');
+        Route::post('work-requests', Api\WorkRequestsController::class . '@store');
     }
 );

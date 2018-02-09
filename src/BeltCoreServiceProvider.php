@@ -89,6 +89,7 @@ class BeltCoreServiceProvider extends ServiceProvider
             return Belt\Core\Alert::sluggish($value)->first();
         });
         $router->model('user', Belt\Core\User::class);
+        $router->model('workRequest', Belt\Core\WorkRequest::class);
 
         // add alias/facade
         $loader = AliasLoader::getInstance();
