@@ -125,6 +125,10 @@ class TeamsController extends ApiController
 
         $team->save();
 
+        //event(new Belt\Core\Events\TeamCreated($team));
+        //\Event::dispatch('teams.created', [$team, 'foo']);
+        \Event::dispatch('teams.created', new Belt\Core\Events\ItemCreated($team));
+
         return response()->json($team);
     }
 

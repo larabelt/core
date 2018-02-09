@@ -23,15 +23,17 @@ class WorkflowObserver
     }
 
     /**
-     * Listen to the saving $item.
+     * Listen to the created $item.
      *
      * @param  Model $item
      * @return void
      */
     public function created(Model $item)
     {
-        foreach ($this->service()->workflows($item) as $class) {
-
+        if (WorkflowService::isEnabled()) {
+            foreach (WorkflowService::workflows($item) as $class) {
+                //$this->service()->created($item, $class);
+            }
         }
     }
 
@@ -41,10 +43,27 @@ class WorkflowObserver
      * @param  Model $item
      * @return void
      */
-    public function saved(Model $item)
+    public function updated(Model $item)
     {
-        foreach ($this->service()->workflows($item) as $class) {
-            $this->service()->saved($item, $class);
+        if (WorkflowService::isEnabled()) {
+            foreach (WorkflowService::workflows($item) as $class) {
+                $this->service()->saved($item, $class);
+            }
+        }
+    }
+
+    /**
+     * Listen to the created $item.
+     *
+     * @param  Model $item
+     * @return void
+     */
+    public function deleted(Model $item)
+    {
+        if (WorkflowService::isEnabled()) {
+            foreach (WorkflowService::workflows($item) as $class) {
+                //$this->service()->deleted($item, $class);
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkflowService
 {
+    use Belt\Core\Behaviors\CanEnable;
     /**
      * @var array
      */
@@ -26,7 +27,7 @@ class WorkflowService
      * @param $item
      * @return mixed
      */
-    public function workflows($item)
+    public static function workflows($item)
     {
         return array_get(static::$workflows, $item->getMorphClass(), []);
     }

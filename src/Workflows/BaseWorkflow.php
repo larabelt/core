@@ -25,7 +25,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     /**
      * @var array
      */
-    protected $initialPlace = '';
+    protected $initialPlace = 'start';
 
     /**
      * @var array
@@ -56,9 +56,9 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      * BaseWorkflow constructor.
      * @param Model $item
      */
-    public function __construct(Model $item)
+    public function __construct(Model $item = null)
     {
-        $this->setItem($item);
+        //$this->setItem($item);
         $this->setWorkRequests(new WorkRequest());
     }
 
@@ -162,29 +162,9 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     public function tmp()
     {
         //$dispatcher = app(Illuminate\Events\Dispatcher::class);
-
-        $definition = (new DefinitionBuilder())->addPlaces(['draft', 'review', 'rejected', 'published'])
-            // Transitions are defined with a unique name, an origin place and a destination place
-            ->addTransition(new Transition('to_review', 'draft', 'review'))
-            ->addTransition(new Transition('publish', 'review', 'published'))
-            ->addTransition(new Transition('reject', 'review', 'rejected'))
-            ->build();
-        $marking = new SingleStateMarkingStore('step');
-        $workflow = new Workflow($definition, $marking, null, 'foo');
-
-        $workRequest = $this->workRequest();
-
-        dump($workRequest->toArray());
-
-        dump('can to_review');
-        dump($workflow->can($workRequest, 'to_review'));
-
-        dump('can publish');
-        dump($workflow->can($workRequest, 'publish'));
-
-        dump('can reject');
+        $workflow = null;
+        $workRequest = null;
         dump($workflow->can($workRequest, 'reject'));
-
         dump($workflow->apply($workRequest, 'publish'));
     }
 
