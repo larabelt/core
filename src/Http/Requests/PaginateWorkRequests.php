@@ -7,10 +7,12 @@ class PaginateWorkRequests extends PaginateRequest
 
     public $orderBy = 'work_requests.id';
 
-    public $sortBy = 'desc';
+    public $sortBy = 'asc';
 
     public $sortable = [
         'work_requests.id',
+        'work_requests.created_at',
+        'work_requests.updated_at',
     ];
 
     public $searchable = [];

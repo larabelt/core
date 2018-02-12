@@ -19,7 +19,7 @@ class WorkRequest extends Model
     /**
      * @var array
      */
-    protected $fillable = ['workable_id', 'workable_type', 'workflow'];
+    protected $fillable = ['workable_id', 'workable_type', 'workflow_class'];
 
     /**
      * The attributes that should be cast to native types.
@@ -29,5 +29,26 @@ class WorkRequest extends Model
     protected $casts = [
         'payload' => 'json',
     ];
+
+    /**
+     * @var array
+     */
+    protected $appends = ['workflow'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function workable()
+    {
+        return $this->morphTo('workable');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkflowAttribute()
+    {
+        return (new $this->workflow_class($this->workable))->toArray();
+    }
 
 }

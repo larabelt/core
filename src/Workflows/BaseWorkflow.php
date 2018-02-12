@@ -58,7 +58,9 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      */
     public function __construct(Model $item = null)
     {
-        //$this->setItem($item);
+        if ($item) {
+            $this->setItem($item);
+        }
         $this->setWorkRequests(new WorkRequest());
     }
 
@@ -96,6 +98,14 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         $this->item = $item;
 
         return $this;
+    }
+
+    /**
+     * @return Model $item
+     */
+    public function item()
+    {
+        return $this->item;
     }
 
     /**
@@ -172,7 +182,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         $workRequest = $this->workRequests->updateOrCreate([
             'workable_id' => $this->item->id,
             'workable_type' => $this->item->getMorphClass(),
-            'workflow' => get_class($this),
+            'workflow_class' => get_class($this),
         ], [
             'step' => $step,
             'payload' => $payload,
@@ -186,6 +196,20 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         $this->setWorkRequest($workRequest);
 
         return $workRequest;
+    }
+
+    public function toArray()
+    {
+        return [
+            'name' => static::getAccessor(),
+            'initialPlace' => $this->initialPlace,
+            'places' => $this->places,
+            'transitions' => $this->transitions,
+
+            // place holders
+            'label' => '',
+            'item_url' => '',
+        ];
     }
 
     public function create($payload = [])

@@ -4,6 +4,7 @@ import alerts from 'belt/core/js/alerts/routes';
 import roles from 'belt/core/js/roles/routes';
 import teams from 'belt/core/js/teams/routes';
 import users from 'belt/core/js/users/routes';
+import workRequests from 'belt/core/js/work-requests/routes';
 import store from 'belt/core/js/store/index';
 import tinymce_directive from 'belt/core/js/directives/tinymce';
 
@@ -54,6 +55,7 @@ export default class BeltCore {
             router.addRoutes(roles);
             router.addRoutes(teams);
             router.addRoutes(users);
+            router.addRoutes(workRequests);
 
             const app = new Vue({router, store}).$mount('#belt-core');
         }
