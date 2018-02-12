@@ -4,6 +4,7 @@ namespace Belt\Core\Http\Controllers\Auth;
 
 use Belt\Core\Http\Controllers\BaseController;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 /**
  * Class LoginController
@@ -37,6 +38,17 @@ class LoginController extends BaseController
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return array_merge($request->only($this->username(), 'password'), ['is_active' => true]);
     }
 
     /**
