@@ -78,7 +78,7 @@ class TeamsController extends ApiController
 
         $team->save();
 
-        event(new Belt\Core\Events\TeamCreated($team));
+        $this->itemEvent('created', $team);
 
         return response()->json($team, 201);
     }
@@ -125,9 +125,7 @@ class TeamsController extends ApiController
 
         $team->save();
 
-        //event(new Belt\Core\Events\TeamCreated($team));
-        //\Event::dispatch('teams.created', [$team, 'foo']);
-        \Event::dispatch('teams.created', new Belt\Core\Events\ItemCreated($team));
+        $this->itemEvent('updated', $team);
 
         return response()->json($team);
     }
@@ -145,6 +143,8 @@ class TeamsController extends ApiController
         $team = $this->get($id);
 
         $this->authorize('delete', $team);
+
+        $this->itemEvent('deleted', $team);
 
         $team->delete();
 

@@ -72,6 +72,21 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         return static::NAME;
     }
 
+    private function method($event)
+    {
+        if ($event instanceof Belt\Core\Events\ItemCreated) {
+            return 'created';
+        }
+
+        if ($event instanceof Belt\Core\Events\ItemUpdated) {
+            return 'created';
+        }
+
+        if ($event instanceof Belt\Core\Events\ItemDeleted) {
+            return 'created';
+        }
+    }
+
     /**
      * @param Model $item
      * @return $this
@@ -90,28 +105,6 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     public function setHelper(Helper $helper)
     {
         $this->helper = $helper;
-
-        return $this;
-    }
-
-    /**
-     * @param WorkRequest $workRequest
-     * @return $this
-     */
-    public function setWorkRequest(WorkRequest $workRequest)
-    {
-        $this->workRequest = $workRequest;
-
-        return $this;
-    }
-
-    /**
-     * @param WorkRequest $workRequests
-     * @return $this
-     */
-    public function setWorkRequests(WorkRequest $workRequests)
-    {
-        $this->workRequests = $workRequests;
 
         return $this;
     }
@@ -145,6 +138,56 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         return $helper;
     }
 
+    /**
+     * @param WorkRequest $workRequest
+     * @return $this
+     */
+    public function setWorkRequest(WorkRequest $workRequest)
+    {
+        $this->workRequest = $workRequest;
+
+        return $this;
+    }
+
+    /**
+     * @param WorkRequest $workRequests
+     * @return $this
+     */
+    public function setWorkRequests(WorkRequest $workRequests)
+    {
+        $this->workRequests = $workRequests;
+
+        return $this;
+    }
+
+    /**
+     * @param null $step
+     * @param array $payload
+     * @return mixed
+     */
+    public function workRequest($step = null, $payload = [])
+    {
+        WorkRequest::unguard();
+
+        $workRequest = $this->workRequests->updateOrCreate([
+            'workable_id' => $this->item->id,
+            'workable_type' => $this->item->getMorphClass(),
+            'workflow' => get_class($this),
+        ], [
+            'step' => $step,
+            'payload' => $payload,
+        ]);
+
+        if (!$workRequest->step) {
+            $workRequest->step = $this->initialPlace;
+            $workRequest->save();
+        }
+
+        $this->setWorkRequest($workRequest);
+
+        return $workRequest;
+    }
+
     public function create($payload = [])
     {
         $workRequest = $this->workRequest($this->initialPlace, $payload);
@@ -168,22 +211,5 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         dump($workflow->apply($workRequest, 'publish'));
     }
 
-    public function workRequest($step = null, $payload = [])
-    {
-        WorkRequest::unguard();
-
-        $workRequest = $this->workRequests->updateOrCreate([
-            'workable_id' => $this->item->id,
-            'workable_type' => $this->item->getMorphClass(),
-            'workflow' => get_class($this),
-        ], [
-            'step' => $step,
-            'payload' => $payload,
-        ]);
-
-        $this->setWorkRequest($workRequest);
-
-        return $workRequest;
-    }
 
 }

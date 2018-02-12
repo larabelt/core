@@ -5,10 +5,10 @@ namespace Belt\Core\Events;
 use Belt;
 
 /**
- * Class ItemCreated
+ * Class ItemDeleted
  * @package Belt\Core\Events
  */
-class ItemCreated implements Belt\Core\Events\ItemEventInterface
+class ItemDeleted implements Belt\Core\Events\ItemEventInterface
 {
     use Belt\Core\Events\ItemEventTrait;
 }

@@ -23,8 +23,20 @@ interface ItemEventInterface
     public function getId();
 
     /**
+     * @param $id
+     * @return $this
+     */
+    public function setId($id);
+
+    /**
      * @return string
      */
     public function getType();
+
+    /**
+     * @param $type
+     * @return $this
+     */
+    public function setType($type);
 
 }
