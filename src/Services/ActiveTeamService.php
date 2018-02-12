@@ -74,7 +74,7 @@ class ActiveTeamService
             return true;
         }
 
-        return $this->user->teams->contains($team_id);
+        return $this->user->activeTeams->contains($team_id);
     }
 
     /**
@@ -106,8 +106,8 @@ class ActiveTeamService
      */
     public function getDefaultTeamId()
     {
-        if ($this->user->teams->count()) {
-            return $this->user->teams->first()->id;
+        if ($this->user->activeTeams->count()) {
+            return $this->user->activeTeams->first()->id;
         }
     }
 

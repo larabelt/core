@@ -8,12 +8,12 @@
                 <h2>Login</h2>
                 {!! Form::open(['url'=>'login']) !!}
                 <div class="form-group">
-                    {{ Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'Email Address')) }}
+                    {{ Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email Address']) }}
                 </div>
                 <div class="form-group">
-                    {{ Form::password('password', array('class'=>'form-control', 'placeholder'=>'Password')) }}
+                    {{ Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) }}
                 </div>
-                {{ Form::submit('Login', array('class'=>'btn btn-large btn-primary btn-block'))}}
+                {{ Form::submit('Login', ['class'=>'btn btn-large btn-primary btn-block'])}}
                 {{ Form::close() }}
                 <br/>
                 <span class="pull-left"><a class="btn" href="/password/forgot">FORGOT YOUR PASSWORD?</a></span>

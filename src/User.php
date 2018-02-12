@@ -72,6 +72,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Associated Active User Teams
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getActiveTeamsAttribute()
+    {
+        return $this->teams->where('is_active', true);
+    }
+
+    /**
      * Set opted_in attribute
      *
      * @param $value
