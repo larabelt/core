@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -76,6 +77,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Team::class, 'team_users', 'user_id', 'team_id')
             //->where('teams.is_active', true)
             ->orderBy('teams.name');
+    }
+
+    /**
+     * Associated Active User Teams
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getActiveTeamsAttribute()
+    {
+        return $this->teams->where('is_active', true);
     }
 
     /**
