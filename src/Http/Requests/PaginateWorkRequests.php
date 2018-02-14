@@ -1,6 +1,8 @@
 <?php
 namespace Belt\Core\Http\Requests;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class PaginateWorkRequests extends PaginateRequest
 {
     public $perPage = 20;
@@ -16,5 +18,22 @@ class PaginateWorkRequests extends PaginateRequest
     ];
 
     public $searchable = [];
+
+    /**
+     * @param Builder $query
+     * @return Builder|\Illuminate\Database\Eloquent\Builder
+     */
+    public function modifyQuery(Builder $query)
+    {
+        if ($this->get('workable_id')) {
+            $query->where('workable_id', $this->get('workable_id'));
+        }
+
+        if ($this->get('workable_type')) {
+            $query->where('workable_type', $this->get('workable_type'));
+        }
+
+        return $query;
+    }
 
 }

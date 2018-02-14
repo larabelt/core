@@ -11,7 +11,7 @@ export default {
         },
         morphable_type: {
             default: function () {
-                return this.$parent.morphable_id;
+                return this.$parent.morphable_type;
             }
         },
     },

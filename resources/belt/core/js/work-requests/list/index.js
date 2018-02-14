@@ -22,9 +22,6 @@ export default {
 
     template: `
         <div>
-            <heading>
-                <span slot="title">Work Request Manager</span>
-            </heading>
             <section class="content">
                 <index></index>
             </section>
