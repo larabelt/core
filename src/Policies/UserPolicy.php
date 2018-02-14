@@ -14,12 +14,14 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  User $user
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $user)
+    public function view(User $auth, $arguments = null)
     {
-        return $auth->id == $user->id;
+        if ($arguments instanceof User) {
+            return $auth->id == $arguments->id;
+        }
     }
 
     /**
@@ -41,12 +43,14 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  User $user
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function update(User $auth, $user)
+    public function update(User $auth, $arguments = null)
     {
-        return $auth->id == $user->id;
+        if ($arguments instanceof User) {
+            return $auth->id == $arguments->id;
+        }
     }
 
 }

@@ -2,12 +2,13 @@
 
 namespace Belt\Core;
 
-use Belt, Barryvdh, Collective, Event, Illuminate, Laravel, Rap2hpoutre;
+use Belt, Bouncer, Barryvdh, Collective, Event, Illuminate, Laravel, Rap2hpoutre, Silber;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Silber\Bouncer\BouncerFacade;
 
 /**
  * Class BeltCoreServiceProvider
@@ -21,7 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.5.0';
+    const VERSION = '1.5-beta-5';
 
     /**
      * The policy mappings for the application.
@@ -29,6 +30,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        Belt\Core\Alert::class => Belt\Core\Policies\AlertPolicy::class,
         Belt\Core\User::class => Belt\Core\Policies\UserPolicy::class,
         Belt\Core\Role::class => Belt\Core\Policies\RolePolicy::class,
         Belt\Core\Team::class => Belt\Core\Policies\TeamPolicy::class,
@@ -79,6 +81,8 @@ class BeltCoreServiceProvider extends ServiceProvider
 
         // morphMap
         Relation::morphMap([
+            'abilities' => Belt\Core\Ability::class,
+            'alerts' => Belt\Core\Alert::class,
             'params' => Belt\Core\Param::class,
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
@@ -113,6 +117,13 @@ class BeltCoreServiceProvider extends ServiceProvider
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
         view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);
 
+        // load bouncer package
+        $this->app->register(Silber\Bouncer\BouncerServiceProvider::class);
+        $loader->alias('Bouncer', Silber\Bouncer\BouncerFacade::class);
+        Silber\Bouncer\BouncerFacade::cache();
+        Silber\Bouncer\Database\Models::setAbilitiesModel(Belt\Core\Ability::class);
+        Silber\Bouncer\Database\Models::setRolesModel(Belt\Core\Role::class);
+
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
         $this->app->register(Barryvdh\Cors\ServiceProvider::class);
@@ -136,8 +147,8 @@ class BeltCoreServiceProvider extends ServiceProvider
      */
     public function registerPolicies(GateContract $gate)
     {
-        $gate->before(function ($user, $ability) {
-            if ($user->is_super) {
+        $gate->before(function ($user) {
+            if ($user->super) {
                 return true;
             }
         });

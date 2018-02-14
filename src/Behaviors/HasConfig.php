@@ -15,11 +15,16 @@ trait HasConfig
     public $config;
 
     /**
+     * @var string
+     */
+    protected $configPath;
+
+    /**
      * @return string
      */
     public function configPath()
     {
-        return '';
+        return $this->configPath;
     }
 
     /**

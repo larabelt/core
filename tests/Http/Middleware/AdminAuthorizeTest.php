@@ -54,7 +54,7 @@ class AdminAuthorizeTest extends BeltTestCase
 
         # authenticated super user
         $superUser = m::mock(User::class);
-        $superUser->shouldReceive('hasRole')->andReturn(true);
+        $superUser->shouldReceive('can')->andReturn(true);
         $superGuard = m::mock(Guard::class);
         $superGuard->shouldReceive('guest')->andReturn(false);
         $superGuard->shouldReceive('user')->andReturn($superUser);
@@ -65,7 +65,7 @@ class AdminAuthorizeTest extends BeltTestCase
         # non-authenticated user
         $lameUser = m::mock(User::class . '[hasRole]');
         $lameUser->teams = new \Illuminate\Support\Collection([]);
-        $lameUser->shouldReceive('hasRole')->andReturn(false);
+        $lameUser->shouldReceive('can')->andReturn(false);
         $lameGuard = m::mock(Guard::class);
         $lameGuard->shouldReceive('guest')->andReturn(false);
         $lameGuard->shouldReceive('user')->andReturn($lameUser);

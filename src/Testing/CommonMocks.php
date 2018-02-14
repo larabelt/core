@@ -99,16 +99,17 @@ trait CommonMocks
      */
     function getUser($type = null)
     {
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->make(['super' => false]);
         $user->id = random_int(1, 10000);
         $user->roles = new Collection();
 
         if ($type == 'super') {
-            $user->is_super = true;
+            $user->setSuper(true);
         }
 
         if ($type == 'admin') {
-            $user->roles->push(factory(Role::class)->make(['name' => 'ADMIN']));
+            //$user->roles->push(factory(Role::class)->make(['name' => 'admin']));
+            $user->assign('admin');
         }
 
         if ($type == 'team') {

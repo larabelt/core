@@ -28,7 +28,6 @@ class BeltCoreTeamSeeds extends Seeder
             'email' => 'team@larabelt.org',
         ]);
         $user->update([
-            'is_super' => false,
             'first_name' => 'TEAM',
             'last_name' => 'CAPTAIN',
             'password' => bcrypt('secret')

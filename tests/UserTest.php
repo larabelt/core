@@ -1,16 +1,22 @@
 <?php
 
+use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Team;
 use Belt\Core\User;
-use Belt\Core\Role;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class UserTest extends BeltTestCase
 {
+    public function tearDown()
+    {
+        m::close();
+    }
+
     /**
      * @covers \Belt\Core\User::__toString
+     * @covers \Belt\Core\User::teams
      * @covers \Belt\Core\User::setEmailAttribute
      * @covers \Belt\Core\User::setIsVerifiedAttribute
      * @covers \Belt\Core\User::setIsActiveAttribute
@@ -19,15 +25,12 @@ class UserTest extends BeltTestCase
      * @covers \Belt\Core\User::setMiAttribute
      * @covers \Belt\Core\User::setPasswordAttribute
      * @covers \Belt\Core\User::setUsernameAttribute
-     * @covers \Belt\Core\User::roles
-     * @covers \Belt\Core\User::hasRole
      * @covers \Belt\Core\User::getFullNameAttribute
      * @covers \Belt\Core\User::setIsOptedInAttribute
      */
     public function test()
     {
         $user = factory(User::class)->make();
-        $role = factory(Role::class)->make(['name' => 'test']);
 
         User::unguard();
 
@@ -43,19 +46,8 @@ class UserTest extends BeltTestCase
 
         $attributes = $user->getAttributes();
 
-        # roles relationship
-        $this->assertInstanceOf(BelongsToMany::class, $user->roles());
-        $user->roles->add(factory(Role::class)->make(['name' => 'test']));
-        $this->assertEquals(1, $user->roles->count());
-
-        # hasRole
-        $this->assertTrue($user->hasRole('test'));
-        $this->assertFalse($user->hasRole('other-role'));
-        $this->assertFalse($user->hasRole('super'));
-        $user->roles->add(factory(Role::class)->make(['name' => 'super']));
-        $this->assertEquals(2, $user->roles->count());
-        $user->is_super = 1;
-        $this->assertTrue($user->hasRole('whatever'));
+        # teams
+        $this->assertInstanceOf(BelongsToMany::class, $user->teams());
 
         # setters
         $this->assertEquals('test@test.com', $user->email);
@@ -74,17 +66,44 @@ class UserTest extends BeltTestCase
         $user->mi = null;
         $this->assertEquals('TEST TEST', $user->fullName);
 
-//        # Authenticatable functions
-//        $user->id = 1;
-//        $user->setRememberToken('test');
-//        $attributes = $user->getAttributes();
-//        $this->assertEquals('test', $attributes['remember_token']);
-//        $this->assertNotEmpty($user->getAuthIdentifierName());
-//        $this->assertNotEmpty($user->getAuthIdentifier());
-//        $this->assertNotEmpty($user->getAuthPassword());
-//        $this->assertNotEmpty($user->getRememberToken());
-//        $this->assertNotEmpty($user->getRememberTokenName());
-//        $this->assertEquals('test@test.com', $user->getReminderEmail());
+//        # isAllowed (no extra rights)
+//        $user = factory(User::class)->make();
+//        $permissible = m::mock(PermissibleService::class);
+//        $permissible->shouldReceive('hasRole')->with($user, 'admin')->andReturn(false);
+//        $user->permissible = $permissible;
+//        $this->assertFalse($user->isAllowed('foo'));
+//
+//        # isAllowed (super)
+//        $user = factory(User::class)->make();
+//        $this->assertTrue($user->isAllowed('foo'));
+//
+//        # isAllowed (admin)
+//        $user = factory(User::class)->make();
+//        $permissible = m::mock(PermissibleService::class);
+//        $permissible->shouldReceive('hasRole')->with($user, 'admin')->andReturn(true);
+//        $user->permissible = $permissible;
+//        $this->assertTrue($user->isAllowed('foo'));
+//
+//        # isAllowed (member of team w/admin)
+//        $user = factory(User::class)->make();
+//        $team = factory(Team::class)->make();
+//        $user->teams->add($team);
+//        $permissible = m::mock(PermissibleService::class);
+//        $permissible->shouldReceive('hasRole')->with($user, 'admin')->andReturn(false);
+//        $permissible->shouldReceive('hasRole')->with($team, 'admin')->andReturn(true);
+//        $user->permissible = $permissible;
+//        $this->assertTrue($user->isAllowed('foo'));
+//
+//        # isAllowed (member of team w/ability)
+//        $user = factory(User::class)->make();
+//        $team = factory(Team::class)->make();
+//        $user->teams->add($team);
+//        $permissible = m::mock(PermissibleService::class);
+//        $permissible->shouldReceive('hasRole')->with($user, 'admin')->andReturn(false);
+//        $permissible->shouldReceive('hasRole')->with($team, 'admin')->andReturn(false);
+//        $permissible->shouldReceive('isAllowed')->with($team, 'foo', null)->andReturn(true);
+//        $user->permissible = $permissible;
+//        $this->assertTrue($user->isAllowed('foo'));
 
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use Belt\Core\Testing;
+use Illuminate\Support\Facades\Cache;
 
 class AlertsFunctionalTest extends Testing\BeltTestCase
 {
@@ -14,6 +15,7 @@ class AlertsFunctionalTest extends Testing\BeltTestCase
         $response = $this->json('GET', '/api/v1/alerts');
         $response->assertStatus(200);
 
+        //Cache::shouldReceive('put')->withAnyArgs();
         # store
         $response = $this->json('POST', '/api/v1/alerts', [
             'name' => 'test',

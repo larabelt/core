@@ -10,7 +10,7 @@
         </div>
         <div class="form-group" :class="{ 'has-error': form.error('comments') }">
             <label for="comments">Comments</label>
-            <textarea class="form-control" rows="10" v-model="form.comments" tinymce="'comments'"></textarea>
+            <belt-editor v-model="form.comments"></belt-editor>
             <span v-for="error in form.error('comments')" class="text-danger">{{ error }}</span>
         </div>
         <div class="text-right">

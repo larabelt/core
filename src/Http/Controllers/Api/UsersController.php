@@ -39,7 +39,7 @@ class UsersController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', User::class);
+        $this->authorize('view', User::class);
 
         $request = Requests\PaginateUsers::extend($request);
 

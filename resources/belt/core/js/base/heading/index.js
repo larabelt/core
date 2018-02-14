@@ -1,9 +1,19 @@
+import workRequests from 'belt/core/js/work-requests/list-by-workable';
 import html from 'belt/core/js/base/heading/template.html';
 
 export default {
 
     props: {
-        // table: {default: null},
+        morphable_id: {
+            default: function () {
+                return this.$parent.morphable_id;
+            }
+        },
+        morphable_type: {
+            default: function () {
+                return this.$parent.morphable_id;
+            }
+        },
     },
     data() {
         return {};
@@ -18,5 +28,8 @@ export default {
 
     },
     methods: {},
+    components: {
+        workRequests,
+    },
     template: html
 }
