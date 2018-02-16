@@ -50,7 +50,7 @@ class WorkRequestsController extends ApiController
      */
     public function index(Request $request)
     {
-        //$this->authorize('index', WorkRequest::class);
+        $this->authorize('view', WorkRequest::class);
 
         $request = Requests\PaginateWorkRequests::extend($request);
 
@@ -75,16 +75,16 @@ class WorkRequestsController extends ApiController
         $workRequest = $this->workRequests->create(['name' => $input['name']]);
 
         $this->set($workRequest, $input, [
-            'is_active',
-            'slug',
-            'body',
-            'starts_at',
-            'ends_at',
+            'place',
+            'workable_id',
+            'workable_type',
+            'workflow_class',
+            'payload',
         ]);
 
         $workRequest->save();
 
-        $this->service()->cache();
+        //$this->service()->cache();
 
         return response()->json($workRequest, 201);
     }
@@ -98,7 +98,7 @@ class WorkRequestsController extends ApiController
      */
     public function show(WorkRequest $workRequest)
     {
-        //$this->authorize('view', $workRequest);
+        $this->authorize('view', $workRequest);
 
         return response()->json($workRequest);
     }
@@ -118,17 +118,15 @@ class WorkRequestsController extends ApiController
         $input = $request->all();
 
         $this->set($workRequest, $input, [
-            'is_active',
-            'name',
-            'slug',
-            'body',
-            'starts_at',
-            'ends_at',
+            //'place',
+            'payload',
         ]);
 
-        $workRequest->save();
+        //$workRequest->save();
 
-        $this->service()->cache();
+        //$this->service()->cache();
+
+        $workRequest->getWorkflow()->apply($request->get('transition'));
 
         return response()->json($workRequest);
     }
@@ -147,7 +145,7 @@ class WorkRequestsController extends ApiController
 
         $workRequest->delete();
 
-        $this->service()->cache();
+        //$this->service()->cache();
 
         return response()->json(null, 204);
     }

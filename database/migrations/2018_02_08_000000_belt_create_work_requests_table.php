@@ -15,8 +15,9 @@ class BeltCreateWorkRequestsTable extends Migration
         Schema::create('work_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('workable');
+            $table->boolean('is_open')->default(1)->index();
             $table->string('workflow_class');
-            $table->string('step')->nullable()->index();
+            $table->string('place')->nullable()->index();
             $table->text('payload')->nullable();
             $table->timestamps();
         });

@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core\Http\Requests;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -25,6 +26,10 @@ class PaginateWorkRequests extends PaginateRequest
      */
     public function modifyQuery(Builder $query)
     {
+        if ($this->has('is_open')) {
+            $query->where('is_open', $this->get('is_open') ? true : false);
+        }
+
         if ($this->get('workable_id')) {
             $query->where('workable_id', $this->get('workable_id'));
         }

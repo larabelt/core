@@ -11,9 +11,11 @@ class Form extends BaseForm {
             id: '',
             workable_id: null,
             workable_type: null,
-            workflow: null,
-            step: null,
+            workflow_class: null,
+            place: null,
+            transition: '',
             payload: {},
+            workflow: {},
         })
     }
 

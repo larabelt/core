@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
  * Class UpdateUser
  * @package Belt\Core\Http\Requests
  */
-class UpdateUser extends Belt\Core\Http\Requests\UserRequest
+class UpdateUser extends Belt\Core\Http\Requests\FormRequest
 {
 
     /**

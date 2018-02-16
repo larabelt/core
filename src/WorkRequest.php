@@ -27,7 +27,12 @@ class WorkRequest extends Model
      * @var array
      */
     protected $casts = [
+        'is_open' => 'boolean',
         'payload' => 'json',
+    ];
+
+    protected $attributes = [
+        'is_open' => true,
     ];
 
     /**
@@ -46,9 +51,17 @@ class WorkRequest extends Model
     /**
      * @return mixed
      */
+    public function getWorkflow()
+    {
+        return (new $this->workflow_class($this->workable));
+    }
+
+    /**
+     * @return mixed
+     */
     public function getWorkflowAttribute()
     {
-        return (new $this->workflow_class($this->workable))->toArray();
+        return $this->getWorkflow()->toArray();
     }
 
 }

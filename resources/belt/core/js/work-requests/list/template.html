@@ -31,10 +31,10 @@
                         <td>{{ workRequest.workflow.name }}</td>
                         <td>
                             <template v-if="workRequest.workflow.item_url">
-                                <a :href="workRequest.workflow.item_url">{{ workRequest.workflow.label }}</a>
+                                <a :href="workRequest.workflow.item_url">{{ workRequest.workflow.item_label }}</a>
                             </template>
                             <template v-else>
-                                {{ workRequest.workflow.label }}
+                                {{ workRequest.workflow.item_label }}
                             </template>
                         </td>
                         <td>{{ datetime(workRequest.created_at, 'L LT') }}</td>

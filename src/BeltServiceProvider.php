@@ -2,7 +2,7 @@
 
 namespace Belt\Core;
 
-use Belt, Morph;
+use Belt, Event, Morph;
 use Belt\Core\Services\WorkflowService;
 use Belt\Core\Observers\WorkflowObserver;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +23,14 @@ class BeltServiceProvider extends ServiceProvider
      */
     protected function workflows()
     {
+        foreach ($this->workflows as $event => $workflows) {
+            $workflows = is_array($workflows) ? $workflows : [$workflows];
+            foreach ($workflows as $workflow) {
+                Event::listen($event, $workflow);
+            }
+        }
+
+        return;
         foreach ($this->workflows as $type => $workflows) {
             $workflows = is_array($workflows) ? $workflows : [$workflows];
             foreach ($workflows as $workflow) {

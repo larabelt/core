@@ -47,7 +47,7 @@ class WorkflowObserver
     {
         if (WorkflowService::isEnabled()) {
             foreach (WorkflowService::workflows($item) as $class) {
-                $this->service()->saved($item, $class);
+                //$this->service()->saved($item, $class);
             }
         }
     }

@@ -1,4 +1,4 @@
-import workRequests from 'belt/core/js/work-requests/list-by-workable';
+import workRequests from 'belt/core/js/work-requests/list-workable';
 import html from 'belt/core/js/base/heading/template.html';
 
 export default {
