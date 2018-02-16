@@ -1,39 +1,24 @@
-import Form from 'belt/core/js/work-requests/form';
+import shared from 'belt/core/js/work-requests/list-workable/list-item/shared';
 import html from 'belt/core/js/work-requests/list-workable/list-item/action/template.html';
 
 export default {
+    mixins: [shared],
     props: {
         label: '',
         transition: {},
-        workRequest: {
-            default: function () {
-                return this.$parent.workRequest;
-            }
-        },
-    },
-    data() {
-        return {
-            form: new Form(),
-        }
-    },
-    computed: {
-
     },
     methods: {
-        humanize(str) {
-            str = _.replace(str, '-', ' ');
-            str = _.replace(str, '_', ' ');
-            return str;
-        },
         submit() {
-            this.form.transition = this.label;
-            this.form.submit();
+            this.workRequest.transition = this.label;
+            this.workRequest.submit()
+                .then(() => {
+                    this.$store.dispatch(this.storeKey + '/load', this.work_request_id);
+                    let workableStoreKey = this.workRequest.workable_type + this.workRequest.workable_id;
+                    if (this.$store.state[workableStoreKey]) {
+                        this.$store.dispatch(workableStoreKey + '/load', this.workRequest.workable_id);
+                    }
+                });
         },
-    },
-    mounted() {
-        let data = this.workRequest;
-        data.transition = this.label;
-        this.form.setData(data);
     },
     template: html,
 }

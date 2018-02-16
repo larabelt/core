@@ -1,69 +1,22 @@
-import Form from 'belt/core/js/work-requests/form';
-import action from 'belt/core/js/work-requests/list-workable/list-item/action';
+import shared from 'belt/core/js/work-requests/list-workable/list-item/shared';
+import actionItem from 'belt/core/js/work-requests/list-workable/list-item/action';
 import html from 'belt/core/js/work-requests/list-workable/list-item/template.html';
 
 export default {
+    mixins: [shared],
     props: {
-        workRequest: {},
-        morphable_id: {
-            default: function () {
-                return this.$parent.morphable_id;
-            }
-        },
-        morphable_type: {
-            default: function () {
-                return this.$parent.morphable_type;
-            }
-        },
-    },
-    data() {
-        return {
-            form: new Form(),
-        }
-    },
-    computed: {
-        availableTransitions() {
-
-            let available = {};
-            _.forEach(this.transitions, (transition, property) => {
-                if (_.get(transition, 'from') == this.workRequest.place) {
-                    available[property] = transition;
-                }
-            });
-
-            return available;
-        },
-        place() {
-            return this.workRequest.place;
-        },
-        places() {
-            return _.get(this.workflow, 'places', {});
-        },
-        transitions() {
-            return _.get(this.workflow, 'transitions', {});
-        },
-        workflow() {
-            return _.get(this.workRequest, 'workflow', {
-                name: '',
-                label: '',
-            });
-        },
-        workflowName() {
-            return this.humanize(this.workflow.name);
-        },
-    },
-    methods: {
-        humanize(str) {
-            str = _.replace(str, '-', ' ');
-            str = _.replace(str, '_', ' ');
-            return str;
-        }
+        work_request_id: null,
+        work_request_data: {},
     },
     mounted() {
-        this.form.setData(this.workRequest);
+        if (this.work_request_data) {
+            this.workRequest.setData(this.work_request_data);
+        } else {
+            this.workRequest.show(this.work_request_id);
+        }
     },
     components: {
-        action,
+        actionItem,
     },
     template: html,
 }

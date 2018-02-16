@@ -19,6 +19,14 @@ class Form extends BaseForm {
         })
     }
 
+    /**
+     * Set all relevant data for the form.
+     */
+    setData(data) {
+        data.transition = data.transition ? data.transition : '';
+        super.setData(data);
+    }
+
 }
 
 export default Form;

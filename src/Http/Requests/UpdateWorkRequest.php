@@ -25,6 +25,7 @@ class UpdateWorkRequest extends Belt\Core\Http\Requests\FormRequest
 
         return [
             'transition' => [
+                'sometimes',
                 'required',
                 'in:' . implode(',', $availableTransitions)
             ],

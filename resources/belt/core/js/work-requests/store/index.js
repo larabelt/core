@@ -1,4 +1,4 @@
-import Form from 'belt/core/js/teams/form';
+import Form from 'belt/core/js/work-requests/form';
 
 export default {
     namespaced: true,
@@ -9,9 +9,9 @@ export default {
         form: (state, form) => state.form = form,
     },
     actions: {
-        load: ({commit, dispatch, state}, teamID) => {
+        load: ({commit, dispatch, state}, workRequestID) => {
             return new Promise((resolve, reject) => {
-                state.form.show(teamID)
+                state.form.show(workRequestID)
                     .then(response => {
                         resolve(response);
                     })

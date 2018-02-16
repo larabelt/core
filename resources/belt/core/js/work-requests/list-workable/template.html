@@ -1,5 +1,5 @@
 <span v-if="show">
     <template v-for="workRequest in table.items">
-        <list-item :workRequest="workRequest"></list-item>
+        <list-item :work_request_id="workRequest.id" :work_request_data="workRequest"></list-item>
     </template>
 </span>

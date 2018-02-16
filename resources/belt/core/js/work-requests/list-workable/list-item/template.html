@@ -1,11 +1,11 @@
-<div class="box box-warning box-solid">
+<div v-show="workRequest.is_open" class="box box-warning box-solid">
     <div class="box-header with-border">
         <span>Pending Work Request: {{ humanize(workflow.name) }} {{ workflow.label }}</span>
     </div>
     <div class="box-body">
         <div class="row">
             <template v-for="transition, label in availableTransitions">
-                <action :label="label" :transition="transition"></action>
+                <action-item :work_request_id="workRequest.id" :label="label" :transition="transition"></action-item>
             </template>
         </div>
     </div>

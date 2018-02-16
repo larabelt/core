@@ -118,7 +118,8 @@ class WorkRequestsController extends ApiController
         $input = $request->all();
 
         $this->set($workRequest, $input, [
-            //'place',
+            'is_open',
+            'place',
             'payload',
         ]);
 
@@ -126,7 +127,11 @@ class WorkRequestsController extends ApiController
 
         //$this->service()->cache();
 
-        $workRequest->getWorkflow()->apply($request->get('transition'));
+        if ($transition = $request->get('transition')) {
+            $workRequest->getWorkflow()->apply($transition);
+        }
+
+        $workRequest->refresh();
 
         return response()->json($workRequest);
     }

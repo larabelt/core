@@ -1,20 +1,29 @@
+import team from 'belt/core/js/teams/store/mixin';
 import Form from 'belt/core/js/teams/form';
 import edit from 'belt/core/js/teams/edit/shared';
-import form_html from 'belt/core/js/teams/edit/form.html';
+import html from 'belt/core/js/teams/edit/form.html';
 
 export default {
     mixins: [edit],
     components: {
         edit: {
+            mixins: [team],
             data() {
                 return {
-                    form: new Form(),
+                    morphable_type: 'teams',
+                    morphable_id: this.$parent.morphable_id,
+                    team_id: this.$parent.morphable_id,
+                }
+            },
+            computed: {
+                form() {
+                    return this.team;
                 }
             },
             mounted() {
-                this.form.show(this.$route.params.id);
+                this.$store.dispatch(this.storeKey + '/load', this.team_id);
             },
-            template: form_html,
+            template: html,
         },
     },
 }
