@@ -123,7 +123,7 @@ class WorkRequestsController extends ApiController
             'payload',
         ]);
 
-        //$workRequest->save();
+        $workRequest->save();
 
         //$this->service()->cache();
 

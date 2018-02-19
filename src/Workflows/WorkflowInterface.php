@@ -21,6 +21,6 @@ interface WorkflowInterface
 
     public function __construct(Model $item);
 
-    //public function create();
+    public function isApplicable();
 
 }
