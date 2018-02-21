@@ -95,9 +95,6 @@ Route::group([
         Route::get('users', Api\UsersController::class . '@index');
         Route::post('users', Api\UsersController::class . '@store');
 
-        # workflows
-        Route::get('workflows/{slug}', Api\WorkflowsController::class . '@show');
-
         # work-requests
         Route::get('work-requests/{workRequest}', Api\WorkRequestsController::class . '@show');
         Route::put('work-requests/{workRequest}', Api\WorkRequestsController::class . '@update');

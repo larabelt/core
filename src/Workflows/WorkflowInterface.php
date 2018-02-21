@@ -17,6 +17,8 @@ use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 interface WorkflowInterface
 {
 
+    const ACCESSOR = null;
+
     const NAME = null;
 
     public function __construct(Model $item);

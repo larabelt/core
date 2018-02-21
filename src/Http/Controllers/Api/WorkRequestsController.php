@@ -43,10 +43,9 @@ class WorkRequestsController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
-     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
@@ -60,11 +59,9 @@ class WorkRequestsController extends ApiController
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Requests\StoreWorkRequest $request
-     *
+     * @param Requests\StoreWorkRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Requests\StoreWorkRequest $request)
     {
@@ -72,29 +69,27 @@ class WorkRequestsController extends ApiController
 
         $input = $request->all();
 
-        $workRequest = $this->workRequests->create(['name' => $input['name']]);
+        $workRequest = $this->workRequests->firstOrCreate([
+            'workable_id' => $input['workable_id'],
+            'workable_type' => $input['workable_type'],
+            'workflow_class' => $input['workflow_class'],
+        ]);
 
         $this->set($workRequest, $input, [
+            'is_open',
             'place',
-            'workable_id',
-            'workable_type',
-            'workflow_class',
             'payload',
         ]);
 
         $workRequest->save();
 
-        //$this->service()->cache();
-
         return response()->json($workRequest, 201);
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param WorkRequest $workRequest
-     *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(WorkRequest $workRequest)
     {
@@ -104,12 +99,10 @@ class WorkRequestsController extends ApiController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  Requests\UpdateWorkRequest $request
+     * @param Requests\UpdateWorkRequest $request
      * @param WorkRequest $workRequest
-     *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Requests\UpdateWorkRequest $request, WorkRequest $workRequest)
     {
@@ -125,32 +118,24 @@ class WorkRequestsController extends ApiController
 
         $workRequest->save();
 
-        //$this->service()->cache();
-
         if ($transition = $request->get('transition')) {
-            $workRequest->getWorkflow()->apply($transition);
+            $workRequest = $this->service()->apply($workRequest, $transition);
         }
-
-        $workRequest->refresh();
 
         return response()->json($workRequest);
     }
 
-
     /**
-     * Remove the specified resource from storage.
-     *
      * @param WorkRequest $workRequest
-     *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(WorkRequest $workRequest)
     {
         $this->authorize('delete', $workRequest);
 
         $workRequest->delete();
-
-        //$this->service()->cache();
 
         return response()->json(null, 204);
     }

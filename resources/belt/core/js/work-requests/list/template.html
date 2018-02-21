@@ -30,11 +30,11 @@
                         <td>{{ workRequest.id }}</td>
                         <td>{{ workRequest.workflow.name }}</td>
                         <td>
-                            <template v-if="workRequest.workflow.item_url">
-                                <a :href="workRequest.workflow.item_url">{{ workRequest.workflow.item_label }}</a>
+                            <template v-if="workRequest.workflow.workable.editUrl">
+                                <a :href="workRequest.workflow.workable.editUrl">{{ workRequest.workflow.workable.label }}</a>
                             </template>
                             <template v-else>
-                                {{ workRequest.workflow.item_label }}
+                                {{ workRequest.workflow.workable.label }}
                             </template>
                         </td>
                         <td>{{ datetime(workRequest.created_at, 'L LT') }}</td>

@@ -3,12 +3,7 @@
 namespace Belt\Core\Workflows;
 
 use Belt, Illuminate;
-use Belt\Core\WorkRequest;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\Workflow\DefinitionBuilder;
-use Symfony\Component\Workflow\Transition;
-use Symfony\Component\Workflow\Workflow as Helper;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
 /**
  * Class BaseWorkflow
@@ -16,14 +11,13 @@ use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
  */
 class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
 {
-
     /**
      * @var array
      */
     protected $places = [];
 
     /**
-     * @var array
+     * @var string
      */
     protected $initialPlace = 'start';
 
@@ -35,39 +29,12 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     /**
      * @var array
      */
-    protected $close = [];
-
-//    /**
-//     * @var Model
-//     */
-//    private $item;
+    protected $closers = [];
 
     /**
-     * @var Helper
+     * @var Model
      */
-    private $helper;
-
-    /**
-     * @var WorkRequest
-     */
-    private $workRequest;
-
-//    /**
-//     * @var WorkRequest
-//     */
-//    private $workRequests;
-
-    /**
-     * BaseWorkflow constructor.
-     * @param Model $item
-     */
-    public function __construct(Model $item = null)
-    {
-//        if ($item) {
-//            $this->setItem($item);
-//        }
-//        $this->setWorkRequests(new WorkRequest());
-    }
+    protected $workable;
 
     /**
      * Get the registered name of the workflow.
@@ -78,8 +45,18 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      */
     public static function getAccessor()
     {
-        //throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
         return static::ACCESSOR;
+    }
+
+    /**
+     * BaseWorkflow constructor.
+     * @param Model $workable
+     */
+    public function __construct(Model $workable = null)
+    {
+        if ($workable) {
+            $this->setWorkable($workable);
+        }
     }
 
     /**
@@ -90,66 +67,28 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
         return true;
     }
 
-//    private function method($event)
-//    {
-//        if ($event instanceof Belt\Core\Events\ItemCreated) {
-//            return 'created';
-//        }
-//
-//        if ($event instanceof Belt\Core\Events\ItemUpdated) {
-//            return 'created';
-//        }
-//
-//        if ($event instanceof Belt\Core\Events\ItemDeleted) {
-//            return 'created';
-//        }
-//    }
-
-//    /**
-//     * @param Model $item
-//     * @return $this
-//     */
-//    public function setItem(Model $item)
-//    {
-//        $this->item = $item;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Model $item
-//     */
-//    public function item()
-//    {
-//        return $this->item;
-//    }
-
-//    /**
-//     * @return array
-//     */
-//    public function availableTransitions()
-//    {
-//        $available = [];
-//        foreach ($this->transitions() as $name => $params) {
-//            if ($this->can($name)) {
-//                $available[] = $name;
-//            }
-//        };
-//
-//        return $available;
-//    }
+    /**
+     * @param Model $workable
+     */
+    public function setWorkable(Model $workable)
+    {
+        $this->workable = $workable;
+    }
 
     /**
-     * @param null $key
-     * @return array|mixed
+     * @return Model $workable
      */
-    public function transitions($key = null)
+    public function getWorkable()
     {
-        if ($key) {
-            return array_get($this->transitions, $key, []);
-        }
+        return $this->workable;
+    }
 
-        return $this->transitions;
+    /**
+     * @return string
+     */
+    public function initialPlace()
+    {
+        return $this->initialPlace;
     }
 
     /**
@@ -161,113 +100,20 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     }
 
     /**
-     * @return string
+     * @return array|mixed
      */
-    public function initialPlace()
+    public function transitions()
     {
-        return $this->initialPlace;
+        return $this->transitions;
     }
 
-//    /**
-//     * @param Helper $helper
-//     * @return $this
-//     */
-//    public function setHelper(Helper $helper)
-//    {
-//        $this->helper = $helper;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * @return Helper
-//     */
-//    public function helper()
-//    {
-//        if ($this->helper) {
-//            return $this->helper;
-//        }
-//
-//        // definition
-//        $builder = new DefinitionBuilder();
-//        $builder->setInitialPlace($this->initialPlace);
-//        $builder->addPlaces($this->places);
-//        foreach ($this->transitions as $name => $config) {
-//            $builder->addTransition(new Transition($name, $config['from'], $config['to']));
-//        }
-//        $definition = $builder->build();
-//
-//        // marking
-//        $marking = new SingleStateMarkingStore('place');
-//
-//        // workflow
-//        $helper = new Helper($definition, $marking, null, static::getAccessor());
-//
-//        $this->setHelper($helper);
-//
-//        return $helper;
-//    }
-
-//    /**
-//     * @param mixed $workRequest
-//     */
-//    public function setWorkRequest($workRequest)
-//    {
-//        $this->workRequest = $workRequest;
-//    }
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function getWorkRequest()
-//    {
-//        return $this->workRequest;
-//    }
-
-//    /**
-//     * @param WorkRequest $workRequests
-//     * @return $this
-//     */
-//    public function setWorkRequests(WorkRequest $workRequests)
-//    {
-//        $this->workRequests = $workRequests;
-//
-//        return $this;
-//    }
-
-//    /**
-//     * @param null $place
-//     * @param array $payload
-//     * @return mixed
-//     */
-//    public function workRequest($place = null, $payload = [])
-//    {
-//        WorkRequest::unguard();
-//
-//        $workRequest = $this->workRequests->firstOrCreate([
-//            'workable_id' => $this->item->id,
-//            'workable_type' => $this->item->getMorphClass(),
-//            'workflow_class' => get_class($this),
-//        ]);
-//
-//        if (!$workRequest->place) {
-//            $workRequest->place = $this->initialPlace;
-//        }
-//
-//        if ($place) {
-//            $workRequest->place = $place;
-//        }
-//
-//        if ($payload) {
-//            $workRequest->payload = $payload;
-//        }
-//
-//        $workRequest->save();
-//
-//        $this->setWorkRequest($workRequest);
-//
-//        return $workRequest;
-//    }
+    /**
+     * @return array
+     */
+    public function closers()
+    {
+        return $this->closers;
+    }
 
     /**
      * @return array
@@ -275,55 +121,16 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     public function toArray()
     {
         return [
-            'name' => static::getAccessor(),
+            'accessor' => static::ACCESSOR,
+            'name' => static::NAME,
             'initialPlace' => $this->initialPlace(),
             'places' => $this->places(),
             'transitions' => $this->transitions(),
-
-            // place holders
-            //'item_label' => sprintf('%s:%s', $this->getWorkRequest()->workable_type, $this->getWorkRequest()->workable_id),
-            //'item_url' => '',
+            'workable' => [
+                'label' => '',
+                'editUrl' => '',
+            ],
         ];
     }
-
-//    /**
-//     * @param array $payload
-//     * @return mixed
-//     */
-//    public function create($payload = [])
-//    {
-//        $workRequest = $this->workRequest($this->initialPlace, $payload);
-//
-//        return $workRequest;
-//    }
-
-//    /**
-//     * @param $place
-//     * @return bool
-//     */
-//    public function can($place)
-//    {
-//        return $this->helper()->can($this->setWorkRequest(), $place);
-//    }
-//
-//    /**
-//     * @param $key
-//     * @param array $payload
-//     */
-//    public function apply($key, $payload = [])
-//    {
-//        if ($this->can($key)) {
-//            $workRequest = $this->setWorkRequest();
-//            $this->helper()->apply($workRequest, $key);
-//            $method = camel_case('apply_' . $key);
-//            if (method_exists($this, $method)) {
-//                $this->$method($payload);
-//            }
-//            if (in_array($key, $this->close)) {
-//                $workRequest->is_open = false;
-//            }
-//            $workRequest->save();
-//        };
-//    }
 
 }

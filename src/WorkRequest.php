@@ -3,6 +3,7 @@
 namespace Belt\Core;
 
 use Belt;
+use Belt\Core\Workflows\WorkflowInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -38,7 +39,7 @@ class WorkRequest extends Model
     /**
      * @var array
      */
-    //protected $appends = ['workflow'];
+    protected $appends = ['workflow'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
@@ -48,20 +49,20 @@ class WorkRequest extends Model
         return $this->morphTo('workable');
     }
 
-//    /**
-//     * @return mixed
-//     */
-//    public function getWorkflow()
-//    {
-//        return (new $this->workflow_class($this->workable));
-//    }
-//
-//    /**
-//     * @return mixed
-//     */
-//    public function getWorkflowAttribute()
-//    {
-//        return $this->getWorkflow()->toArray();
-//    }
+    /**
+     * @return WorkflowInterface
+     */
+    public function getWorkflow()
+    {
+        return (new $this->workflow_class($this->workable));
+    }
+
+    /**
+     * @return array
+     */
+    public function getWorkflowAttribute()
+    {
+        return $this->getWorkflow()->toArray();
+    }
 
 }
