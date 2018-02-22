@@ -23,12 +23,12 @@ class BeltServiceProvider extends ServiceProvider
      */
     protected function workflows()
     {
-        foreach ($this->workflows as $event => $workflowClasses) {
+        foreach ($this->workflows as $eventName => $workflowClasses) {
             foreach ((array) $workflowClasses as $workflowClass) {
                 WorkflowService::registerWorkflow($workflowClass);
-                Event::listen($event, function ($event, $payload = []) use ($workflowClass) {
+                Event::listen($eventName, function ($event, $payload = []) use ($workflowClass) {
                     $service = new WorkflowService();
-                    $service->handle(new $workflowClass(), $event->morph(), $payload);
+                    $service->handle(new $workflowClass(), $event->item(), $payload);
                 });
             }
         }

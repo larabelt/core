@@ -119,8 +119,8 @@ class ApiController extends Controller
         $class = array_get($classes, $type);
 
         if ($class) {
-            $job = new $class($item);
-            Event::dispatch($name, $job);
+            $event = new $class($item, $name);
+            Event::dispatch($name, $event);
         }
 
     }

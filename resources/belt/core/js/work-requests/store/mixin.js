@@ -19,6 +19,9 @@ export default {
         storeKey() {
             return 'workRequests' + this.work_request_id;
         },
+        hasAvailableTransitions() {
+            return _.isEmpty(this.availableTransitions) === false;
+        },
         place() {
             return this.workRequest.place;
         },
@@ -27,6 +30,15 @@ export default {
         },
         transitions() {
             return _.get(this.workflow, 'transitions', {});
+        },
+        workable() {
+            return _.get(this.workflow, 'workable', {});
+        },
+        workableEditUrl() {
+            return _.get(this.workable, 'editUrl', {});
+        },
+        workableLabel() {
+            return _.get(this.workable, 'label', {});
         },
         workflow() {
             return _.get(this.workRequest, 'workflow', {

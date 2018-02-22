@@ -62,7 +62,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     /**
      * @return bool
      */
-    public function isApplicable()
+    public function begin($workable = null, $payload = [])
     {
         return true;
     }

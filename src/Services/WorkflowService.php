@@ -69,7 +69,7 @@ class WorkflowService
      */
     public function handle(WorkflowInterface $workflow, Model $workable = null, $payload = [])
     {
-        if ($workflow->isApplicable($workable)) {
+        if ($workflow->begin($workable, $payload)) {
             $this->createWorkRequest($workflow, $workable, $workflow->initialPlace(), $payload);
         }
     }
@@ -85,10 +85,14 @@ class WorkflowService
     {
         WorkRequest::unguard();
 
-        $workRequest = $this->getQB()->create([
+        $workRequest = $this->getQB()->firstOrCreate([
             'workable_id' => $workable->id,
             'workable_type' => $workable->getMorphClass(),
             'workflow_class' => get_class($workflow),
+        ]);
+
+        $workRequest->update([
+            'is_open' => true,
             'place' => $place,
             'payload' => $payload,
         ]);

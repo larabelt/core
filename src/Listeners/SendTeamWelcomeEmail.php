@@ -37,7 +37,7 @@ class SendTeamWelcomeEmail implements ShouldQueue
     public function handle(TeamCreated $event)
     {
         /* @var $team Team */
-        $team = $event->morph();
+        $team = $event->item();
         $user = $team->defaultUser;
 
         $mailable = new Belt\Core\Mail\TeamWelcomeEmail([

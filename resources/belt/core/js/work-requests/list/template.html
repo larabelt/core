@@ -18,39 +18,25 @@
                 <thead>
                     <tr>
                         <th>ID <column-sorter :column="'work_requests.id'"></column-sorter></th>
-                        <th>Type</th>
+                        <th>Workflow</th>
                         <th>Item</th>
+                        <th>Place</th>
                         <th>Created <column-sorter :column="'work_requests.created_at'"></column-sorter></th>
                         <th>Updated <column-sorter :column="'work_requests.updated_at'"></column-sorter></th>
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="workRequest in table.items">
-                        <td>{{ workRequest.id }}</td>
-                        <td>{{ workRequest.workflow.name }}</td>
-                        <td>
-                            <template v-if="workRequest.workflow.workable.editUrl">
-                                <a :href="workRequest.workflow.workable.editUrl">{{ workRequest.workflow.workable.label }}</a>
-                            </template>
-                            <template v-else>
-                                {{ workRequest.workflow.workable.label }}
-                            </template>
-                        </td>
-                        <td>{{ datetime(workRequest.created_at, 'L LT') }}</td>
-                        <td>{{ datetime(workRequest.updated_at, 'L LT') }}</td>
-                        <td class="text-right">
-<!--                            <router-link :to="{ name: 'workRequests.edit', params: { id: workRequest.id } }" :class="'btn btn-xs btn-default'" title="edit workRequest">-->
-<!--                                <i class="fa fa-edit"></i>-->
-<!--                            </router-link>-->
-                        </td>
-                    </tr>
+                    <template v-for="workRequest in table.items">
+                        <list-item :work_request_id="workRequest.id" :work_request_data="workRequest"></list-item>
+                    </template>
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Type</th>
+                        <th>Workflow</th>
                         <th>Item</th>
+                        <th>Place</th>
                         <th>Created</th>
                         <th>Updated</th>
                         <th class="text-right">Actions</th>

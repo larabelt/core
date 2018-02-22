@@ -1,0 +1,15 @@
+<span>
+    <div class="btn-group">
+        <template v-if="hasAvailableTransitions">
+            <template v-for="transition, key in availableTransitions">
+                <button type="button" class="btn btn-primary btn-xs" :disabled="workRequest.errors.any()" @click.prevent="submit(key)">
+                    <span v-if="workRequest.saving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                    <span v-else>{{ humanize(key) }}</span>
+                </button>
+            </template>
+        </template>
+        <template v-else>
+            <button class="btn" disabled="disabled">closed</button>
+        </template>
+    </div>
+</span>
