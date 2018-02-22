@@ -15,19 +15,14 @@ export default {
             }
         },
     },
-    data() {
-        return {};
-    },
     computed: {
         team() {
             return _.get(window, 'larabelt.activeTeam');
-        }
+        },
+        isSuper() {
+            return _.get(window, 'larabelt.auth.super');
+        },
     },
-    created() {
-
-
-    },
-    methods: {},
     components: {
         workRequests,
     },

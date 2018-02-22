@@ -28,7 +28,7 @@ class BeltServiceProvider extends ServiceProvider
                 WorkflowService::registerWorkflow($workflowClass);
                 Event::listen($eventName, function ($event, $payload = []) use ($workflowClass) {
                     $service = new WorkflowService();
-                    $service->handle(new $workflowClass(), $event->item(), $payload);
+                    $service->handle(new $workflowClass(), $event->item(), $event->user(), $payload);
                 });
             }
         }

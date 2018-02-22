@@ -10,6 +10,11 @@ class PaginateWorkRequests extends PaginateRequest
 
     public $orderBy = 'work_requests.id';
 
+    public $groupable = [
+        'work_requests.workable_type',
+        'work_requests.workflow_class',
+    ];
+
     public $sortBy = 'asc';
 
     public $sortable = [

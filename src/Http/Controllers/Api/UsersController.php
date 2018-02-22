@@ -78,6 +78,8 @@ class UsersController extends ApiController
 
         event(new Belt\Core\Events\UserCreated($user));
 
+        $this->itemEvent('created', $user);
+
         return response()->json($user, 201);
     }
 
@@ -126,6 +128,8 @@ class UsersController extends ApiController
 
         $user->save();
 
+        $this->itemEvent('updated', $user);
+
         return response()->json($user);
     }
 
@@ -140,6 +144,8 @@ class UsersController extends ApiController
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
+        $this->itemEvent('deleted', $user);
 
         $user->delete();
 

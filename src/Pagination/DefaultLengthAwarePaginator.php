@@ -50,6 +50,8 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
             $join($this->qb, $request);
         }
 
+        $this->groupBy($request);
+
         $this->orderBy($request);
 
         $count = 0;

@@ -3,6 +3,7 @@
 namespace Belt\Core;
 
 use Belt;
+use Belt\Core\Workflows\BaseWorkFlow;
 use Belt\Core\Workflows\WorkflowInterface;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,7 +55,9 @@ class WorkRequest extends Model
      */
     public function getWorkflow()
     {
-        return (new $this->workflow_class($this->workable));
+        $class = $this->workflow_class ?? BaseWorkFlow::class;
+
+        return $this->workable ? new $class($this->workable) : new $class();
     }
 
     /**

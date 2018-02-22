@@ -67,9 +67,9 @@ class WorkflowService
      * @param Model|null $workable
      * @param array $payload
      */
-    public function handle(WorkflowInterface $workflow, Model $workable = null, $payload = [])
+    public function handle(WorkflowInterface $workflow, Model $workable = null, $user = null, $payload = [])
     {
-        if ($workflow->begin($workable, $payload)) {
+        if ($workflow->begin($workable, $user, $payload)) {
             $this->createWorkRequest($workflow, $workable, $workflow->initialPlace(), $payload);
         }
     }

@@ -62,7 +62,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     /**
      * @return bool
      */
-    public function begin($workable = null, $payload = [])
+    public function begin($workable = null, $user = null, $payload = [])
     {
         return true;
     }
