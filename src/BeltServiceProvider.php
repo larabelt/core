@@ -25,7 +25,7 @@ class BeltServiceProvider extends ServiceProvider
     {
         foreach ($this->workflows as $eventName => $workflowClasses) {
             foreach ((array) $workflowClasses as $workflowClass) {
-                WorkflowService::registerWorkflow($workflowClass);
+                WorkflowService::push($workflowClass);
                 Event::listen($eventName, function ($event, $payload = []) use ($workflowClass) {
                     $service = new WorkflowService();
                     $service->handle(new $workflowClass(), $event->item(), $event->user(), $payload);

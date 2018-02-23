@@ -1,6 +1,7 @@
 import Table from 'belt/core/js/work-requests/table';
 import filterSearch from 'belt/core/js/inputs/filter-search';
 import filterType from 'belt/core/js/work-requests/list/filters/type';
+import filterWorkflow from 'belt/core/js/work-requests/list/filters/workflow';
 import listItem from 'belt/core/js/work-requests/list/list-item';
 import html from 'belt/core/js/work-requests/list/template.html';
 
@@ -33,6 +34,7 @@ export default {
             components: {
                 filterSearch,
                 filterType,
+                filterWorkflow,
                 listItem,
             },
             template: html,

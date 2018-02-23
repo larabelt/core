@@ -12,7 +12,7 @@ class PaginateWorkRequests extends PaginateRequest
 
     public $groupable = [
         'work_requests.workable_type',
-        'work_requests.workflow_class',
+        'work_requests.workflow_key',
     ];
 
     public $sortBy = 'asc';
@@ -33,6 +33,10 @@ class PaginateWorkRequests extends PaginateRequest
     {
         if ($this->has('is_open')) {
             $query->where('is_open', $this->get('is_open') ? true : false);
+        }
+
+        if ($this->get('workflow_key')) {
+            $query->where('workflow_key', $this->get('workflow_key'));
         }
 
         if ($this->get('workable_id')) {

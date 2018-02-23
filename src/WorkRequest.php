@@ -5,6 +5,7 @@ namespace Belt\Core;
 use Belt;
 use Belt\Core\Workflows\BaseWorkFlow;
 use Belt\Core\Workflows\WorkflowInterface;
+use Belt\Core\Services\WorkflowService;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,7 +22,7 @@ class WorkRequest extends Model
     /**
      * @var array
      */
-    protected $fillable = ['workable_id', 'workable_type', 'workflow_class'];
+    protected $fillable = ['workable_id', 'workable_type', 'workflow_key'];
 
     /**
      * The attributes that should be cast to native types.
@@ -55,7 +56,10 @@ class WorkRequest extends Model
      */
     public function getWorkflow()
     {
-        $class = $this->workflow_class ?? BaseWorkFlow::class;
+        $class = BaseWorkFlow::class;
+        if ($key = $this->workflow_key) {
+            $class = WorkflowService::get($key) ?: BaseWorkFlow::class;
+        }
 
         return $this->workable ? new $class($this->workable) : new $class();
     }

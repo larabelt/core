@@ -43,9 +43,9 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      *
      * @throws \RuntimeException
      */
-    public static function getAccessor()
+    public static function getKey()
     {
-        return static::ACCESSOR;
+        return static::KEY;
     }
 
     /**
@@ -121,7 +121,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     public function toArray()
     {
         return [
-            'accessor' => static::ACCESSOR,
+            'key' => static::KEY,
             'name' => static::NAME,
             'initialPlace' => $this->initialPlace(),
             'places' => $this->places(),

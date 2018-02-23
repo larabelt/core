@@ -72,7 +72,7 @@ class WorkRequestsController extends ApiController
         $workRequest = $this->workRequests->firstOrCreate([
             'workable_id' => $input['workable_id'],
             'workable_type' => $input['workable_type'],
-            'workflow_class' => $input['workflow_class'],
+            'workflow_key' => $input['workflow_key'],
         ]);
 
         $this->set($workRequest, $input, [

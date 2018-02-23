@@ -17,7 +17,7 @@ use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 interface WorkflowInterface
 {
 
-    const ACCESSOR = null;
+    const KEY = null;
 
     const NAME = null;
 
@@ -28,7 +28,7 @@ interface WorkflowInterface
      *
      * @throws \RuntimeException
      */
-    public static function getAccessor();
+    public static function getKey();
 
     /**
      * BaseWorkflow constructor.

@@ -16,7 +16,7 @@ class BeltCreateWorkRequestsTable extends Migration
             $table->increments('id');
             $table->morphs('workable');
             $table->boolean('is_open')->default(1)->index();
-            $table->string('workflow_class');
+            $table->string('workflow_key');
             $table->string('place')->nullable()->index();
             $table->text('payload')->nullable();
             $table->timestamps();

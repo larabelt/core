@@ -33,9 +33,22 @@ class WorkflowService
     /**
      * @param string
      */
-    public static function registerWorkflow($workflowClass)
+    public static function push($class)
     {
-        static::$workflows[$workflowClass::ACCESSOR] = $workflowClass;
+        static::$workflows[$class::KEY] = $class;
+    }
+
+    /**
+     * @param null $key
+     * @return array|mixed
+     */
+    public static function get($key = null)
+    {
+        if ($key) {
+            return array_get(static::$workflows, $key);
+        }
+
+        return static::$workflows;
     }
 
     /**
@@ -88,7 +101,7 @@ class WorkflowService
         $workRequest = $this->getQB()->firstOrCreate([
             'workable_id' => $workable->id,
             'workable_type' => $workable->getMorphClass(),
-            'workflow_class' => get_class($workflow),
+            'workflow_key' => $workflow::KEY,
         ]);
 
         $workRequest->update([
@@ -151,7 +164,7 @@ class WorkflowService
         $marking = new SingleStateMarkingStore('place');
 
         // workflow
-        $helper = new Helper($definition, $marking, null, $workflow->getAccessor());
+        $helper = new Helper($definition, $marking, null, $workflow->getKey());
 
         return $helper;
     }
