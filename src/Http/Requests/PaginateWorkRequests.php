@@ -23,7 +23,13 @@ class PaginateWorkRequests extends PaginateRequest
         'work_requests.updated_at',
     ];
 
-    public $searchable = [];
+    public $searchable = [
+        'work_requests.id',
+        'work_requests.workable_id',
+        'work_requests.workable_type',
+        'work_requests.workflow_key',
+        'work_requests.place',
+    ];
 
     /**
      * @param Builder $query

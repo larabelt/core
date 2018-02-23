@@ -1,6 +1,6 @@
 import filter from 'belt/core/js/inputs/filter-base';
 import Table from 'belt/core/js/work-requests/table';
-import html from 'belt/core/js/work-requests/list/filters/type/template.html';
+import html from 'belt/core/js/work-requests/list/filters/workflow/template.html';
 
 export default {
     mixins: [filter],
@@ -21,7 +21,7 @@ export default {
                 return o.workflow_key ? o.workflow_key : 1;
             }]);
             _.forEach(items, (item) => {
-                options[item.workflow_key] = item.workflow_key;
+                options[item.workflow_key] = item.workflow.name;
             });
             return options;
         },
@@ -30,9 +30,11 @@ export default {
         }
     },
     mounted() {
+        this.table.updateQueryFromRouter();
         this.groupedItems.updateQuery({
             groupBy: 'work_requests.workflow_key',
         });
+        this.workflow_key = this.table.query.workflow_key;
         this.groupedItems.index();
     },
     watch: {
@@ -44,7 +46,6 @@ export default {
     },
     methods: {
         change() {
-            //this.table.updateQuery({workflow_key: null});
             delete this.table.query.workflow_key;
             if (this.workflow_key) {
                 this.table.updateQuery({workflow_key: this.workflow_key});

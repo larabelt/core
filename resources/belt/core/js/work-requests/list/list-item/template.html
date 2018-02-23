@@ -1,5 +1,9 @@
 <tr>
     <td>{{ workRequest.id }}</td>
+    <td class="text-center">
+        <i v-if="workRequest.is_open" class="fa fa-check-square"></i>
+        <i v-else class="fa fa-square-o"></i>
+    </td>
     <td>{{ workRequest.workflow.name }}</td>
     <td>
         <template v-if="workableEditUrl">

@@ -2,9 +2,6 @@ import Form from 'belt/core/js/work-requests/form';
 
 export default {
     namespaced: true,
-    xstate: {
-        form: new Form(),
-    },
     state () {
         return {
             form: new Form(),

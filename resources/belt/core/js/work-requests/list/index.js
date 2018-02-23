@@ -1,5 +1,6 @@
 import Table from 'belt/core/js/work-requests/table';
 import filterSearch from 'belt/core/js/inputs/filter-search';
+import filterIsOpen from 'belt/core/js/work-requests/list/filters/is_open';
 import filterType from 'belt/core/js/work-requests/list/filters/type';
 import filterWorkflow from 'belt/core/js/work-requests/list/filters/workflow';
 import listItem from 'belt/core/js/work-requests/list/list-item';
@@ -24,6 +25,7 @@ export default {
                         query.page = 1;
                         this.table.updateQuery(query);
                     }
+
                     this.table.index()
                         .then(() => {
                             this.table.pushQueryToHistory();
@@ -33,6 +35,7 @@ export default {
             },
             components: {
                 filterSearch,
+                filterIsOpen,
                 filterType,
                 filterWorkflow,
                 listItem,

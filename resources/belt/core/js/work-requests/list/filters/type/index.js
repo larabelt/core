@@ -30,9 +30,11 @@ export default {
         }
     },
     mounted() {
+        this.table.updateQueryFromRouter();
         this.groupedItems.updateQuery({
             groupBy: 'work_requests.workable_type',
         });
+        this.workable_type = this.table.query.workable_type;
         this.groupedItems.index();
     },
     watch: {

@@ -11,7 +11,7 @@
 @endif
 
 @if($can['workRequests'])
-    <li><a href="/admin/belt/core/work-requests"><i class="fa fa-tasks"></i> <span>Work Requests</span></a></li>
+    <li><a href="/admin/belt/core/work-requests?is_open=1"><i class="fa fa-tasks"></i> <span>Work Requests</span></a></li>
 @endif
 
 @if($can['users'] || $can['teams'] || $can['roles'])
