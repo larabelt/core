@@ -82,8 +82,16 @@ class WorkflowService
      */
     public function handle(WorkflowInterface $workflow, Model $workable = null, $user = null, $payload = [])
     {
-        if ($workflow->begin($workable, $user, $payload)) {
+        $params = [
+          'workable' => $workable,
+          'user' => $user,
+          'payload' => $payload,
+        ];
+
+        if ($workflow->shouldStart($params)) {
             $this->createWorkRequest($workflow, $workable, $workflow->initialPlace(), $payload);
+            dump(111);
+            $workflow->start($params);
         }
     }
 
@@ -99,13 +107,13 @@ class WorkflowService
         WorkRequest::unguard();
 
         $workRequest = $this->getQB()->firstOrCreate([
+            'is_open' => true,
             'workable_id' => $workable->id,
             'workable_type' => $workable->getMorphClass(),
             'workflow_key' => $workflow::KEY,
         ]);
 
         $workRequest->update([
-            'is_open' => true,
             'place' => $place,
             'payload' => $payload,
         ]);
@@ -164,7 +172,7 @@ class WorkflowService
         $marking = new SingleStateMarkingStore('place');
 
         // workflow
-        $helper = new Helper($definition, $marking, null, $workflow->getKey());
+        $helper = new Helper($definition, $marking, null, $workflow->key());
 
         return $helper;
     }

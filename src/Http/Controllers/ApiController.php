@@ -114,9 +114,13 @@ class ApiController extends Controller
             'created' => Belt\Core\Events\ItemCreated::class,
             'updated' => Belt\Core\Events\ItemUpdated::class,
             'deleted' => Belt\Core\Events\ItemDeleted::class,
+            'attached' => Belt\Core\Events\ItemUpdated::class,
+            'detached' => Belt\Core\Events\ItemUpdated::class,
         ];
 
-        $class = array_get($classes, $type);
+        $subtype = @end(explode('.', $type));
+
+        $class = array_get($classes, $subtype);
 
         if ($class) {
             $event = new $class($item, $name);

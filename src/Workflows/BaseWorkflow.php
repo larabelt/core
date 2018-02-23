@@ -14,22 +14,27 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     /**
      * @var array
      */
-    protected $places = [];
+    protected static $events = [];
+
+    /**
+     * @var array
+     */
+    protected static $places = [];
 
     /**
      * @var string
      */
-    protected $initialPlace = 'start';
+    protected static $initialPlace = 'start';
 
     /**
      * @var array
      */
-    protected $transitions = [];
+    protected static $transitions = [];
 
     /**
      * @var array
      */
-    protected $closers = [];
+    protected static $closers = [];
 
     /**
      * @var Model
@@ -43,7 +48,7 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      *
      * @throws \RuntimeException
      */
-    public static function getKey()
+    public static function key()
     {
         return static::KEY;
     }
@@ -60,11 +65,56 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     }
 
     /**
+     * @return array|mixed
+     */
+    public static function events()
+    {
+        return static::$events;
+    }
+
+    /**
+     * @return string
+     */
+    public static function initialPlace()
+    {
+        return static::$initialPlace;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public static function places()
+    {
+        return static::$places;
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public static function transitions()
+    {
+        return static::$transitions;
+    }
+
+    /**
+     * @return array
+     */
+    public static function closers()
+    {
+        return static::$closers;
+    }
+
+    /**
      * @return bool
      */
-    public function begin($workable = null, $user = null, $payload = [])
+    public function shouldStart($params = [])
     {
         return true;
+    }
+
+    public function start($params = [])
+    {
+
     }
 
     /**
@@ -81,38 +131,6 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
     public function getWorkable()
     {
         return $this->workable;
-    }
-
-    /**
-     * @return string
-     */
-    public function initialPlace()
-    {
-        return $this->initialPlace;
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function places()
-    {
-        return $this->places;
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function transitions()
-    {
-        return $this->transitions;
-    }
-
-    /**
-     * @return array
-     */
-    public function closers()
-    {
-        return $this->closers;
     }
 
     /**

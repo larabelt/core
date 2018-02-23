@@ -22,24 +22,50 @@ interface WorkflowInterface
     const NAME = null;
 
     /**
-     * Get the registered name of the workflow.
-     *
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public static function getKey();
-
-    /**
      * BaseWorkflow constructor.
      * @param Model $workable
      */
     public function __construct(Model $workable = null);
 
     /**
+     * Get the registered name of the workflow.
+     *
+     * @return string
+     *
+     * @throws \RuntimeException
+     */
+    public static function key();
+
+    /**
+     * @return string
+     */
+    public static function initialPlace();
+
+    /**
+     * @return array|mixed
+     */
+    public static function places();
+
+    /**
+     * @return array|mixed
+     */
+    public static function transitions();
+
+    /**
+     * @return array
+     */
+    public static function closers();
+
+    /**
+     * @param array $params
      * @return bool
      */
-    public function begin($workable = null, $payload = []);
+    public function shouldStart($params = []);
+
+    /**
+     * @param array $params
+     */
+    public function start($params = []);
 
     /**
      * @param Model $workable
@@ -50,26 +76,6 @@ interface WorkflowInterface
      * @return Model $workable
      */
     public function getWorkable();
-
-    /**
-     * @return string
-     */
-    public function initialPlace();
-
-    /**
-     * @return array|mixed
-     */
-    public function places();
-
-    /**
-     * @return array|mixed
-     */
-    public function transitions();
-
-    /**
-     * @return array
-     */
-    public function closers();
 
     /**
      * @return array
