@@ -14,6 +14,7 @@ class Form extends BaseForm {
             workflow_key: null,
             place: null,
             transition: '',
+            reset: false,
             payload: {},
             workflow: {},
         })
@@ -24,6 +25,7 @@ class Form extends BaseForm {
      */
     setData(data) {
         data.transition = data.transition ? data.transition : '';
+        data.reset = data.reset ? data.reset : false;
         super.setData(data);
     }
 

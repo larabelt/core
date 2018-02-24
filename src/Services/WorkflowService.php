@@ -83,14 +83,13 @@ class WorkflowService
     public function handle(WorkflowInterface $workflow, Model $workable = null, $user = null, $payload = [])
     {
         $params = [
-          'workable' => $workable,
-          'user' => $user,
-          'payload' => $payload,
+            'workable' => $workable,
+            'user' => $user,
+            'payload' => $payload,
         ];
 
         if ($workflow->shouldStart($params)) {
             $this->createWorkRequest($workflow, $workable, $workflow->initialPlace(), $payload);
-            dump(111);
             $workflow->start($params);
         }
     }
@@ -149,6 +148,27 @@ class WorkflowService
 
             $workRequest->save();
         };
+
+        return $workRequest;
+    }
+
+    /**
+     * @param WorkRequest $workRequest
+     * @param array $payload
+     * @return WorkRequest
+     */
+    public function reset(WorkRequest $workRequest, $payload = [])
+    {
+        $workflow = $workRequest->getWorkflow();
+
+        $workRequest->is_open = true;
+        $workRequest->place = $workflow::initialPlace();
+        $workRequest->save();
+
+        $workflow->start([
+            'workable' => $workRequest->workable,
+            'payload' => $payload,
+        ]);
 
         return $workRequest;
     }

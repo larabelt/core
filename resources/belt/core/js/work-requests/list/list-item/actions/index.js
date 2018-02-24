@@ -13,9 +13,16 @@ export default {
         }
     },
     methods: {
-        submit(key) {
-            let open = this.workRequest.is_open;
+        update(key) {
             this.workRequest.transition = key;
+            this.submit();
+        },
+        reset(key) {
+            this.workRequest.reset = true;
+            this.submit();
+        },
+        submit() {
+            let open = this.workRequest.is_open;
             this.workRequest.submit()
                 .then(() => {
 
@@ -32,7 +39,7 @@ export default {
                         this.$store.dispatch(workableStoreKey + '/load', this.workRequest.workable_id);
                     }
                 });
-        },
+        }
     },
     template: html,
 }

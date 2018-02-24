@@ -122,6 +122,10 @@ class WorkRequestsController extends ApiController
             $workRequest = $this->service()->apply($workRequest, $transition);
         }
 
+        if ($reset = $request->get('reset')) {
+            $workRequest = $this->service()->reset($workRequest);
+        }
+
         return response()->json($workRequest);
     }
 
