@@ -39,7 +39,6 @@ class UpdateCommand extends Command
     {
         $this->service = $this->service ?: new UpdateService([
             'console' => $this,
-            'version' => $this->option('v') ?: Belt\Core\BeltCoreServiceProvider::VERSION,
         ]);
 
         return $this->service;
@@ -54,7 +53,11 @@ class UpdateCommand extends Command
     {
         $service = $this->service();
 
-        $service->update();
+        $version = $this->option('v') ?: Belt\Core\BeltCoreServiceProvider::VERSION;
+
+        $service->registerUpdates();
+
+        $service->run($version);
     }
 
 

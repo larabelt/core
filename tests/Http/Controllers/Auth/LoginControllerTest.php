@@ -5,6 +5,7 @@ use Belt\Core\Testing;
 use Belt\Core\Http\Controllers\Auth\LoginController;
 use Belt\Core\Team;
 use Belt\Core\User;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,6 +22,7 @@ class LoginControllerTest extends Testing\BeltTestCase
      * @cover \Belt\Core\Http\Controllers\Auth\LoginController::showLoginForm
      * @cover \Belt\Core\Http\Controllers\Auth\LoginController::logout
      * @cover \Belt\Core\Http\Controllers\Auth\LoginController::redirectTo
+     * @cover \Belt\Core\Http\Controllers\Auth\LoginController::credentials
      */
     public function test()
     {
@@ -45,6 +47,12 @@ class LoginControllerTest extends Testing\BeltTestCase
         # redirect to (team user)
         $controller = new LoginControllerStub3();
         $this->assertEquals('/admin', $controller->redirectTo());
+
+        # credentials
+        $controller = new LoginControllerStub1();
+        $credentials = $controller->credentialsTest(new Request(['email' => 'super@larabelt.org', 'password' => 'secret']));
+        $this->assertEquals(true, array_get($credentials, 'is_active'));
+
     }
 
 }
@@ -61,6 +69,11 @@ class LoginControllerStub1 extends LoginController
         $guard->shouldReceive('user')->once()->andReturn($user);
 
         return $guard;
+    }
+
+    public function credentialsTest(Request $request)
+    {
+        return parent::credentials($request);
     }
 }
 
