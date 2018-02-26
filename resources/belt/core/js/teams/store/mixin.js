@@ -5,7 +5,6 @@ export default {
     created() {
         if (!this.$store.state[this.storeKey]) {
             this.$store.registerModule(this.storeKey, store);
-            this.$store.dispatch(this.storeKey + '/load', this.team_id);
         }
     },
     computed: {
@@ -14,9 +13,6 @@ export default {
         },
         team() {
             return this.$store.getters[this.storeKey + '/form'];
-        },
-        roles() {
-            return this.$store.getters[this.storeKey + '/roles/data'];
         },
     },
     methods: {

@@ -17,7 +17,7 @@ class ItemEventTraitTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Events\ItemEventTrait::__construct
-     * @covers \Belt\Core\Events\ItemEventTrait::morph
+     * @covers \Belt\Core\Events\ItemEventTrait::item
      * @covers \Belt\Core\Events\ItemEventTrait::setId
      * @covers \Belt\Core\Events\ItemEventTrait::getId
      * @covers \Belt\Core\Events\ItemEventTrait::setType
@@ -36,9 +36,9 @@ class ItemEventTraitTest extends Testing\BeltTestCase
         # type
         $this->assertEquals('users', $event->getType());
 
-        # morph
+        # item
         Morph::shouldReceive('morph')->with('users', 123)->andReturn($user);
-        $event->morph();
+        $event->item();
 
     }
 

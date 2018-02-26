@@ -3,10 +3,15 @@
     $can['users'] = Auth::user()->can('edit', Belt\Core\User::class);
     $can['teams'] = Auth::user()->can('edit', Belt\Core\Team::class);
     $can['roles'] = Auth::user()->can('edit', Belt\Core\Role::class);
+    $can['workRequests'] = Auth::user()->can('edit', Belt\Core\WorkRequest::class);
 @endphp
 
 @if($can['alerts'])
     <li><a href="/admin/belt/core/alerts"><i class="fa fa-bullhorn"></i> <span>Alerts</span></a></li>
+@endif
+
+@if($can['workRequests'])
+    <li><a href="/admin/belt/core/work-requests?is_open=1"><i class="fa fa-tasks"></i> <span>Work Requests</span></a></li>
 @endif
 
 @if($can['users'] || $can['teams'] || $can['roles'])

@@ -52,6 +52,11 @@ class PaginateRequest extends Request implements
     /**
      * @var array
      */
+    public $groupable = [];
+
+    /**
+     * @var array
+     */
     public $meta = [];
 
     /**
@@ -175,6 +180,18 @@ class PaginateRequest extends Request implements
         }
 
         return (string) $this->sortBy;
+    }
+
+    /**
+     * @return string
+     */
+    public function groupBy()
+    {
+        $groupBy = strtolower($this->query('groupBy'));
+
+        if ($groupBy && in_array($groupBy, (array) $this->groupable)) {
+            return (string) $groupBy;
+        }
     }
 
     /**

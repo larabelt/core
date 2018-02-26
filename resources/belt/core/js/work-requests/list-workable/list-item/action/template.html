@@ -1,0 +1,13 @@
+<span>
+    <div class="col-md-11 text-right">
+        Move item to <code>{{ transition.to }}</code>. {{ transition.label }}
+    </div>
+    <div class="col-md-1 text-right">
+        <form @submit.prevent="submit()" @keydown="workRequest.errors.clear($event.target.name)">
+            <button class="btn btn-primary btn-xs" :disabled="workRequest.errors.any()">
+                <span v-if="workRequest.saving"><i class="fa fa-spinner fa-pulse fa-fw"></i></span>
+                <span v-else>{{ humanize(label) }}</span>
+            </button>
+        </form>
+    </div>
+</span>

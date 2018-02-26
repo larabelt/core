@@ -68,7 +68,7 @@ class MorphHelper
      *
      * @param $type
      * @param $id
-     * @return null
+     * @return Model|null
      */
     public function morph($type, $id)
     {

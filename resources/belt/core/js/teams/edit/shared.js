@@ -1,4 +1,3 @@
-import heading_html from 'belt/core/js/templates/heading.html';
 import tabs_html from 'belt/core/js/teams/edit/tabs.html';
 import html from 'belt/core/js/teams/edit/template.html';
 
@@ -10,7 +9,6 @@ export default {
         }
     },
     components: {
-        heading: {template: heading_html},
         tabs: {template: tabs_html},
         edit: {},
     },

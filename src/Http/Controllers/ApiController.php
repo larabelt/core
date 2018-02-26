@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers;
 
+use Belt, Event;
 use Belt\Core\Http\Exceptions;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
@@ -99,6 +100,33 @@ class ApiController extends Controller
         } elseif (array_key_exists($key, $input) && $value = $input[$key]) {
             $item->$key = $value;
         }
+    }
+
+    /**
+     * @param $type
+     * @param $item
+     */
+    public function itemEvent($type, $item)
+    {
+        $name = sprintf('%s.%s', $item->getMorphClass(), $type);
+
+        $classes = [
+            'created' => Belt\Core\Events\ItemCreated::class,
+            'updated' => Belt\Core\Events\ItemUpdated::class,
+            'deleted' => Belt\Core\Events\ItemDeleted::class,
+            'attached' => Belt\Core\Events\ItemUpdated::class,
+            'detached' => Belt\Core\Events\ItemUpdated::class,
+        ];
+
+        $subtype = @end(explode('.', $type));
+
+        $class = array_get($classes, $subtype);
+
+        if ($class) {
+            $event = new $class($item, $name);
+            Event::dispatch($name, $event);
+        }
+
     }
 
 }

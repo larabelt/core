@@ -3,6 +3,7 @@
 namespace Belt\Core\Jobs;
 
 use Belt, Illuminate;
+use Belt\Core\Services\IndexService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -27,13 +28,16 @@ class UpdateIndexRecord implements
     public $tries = 5;
 
     /**
-     * UpdateIndexRecord constructor.
+     * @var IndexService
      */
-    public function __construct(Model $item)
+    public $service;
+
+    /**
+     * @return IndexService
+     */
+    public function service()
     {
-        $this->setId($item->id);
-        $this->setType($item->getMorphClass());
-        $this->service = new Belt\Core\Services\IndexService();
+        return $this->service ?: new IndexService();
     }
 
     /**
@@ -43,8 +47,8 @@ class UpdateIndexRecord implements
      */
     public function handle()
     {
-        if ($item = $this->morph()) {
-            $this->service->setItem($item)->upsert();
+        if ($item = $this->item()) {
+            $this->service()->setItem($item)->upsert();
         }
     }
 

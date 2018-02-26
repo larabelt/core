@@ -1,0 +1,54 @@
+<div class="box box-primary">
+    <div class="box-body">
+
+        <div class="filter-set clearfix">
+            <div class="pull-left">
+                <filter-search @filter-search-update="filter"></filter-search>
+            </div>
+            <div class="pull-left">
+                <filter-is-open @filter-is_open-update="filter">Is Open</filter-is-open>
+            </div>
+            <div class="pull-left">
+                <filter-workflow @filter-workflow-update="filter">Workflow</filter-workflow>
+            </div>
+            <div class="pull-left">
+                <filter-type @filter-workable_type-update="filter">Item Type</filter-type>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID <column-sorter :column="'work_requests.id'"></column-sorter></th>
+                        <th>Is Open</th>
+                        <th>Workflow</th>
+                        <th>Primary Item</th>
+                        <th>Status</th>
+                        <th>Created <column-sorter :column="'work_requests.created_at'"></column-sorter></th>
+                        <th>Updated <column-sorter :column="'work_requests.updated_at'"></column-sorter></th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template v-for="workRequest in table.items">
+                        <list-item @workRequest-action-success="filter" :work_request_id="workRequest.id" :work_request_data="workRequest"></list-item>
+                    </template>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Is Open</th>
+                        <th>Workflow</th>
+                        <th>Primary Item</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <pagination></pagination>
+    </div>
+</div>
