@@ -4,6 +4,7 @@ namespace Belt\Core\Services\Update;
 
 use Belt;
 use Belt\Core\Behaviors\HasConsole;
+use Illuminate\Support\Traits\Macroable;
 
 /**
  * Class UpdateService
@@ -11,17 +12,12 @@ use Belt\Core\Behaviors\HasConsole;
  */
 class UpdateService
 {
-    use HasConsole;
-
-    /**
-     * @var string
-     */
-    public $version;
+    use HasConsole, Macroable;
 
     /**
      * @var array
      */
-    public $directory;
+    public $path;
 
     /**
      * PublishService constructor.
@@ -30,34 +26,54 @@ class UpdateService
     public function __construct($options = [])
     {
         $this->console = array_get($options, 'console');
-        $this->version = array_get($options, 'version', Belt\Core\BeltCoreServiceProvider::VERSION);
-        $this->directory = scandir(__DIR__ . '/updates');
+        $this->path = array_get($options, 'path', __DIR__ . '/updates');
     }
 
     /**
-     * Run update by version
+     * Register updates
+     *
+     * @codeCoverageIgnore
      */
-    public function update()
+    public function registerUpdates()
     {
-        switch ($this->version) {
-            case '1.2.15':
-                if (belt()->uses('content')) {
-                    $this->__update('templates1.php');
-                }
-                break;
+        $this->register('1.2.15', function () {
+            if (belt()->uses('content')) {
+                $this->runUpdate('templates1.php');
+            }
+        });
+    }
+
+    /**
+     * @param $version
+     * @param callable $macro
+     */
+    public static function register($version, callable $macro)
+    {
+        static::macro(base64_encode($version), $macro);
+    }
+
+    /**
+     * @param $version
+     */
+    public function run($version)
+    {
+        $name = base64_encode($version);
+        if (static::hasMacro($name)) {
+            static::$name($this);
         }
     }
+
 
     /**
      * Find corresponding update file and run it
      *
      * @param $key
      */
-    public function __update($key)
+    public function runUpdate($key)
     {
-        foreach ($this->directory as $file) {
+        foreach (scandir($this->path) as $file) {
             if (str_contains($file, $key)) {
-                include __DIR__ . '/updates/' . $file;
+                include sprintf('%s/%s', $this->path, $file);
                 $class = 'BeltUpdate' . title_case(str_replace('.php', '', $key));
                 $updater = new $class(['console' => $this->console]);
                 $updater->up();
