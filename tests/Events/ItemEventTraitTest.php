@@ -6,6 +6,7 @@ use Belt\Core\Testing;
 use Belt\Core\Events\ItemEventTrait;
 use Belt\Core\Events\ItemEventInterface;
 use Belt\Core\Facades\MorphFacade as Morph;
+use Illuminate\Support\Facades\Auth;
 
 class ItemEventTraitTest extends Testing\BeltTestCase
 {
@@ -17,28 +18,46 @@ class ItemEventTraitTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Events\ItemEventTrait::__construct
+     * @covers \Belt\Core\Events\ItemEventTrait::setName
+     * @covers \Belt\Core\Events\ItemEventTrait::getName
      * @covers \Belt\Core\Events\ItemEventTrait::item
-     * @covers \Belt\Core\Events\ItemEventTrait::setId
-     * @covers \Belt\Core\Events\ItemEventTrait::getId
-     * @covers \Belt\Core\Events\ItemEventTrait::setType
-     * @covers \Belt\Core\Events\ItemEventTrait::getType
+     * @covers \Belt\Core\Events\ItemEventTrait::setItemId
+     * @covers \Belt\Core\Events\ItemEventTrait::getItemId
+     * @covers \Belt\Core\Events\ItemEventTrait::setItemType
+     * @covers \Belt\Core\Events\ItemEventTrait::getItemType
+     * @covers \Belt\Core\Events\ItemEventTrait::user
+     * @covers \Belt\Core\Events\ItemEventTrait::setUserID
+     * @covers \Belt\Core\Events\ItemEventTrait::getUserID
      */
     public function test()
     {
         User::unguard();
 
         $user = factory(User::class)->make(['id' => 123]);
-        $event = new ItemEventTraitStub($user);
+        $event = new ItemEventTraitStub($user, 'users.stubbed');
 
-        # id
-        $this->assertEquals(123, $event->getId());
-
-        # type
-        $this->assertEquals('users', $event->getType());
+        # name
+        $this->assertEquals('users.stubbed', $event->getName());
 
         # item
+        $this->assertEquals(123, $event->getItemId());
+        $this->assertEquals('users', $event->getItemType());
         Morph::shouldReceive('morph')->with('users', 123)->andReturn($user);
-        $event->item();
+        $this->assertEquals($user, $event->item());
+
+        # user
+
+        $this->assertNull($event->user());
+        $auth = factory(User::class)->make(['id' => 999]);
+        $event->setUserID(999);
+        $this->assertEquals(999, $event->getUserID());
+        Morph::shouldReceive('morph')->with('users', 999)->andReturn($auth);
+        $this->assertEquals($auth, $event->user());
+
+        # user (null)
+        Auth::shouldReceive('id')->andReturn(99999);
+        $event = new ItemEventTraitStub($user, 'users.stubbed');
+        $this->assertEquals(99999, $event->getUserID());
 
     }
 

@@ -35,11 +35,6 @@ trait ItemEventTrait
     private $userID;
 
     /**
-     * @var Builder
-     */
-    private $userQB;
-
-    /**
      * Create a new event instance.
      *
      * @param Model $item
@@ -89,7 +84,7 @@ trait ItemEventTrait
     public function user()
     {
         if ($userID = $this->getUserID()) {
-            return $this->getUserQB()->find($userID);
+            return Morph::morph('users', $userID);
         }
     }
 
@@ -139,22 +134,6 @@ trait ItemEventTrait
     public function getUserID()
     {
         return $this->userID;
-    }
-
-    /**
-     * @param Builder $qb
-     */
-    public function setUserQB($qb)
-    {
-        $this->userQB = $qb;
-    }
-
-    /**
-     * @return Builder
-     */
-    public function getUserQB()
-    {
-        return $this->userQB ?: $this->userQB = User::query();
     }
 
 }

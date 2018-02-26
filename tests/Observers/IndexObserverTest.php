@@ -32,7 +32,7 @@ class IndexObserverTest extends Testing\BeltTestCase
         $item = new IndexObserverStub(['id' => 123]);
         (new IndexObserver())->saved($item);
         Queue::assertPushed(UpdateIndexRecord::class, function ($job) use ($item) {
-            return $job->id === 123;
+            return $job->getItemID() === 123;
         });
     }
 
@@ -44,7 +44,7 @@ class IndexObserverTest extends Testing\BeltTestCase
         $item = new IndexObserverStub(['id' => 123]);
         (new IndexObserver())->deleted($item);
         Queue::assertPushed(UpdateIndexRecord::class, function ($job) use ($item) {
-            return $job->id === 123;
+            return $job->getItemID() === 123;
         });
     }
 

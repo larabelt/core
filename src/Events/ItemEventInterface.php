@@ -64,14 +64,4 @@ interface ItemEventInterface
      */
     public function setUserId($id);
 
-    /**
-     * @return integer
-     */
-    public function getUserQB();
-
-    /**
-     * @param Builder $qb
-     */
-    public function setUserQB($qb);
-
 }

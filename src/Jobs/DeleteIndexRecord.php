@@ -31,8 +31,8 @@ class DeleteIndexRecord implements
      */
     public function __construct(Model $item)
     {
-        $this->setId($item->id);
-        $this->setType($item->getMorphClass());
+        $this->setItemId($item->id);
+        $this->setItemType($item->getMorphClass());
         $this->service = new Belt\Core\Services\IndexService();
     }
 
@@ -43,7 +43,7 @@ class DeleteIndexRecord implements
      */
     public function handle()
     {
-        $this->service->delete($this->getId(), $this->getType());
+        $this->service->delete($this->getItemId(), $this->getItemType());
     }
 
 }
