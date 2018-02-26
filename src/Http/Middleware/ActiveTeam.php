@@ -67,9 +67,6 @@ class ActiveTeam
      */
     public function handle($request, Closure $next)
     {
-//        dump(111);
-//        dump(request()->fullUrlWithQuery(['active_team_id' => 123]));
-//        exit;
         $service = $this->service($request);
 
         if ($request->query->has('team_id') && !$request->query->get('team_id')) {
