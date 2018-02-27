@@ -2,7 +2,6 @@
 
 use Mockery as m;
 use Belt\Core\Testing\BeltTestCase;
-use Belt\Core\WorkRequest;
 use Belt\Core\Workflows\BaseWorkflow;
 use Belt\Core\Services\WorkflowService;
 

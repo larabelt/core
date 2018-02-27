@@ -13,6 +13,7 @@ use Illuminate\Database\Schema\Blueprint;
  */
 class IndexService
 {
+    use Belt\Core\Behaviors\CanEnable;
     use Belt\Core\Behaviors\HasConsole;
     use Belt\Core\Behaviors\HasPrimaryModel;
 
@@ -21,10 +22,10 @@ class IndexService
      */
     protected static $primaryModel = Index::class;
 
-    /**
-     * @var bool
-     */
-    protected static $enabled = false;
+//    /**
+//     * @var bool
+//     */
+//    protected static $enabled = false;
 
     /**
      * @var Model
@@ -41,29 +42,29 @@ class IndexService
         $this->setConsole(array_get($options, 'console'));
     }
 
-    /**
-     * Enable service
-     */
-    public static function enable()
-    {
-        self::$enabled = true;
-    }
-
-    /**
-     * Disable service
-     */
-    public static function disable()
-    {
-        self::$enabled = false;
-    }
-
-    /**
-     * Check if service is enabled
-     */
-    public static function isEnabled()
-    {
-        return self::$enabled;
-    }
+//    /**
+//     * Enable service
+//     */
+//    public static function enable()
+//    {
+//        self::$enabled = true;
+//    }
+//
+//    /**
+//     * Disable service
+//     */
+//    public static function disable()
+//    {
+//        self::$enabled = false;
+//    }
+//
+//    /**
+//     * Check if service is enabled
+//     */
+//    public static function isEnabled()
+//    {
+//        return self::$enabled;
+//    }
 
     /**
      * @param Model $item

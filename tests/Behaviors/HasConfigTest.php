@@ -14,11 +14,11 @@ class HasConfigTest extends BeltTestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\HasConfig::configPath
-     * covers \Belt\Core\Behaviors\HasConfig::configDefaults
-     * covers \Belt\Core\Behaviors\HasConfig::setConfig
-     * covers \Belt\Core\Behaviors\HasConfig::getConfig
-     * covers \Belt\Core\Behaviors\HasConfig::config
+     * @covers \Belt\Core\Behaviors\HasConfig::configPath
+     * @covers \Belt\Core\Behaviors\HasConfig::configDefaults
+     * @covers \Belt\Core\Behaviors\HasConfig::setConfig
+     * @covers \Belt\Core\Behaviors\HasConfig::getConfig
+     * @covers \Belt\Core\Behaviors\HasConfig::config
      */
     public function test()
     {

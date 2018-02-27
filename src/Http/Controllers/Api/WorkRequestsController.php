@@ -3,9 +3,11 @@
 namespace Belt\Core\Http\Controllers\Api;
 
 use Belt\Core\WorkRequest;
-use Belt\Core\Services\WorkflowService;
 use Belt\Core\Http\Requests;
+use Belt\Core\Http\Controllers\Morphable;
 use Belt\Core\Http\Controllers\ApiController;
+use Belt\Core\Services\WorkflowService;
+use Belt\Core\Services\WorkflowServiceTrait;
 use Illuminate\Http\Request;
 
 /**
@@ -14,16 +16,13 @@ use Illuminate\Http\Request;
  */
 class WorkRequestsController extends ApiController
 {
+    use Morphable;
+    use WorkflowServiceTrait;
 
     /**
      * @var WorkRequest
      */
     public $workRequests;
-
-    /**
-     * @var WorkflowService
-     */
-    public $service;
 
     /**
      * ApiController constructor.
@@ -32,14 +31,6 @@ class WorkRequestsController extends ApiController
     public function __construct(WorkRequest $workRequest)
     {
         $this->workRequests = $workRequest;
-    }
-
-    /**
-     * @return WorkflowService
-     */
-    public function service()
-    {
-        return $this->service ?: new WorkflowService();
     }
 
     /**
@@ -69,7 +60,9 @@ class WorkRequestsController extends ApiController
 
         $input = $request->all();
 
-        $workRequest = $this->workRequests->firstOrCreate([
+        $this->morphable($input['workable_type'], $input['workable_id']);
+
+        $workRequest = $this->workRequests->create([
             'workable_id' => $input['workable_id'],
             'workable_type' => $input['workable_type'],
             'workflow_key' => $input['workflow_key'],
@@ -119,12 +112,14 @@ class WorkRequestsController extends ApiController
         $workRequest->save();
 
         if ($transition = $request->get('transition')) {
-            $workRequest = $this->service()->apply($workRequest, $transition);
+            $workRequest = $this->workflowService()->apply($workRequest, $transition);
         }
 
         if ($reset = $request->get('reset')) {
-            $workRequest = $this->service()->reset($workRequest);
+            $workRequest = $this->workflowService()->reset($workRequest);
         }
+
+        $workRequest->save();
 
         return response()->json($workRequest);
     }

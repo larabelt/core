@@ -3,8 +3,7 @@
 namespace Belt\Core\Http\Requests;
 
 use Belt;
-use Belt\Core\Services\WorkflowService;
-use Illuminate\Validation\Rule;
+use Belt\Core\Services\WorkflowServiceTrait;
 
 /**
  * Class UpdateWorkRequest
@@ -12,18 +11,7 @@ use Illuminate\Validation\Rule;
  */
 class UpdateWorkRequest extends Belt\Core\Http\Requests\FormRequest
 {
-    /**
-     * @var WorkflowService
-     */
-    public $service;
-
-    /**
-     * @return WorkflowService
-     */
-    public function service()
-    {
-        return $this->service ?: new WorkflowService();
-    }
+    use WorkflowServiceTrait;
 
     /**
      * @return array
@@ -35,7 +23,7 @@ class UpdateWorkRequest extends Belt\Core\Http\Requests\FormRequest
         $workRequest = $this->route('workRequest');
 
         if ($this->get('transition')) {
-            $availableTransitions = $this->service()->availableTransitions($workRequest->getWorkflow(), $workRequest->place);
+            $availableTransitions = $this->workflowService()->availableTransitions($workRequest->getWorkflow(), $workRequest->place);
             $rules['transition'] = [
                 'sometimes',
                 'required',

@@ -14,10 +14,10 @@ class HasConsoleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\HasConsole::getConsole
-     * covers \Belt\Core\Behaviors\HasConsole::setConsole
-     * covers \Belt\Core\Behaviors\HasConsole::info
-     * covers \Belt\Core\Behaviors\HasConsole::warn
+     * @covers \Belt\Core\Behaviors\HasConsole::getConsole
+     * @covers \Belt\Core\Behaviors\HasConsole::setConsole
+     * @covers \Belt\Core\Behaviors\HasConsole::info
+     * @covers \Belt\Core\Behaviors\HasConsole::warn
      */
     public function test()
     {

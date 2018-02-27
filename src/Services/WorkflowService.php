@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Services;
 
-use Belt;
+use Belt, Morph;
 use Belt\Core\Workflows\WorkflowInterface;
 use Belt\Core\WorkRequest;
 use Illuminate\Database\Eloquent\Model;
@@ -13,8 +13,6 @@ use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
 class WorkflowService
 {
-//    use Belt\Core\Behaviors\CanEnable;
-
     /**
      * @var array
      */
@@ -25,10 +23,10 @@ class WorkflowService
      */
     private $workable;
 
-    /**
-     * @var WorkRequest
-     */
-    private $qb;
+//    /**
+//     * @var WorkRequest
+//     */
+//    private $qb;
 
     /**
      * @param string
@@ -51,29 +49,29 @@ class WorkflowService
         return static::$workflows;
     }
 
-    /**
-     * WorkflowService constructor.
-     */
-    public function __construct()
-    {
-        $this->setQB(new WorkRequest());
-    }
+//    /**
+//     * WorkflowService constructor.
+//     */
+//    public function __construct()
+//    {
+//        $this->setQB(new WorkRequest());
+//    }
 
-    /**
-     * @param WorkRequest $qb
-     */
-    public function setQB(WorkRequest $qb)
-    {
-        $this->qb = $qb;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getQB()
-    {
-        return $this->qb;
-    }
+//    /**
+//     * @param WorkRequest $qb
+//     */
+//    public function setQB(WorkRequest $qb)
+//    {
+//        $this->qb = $qb;
+//    }
+//
+//    /**
+//     * @return mixed
+//     */
+//    public function getQB()
+//    {
+//        return $this->qb;
+//    }
 
     /**
      * @param WorkflowInterface $workflow
@@ -105,7 +103,9 @@ class WorkflowService
     {
         WorkRequest::unguard();
 
-        $workRequest = $this->getQB()->firstOrCreate([
+        $qb = Morph::type2QB('work_requests');
+
+        $workRequest = $qb->firstOrCreate([
             'is_open' => true,
             'workable_id' => $workable->id,
             'workable_type' => $workable->getMorphClass(),
@@ -162,7 +162,8 @@ class WorkflowService
         $workflow = $workRequest->getWorkflow();
 
         $workRequest->is_open = true;
-        $workRequest->place = $workflow::initialPlace();
+        //$workRequest->place = $workflow::initialPlace();
+        $workRequest->place = null;
         $workRequest->save();
 
         $workflow->start([
@@ -179,6 +180,7 @@ class WorkflowService
      */
     public function helper(WorkflowInterface $workflow)
     {
+
         // definition
         $builder = new DefinitionBuilder();
         $builder->setInitialPlace($workflow->initialPlace());

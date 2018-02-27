@@ -78,6 +78,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         // observers
         Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
+        Belt\Core\WorkRequest::observe(Belt\Core\Observers\WorkRequestObserver::class);
 
         // morphMap
         Relation::morphMap([
@@ -87,6 +88,7 @@ class BeltCoreServiceProvider extends ServiceProvider
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
             'users' => Belt\Core\User::class,
+            'work_requests' => Belt\Core\WorkRequest::class,
         ]);
 
         // route model binding

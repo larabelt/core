@@ -29,9 +29,6 @@ class IndexServiceTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Services\IndexService::__construct
-     * @covers \Belt\Core\Services\IndexService::enable
-     * @covers \Belt\Core\Services\IndexService::disable
-     * @covers \Belt\Core\Services\IndexService::isEnabled
      * @covers \Belt\Core\Services\IndexService::setItem
      * @covers \Belt\Core\Services\IndexService::getItem
      * @covers \Belt\Core\Services\IndexService::data
@@ -47,12 +44,6 @@ class IndexServiceTest extends Testing\BeltTestCase
         $console = new Command();
         $service = new IndexService(['console' => $console]);
         $this->assertEquals($console, $service->getConsole());
-
-        # enable / disable / isEnabled
-        IndexService::disable();
-        $this->assertEquals(false, IndexService::isEnabled());
-        IndexService::enable();
-        $this->assertEquals(true, IndexService::isEnabled());
 
         # item
         $team = factory(Team::class)->make(['id' => 123]);

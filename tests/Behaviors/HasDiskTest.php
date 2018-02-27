@@ -15,7 +15,7 @@ class HasDiskTest extends Testing\BeltTestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\HasDisk::disk
+     * @covers \Belt\Core\Behaviors\HasDisk::disk
      */
     public function test()
     {

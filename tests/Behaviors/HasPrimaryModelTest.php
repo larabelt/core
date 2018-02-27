@@ -13,9 +13,9 @@ class HasPrimaryModelTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\HasPrimaryModel::instance
-     * covers \Belt\Core\Behaviors\HasPrimaryModel::query
-     * covers \Belt\Core\Behaviors\HasPrimaryModel::table
+     * @covers \Belt\Core\Behaviors\HasPrimaryModel::instance
+     * @covers \Belt\Core\Behaviors\HasPrimaryModel::query
+     * @covers \Belt\Core\Behaviors\HasPrimaryModel::table
      */
     public function test()
     {

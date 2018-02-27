@@ -20,7 +20,6 @@ class StoreParam extends FormRequest
                 'required',
                 $this->ruleUnique('params', ['paramable_type', 'paramable_id', 'key']),
             ],
-            //'value' => 'required',
         ];
     }
 
