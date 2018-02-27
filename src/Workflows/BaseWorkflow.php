@@ -41,17 +41,17 @@ class BaseWorkflow implements Belt\Core\Workflows\WorkflowInterface
      */
     protected $workable;
 
-    /**
-     * Get the registered name of the workflow.
-     *
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public static function key()
-    {
-        return static::KEY;
-    }
+//    /**
+//     * Get the registered name of the workflow.
+//     *
+//     * @return string
+//     *
+//     * @throws \RuntimeException
+//     */
+//    public static function key()
+//    {
+//        return self::KEY;
+//    }
 
     /**
      * BaseWorkflow constructor.

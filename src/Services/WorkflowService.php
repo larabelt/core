@@ -192,7 +192,7 @@ class WorkflowService
         $marking = new SingleStateMarkingStore('place');
 
         // workflow
-        $helper = new Helper($definition, $marking, null, $workflow->key());
+        $helper = new Helper($definition, $marking, null, $workflow::KEY);
 
         return $helper;
     }

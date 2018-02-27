@@ -27,14 +27,14 @@ interface WorkflowInterface
      */
     public function __construct(Model $workable = null);
 
-    /**
-     * Get the registered name of the workflow.
-     *
-     * @return string
-     *
-     * @throws \RuntimeException
-     */
-    public static function key();
+//    /**
+//     * Get the registered name of the workflow.
+//     *
+//     * @return string
+//     *
+//     * @throws \RuntimeException
+//     */
+//    public static function key();
 
     /**
      * @return string
