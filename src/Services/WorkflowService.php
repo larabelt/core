@@ -6,10 +6,11 @@ use Belt, Morph;
 use Belt\Core\Workflows\WorkflowInterface;
 use Belt\Core\WorkRequest;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\Workflow\DefinitionBuilder;
-use Symfony\Component\Workflow\Transition;
-use Symfony\Component\Workflow\Workflow as Helper;
-use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
+
+//use Symfony\Component\Workflow\DefinitionBuilder;
+//use Symfony\Component\Workflow\Transition;
+//use Symfony\Component\Workflow\Workflow as Helper;
+//use Symfony\Component\Workflow\MarkingStore\SingleStateMarkingStore;
 
 class WorkflowService
 {
@@ -140,17 +141,18 @@ class WorkflowService
 
         $workflow = $workRequest->getWorkflow();
 
-        //$helper = $this->helper($workflow);
-
         if ($this->can($workflow, $workRequest->place, $transition)) {
-
-            //$helper->apply($workRequest, $transition);
 
             $workRequest->place = array_get($workflow::transitions(), "$transition.to");
 
             $method = camel_case('apply_' . $transition);
             if (method_exists($workflow, $method)) {
-                $workflow->$method($workRequest->workable, $payload);
+                //$workflow->$method($workRequest->workable, $payload);
+                $workflow->$method([
+                    'workRequest' => $workRequest,
+                    'workable' => $workRequest->workable,
+                    'payload' => $payload,
+                ]);
             }
 
             if (in_array($transition, $workflow->closers())) {
@@ -185,31 +187,31 @@ class WorkflowService
         return $workRequest;
     }
 
-    /**
-     * @param WorkflowInterface $workflow
-     * @return Helper
-     */
-    public function helper(WorkflowInterface $workflow)
-    {
-
-        // definition
-        $builder = new DefinitionBuilder();
-        //$builder->setInitialPlace($workflow::initialPlace());
-        $builder->setInitialPlace('review');
-        $builder->addPlaces($workflow->places());
-        foreach ($workflow->transitions() as $name => $config) {
-            $builder->addTransition(new Transition($name, $config['from'], $config['to']));
-        }
-        $definition = $builder->build();
-
-        // marking
-        $marking = new SingleStateMarkingStore('place');
-
-        // workflow
-        $helper = new Helper($definition, $marking, null, $workflow::KEY);
-
-        return $helper;
-    }
+//    /**
+//     * @param WorkflowInterface $workflow
+//     * @return Helper
+//     */
+//    public function helper(WorkflowInterface $workflow)
+//    {
+//
+//        // definition
+//        $builder = new DefinitionBuilder();
+//        //$builder->setInitialPlace($workflow::initialPlace());
+//        $builder->setInitialPlace('review');
+//        $builder->addPlaces($workflow->places());
+//        foreach ($workflow->transitions() as $name => $config) {
+//            $builder->addTransition(new Transition($name, $config['from'], $config['to']));
+//        }
+//        $definition = $builder->build();
+//
+//        // marking
+//        $marking = new SingleStateMarkingStore('place');
+//
+//        // workflow
+//        $helper = new Helper($definition, $marking, null, $workflow::KEY);
+//
+//        return $helper;
+//    }
 
     /**
      * @param WorkflowInterface $workflow

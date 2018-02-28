@@ -7,7 +7,6 @@ class StoreWorkRequestTest extends Testing\BeltTestCase
 {
 
     /**
-     * @covers \Belt\Core\Http\Requests\StoreWorkRequest::service
      * @covers \Belt\Core\Http\Requests\StoreWorkRequest::rules
      */
     public function test()

@@ -8,7 +8,6 @@ use Belt\Core\Services\WorkflowService;
 use Belt\Core\Workflows\BaseWorkflow;
 use Belt\Core\Facades\MorphFacade as Morph;
 use Illuminate\Database\Eloquent\Builder;
-use Symfony\Component\Workflow\Workflow as Helper;
 
 class WorkflowServiceTest extends Testing\BeltTestCase
 {
@@ -24,7 +23,6 @@ class WorkflowServiceTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Services\WorkflowService::createWorkRequest
      * @covers \Belt\Core\Services\WorkflowService::apply
      * @covers \Belt\Core\Services\WorkflowService::reset
-     * @covers \Belt\Core\Services\WorkflowService::helper
      * @covers \Belt\Core\Services\WorkflowService::availableTransitions
      * @covers \Belt\Core\Services\WorkflowService::can
      */
@@ -78,10 +76,14 @@ class WorkflowServiceTest extends Testing\BeltTestCase
 
         # apply
         $workRequest = new WorkflowServiceWorkRequestStub();
+        $workRequest->workable = $team;
         $workRequest->is_open = true;
         $workRequest->place = 'review';
         $workRequest->workflow_key = 'workflow-service-stub';
         $service->apply($workRequest, 'publish');
+        $this->assertEquals(false, $workRequest->is_open);
+        $this->assertEquals('published', $workRequest->place);
+        $this->assertEquals('foo', $team->body);
     }
 
 }
@@ -119,6 +121,13 @@ class WorkflowServiceStub extends BaseWorkflow
         'publish',
         'reject',
     ];
+
+    public function applyPublish($params = [])
+    {
+        if ($team = array_get($params, 'workable')) {
+            $team->body = 'foo';
+        }
+    }
 
 }
 
