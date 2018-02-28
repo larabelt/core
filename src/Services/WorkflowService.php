@@ -120,6 +120,15 @@ class WorkflowService
         return $workRequest;
     }
 
+    public function can(WorkflowInterface $workflow, $place, $key)
+    {
+        if (!array_get($workflow::transitions(), $key)) {
+            return false;
+        }
+
+        return $place == array_get($workflow::transitions(), "$key.from");
+    }
+
     /**
      * @param WorkRequest $workRequest
      * @param $transition
@@ -131,11 +140,13 @@ class WorkflowService
 
         $workflow = $workRequest->getWorkflow();
 
-        $helper = $this->helper($workflow);
+        //$helper = $this->helper($workflow);
 
-        if ($helper->can($workRequest, $transition)) {
+        if ($this->can($workflow, $workRequest->place, $transition)) {
 
-            $helper->apply($workRequest, $transition);
+            //$helper->apply($workRequest, $transition);
+
+            $workRequest->place = array_get($workflow::transitions(), "$transition.to");
 
             $method = camel_case('apply_' . $transition);
             if (method_exists($workflow, $method)) {
@@ -183,7 +194,8 @@ class WorkflowService
 
         // definition
         $builder = new DefinitionBuilder();
-        $builder->setInitialPlace($workflow->initialPlace());
+        //$builder->setInitialPlace($workflow::initialPlace());
+        $builder->setInitialPlace('review');
         $builder->addPlaces($workflow->places());
         foreach ($workflow->transitions() as $name => $config) {
             $builder->addTransition(new Transition($name, $config['from'], $config['to']));

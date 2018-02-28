@@ -3,6 +3,7 @@
 use Mockery as m;
 use Belt\Core\Team;
 use Belt\Core\Testing;
+use Belt\Core\WorkRequest;
 use Belt\Core\Services\WorkflowService;
 use Belt\Core\Workflows\BaseWorkflow;
 use Belt\Core\Facades\MorphFacade as Morph;
@@ -25,12 +26,15 @@ class WorkflowServiceTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Services\WorkflowService::reset
      * @covers \Belt\Core\Services\WorkflowService::helper
      * @covers \Belt\Core\Services\WorkflowService::availableTransitions
+     * @covers \Belt\Core\Services\WorkflowService::can
      */
     public function test()
     {
         $service = new WorkflowService();
         $workflow = new WorkflowServiceStub();
-        $team = factory(Team::class)->make();
+
+        Team::unguard();
+        $team = factory(Team::class)->make(['id' => 123]);
 
         # push / get
         WorkflowService::push(WorkflowServiceStub::class);
@@ -40,9 +44,44 @@ class WorkflowServiceTest extends Testing\BeltTestCase
         # helper
         //$this->assertInstanceOf(Helper::class, $service->helper($workflow));
 
-        # handle
+        # handle / createWorkRequest
+        $workRequest = m::mock(WorkRequest::class);
+        $workRequest->shouldReceive('update')->with([
+            'place' => $workflow::initialPlace(),
+            'payload' => [],
+        ]);
         $qb = m::mock(Builder::class);
+        $qb->shouldReceive('firstOrCreate')->with([
+            'is_open' => true,
+            'workable_id' => $team->id,
+            'workable_type' => 'teams',
+            'workflow_key' => $workflow::KEY,
+        ])->andReturn($workRequest);
         Morph::shouldReceive('type2QB')->with('work_requests')->andReturn($qb);
+        $service->handle($workflow, $team);
+
+        # availableTransitions
+        $this->assertEquals(['publish', 'reject'], $service->availableTransitions($workflow));
+
+        # reset
+        $workRequest = new WorkflowServiceWorkRequestStub();
+        $workRequest->is_open = false;
+        $workRequest->place = 'rejected';
+        $service->reset($workRequest);
+        $this->assertEquals(true, $workRequest->is_open);
+        $this->assertEquals(null, $workRequest->place);
+
+        # can
+        $this->assertFalse($service->can($workflow, 'review', 'dodge'));
+        $this->assertTrue($service->can($workflow, 'review', 'publish'));
+        $this->assertTrue($service->can($workflow, 'review', 'reject'));
+
+        # apply
+        $workRequest = new WorkflowServiceWorkRequestStub();
+        $workRequest->is_open = true;
+        $workRequest->place = 'review';
+        $workRequest->workflow_key = 'workflow-service-stub';
+        $service->apply($workRequest, 'publish');
     }
 
 }
@@ -81,25 +120,12 @@ class WorkflowServiceStub extends BaseWorkflow
         'reject',
     ];
 
-    public function shouldStart($params = [])
+}
+
+class WorkflowServiceWorkRequestStub extends WorkRequest
+{
+    public function save(array $options = [])
     {
-        parent::shouldStart($params);
-        return false;
+
     }
-
-    public function start($params = [])
-    {
-        parent::start($params);
-        $team = array_get($params, 'workable');
-        $team->is_active = false;
-    }
-
-    public function toArray()
-    {
-        $array = parent::toArray();
-        $array['foo'] = 'bar';
-
-        return $array;
-    }
-
 }
