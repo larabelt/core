@@ -1,3 +1,4 @@
+<li><a href="/admin"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
 @if(!$team)
     <li><a href="/admin/belt/core/alerts"><i class="fa fa-bullhorn"></i> <span>Alerts</span></a></li>
     <li class="treeview">
