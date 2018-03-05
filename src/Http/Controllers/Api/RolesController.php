@@ -111,7 +111,7 @@ class RolesController extends ApiController
         $input = $request->all();
 
         $this->set($role, $input, [
-            //'name',
+            'name',
             'title',
             'level',
             'scope',
