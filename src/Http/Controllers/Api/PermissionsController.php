@@ -43,7 +43,7 @@ class PermissionsController extends ApiController
 
         $this->authorize('view', $permissible);
 
-        return response()->json($permissible->abilities->toArray());
+        return response()->json($permissible->getAbilities()->toArray());
     }
 
     /**
