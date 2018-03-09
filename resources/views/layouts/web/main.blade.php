@@ -30,11 +30,6 @@
 <div id="main" role="main">
     <div id="app">
         @include('belt-core::layouts.shared.partials.flash')
-        <?php $image = \Belt\Clip\Attachment::find(2) ?>
-        {{ clip($image)->src(500, 50) }}<br/>
-        {{ clip($image)->src(100) }}<br/>
-        {{ clip($image)->src(null, 100) }}<br/>
-        <img src="{{ clip($image)->src(100, 100) }}"/>
         @yield('main')
     </div>
 </div>
