@@ -11,8 +11,11 @@ class AlertForm extends BaseForm {
         this.setData({
             id: '',
             is_active: 1,
+            show_url: 0,
             name: '',
             slug: '',
+            url: '',
+            intro: '',
             body: '',
             starts_at: '',
             starts_at_date: '',
