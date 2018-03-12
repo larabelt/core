@@ -13,7 +13,6 @@ class AlertTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Alert::setIsActiveAttribute
      * @covers \Belt\Core\Alert::setNameAttribute
      * @covers \Belt\Core\Alert::scopeActive
      */

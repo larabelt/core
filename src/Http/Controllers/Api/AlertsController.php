@@ -76,7 +76,10 @@ class AlertsController extends ApiController
 
         $this->set($alert, $input, [
             'is_active',
+            'show_url',
             'slug',
+            'url',
+            'intro',
             'body',
             'starts_at',
             'ends_at',
@@ -119,8 +122,11 @@ class AlertsController extends ApiController
 
         $this->set($alert, $input, [
             'is_active',
+            'show_url',
             'name',
             'slug',
+            'url',
+            'intro',
             'body',
             'starts_at',
             'ends_at',

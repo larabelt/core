@@ -1,23 +1,46 @@
 <form @submit.prevent="form.submit()" @keydown="form.errors.clear($event.target.name)">
-    <div class="checkbox">
-        <label>
-            <input type="checkbox"
-                   v-model="form.is_active"
-                   :true-value="true"
-                   :false-value="false"
-            > Is Active
-        </label>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           v-model="form.is_active"
+                           :true-value="true"
+                           :false-value="false"
+                    > Is Active
+                </label>
+            </div>
+            <div class="form-group" :class="{ 'has-error': form.error('name') }">
+                <label for="name">Name *</label>
+                <input class="form-control" v-model="form.name" placeholder="name">
+                <span v-for="error in form.error('name')" class="text-danger">{{ error }}</span>
+            </div>
+            <div v-if="form.id" class="form-group" :class="{ 'has-error': form.error('slug') }">
+                <label for="slug">Slug</label>
+                <input class="form-control" v-model="form.slug" placeholder="slug">
+                <span v-for="error in form.error('slug')" class="text-danger">{{ error }}</span>
+            </div>
+        </div>
+        <div v-if="form.id" class="col-md-6">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           v-model="form.show_url"
+                           :true-value="true"
+                           :false-value="false"
+                    > Show Url
+                </label>
+            </div>
+            <div v-show="form.show_url" class="form-group" :class="{ 'has-error': form.error('url') }">
+                <label for="url">Url</label>
+                <input class="form-control" v-model="form.url" placeholder="url">
+                <span class="help-block">leave empty to show <em>default</em> url</span>
+                <span v-for="error in form.error('url')" class="text-danger">{{ error }}</span>
+            </div>
+        </div>
     </div>
-    <div class="form-group" :class="{ 'has-error': form.error('name') }">
-        <label for="name">Name *</label>
-        <input class="form-control" v-model="form.name" placeholder="name">
-        <span v-for="error in form.error('name')" class="text-danger">{{ error }}</span>
-    </div>
-    <div v-if="form.id" class="form-group" :class="{ 'has-error': form.error('slug') }">
-        <label for="slug">Slug</label>
-        <input class="form-control" v-model="form.slug" placeholder="slug">
-        <span v-for="error in form.error('slug')" class="text-danger">{{ error }}</span>
-    </div>
+
     <div class="row">
         <div class="col-md-6">
             <div class="form-group" :class="{ 'has-error': form.error('starts_at') }">
@@ -53,6 +76,11 @@
                 <span v-for="error in form.error('ends_at')" class="text-danger">{{ error }}</span>
             </div>
         </div>
+    </div>
+    <div class="form-group" :class="{ 'has-error': form.error('intro') }">
+        <label for="intro">Intro</label>
+        <textarea class="form-control" rows="5" v-model="form.intro"></textarea>
+        <span v-for="error in form.error('intro')" class="text-danger">{{ error }}</span>
     </div>
     <div class="form-group" :class="{ 'has-error': form.error('body') }">
         <label for="body">Body *</label>

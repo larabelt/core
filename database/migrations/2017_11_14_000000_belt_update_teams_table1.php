@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class BeltUpdateteamsTable1 extends Migration
+class BeltUpdateTeamsTable1 extends Migration
 {
     /**
      * Run the migrations.

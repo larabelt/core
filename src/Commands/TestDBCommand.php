@@ -47,6 +47,7 @@ class TestDBCommand extends Command
     {
         putenv("APP_ENV=testing");
 
+        app()['config']->set('belt.clip.default_driver', 'local');
         app()['config']->set('database.default', 'sqlite');
         app()['config']->set('database.connections.sqlite.database', 'database/testing/database.sqlite');
 

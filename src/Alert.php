@@ -43,16 +43,14 @@ class Alert extends Model implements
      * @var array
      */
     protected $attributes = [
-        'is_active' => 1,
+        'is_active' => true,
+        'show_url' => false,
     ];
 
-    /**
-     * @param $value
-     */
-    public function setIsActiveAttribute($value)
-    {
-        $this->attributes['is_active'] = boolval($value);
-    }
+    protected $casts = [
+        'is_active' => 'boolean',
+        'show_url' => 'boolean',
+    ];
 
     /**
      * @param $value
