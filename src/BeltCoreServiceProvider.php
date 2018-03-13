@@ -22,6 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
+    // additional beta change test
     const VERSION = '1.5-BETA';
 
     /**
