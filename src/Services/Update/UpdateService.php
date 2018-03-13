@@ -36,13 +36,13 @@ class UpdateService
      */
     public function registerUpdates()
     {
-        $this->register('1.2.15', function () {
+        $this->register('templates1', function () {
             if (belt()->uses('content')) {
                 $this->runUpdate('templates1.php');
             }
         });
 
-        $this->register('1.5.0', function () {
+        $this->register('roles', function () {
             if (belt()->uses('content')) {
                 $this->runUpdate('admin_roles.php');
             }

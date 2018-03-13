@@ -18,26 +18,27 @@ class BeltUpdateTemplates1 extends BaseUpdate
      */
     public function up()
     {
-        foreach (config('belt.templates') as $morph_class => $templates) {
+        foreach (config('belt.templates') as $morphClass => $templates) {
             foreach ($templates as $key => $template) {
-                $this->update($morph_class, $key, $template);
-                break 2;
+                $this->update($morphClass, $key, $template);
+                //break 2;
             }
         }
     }
 
-    public function update($morph_class, $templateKey, $old)
+    public function update($morphClass, $templateKey, $old)
     {
-        $this->info(sprintf('%s:%s', $morph_class, $templateKey));
+        $this->info(sprintf('%s:%s', $morphClass, $templateKey));
 
         if (array_has($old, 'for')) {
             //return;
         }
 
+        $for = in_array($morphClass, ['pages', 'categories', 'places', 'posts', 'events']) ? $morphClass : 'sections';
+
         $params = array_get($old, 'params', []);
 
         $new = [
-            'for' => $templateKey == 'pages' ? 'pages' : 'sections',
             'builder' => array_get($old, 'builder', null),
             'extends' => array_get($old, 'extends', ''),
             'path' => array_get($old, 'path', ''),
@@ -45,8 +46,8 @@ class BeltUpdateTemplates1 extends BaseUpdate
             'description' => array_get($old, 'description', ''),
         ];
 
-        if ($new['for'] == 'sections') {
-            $qb = Section::where('sectionable_type', $morph_class)->where('template', $templateKey);
+        if ($for == 'sections') {
+            $qb = Section::where('sectionable_type', $morphClass)->where('template', $templateKey);
             foreach (['heading', 'before', 'after'] as $column) {
                 $clone = clone $qb;
                 $clone->where(function ($qb) use ($column) {
@@ -72,10 +73,22 @@ class BeltUpdateTemplates1 extends BaseUpdate
             asort($new['params']);
         }
 
-        $path = sprintf('config/belt/templates-new/%s/%s.php', $morph_class, $templateKey);
-        $contents = sprintf("<?php\r\n\r\nreturn %s;", DebugHelper::varExportShort($new));
+        $path = sprintf('config/belt/templates-new/%s/%s.php', $morphClass, $templateKey);
 
+        Section::unguard();
+        if ($for == 'sections') {
+            $newMorphClass = $morphClass == 'sections' ? 'containers' : $morphClass;
+            Section::where('sectionable_type', $morphClass)
+                ->update([
+                    'sectionable_type' => in_array($morphClass, ['custom', 'sections', 'containers']) ? null : $morphClass,
+                    'template' => sprintf('%s.%s', $newMorphClass, $templateKey),
+                ]);
+            $path = sprintf('config/belt/templates-new/%s/%s/%s.php', $for, $newMorphClass, $templateKey);
+        }
+
+        $contents = sprintf("<?php\r\n\r\nreturn %s;", DebugHelper::varExportShort($new));
         $this->disk()->put($path, $contents);
+
     }
 
 }
