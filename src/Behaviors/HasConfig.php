@@ -45,6 +45,15 @@ trait HasConfig
     }
 
     /**
+     * @param $updated
+     * @return array
+     */
+    public function mergeConfig($updated)
+    {
+        return $this->config = array_merge($this->config, $updated);
+    }
+
+    /**
      * @return array
      */
     public function getConfig()
