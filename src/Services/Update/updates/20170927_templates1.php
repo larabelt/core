@@ -18,10 +18,9 @@ class BeltUpdateTemplates1 extends BaseUpdate
      */
     public function up()
     {
-        foreach (config('belt.templates') as $morphClass => $templates) {
+        foreach (config('belt.templates-old') as $morphClass => $templates) {
             foreach ($templates as $key => $template) {
                 $this->update($morphClass, $key, $template);
-                //break 2;
             }
         }
     }
@@ -29,10 +28,6 @@ class BeltUpdateTemplates1 extends BaseUpdate
     public function update($morphClass, $templateKey, $old)
     {
         $this->info(sprintf('%s:%s', $morphClass, $templateKey));
-
-        if (array_has($old, 'for')) {
-            //return;
-        }
 
         $for = in_array($morphClass, ['pages', 'categories', 'places', 'posts', 'events']) ? $morphClass : 'sections';
 
@@ -79,15 +74,20 @@ class BeltUpdateTemplates1 extends BaseUpdate
         if ($for == 'sections') {
             $newMorphClass = $morphClass == 'sections' ? 'containers' : $morphClass;
             Section::where('sectionable_type', $morphClass)
+                ->where('template', $templateKey)
                 ->update([
                     'sectionable_type' => in_array($morphClass, ['custom', 'sections', 'containers']) ? null : $morphClass,
                     'template' => sprintf('%s.%s', $newMorphClass, $templateKey),
                 ]);
+            dump([
+                'sectionable_type' => in_array($morphClass, ['custom', 'sections', 'containers']) ? null : $morphClass,
+                'template' => sprintf('%s.%s', $newMorphClass, $templateKey),
+            ]);
             $path = sprintf('config/belt/templates-new/%s/%s/%s.php', $for, $newMorphClass, $templateKey);
         }
 
         $contents = sprintf("<?php\r\n\r\nreturn %s;", DebugHelper::varExportShort($new));
-        $this->disk()->put($path, $contents);
+        //$this->disk()->put($path, $contents);
 
     }
 
