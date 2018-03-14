@@ -2,10 +2,12 @@ import Service from 'belt/core/js/configs/service';
 
 export default {
     namespaced: true,
-    state: {
-        data: {},
-        configKey: '',
-        morphType: '',
+    state() {
+        return {
+            data: {},
+            configKey: '',
+            morphType: '',
+        }
     },
     mutations: {
         data: (state, value) => state.data = value,
