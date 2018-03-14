@@ -1,6 +1,6 @@
 export default {
     created() {
-        this.content = this.value;
+        this.content = !_.isEmpty(this.value) ? this.value : '';
     },
     data() {
         return {
