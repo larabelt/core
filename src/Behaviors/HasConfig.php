@@ -12,7 +12,7 @@ trait HasConfig
     /**
      * @var array|mixed
      */
-    public $config;
+    public $config = [];
 
     /**
      * @return string
@@ -50,7 +50,7 @@ trait HasConfig
      */
     public function mergeConfig($updated)
     {
-        return $this->config = array_merge($this->config, $updated);
+        return $this->config = array_merge($this->getConfig(), $updated);
     }
 
     /**
