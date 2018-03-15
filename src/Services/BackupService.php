@@ -2,8 +2,10 @@
 
 namespace Belt\Core\Services;
 
-use Belt, DB, Schema, Spatie, Storage;
+use Belt, DB, Spatie, Storage;
 use Belt\Core\Behaviors\HasConfig;
+use Illuminate\Database\Connection;
+use Mockery\Exception;
 
 /**
  * Class BackupService
@@ -13,9 +15,20 @@ class BackupService
 {
     use HasConfig;
 
+    /**
+     * @var string
+     */
     private $connectionName = 'mysql';
 
-    private $connection = 'mysql';
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * @var string
+     */
+    private $path = '';
 
     /**
      * @return string
@@ -25,10 +38,14 @@ class BackupService
         return 'belt.core.backup';
     }
 
+    /**
+     * reset class properties
+     */
     public function reset()
     {
-        $this->connectionName = null;
+        $this->connectionName = 'mysql';
         $this->connection = null;
+        $this->path = '';
     }
 
     /**
@@ -41,30 +58,47 @@ class BackupService
         $this->connectionName = $name;
     }
 
-    public function setConnection($connection = null)
+    /**
+     * @param Connection $connection
+     */
+    public function setConnection(Connection $connection)
     {
-        $connection = $connection ?: DB::connection($this->connectionName);
-
         $this->connection = $connection;
     }
 
-    public function getConnection()
+    /**
+     * @param null $path
+     * @return mixed|null|string
+     */
+    public function setPath($path = null)
     {
-        return $this->connection;
+        $path = $path ?: $this->config('defaults.path');
+
+        if ($path instanceof \Closure) {
+            $path = $path->call($this);
+        }
+
+        if (!$path) {
+            $path = sprintf('backups/%s/dump.sql', (new \DateTime())->format('Ymd.v'));
+            $disk = Storage::disk('local');
+            $disk->put($path, '');
+        }
+
+        return $this->path = storage_path("app/$path");
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     public function getDatabaseConfig($key)
     {
         return config(sprintf('database.connections.%s.%s', $this->connectionName, $key));
     }
 
-
-    public function getAllTables()
-    {
-        return $this->connection->getDoctrineSchemaManager()->listTableNames();
-    }
-
-
+    /**
+     * Run through backup group options
+     */
     public function run()
     {
         $config = $this->getConfig();
@@ -74,46 +108,60 @@ class BackupService
 
     }
 
+    /**
+     * Create backup dump file
+     *
+     * @param $options
+     */
     public function backup($options)
     {
+        //dump($options);
+
         $this->reset();
-
-        dump($options);
-
         $this->setConnectionName(array_get($options, 'connection'));
-        $this->setConnection();
+        $this->setConnection(DB::connection($this->connectionName));
+        $this->setPath(array_get($options, 'path'));
 
-        dump($this->getDatabaseConfig('database'));
-        dump($this->getDatabaseConfig('username'));
-        dump($this->getDatabaseConfig('password'));
+        $dumper = $this->getDumper();
 
-        $tables = [];
         if ($whitelist = array_get($options, 'whitelist')) {
-            $tables = array_intersect($this->getAllTables(), $whitelist);
-        }
-        if ($blacklist = array_get($options, 'blacklist')) {
-            $tables = array_diff($this->getAllTables(), $blacklist);
+            $dumper->includeTables($whitelist);
+        } elseif ($blacklist = array_get($options, 'blacklist')) {
+            $dumper->excludeTables($blacklist);
         }
 
+        $dumper->dumpToFile($this->path);
+    }
+
+    /**
+     * @return \Spatie\DbDumper\DbDumper
+     */
+    public function getDumper()
+    {
         switch ($this->getDatabaseConfig('driver')) {
             case 'mysql':
-                $this->dumpMysql($tables);
+                $dumper = $this->getDumperMysql();
                 break;
         }
 
+        if (!isset($dumper)) {
+            throw new Exception('invalid database driver');
+        }
 
+        return $dumper;
     }
 
-    public function dumpMysql($tables = [])
+    /**
+     * @return \Spatie\DbDumper\DbDumper
+     */
+    public function getDumperMysql()
     {
-        dump(333);
-        dump($tables);
-        exit;
-        Spatie\DbDumper\Databases\MySql::create()
-            ->setDbName($databaseName)
-            ->setUserName($userName)
-            ->setPassword($password)
-            ->dumpToFile('dump.sql');
+        $dumper = Spatie\DbDumper\Databases\MySql::create();
+        $dumper->setDbName($this->getDatabaseConfig('database'));
+        $dumper->setUserName($this->getDatabaseConfig('username'));
+        $dumper->setPassword($this->getDatabaseConfig('password'));
+
+        return $dumper;
     }
 
 }
