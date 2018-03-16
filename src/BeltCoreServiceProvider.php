@@ -65,6 +65,7 @@ class BeltCoreServiceProvider extends ServiceProvider
 
         // commands
         $this->commands(Belt\Core\Commands\AlertCommand::class);
+        $this->commands(Belt\Core\Commands\BackupCommand::class);
         $this->commands(Belt\Core\Commands\BeltCommand::class);
         $this->commands(Belt\Core\Commands\IndexCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
