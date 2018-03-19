@@ -16,7 +16,7 @@ class BackupCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:backup';
+    protected $signature = 'belt-core:backup {--group=}';
 
     /**
      * The console command description.
@@ -45,7 +45,7 @@ class BackupCommand extends Command
      */
     public function handle()
     {
-        $this->service()->run();
+        $this->service()->run($this->option('group'));
     }
 
 }
