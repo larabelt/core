@@ -163,11 +163,13 @@ class BackupService
     {
         if ($expires = $this->option('expires')) {
 
-            $window = strtotime(-abs($expires) . ' seconds');
+            $now = strtotime('now');
+            $window = abs($now - abs(strtotime($expires)));
+
             $disk = $this->disk($this->option('disk'));
 
             foreach ($disk->files($this->option('relPath')) as $file) {
-                if ($window > $disk->getTimestamp($file)) {
+                if (($now - $window) > $disk->getTimestamp($file)) {
                     $disk->delete($file);
                 }
             }
