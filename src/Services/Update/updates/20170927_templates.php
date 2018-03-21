@@ -145,6 +145,8 @@ class BeltUpdateTemplates extends BaseUpdate
 
         $configKey = $this->option('configKey', 'belt.templates.sections');
 
+        Section::where('template', '')->update(['template' => 'default']);
+
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
                 $this->__updateDB($morphClass, $templateKey);
