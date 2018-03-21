@@ -12,7 +12,7 @@ trait HasConfig
     /**
      * @var array|mixed
      */
-    public $config;
+    public $config = [];
 
     /**
      * @var string
@@ -47,6 +47,15 @@ trait HasConfig
         $config = is_array($config) ? $config : config($this->configPath(), []);
 
         return $this->config = array_merge($defaults, $config);
+    }
+
+    /**
+     * @param $updated
+     * @return array
+     */
+    public function mergeConfig($updated)
+    {
+        return $this->config = array_merge($this->getConfig(), $updated);
     }
 
     /**

@@ -1,7 +1,11 @@
 {
   "name": "larabelt/core",
   "description": "Core package for any LaraBelt app.",
-  "keywords": ["cms", "laravel", "larabelt"],
+  "keywords": [
+    "cms",
+    "laravel",
+    "larabelt"
+  ],
   "license": "MIT",
   "authors": [
     {
@@ -27,7 +31,8 @@
     "riimu/kit-phpencoder": "^2.1",
     "rutorika/sortable": "3.4.*",
     "sabre/uri": "^2",
-    "silber/bouncer": "v1.0.0-rc.1"
+    "silber/bouncer": "v1.0.0-rc.1",
+    "spatie/db-dumper": "^2.9"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^2.3",

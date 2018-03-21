@@ -61,6 +61,19 @@ class Errors {
 
         this.errors = {};
     }
+
+    /**
+     * Return all errors
+     * @returns {Array}
+     */
+    all() {
+        let all = [];
+        _.each(this.errors, error => {
+            all.push(error);
+        });
+
+        return all;
+    }
 }
 
 export default Errors;
