@@ -36,15 +36,15 @@ class UpdateService
      */
     public function registerUpdates()
     {
-        $this->register('templates1', function () {
+        $this->register('templates', function ($service, $options = []) {
             if (belt()->uses('content')) {
-                $this->runUpdate('templates1.php');
+                $this->runUpdate('templates.php', $options);
             }
         });
 
-        $this->register('roles', function () {
+        $this->register('roles', function ($service, $options = []) {
             if (belt()->uses('content')) {
-                $this->runUpdate('admin_roles.php');
+                $this->runUpdate('admin_roles.php', $options);
             }
         });
     }
@@ -59,13 +59,14 @@ class UpdateService
     }
 
     /**
-     * @param $version
+     * @param $params
      */
-    public function run($version)
+    public function run($params)
     {
-        $name = base64_encode($version);
+        $name = base64_encode($params[0]);
         if (static::hasMacro($name)) {
-            static::$name($this);
+            unset($params[0]);
+            static::$name($this, $params);
         }
     }
 
@@ -74,14 +75,19 @@ class UpdateService
      * Find corresponding update file and run it
      *
      * @param $key
+     * @param $options
      */
-    public function runUpdate($key)
+    public function runUpdate($key, $options = [])
     {
         foreach (scandir($this->path) as $file) {
             if (str_contains($file, $key)) {
                 include sprintf('%s/%s', $this->path, $file);
                 $class = 'BeltUpdate' . title_case(str_replace('.php', '', $key));
-                $updater = new $class(['console' => $this->console]);
+                $params = [
+                    'console' => $this->console,
+                    'options' => $options,
+                ];
+                $updater = new $class($params);
                 $updater->up();
             }
         }

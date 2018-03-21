@@ -18,7 +18,7 @@ class UpdateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:update {--v=}';
+    protected $signature = 'belt-core:update {update*}';
 
     /**
      * The console command description.
@@ -53,11 +53,11 @@ class UpdateCommand extends Command
     {
         $service = $this->service();
 
-        $version = $this->option('v') ?: Belt\Core\BeltCoreServiceProvider::VERSION;
+        if ($update = $this->argument('update')) {
+            $service->registerUpdates();
+            $service->run($update);
+        }
 
-        $service->registerUpdates();
-
-        $service->run($version);
     }
 
 
