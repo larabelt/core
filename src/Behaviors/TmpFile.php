@@ -62,6 +62,7 @@ trait TmpFile
     {
         if ($this->tmpFile) {
             fclose($this->tmpFile); // this removes the file
+            $this->tmpFile = null;
         }
     }
 
