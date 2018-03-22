@@ -6,7 +6,6 @@ use Belt, DB, Spatie, Storage;
 use Belt\Core\Behaviors\TmpFile;
 use Belt\Core\Behaviors\HasConfig;
 use Belt\Core\Jobs\BackupDatabase;
-use Illuminate\Database\Connection;
 
 /**
  * Class BackupService
@@ -15,11 +14,6 @@ use Illuminate\Database\Connection;
 class BackupService
 {
     use HasConfig, TmpFile;
-
-    /**
-     * @var Connection
-     */
-    private $connection;
 
     /**
      * @var array
@@ -52,20 +46,20 @@ class BackupService
         $defaults = [
             'name' => $groupKey,
             'disk' => $this->config('defaults.disk'),
-            'connectionName' => $this->config('defaults.connectionName') ?: config('database.default'),
+            'connection' => $this->config('defaults.connection') ?: config('database.default'),
             'relPath' => $this->config('defaults.relPath') ?: "backups/$groupKey",
             'filename' => sprintf('%s.sql', (new \DateTime())->format('Ymd.His')),
-            'expires' => ''
+            'expires' => $this->config('defaults.expires'),
         ];
 
         $options = array_merge($defaults, $this->config("groups.$groupKey"));
 
-        $relPath = $this->option('relPath');
+        $relPath = array_get($options, 'relPath');
         if ($relPath instanceof \Closure) {
             $options['relPath'] = $relPath->call($this);
         }
 
-        $filename = $this->option('filename');
+        $filename = array_get($options, 'filename');
         if ($filename instanceof \Closure) {
             $options['filename'] = $filename->call($this);
         }
@@ -93,7 +87,7 @@ class BackupService
      */
     public function getDatabaseConfig($key, $default = null)
     {
-        $config = config(sprintf('database.connections.%s', $this->option('connectionName')));
+        $config = config(sprintf('database.connections.%s', $this->option('connection')));
 
         return array_get($config, $key, $default);
     }
@@ -134,15 +128,7 @@ class BackupService
     {
         // options
         $this->setGroupOptions($groupKey);
-        $this->connection = DB::connection($this->option('connectionName'));
-
-        // build dumper
         $dumper = $this->getDumper();
-        if ($include = $this->option('include')) {
-            $dumper->includeTables($include);
-        } elseif ($exclude = $this->option('exclude')) {
-            $dumper->excludeTables($exclude);
-        }
 
         // write file
         $this->createTmpFile();
@@ -163,11 +149,13 @@ class BackupService
     {
         if ($expires = $this->option('expires')) {
 
-            $window = strtotime(-abs($expires) . ' seconds');
+            $now = strtotime('now');
+            $window = abs($now - abs(strtotime($expires)));
+
             $disk = $this->disk($this->option('disk'));
 
             foreach ($disk->files($this->option('relPath')) as $file) {
-                if ($window > $disk->getTimestamp($file)) {
+                if (($now - $window) > $disk->getTimestamp($file)) {
                     $disk->delete($file);
                 }
             }
@@ -175,6 +163,7 @@ class BackupService
     }
 
     /**
+     * @todo add more dumper types
      * @return Spatie\DbDumper\DbDumper
      * @throws \Exception
      */
@@ -188,6 +177,12 @@ class BackupService
 
         if (!isset($dumper)) {
             throw new \Exception('invalid database driver');
+        }
+
+        if ($include = $this->option('include')) {
+            $dumper->includeTables($include);
+        } elseif ($exclude = $this->option('exclude')) {
+            $dumper->excludeTables($exclude);
         }
 
         return $dumper;
