@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Belt\Core\Behaviors\HasDisk;
 use Belt\Core\Helpers\DebugHelper;
 use Belt\Core\Services\Update\BaseUpdate;
@@ -22,6 +23,12 @@ class BeltUpdateTemplates extends BaseUpdate
 
     public function up()
     {
+        /**
+         * create
+         * update
+         * move
+         * db
+         */
         $method = $this->argument('method');
         $method = camel_case($method);
         if (method_exists($this, $method)) {
@@ -90,86 +97,137 @@ class BeltUpdateTemplates extends BaseUpdate
         return $newConfig;
     }
 
-    public function organize()
+    public function create()
     {
         $configKey = $this->option('configKey', 'belt.templates');
 
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
-                $this->__organize($morphClass, $templateKey, $config);
+                $this->__create($morphClass, $templateKey);
             }
         }
     }
 
-    public function __organize($morphClass, $templateKey, $oldConfig)
+    public function __create($morphClass, $templateKey)
     {
         $this->info(sprintf('re-organize %s:%s', $morphClass, $templateKey));
 
+        $path = sprintf('config/belt/templates/%s/%s.php', $morphClass, $templateKey);
+        $tmpPath = sprintf('config/belt/templates-tmp/%s/%s.php', $morphClass, $templateKey);
+
         $type = $this->getTemplateType($morphClass);
+        if ($type == 'sections') {
+            $morphClass = $morphClass == 'sections' ? 'containers' : $morphClass;
+            $tmpPath = sprintf('config/belt/templates-tmp/%s/%s/%s.php', $type, $morphClass, $templateKey);
+        }
+
+        $this->disk()->copy($path, $tmpPath);
+
+    }
+
+    public function update()
+    {
+        $configKey = $this->option('configKey', 'belt.templates');
+
+        foreach (config($configKey) as $morphClass => $templates) {
+            foreach ($templates as $templateKey => $config) {
+                $this->__update($morphClass, $templateKey, $config);
+            }
+        }
+    }
+
+    public function __update($morphClass, $templateKey, $oldConfig)
+    {
+        $this->info(sprintf('re-organize %s:%s', $morphClass, $templateKey));
 
         $newConfig = $this->getNewConfig($morphClass, $templateKey, $oldConfig);
 
-        $path = sprintf('config/belt/templates-new/%s/%s.php', $morphClass, $templateKey);
+        $tmpPath = sprintf('config/belt/templates-tmp/%s/%s.php', $morphClass, $templateKey);
 
+        $type = $this->getTemplateType($morphClass);
         if ($type == 'sections') {
             $morphClass = $morphClass == 'sections' ? 'containers' : $morphClass;
-            $path = sprintf('config/belt/templates-new/%s/%s/%s.php', $type, $morphClass, $templateKey);
+            $tmpPath = sprintf('config/belt/templates-tmp/%s/%s/%s.php', $type, $morphClass, $templateKey);
         }
 
         $contents = sprintf("<?php\r\n\r\nreturn %s;", DebugHelper::varExportShort($newConfig));
-        $this->disk()->put($path, $contents);
+
+        $this->disk()->put($tmpPath, $contents);
     }
 
-    public function rename()
+    public function move()
     {
-        $newPath = $this->option('new-path', 'templates-new');
-        $newPath = config_path('belt/' . $newPath);
-        if ($newPath && file_exists($newPath)) {
+        $tmpPath = $this->option('new-path', 'templates-tmp');
+        $tmpPath = config_path('belt/' . $tmpPath);
+        if ($tmpPath && file_exists($tmpPath)) {
             $targetPath = $this->option('target-path', 'templates');
             $targetPath = config_path('belt/' . $targetPath);
             if ($targetPath) {
                 if (file_exists($targetPath)) {
                     $archivedPath = "$targetPath-archived";
                     rename($targetPath, $archivedPath);
-                    $this->info('moved existing path to: ', $archivedPath);
+                    $this->info("moved existing path to: $archivedPath");
                 }
-                rename($newPath, $targetPath);
-                $this->info('moved new path to: ', $targetPath);
+                rename($tmpPath, $targetPath);
+                $this->info("moved new path to: $targetPath");
             }
         }
     }
 
-    public function updateDB()
+    public function db()
     {
         Section::unguard();
 
+        Section::where(function ($query) {
+            $query->whereNull('template');
+            $query->orWhere('template', '');
+        })
+            ->update([
+                'template' => 'default'
+            ]);
+
+        Section::where('template', 'NOT LIKE', '%.%')
+            ->update([
+                'template' => DB::raw("CONCAT(sections.sectionable_type, '.', sections.template)")
+            ]);
+
+        Section::whereIn('sectionable_type', ['sections', 'custom', 'menus'])
+            ->update([
+                'sectionable_type' => null
+            ]);
+
+        Section::where('template', 'LIKE', 'sections.%')
+            ->update([
+                'template' => DB::raw("REPLACE(`template`, 'sections.', 'containers.')")
+            ]);
+
         $configKey = $this->option('configKey', 'belt.templates.sections');
 
-        Section::where('template', '')->update(['template' => 'default']);
-
-        foreach (config($configKey) as $morphClass => $templates) {
-            foreach ($templates as $templateKey => $config) {
-                $this->__updateDB($morphClass, $templateKey);
-            }
-        }
-
-        Section::whereNull('sectionable_id')->update(['sectionable_type' => null]);
+//        Section::where('template', '')->update(['template' => 'default']);
+//
+//        foreach (config($configKey) as $morphClass => $templates) {
+//            foreach ($templates as $templateKey => $config) {
+//                $this->__db($morphClass, $templateKey);
+//            }
+//        }
+//
+//        Section::whereNull('sectionable_id')->update(['sectionable_type' => null]);
     }
 
-    public function __updateDB($morphClass, $templateKey)
-    {
-        $this->info(sprintf('update sections db: %s %s', $morphClass, $templateKey));
-
-        $oldSectionableType = $morphClass;
-        if (in_array($oldSectionableType, ['containers'])) {
-            $oldSectionableType = 'sections';
-        }
-
-        $newTemplateKey = sprintf('%s.%s', $morphClass, $templateKey);
-        Section::whereNotNull('sectionable_type')
-            ->where('sectionable_type', $oldSectionableType)
-            ->where('template', $templateKey)->update(['template' => $newTemplateKey]);
-
-    }
+//    public function __db($morphClass, $templateKey)
+//    {
+//        $this->info(sprintf('update sections db: %s %s', $morphClass, $templateKey));
+//
+//        $oldSectionableType = $morphClass;
+//        if (in_array($oldSectionableType, ['containers'])) {
+//            $oldSectionableType = 'sections';
+//        }
+//
+//        $newTemplateKey = sprintf('%s.%s', $morphClass, $templateKey);
+//        Section::whereNotNull('sectionable_type')
+//            ->where('sectionable_type', $oldSectionableType)
+//            ->where('template', $templateKey)->update(['template' => $newTemplateKey]);
+//
+//    }
 
 }
