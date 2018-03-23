@@ -21,7 +21,18 @@ export default {
             return this.form.dirty('value');
         },
         options() {
-            return this.config ? _.get(this.config, 'params.' + this.param.key, false) : false;
+
+            let params = this.config ? _.get(this.config, 'params.' + this.param.key, false) : false;
+            let options = [];
+            _.forIn(params, function (value, key) {
+                options.push({
+                    value: key,
+                    label: value,
+                });
+            });
+            options = _.orderBy(options, ['label']);
+
+            return options;
         }
     },
     watch: {

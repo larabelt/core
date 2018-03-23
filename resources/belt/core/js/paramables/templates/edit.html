@@ -11,10 +11,10 @@
     </td>
     <td>
         <div :class="{ 'has-error': form.error('value') }">
-            <template v-if="options">
+            <template v-if="options.length">
                 <select name="value" v-model="form.value" class="form-control" @change="triggerScan()">
-                    <template v-for="option, value in options">
-                        <option :value="value">{{ option }}</option>
+                    <template v-for="option in options">
+                        <option :value="option.value">{{ option.label }}</option>
                     </template>
                 </select>
             </template>

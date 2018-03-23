@@ -55,9 +55,6 @@ class BeltUpdateTemplates extends BaseUpdate
      */
     public function getNewConfig($morphClass, $templateKey, $oldConfig)
     {
-        $type = $this->getTemplateType($morphClass);
-
-        $params = array_get($oldConfig, 'params', []);
 
         $newConfig = [
             'builder' => array_get($oldConfig, 'builder', null),
@@ -67,6 +64,7 @@ class BeltUpdateTemplates extends BaseUpdate
             'description' => array_get($oldConfig, 'description', ''),
         ];
 
+        $type = $this->getTemplateType($morphClass);
         if ($type == 'sections') {
             $qb = Section::where('sectionable_type', $morphClass)->where('template', $templateKey);
             foreach (['heading', 'before', 'after'] as $column) {
@@ -79,16 +77,17 @@ class BeltUpdateTemplates extends BaseUpdate
             }
         }
 
+        $params = array_get($oldConfig, 'params', []);
         if ($params) {
             foreach ($params as $key => $values) {
                 $newConfig['params'][$key] = [
-                    'type' => is_array($values) ? 'select' : 'text',
                     'class' => null,
-                    'validation' => '',
-                    'plugin' => '',
+                    'type' => is_array($values) ? 'select' : 'text',
                     'options' => is_array($values) ? $values : null,
                     'label' => '',
                     'description' => '',
+                    'plugin' => '',
+                    'validation' => '',
                 ];
             }
             asort($newConfig['params']);
