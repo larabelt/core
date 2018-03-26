@@ -18,6 +18,8 @@ class PaginateTeams extends PaginateRequest
     public $sortable = [
         'teams.id',
         'teams.name',
+        'teams.created_at',
+        'teams.updated_at',
     ];
 
     public $searchable = [

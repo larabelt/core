@@ -32,6 +32,8 @@ class PaginateUsers extends PaginateRequest
         'users.email',
         'users.first_name',
         'users.last_name',
+        'users.created_at',
+        'users.updated_at',
     ];
 
     /**
