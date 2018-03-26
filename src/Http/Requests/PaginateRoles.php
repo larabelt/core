@@ -18,6 +18,8 @@ class PaginateRoles extends PaginateRequest
     public $sortable = [
         'roles.id',
         'roles.name',
+        'roles.created_at',
+        'roles.updated_at',
     ];
 
     public $searchable = [
