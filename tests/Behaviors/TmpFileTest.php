@@ -12,11 +12,9 @@ class TmpFileTest extends BeltTestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\TmpFile::__destruct
      * covers \Belt\Core\Behaviors\TmpFile::createTmpFile
      * covers \Belt\Core\Behaviors\TmpFile::getTmpFileUri
      * covers \Belt\Core\Behaviors\TmpFile::getTmpFileContents
-     * covers \Belt\Core\Behaviors\TmpFile::destroyTmpFile
      */
     public function test()
     {
@@ -34,11 +32,6 @@ class TmpFileTest extends BeltTestCase
 
         # getTmpFileContents
         $this->assertNotNull($stub->getTmpFileContents());
-
-        # __destruct
-        # destroyTmpFile
-        $stub->destroyTmpFile();
-        $this->assertNull($stub->tmpFile);
     }
 
 }

@@ -16,23 +16,15 @@ trait TmpFile
     public $tmpFile;
 
     /**
-     * MoveService destructor.
-     */
-    function __destruct()
-    {
-        $this->destroyTmpFile();
-    }
-
-    /**
      * @param
      */
-    public function createTmpFile()
+    public function createTmpFile($contents = null)
     {
-        $this->destroyTmpFile();
-
         $this->tmpFile = tmpfile();
 
-        //fwrite($this->tmpFile, '');
+        if ($contents) {
+            fwrite($this->tmpFile, $contents);
+        }
     }
 
     /**
@@ -53,17 +45,6 @@ trait TmpFile
     public function getTmpFileContents()
     {
         return file_get_contents($this->getTmpFileUri());
-    }
-
-    /**
-     * Destroy tmp file
-     */
-    public function destroyTmpFile()
-    {
-        if ($this->tmpFile) {
-            fclose($this->tmpFile); // this removes the file
-            $this->tmpFile = null;
-        }
     }
 
 }
