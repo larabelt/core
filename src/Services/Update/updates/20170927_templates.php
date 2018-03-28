@@ -73,7 +73,14 @@ class BeltUpdateTemplates extends BaseUpdate
                     $qb->whereNotNull($column);
                     $qb->orWhere($column, '!=', '');
                 });
-                $newConfig[$column] = $clone->first() ? true : false;
+                //$newConfig[$column] = $clone->first() ? true : false;
+                $newConfig[$column] = false;
+                if ($clone->first()) {
+                    $newConfig[$column] = [
+                        'label' => '',
+                        'description' => '',
+                    ];
+                }
             }
         }
 
@@ -130,7 +137,9 @@ class BeltUpdateTemplates extends BaseUpdate
 
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
-                $this->__update($morphClass, $templateKey, $config);
+                //if ($morphClass == 'attachments' && $templateKey == 'default') {
+                    $this->__update($morphClass, $templateKey, $config);
+                //}
             }
         }
     }
