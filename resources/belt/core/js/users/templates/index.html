@@ -38,6 +38,8 @@
                         Last Name
                         <column-sorter :column="'users.last_name'"></column-sorter>
                     </th>
+                    <th>Created<column-sorter :column="'users.created_at'"></column-sorter></th>
+                    <th>Updated<column-sorter :column="'users.updated_at'"></column-sorter></th>
                     <th class="text-right">Actions</th>
                 </tr>
                 </thead>
@@ -47,6 +49,8 @@
                         <td>{{ item.email }}</td>
                         <td>{{ item.first_name }}</td>
                         <td>{{ item.last_name }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td>{{ item.updated_at }}</td>
                         <td class="text-right">
                             <div class="btn-group">
                                 <button
@@ -74,6 +78,8 @@
                     <th>Email</th>
                     <th>First Name</th>
                     <th>Last Name</th>
+                    <th>Created</th>
+                    <th>Updated</th>
                     <th class="text-right">Actions</th>
                 </tr>
                 </tfoot>

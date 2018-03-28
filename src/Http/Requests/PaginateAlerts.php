@@ -12,6 +12,8 @@ class PaginateAlerts extends PaginateRequest
     public $sortable = [
         'alerts.id',
         'alerts.name',
+        'alerts.created_at',
+        'alerts.updated_at',
     ];
 
     public $searchable = [

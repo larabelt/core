@@ -19,6 +19,7 @@ class HasConfigTest extends BeltTestCase
      * @covers \Belt\Core\Behaviors\HasConfig::setConfig
      * @covers \Belt\Core\Behaviors\HasConfig::getConfig
      * @covers \Belt\Core\Behaviors\HasConfig::config
+     * @covers \Belt\Core\Behaviors\HasConfig::mergeConfig
      */
     public function test()
     {
@@ -44,6 +45,10 @@ class HasConfigTest extends BeltTestCase
         $this->assertEquals('default', $stub->config('missing', 'default'));
         $this->assertNull($stub->config('other-missing'));
         $this->assertEquals('bar', array_get($stub->config(), 'foo'));
+
+        # mergeConfig
+        $stub->mergeConfig(['foo' => 'updated']);
+        $this->assertEquals('updated', $stub->config('foo'));
     }
 
 }

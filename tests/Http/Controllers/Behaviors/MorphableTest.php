@@ -7,6 +7,7 @@ use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Http\Controllers\Behaviors\Morphable;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
 class MorphableTest extends BeltTestCase
 {
@@ -49,9 +50,9 @@ class MorphableTest extends BeltTestCase
 
         # morphContains
         Alert::unguard();
-        $alert1 = new \Belt\Core\Alert(['id' => 1]);
-        $alert2 = new \Belt\Core\Alert(['id' => 2]);
-        $morphableStub->test = new \Illuminate\Support\Collection($alert1);
+        $alert1 = factory(Alert::class)->make(['id' => 1]);
+        $alert2 = factory(Alert::class)->make(['id' => 2]);
+        $morphableStub->test = new Collection([$alert1]);
         $controller->morphableContains($morphableStub, 'test', $alert1);
         try {
             $controller->morphableContains($morphableStub, 'test', $alert2);
