@@ -18,7 +18,7 @@ class BeltUpdateTemplates extends BaseUpdate
      * @var array
      */
     public $argumentMap = [
-        'method',
+        'methods',
     ];
 
     public function up()
@@ -29,11 +29,14 @@ class BeltUpdateTemplates extends BaseUpdate
          * move
          * db
          */
-        $method = $this->argument('method');
-        $method = camel_case($method);
-        if (method_exists($this, $method)) {
-            $this->$method();
+        $methods = $this->argument('methods');
+        foreach (explode(',', $methods) as $method) {
+            $method = camel_case($method);
+            if (method_exists($this, $method)) {
+                $this->$method();
+            }
         }
+
     }
 
     /**
@@ -55,6 +58,7 @@ class BeltUpdateTemplates extends BaseUpdate
      */
     public function getNewConfig($morphClass, $templateKey, $oldConfig)
     {
+        $type = $this->getTemplateType($morphClass);
 
         $newConfig = [
             'builder' => array_get($oldConfig, 'builder', null),
@@ -62,9 +66,29 @@ class BeltUpdateTemplates extends BaseUpdate
             'path' => array_get($oldConfig, 'path', ''),
             'label' => array_get($oldConfig, 'label', ''),
             'description' => array_get($oldConfig, 'description', ''),
+            'params' => [],
         ];
 
-        $type = $this->getTemplateType($morphClass);
+        $mainParam = null;
+        if (!in_array($morphClass, ['sections', 'custom', 'menus'])) {
+            $mainParam = [
+                'type' => str_slug(str_singular($morphClass)),
+                'label' => title_case(str_singular(str_replace('_', ' ', $morphClass))),
+                'description' => '',
+            ];
+        }
+
+        $newParams = [];
+        $oldParams = array_get($oldConfig, 'params', []);
+        foreach ($oldParams as $key => $values) {
+            $newParams[$key] = [
+                'type' => is_array($values) ? 'select' : 'text',
+                'label' => title_case(str_replace('_', ' ', $key)),
+                'description' => '',
+                'options' => is_array($values) ? $values : null,
+            ];
+        }
+
         if ($type == 'sections') {
             $qb = Section::where('sectionable_type', $morphClass)->where('template', $templateKey);
             foreach (['heading', 'before', 'after'] as $column) {
@@ -73,32 +97,23 @@ class BeltUpdateTemplates extends BaseUpdate
                     $qb->whereNotNull($column);
                     $qb->orWhere($column, '!=', '');
                 });
-                //$newConfig[$column] = $clone->first() ? true : false;
-                $newConfig[$column] = false;
                 if ($clone->first()) {
-                    $newConfig[$column] = [
-                        'label' => '',
+                    $newParams[$column] = [
+                        'type' => $column == 'heading' ? 'text' : 'textarea',
+                        'label' => title_case(str_replace('_', ' ', $column)),
                         'description' => '',
                     ];
                 }
             }
         }
 
-        $params = array_get($oldConfig, 'params', []);
-        if ($params) {
-            foreach ($params as $key => $values) {
-                $newConfig['params'][$key] = [
-                    'class' => null,
-                    'type' => is_array($values) ? 'select' : 'text',
-                    'options' => is_array($values) ? $values : null,
-                    'label' => '',
-                    'description' => '',
-                    'plugin' => '',
-                    'validation' => '',
-                ];
-            }
-            asort($newConfig['params']);
+        asort($newParams);
+
+        if ($mainParam) {
+            $newConfig['params'][$mainParam['type']] = $mainParam;
         }
+
+        $newConfig['params'] = array_merge($newConfig['params'], $newParams);
 
         return $newConfig;
     }
@@ -137,9 +152,9 @@ class BeltUpdateTemplates extends BaseUpdate
 
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
-                //if ($morphClass == 'attachments' && $templateKey == 'default') {
-                    $this->__update($morphClass, $templateKey, $config);
-                //}
+                if ($morphClass == 'attachments' && $templateKey == 'default') {
+                }
+                $this->__update($morphClass, $templateKey, $config);
             }
         }
     }
@@ -186,13 +201,15 @@ class BeltUpdateTemplates extends BaseUpdate
     {
         Section::unguard();
 
-        Section::where(function ($query) {
-            $query->whereNull('template');
-            $query->orWhere('template', '');
-        })
-            ->update([
-                'template' => 'default'
-            ]);
+        Section::where('template', '')->update(['template' => null]);
+        Section::where('heading', '')->update(['heading' => null]);
+        Section::where('before', '')->update(['before' => null]);
+        Section::where('after', '')->update(['after' => null]);
+        Section::where('sectionable_type', '')->update(['sectionable_type' => null]);
+
+        Section::whereNull('template')->update([
+            'template' => 'default'
+        ]);
 
         Section::where('template', 'NOT LIKE', '%.%')
             ->update([
@@ -209,33 +226,30 @@ class BeltUpdateTemplates extends BaseUpdate
                 'template' => DB::raw("REPLACE(`template`, 'sections.', 'containers.')")
             ]);
 
-        $configKey = $this->option('configKey', 'belt.templates.sections');
+        foreach (Section::whereNotNull('heading')->get() as $section) {
+            $section->saveParam('heading', $section->heading);
+        }
 
-//        Section::where('template', '')->update(['template' => 'default']);
-//
-//        foreach (config($configKey) as $morphClass => $templates) {
-//            foreach ($templates as $templateKey => $config) {
-//                $this->__db($morphClass, $templateKey);
-//            }
-//        }
-//
-//        Section::whereNull('sectionable_id')->update(['sectionable_type' => null]);
+        foreach (Section::whereNotNull('before')->get() as $section) {
+            $section->saveParam('before', $section->before);
+        }
+
+        foreach (Section::whereNotNull('after')->get() as $section) {
+            $section->saveParam('after', $section->after);
+        }
+
+        foreach (Section::whereNotNull('sectionable_type')->get() as $section) {
+            $section->saveParam(str_singular($section->sectionable_type), $section->sectionable_id);
+        }
+
+        Section::query()->update([
+           'sectionable_id' => null,
+           'sectionable_type' => null,
+           'heading' => null,
+           'before' => null,
+           'after' => null,
+        ]);
+
     }
-
-//    public function __db($morphClass, $templateKey)
-//    {
-//        $this->info(sprintf('update sections db: %s %s', $morphClass, $templateKey));
-//
-//        $oldSectionableType = $morphClass;
-//        if (in_array($oldSectionableType, ['containers'])) {
-//            $oldSectionableType = 'sections';
-//        }
-//
-//        $newTemplateKey = sprintf('%s.%s', $morphClass, $templateKey);
-//        Section::whereNotNull('sectionable_type')
-//            ->where('sectionable_type', $oldSectionableType)
-//            ->where('template', $templateKey)->update(['template' => $newTemplateKey]);
-//
-//    }
 
 }

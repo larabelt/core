@@ -1,4 +1,4 @@
-<div>
+<div v-if="hasConfig">
     <component :is="inputType" column="value" :config="config" @input-updated="triggerScan"></component>
 </div>
 

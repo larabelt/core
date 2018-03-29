@@ -19,11 +19,14 @@ export default {
         }
     },
     computed: {
+        hasConfig() {
+            return !_.isEmpty(this.config);
+        },
         dirty() {
             return this.form.dirty('value');
         },
         inputType() {
-            let type = _.get(this.config, 'input');
+            let type = _.get(this.config, 'type');
             if (!type) {
                 type = this.options.length ? 'select' : 'text';
             }
