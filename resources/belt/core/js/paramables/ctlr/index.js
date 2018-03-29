@@ -34,6 +34,11 @@ export default {
         },
     },
     methods: {
+        getConfig(key, defaultValue) {
+            let config = this.config ? this.config : {};
+            let value = _.get(config, key);
+            return value ? value : defaultValue;
+        },
         scan() {
             this.dirty = false;
             this.eventBus.$emit('scan');

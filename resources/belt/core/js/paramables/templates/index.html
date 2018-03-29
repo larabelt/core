@@ -8,17 +8,19 @@
                 </button>
             </span>
         </h4>
-        <table class="table table-hover">
-            <tbody>
-            <template v-for="param in params">
-                <edit :param="param"></edit>
-            </template>
-            </tbody>
-        </table>
-        <pagination></pagination>
-<!--            <div v-else>-->
-<!--                <p style="font-style: italic;">No params are currently defined for this item.</p>-->
-<!--            </div>-->
+
+        <template v-for="param in params">
+            <edit :param="param" :config="getConfig('params.' + param.key)"></edit>
+        </template>
+
+<!--        <table class="table table-hover">-->
+<!--            <tbody>-->
+<!--            <template v-for="param in params">-->
+<!--                <edit :param="param" :config="getConfig('params.' + param.key)"></edit>-->
+<!--            </template>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <pagination></pagination>-->
         <hr/>
     </div>
 </div>

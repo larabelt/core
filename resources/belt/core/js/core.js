@@ -26,6 +26,15 @@ Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 
+import inputEditor from 'belt/core/js/inputs/editor';
+import inputSelect from 'belt/core/js/inputs/select';
+import inputText from 'belt/core/js/inputs/text';
+import inputTextarea from 'belt/core/js/inputs/textarea';
+Vue.component('input-editor', inputEditor);
+Vue.component('input-select', inputSelect);
+Vue.component('input-text', inputText);
+Vue.component('input-textarea', inputTextarea);
+
 import tinymce from 'belt/core/js/editors/tinymce.vue';
 import codemirror from 'belt/core/js/editors/codemirror.vue';
 import textarea from 'belt/core/js/editors/textarea.vue';
