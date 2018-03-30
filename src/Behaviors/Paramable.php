@@ -61,12 +61,12 @@ trait Paramable
      * @return mixed
      * @throws \Exception
      */
-    public function morphParam($key)
+    public function morphParam($key, $morphClass = null)
     {
         $value = $this->param($key);
 
         if ($value) {
-            return Morph::morph($key, $value);
+            return Morph::morph($morphClass ?: $key, $value);
         }
 
         throw new \Exception('Invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()');
