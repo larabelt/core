@@ -99,7 +99,7 @@ class BeltUpdateTemplates extends BaseUpdate
                 });
                 if ($clone->first()) {
                     $newParams[$column] = [
-                        'type' => $column == 'heading' ? 'text' : 'textarea',
+                        'type' => $column == 'heading' ? 'text' : 'editor',
                         'label' => title_case(str_replace('_', ' ', $column)),
                         'description' => '',
                     ];
@@ -107,7 +107,7 @@ class BeltUpdateTemplates extends BaseUpdate
             }
         }
 
-        asort($newParams);
+        //asort($newParams);
 
         if ($mainParam && $type == 'sections') {
             $newConfig['params'][$mainParam['type']] = $mainParam;

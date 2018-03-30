@@ -24,7 +24,8 @@ trait Paramable
      */
     public function params()
     {
-        return $this->morphMany(Param::class, 'paramable')->orderBy('params.key');
+        return $this->morphMany(Param::class, 'paramable');
+        //return $this->morphMany(Param::class, 'paramable')->orderBy('params.key');
     }
 
     /**
