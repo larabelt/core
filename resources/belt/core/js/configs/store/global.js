@@ -2,8 +2,10 @@ import Service from 'belt/core/js/configs/service';
 
 export default {
     namespaced: true,
-    state: {
-        data: {},
+    state() {
+        return {
+            data: {},
+        }
     },
     mutations: {
         data: (state, options) => {

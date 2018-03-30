@@ -72,7 +72,7 @@ class BeltUpdateTemplates extends BaseUpdate
         $mainParam = null;
         if (!in_array($morphClass, ['sections', 'custom', 'menus'])) {
             $mainParam = [
-                'type' => str_slug(str_singular($morphClass)),
+                'type' => $morphClass,
                 'label' => title_case(str_singular(str_replace('_', ' ', $morphClass))),
                 'description' => '',
             ];
@@ -239,7 +239,7 @@ class BeltUpdateTemplates extends BaseUpdate
         }
 
         foreach (Section::whereNotNull('sectionable_type')->get() as $section) {
-            $section->saveParam(str_singular($section->sectionable_type), $section->sectionable_id);
+            $section->saveParam($section->sectionable_type, $section->sectionable_id);
         }
 
         Section::query()->update([
