@@ -109,7 +109,7 @@ class BeltUpdateTemplates extends BaseUpdate
 
         asort($newParams);
 
-        if ($mainParam) {
+        if ($mainParam && $type == 'sections') {
             $newConfig['params'][$mainParam['type']] = $mainParam;
         }
 

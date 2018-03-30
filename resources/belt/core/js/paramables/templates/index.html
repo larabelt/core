@@ -1,4 +1,4 @@
-<div v-if="params.length" class="row">
+<div v-if="params.length">
     <template v-for="param in params">
         <edit :param="param" :config="getConfig('params.' + param.key)"></edit>
     </template>
