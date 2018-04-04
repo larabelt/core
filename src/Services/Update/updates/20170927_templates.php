@@ -60,14 +60,28 @@ class BeltUpdateTemplates extends BaseUpdate
     {
         $type = $this->getTemplateType($morphClass);
 
+        $previews = [
+            'albums' => 'belt-clip::albums.previews.default',
+            'attachments' => 'belt-clip::attachments.previews.default',
+            'menus' => 'belt-menu::menus.previews.default',
+            'touts' => 'belt-content::attachments.previews.default',
+        ];
+
         $newConfig = [
             'builder' => array_get($oldConfig, 'builder', null),
             'extends' => array_get($oldConfig, 'extends', ''),
             'path' => array_get($oldConfig, 'path', ''),
             'label' => array_get($oldConfig, 'label', ''),
             'description' => array_get($oldConfig, 'description', ''),
+            'preview' => array_get($previews, $morphClass, ''),
             'params' => [],
         ];
+
+        if ($morphClass == 'custom') {
+            if ($templateKey == 'breadcrumbs') {
+                $newConfig['preview'] = 'belt-menu::menus.previews.breadcrumbs';
+            }
+        }
 
         $mainParam = null;
         if (!in_array($morphClass, ['sections', 'custom', 'menus'])) {
@@ -108,6 +122,7 @@ class BeltUpdateTemplates extends BaseUpdate
         }
 
         //asort($newParams);
+
 
         if ($mainParam && $type == 'sections') {
             $newConfig['params'][$mainParam['type']] = $mainParam;
@@ -243,11 +258,11 @@ class BeltUpdateTemplates extends BaseUpdate
         }
 
         Section::query()->update([
-           'sectionable_id' => null,
-           'sectionable_type' => null,
-           'heading' => null,
-           'before' => null,
-           'after' => null,
+            'sectionable_id' => null,
+            'sectionable_type' => null,
+            'heading' => null,
+            'before' => null,
+            'after' => null,
         ]);
 
     }
