@@ -99,6 +99,14 @@
     hyphens: auto;
 }
 
+.row-striped:nth-of-type(odd){
+    background-color: #efefef;
+}
+
+.row-striped:nth-of-type(even){
+    background-color: #ffffff;
+}
+
 @import "components/column-sorter";
 @import "components/dropdown";
 @import "components/form-roles";
