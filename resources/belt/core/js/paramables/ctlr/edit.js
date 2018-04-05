@@ -5,6 +5,11 @@ import html from 'belt/core/js/paramables/templates/edit.html';
 export default {
     mixins: [shared],
     props: {
+        config: {
+            default: function () {
+                return {};
+            }
+        },
         param: {default: {}},
     },
     data() {
@@ -14,15 +19,33 @@ export default {
         }
     },
     computed: {
-        config() {
-            return this.$parent.config;
+        hasConfig() {
+            return !_.isEmpty(this.config);
         },
         dirty() {
             return this.form.dirty('value');
         },
+        inputType() {
+            let type = _.get(this.config, 'type');
+            if (!type) {
+                type = this.options.length ? 'select' : 'text';
+            }
+            return 'input-' + type;
+        },
         options() {
-            return this.config ? _.get(this.config, 'params.' + this.param.key, false) : false;
-        }
+            let options = [];
+            let config = _.get(this.config, 'options', {});
+            if (!_.isEmpty(config)) {
+                _.forIn(config, function (value, key) {
+                    options.push({
+                        value: key,
+                        label: value,
+                    });
+                });
+                options = _.orderBy(options, ['label']);
+            }
+            return options;
+        },
     },
     watch: {
         'param.id': function () {

@@ -1,24 +1,10 @@
-<div v-if="params.length" class="row">
-    <div class="col-md-12">
-        <hr/>
-        <h4>Param List
-            <span v-if="params.length" class="pull-right">
-                <button class="btn btn-xs" :class="{'btn-default': !dirty, 'btn-primary': dirty}" :disabled="!dirty" @click.prevent="update()">
-                    <span>Update Params</span>
-                </button>
-            </span>
-        </h4>
-        <table class="table table-hover">
-            <tbody>
-            <template v-for="param in params">
-                <edit :param="param"></edit>
-            </template>
-            </tbody>
-        </table>
-        <pagination></pagination>
-<!--            <div v-else>-->
-<!--                <p style="font-style: italic;">No params are currently defined for this item.</p>-->
-<!--            </div>-->
-        <hr/>
+<div v-if="params.length">
+    <template v-for="param in params">
+        <edit :param="param" :config="getConfig('params.' + param.key)"></edit>
+    </template>
+    <div class="alt-box-footer text-right">
+        <button class="btn btn-primary" :class="{'btn-default': !dirty, 'btn-primary': dirty}" :disabled="!dirty" @click.prevent="update()">
+            <span>Save</span>
+        </button>
     </div>
 </div>

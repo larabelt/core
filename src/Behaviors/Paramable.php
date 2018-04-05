@@ -24,7 +24,8 @@ trait Paramable
      */
     public function params()
     {
-        return $this->morphMany(Param::class, 'paramable')->orderBy('params.key');
+        return $this->morphMany(Param::class, 'paramable');
+        //return $this->morphMany(Param::class, 'paramable')->orderBy('params.key');
     }
 
     /**
@@ -58,18 +59,18 @@ trait Paramable
      * Morph param
      *
      * @param $key
+     * @param $default
+     * @param $morphClass
      * @return mixed
      * @throws \Exception
      */
-    public function morphParam($key)
+    public function morphParam($key, $default = null, $morphClass = null)
     {
         $value = $this->param($key);
 
-        if ($value) {
-            return Morph::morph($key, $value);
-        }
+        $value = $value ? Morph::morph($morphClass ?: $key, $value) : null;
 
-        throw new \Exception('Invalid key/value for Belt\Core\Behaviors\Paramable::morphParam()');
+        return $value ?: $default;
     }
 
     /**

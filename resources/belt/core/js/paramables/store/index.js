@@ -2,10 +2,12 @@ import Table from 'belt/core/js/paramables/table';
 
 export default {
     namespaced: true,
-    state: {
-        data: {},
-        morphID: '',
-        morphType: '',
+    state() {
+        return {
+            data: {},
+            morphID: '',
+            morphType: '',
+        }
     },
     mutations: {
         data: (state, value) => state.data = value,

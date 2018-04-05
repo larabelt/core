@@ -2,12 +2,15 @@ import Service from 'belt/core/js/configs/service';
 
 export default {
     namespaced: true,
-    state: {
-        data: {},
+    state() {
+        return {
+            data: {},
+        }
     },
     mutations: {
         data: (state, options) => {
-            _.set(state.data, options.path, options.data);
+            //_.set(state.data, options.path, options.data);
+            Vue.set(state.data, options.path, options.data);
         },
     },
     actions: {
@@ -31,6 +34,7 @@ export default {
             });
         },
         loadType: (context, type) => {
+            context.commit('data', {path: type, data: {}});
             let service = new Service();
             service.set(type);
             return new Promise((resolve, reject) => {

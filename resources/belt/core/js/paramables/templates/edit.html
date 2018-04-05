@@ -1,27 +1,40 @@
-<tr class="form-inline">
-    <td>
-        <div :class="{ 'has-warning': dirty }">
-            <div class="input-group">
-                <input class="form-control input-sm" v-model="form.key" placeholder="key" @keydown="form.errors.clear($event.target.name)" readonly>
-                <span class="input-group-addon">
-                    <i class="fa fa-save"></i>
-                </span>
-            </div>
-        </div>
-    </td>
-    <td>
-        <div :class="{ 'has-error': form.error('value') }">
-            <template v-if="options">
-                <select name="value" v-model="form.value" class="form-control" @change="triggerScan()">
-                    <template v-for="option, value in options">
-                        <option :value="value">{{ option }}</option>
-                    </template>
-                </select>
-            </template>
-            <template v-else>
-                <input class="form-control input-sm" v-model="form.value" placeholder="" @keyup="triggerScan()" style="width:100%;">
-            </template>
-            <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>
-        </div>
-    </td>
-</tr>
+<div>
+    <component :is="inputType" column="value" :config="config" @input-updated="triggerScan"></component>
+</div>
+
+<!--<tbody>-->
+<!--    <tr>-->
+<!--        <td colspan="100%">-->
+<!--            <component :is="inputType" column="value" :config="config" @input-updated="triggerScan"></component>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    <tr class="form-inline">-->
+<!--        <td>-->
+<!--            <div :class="{ 'has-warning': dirty }">-->
+<!--                <div class="input-group">-->
+<!--                    <input class="form-control input-sm" v-model="form.key">-->
+<!--                    <span class="input-group-addon">-->
+<!--                        <i class="fa fa-save"></i>-->
+<!--                    </span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <div :class="{ 'has-error': form.error('value') }">-->
+<!---->
+<!--                <template v-if="inputType == 'input-text'">-->
+<!--                    <input class="form-control input-sm" v-model="form.value" placeholder="" @keyup="triggerScan()" style="width:100%;">-->
+<!--                </template>-->
+<!--                <template v-if="inputType == 'input-select'">-->
+<!--                    <select name="value" v-model="form.value" class="form-control" @change="triggerScan()">-->
+<!--                        <template v-for="option in options">-->
+<!--                            <option :value="option.value">{{ option.label }}</option>-->
+<!--                        </template>-->
+<!--                    </select>-->
+<!--                </template>-->
+<!---->
+<!--                <span v-for="error in form.error('value')" class="text-danger">{{ error }}</span>-->
+<!--            </div>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</tbody>-->
