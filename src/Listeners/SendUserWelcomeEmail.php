@@ -3,7 +3,7 @@
 namespace Belt\Core\Listeners;
 
 use Belt, Mail;
-use Belt\Core\Events\UserCreated;
+use Belt\Core\Events\ItemCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 /**
@@ -30,10 +30,10 @@ class SendUserWelcomeEmail implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  UserCreated $event
+     * @param  ItemCreated $event
      * @return void
      */
-    public function handle(UserCreated $event)
+    public function handle(ItemCreated $event)
     {
         $user = $event->item();
 

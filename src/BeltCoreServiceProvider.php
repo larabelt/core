@@ -72,10 +72,6 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->commands(Belt\Core\Commands\TestDBCommand::class);
         $this->commands(Belt\Core\Commands\UpdateCommand::class);
 
-        // events
-        Event::subscribe(Belt\Core\Listeners\UserEventSubscriber::class);
-        Event::subscribe(Belt\Core\Listeners\TeamEventSubscriber::class);
-
         // observers
         Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);

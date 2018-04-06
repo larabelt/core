@@ -28,7 +28,7 @@ class SendUserWelcomeEmailTest extends Testing\BeltTestCase
 
         $user = factory(User::class)->make(['id' => 123]);
 
-        $event = new Events\UserCreated($user);
+        $event = new Events\ItemCreated($user);
 
         Morph::shouldReceive('morph')->with('users', 123)->andReturn($user);
 

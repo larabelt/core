@@ -50,20 +50,20 @@ trait HasConfig
     }
 
     /**
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config ?: $this->setConfig(null);
+    }
+
+    /**
      * @param $updated
      * @return array
      */
     public function mergeConfig($updated)
     {
         return $this->config = array_merge($this->getConfig(), $updated);
-    }
-
-    /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return $this->config ?: $this->setConfig(null);
     }
 
     /**

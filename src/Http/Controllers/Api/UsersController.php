@@ -76,8 +76,6 @@ class UsersController extends ApiController
 
         $user->save();
 
-        event(new Belt\Core\Events\UserCreated($user));
-
         $this->itemEvent('created', $user);
 
         return response()->json($user, 201);

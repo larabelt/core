@@ -26,9 +26,9 @@ class UpdateCommandTest extends \PHPUnit_Framework_TestCase
         $service = m::mock(UpdateService::class);
         $service->shouldReceive('registerUpdates')->once()->andReturnNull();
         $service->shouldReceive('run')->once()->andReturnNull();
-        $cmd = m::mock(UpdateCommand::class . '[service,option]');
+        $cmd = m::mock(UpdateCommand::class . '[service,argument]');
         $cmd->shouldReceive('service')->once()->andReturn($service);
-        $cmd->shouldReceive('option')->once()->andReturn(999);
+        $cmd->shouldReceive('argument')->once()->with('update')->andReturn('foo');
         $cmd->handle();
     }
 

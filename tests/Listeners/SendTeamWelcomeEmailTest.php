@@ -31,7 +31,7 @@ class SendTeamWelcomeEmailTest extends Testing\BeltTestCase
         $user = factory(User::class)->make();
         $team->defaultUser = $user;
 
-        $event = new Events\TeamCreated($team);
+        $event = new Events\ItemCreated($team);
 
         Morph::shouldReceive('morph')->with('teams', 123)->andReturn($team);
 
