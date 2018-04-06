@@ -24,7 +24,7 @@ class TmpFileTest extends BeltTestCase
 
         # createTmpFile
         $this->assertNull($stub->tmpFile);
-        $stub->createTmpFile();
+        $stub->createTmpFile('test');
         $this->assertNotNull($stub->tmpFile);
 
         # getTmpFileUri
@@ -32,6 +32,7 @@ class TmpFileTest extends BeltTestCase
 
         # getTmpFileContents
         $this->assertNotNull($stub->getTmpFileContents());
+        $this->assertEquals('test', $stub->getTmpFileContents());
     }
 
 }
