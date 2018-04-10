@@ -62,7 +62,20 @@ class TestDBCommand extends Command
         $this->disk()->copy("$path/empty.sqlite", "$path/database.sqlite");
 
         # run migration on test DB
+        $this->call('migrate', ['--path' => 'database/migrations/belt', '--env' => 'testing']);
         $this->call('migrate', ['--env' => 'testing']);
+
+        # seed the db
+        $seeders = $this->disk()->files('database/seeds/belt');
+        foreach ($seeders as $seeder) {
+            if (str_contains($seeder, ['Seeder'])) {
+                $seeder = str_replace(['database/seeds/belt/', '.php'], '', $seeder);
+                $this->call('db:seed', [
+                    '--env' => 'testing',
+                    '--class' => $seeder,
+                ]);
+            }
+        }
 
         # seed the db
         $seeders = $this->disk()->files('database/seeds');
