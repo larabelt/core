@@ -42,8 +42,8 @@ class ParamablesFunctionalTest extends Testing\BeltTestCase
 
         # copy
         $old = Param::find($paramID);
-        $new = Param::copy($old, ['paramable_id' => 2]);
-        $response = $this->json('GET', "/api/v1/sections/2/params/$new->id");
+        $new = Param::copy($old, ['paramable_id' => 1]);
+        $response = $this->json('GET', "/api/v1/sections/1/params/$new->id");
         $response->assertStatus(200);
 
         # delete
