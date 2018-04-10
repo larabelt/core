@@ -19,7 +19,7 @@
 @if($can['users'] || $can['teams'] || $can['roles'])
     <li id="core-admin-sidebar-left" class="treeview">
         <a href="#">
-            <i class="fa fa-user-o"></i> <span>User Admin</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-user-o"></i> <span>Access</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
             @if($can['users'])
