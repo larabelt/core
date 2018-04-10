@@ -40,12 +40,16 @@ class BeltCommand extends Command
             return $this->publish($this->options());
         }
 
-        if ($action == 'seed') {
-            return $this->seed();
+        if ($action == 'migrate') {
+            return $this->migrate();
         }
 
         if ($action == 'refresh') {
             $this->refresh();
+        }
+
+        if ($action == 'seed') {
+            return $this->seed();
         }
     }
 
@@ -70,6 +74,15 @@ class BeltCommand extends Command
     /**
      *
      */
+    public function migrate()
+    {
+        $this->call('migrate', ['--path' => 'database/migrations/belt']);
+        $this->call('migrate');
+    }
+
+    /**
+     *
+     */
     public function seed()
     {
         foreach (app('belt')->seeders() as $class) {
@@ -85,6 +98,7 @@ class BeltCommand extends Command
     {
         $this->publish(['force' => true]);
         $this->info('migrate:refresh');
+        $this->call('migrate:refresh', ['--path' => 'database/migrations/belt']);
         $this->call('migrate:refresh');
         $this->seed();
     }
