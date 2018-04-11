@@ -1,7 +1,7 @@
 <span>
     <template v-if="adminMode == 'admin'">
         <div class="form-group" :class="{ 'has-error': form.error('team_id') }">
-            <label for="name">Team</label>
+            <label for="name"><slot></slot></label>
             <input type="hidden" v-model="form.team_id">
             <div class="input-group">
                 <div class="input-group-addon" @click="toggle()"><i class="fa fa-search"></i></div>
