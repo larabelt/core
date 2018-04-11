@@ -34,10 +34,6 @@
                                         <column-sorter :column="'teams.id'"></column-sorter>
                                     </th>
                                     <th>
-                                        Code
-                                        <column-sorter :column="'teams.code'"></column-sorter>
-                                    </th>
-                                    <th>
                                         Name
                                         <column-sorter :column="'teams.name'"></column-sorter>
                                     </th>
@@ -47,7 +43,6 @@
                             <tbody>
                                 <tr v-for="team in table.items">
                                     <td>{{ team.id }}</td>
-                                    <td>{{ team.code }}</td>
                                     <td>{{ team.name }}</td>
                                     <td class="text-right">
                                         <button class="btn btn-default btn-xs" @click.prevent="setTeam(team)"><i class="fa fa-chevron-right"></i></button>
