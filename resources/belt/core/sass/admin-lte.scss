@@ -1,18 +1,9 @@
-// Bootstrap 3.3.6
-@import"/plugins/admin-lte/bootstrap/css/bootstrap.min.css";
-
-@import"/plugins/admin-lte/dist/css/AdminLTE.min.css";
+@import"~admin-lte/dist/css/AdminLTE.min.css";
 // AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load.
-@import"/plugins/admin-lte/dist/css/skins/_all-skins.min.css";
+@import"~admin-lte/dist/css/skins/_all-skins.min.css";
 // iCheck
-@import"/plugins/admin-lte/plugins/iCheck/flat/blue.css";
-// Morris chart
-@import"/plugins/admin-lte/plugins/morris/morris.css";
-// jvectormap
-@import"/plugins/admin-lte/plugins/jvectormap/jquery-jvectormap-1.2.2.css";
+//@import"~admin-lte/plugins/iCheck/flat/blue.css";
 // Date Picker
-@import"/plugins/admin-lte/plugins/datepicker/datepicker3.css";
+@import"~bootstrap-datepicker/dist/css/bootstrap-datepicker3.css";
 // Daterange picker
-@import"/plugins/admin-lte/plugins/daterangepicker/daterangepicker.css";
-// bootstrap wysihtml5 - text editor
-@import"/plugins/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css";
+@import"~bootstrap-daterangepicker/daterangepicker.css";
