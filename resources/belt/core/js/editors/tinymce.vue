@@ -2,7 +2,7 @@
     <vue-mce v-model="content"
              ref="editor"
              :config="config"
-             v-on:input="updateValue"></vue-mce>
+             @input="updateValue"></vue-mce>
 </template>
 
 <script>
@@ -14,23 +14,20 @@
         data() {
             return {
                 config: {
+                    height: '300',
                     plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste code',
                     toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code'
                 }
             }
         },
         methods: {
-            storeValue() {
-                if( this.value  && !this.watchLoaded ) {
-                    this.watchLoaded = true;
-
-                    /*
-                        For some reason both of these in combo work but sometimes don't load when only 1 of them is present.
-                        Could be on our end or in the plugin
-                     */
-                    this.$refs['editor'].setContent(this.value);
-                    this.content = this.value;
-                }
+            setContent(value) {
+                /*
+                       For some reason both of these in combo work but sometimes don't load when only 1 of them is present.
+                       Could be on our end or in the plugin
+                    */
+                this.$refs['editor'].setContent(value);
+                this.content = value;
             }
         },
         mixins: [editorMixins]
