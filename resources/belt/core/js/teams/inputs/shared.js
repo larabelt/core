@@ -1,5 +1,4 @@
 import Table from 'belt/core/js/teams/table';
-import html from 'assets/js/admin/leads/shared/team-dropdown/template.html';
 
 export default {
     data() {
@@ -29,5 +28,4 @@ export default {
         this.teams.updateQuery({perPage: 99999});
         this.teams.index();
     },
-    template: html
 }
