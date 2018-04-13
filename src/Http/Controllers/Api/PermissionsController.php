@@ -41,7 +41,7 @@ class PermissionsController extends ApiController
     {
         $permissible = $this->permissible($entity_type, $entity_id);
 
-        $this->authorize('view', $permissible);
+        $this->authorize(['view', 'create', 'update', 'delete'], $permissible);
 
         return response()->json($permissible->getAbilities()->toArray());
     }
@@ -89,7 +89,7 @@ class PermissionsController extends ApiController
     {
         $permissible = $this->permissible($entity_type, $entity_id);
 
-        $this->authorize('view', $permissible);
+        $this->authorize(['view', 'create', 'update', 'delete'], $permissible);
 
         $permission = $permissible->abilities->where('id', $ability_id)->first();
 

@@ -40,7 +40,7 @@ class WorkRequestsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('view', WorkRequest::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], WorkRequest::class);
 
         $request = Requests\PaginateWorkRequests::extend($request);
 
@@ -86,7 +86,7 @@ class WorkRequestsController extends ApiController
      */
     public function show(WorkRequest $workRequest)
     {
-        $this->authorize('view', $workRequest);
+        $this->authorize(['view', 'create', 'update', 'delete'], $workRequest);
 
         return response()->json($workRequest);
     }

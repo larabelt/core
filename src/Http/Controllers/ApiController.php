@@ -134,7 +134,7 @@ class ApiController extends Controller
     /**
      * Authorize a given action for the current user.
      *
-     * @deprecated re-write when upgrading to 5.5
+     * @todo re-write when upgrading to laravel 5.5
      * @param  mixed $abilities
      * @param  mixed|array $arguments
      * @return \Illuminate\Auth\Access\Response

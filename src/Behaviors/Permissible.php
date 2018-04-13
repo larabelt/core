@@ -1,6 +1,5 @@
 <?php namespace Belt\Core\Behaviors;
 
-use Cache;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
@@ -15,6 +14,25 @@ trait Permissible
      * @var null|boolean
      */
     private $super;
+
+    /**
+     * Determine if the entity has a given ability.
+     *
+     * @todo re-write when upgrading to laravel 5.5
+     * @param  string $ability
+     * @param  array|mixed $arguments
+     * @return bool
+     */
+    public function can($abilities, $arguments = [])
+    {
+        foreach ((array) $abilities as $ability) {
+            if (parent::can($ability, $arguments)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * @param $value

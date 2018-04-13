@@ -45,7 +45,7 @@ class AssignedRolesController extends ApiController
     {
         $permissible = $this->permissible($subject_type, $subject_id);
 
-        $this->authorize('view', $permissible);
+        $this->authorize(['view', 'create', 'update', 'delete'], $permissible);
 
         return response()->json($permissible->roles->toArray());
     }
@@ -90,7 +90,7 @@ class AssignedRolesController extends ApiController
         /* @var $permissible PermissibleInterface */
         $permissible = $this->permissible($subject_type, $subject_id);
 
-        $this->authorize('view', $permissible);
+        $this->authorize(['view', 'create', 'update', 'delete'], $permissible);
 
         $role = $permissible->roles->where('id', $id)->first();
 

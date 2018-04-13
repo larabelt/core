@@ -62,7 +62,7 @@ class ParamablesController extends ApiController
 
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $paramable);
+        $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
         $request->merge([
             'paramable_id' => $paramable->id,
@@ -149,7 +149,7 @@ class ParamablesController extends ApiController
     {
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $paramable);
+        $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);

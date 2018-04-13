@@ -39,7 +39,7 @@ class UsersController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('view', User::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], User::class);
 
         $request = Requests\PaginateUsers::extend($request);
 
@@ -92,7 +92,7 @@ class UsersController extends ApiController
      */
     public function show(User $user)
     {
-        $this->authorize('view', $user);
+        $this->authorize(['view', 'create', 'update', 'delete'], $user);
 
         return response()->json($user);
     }
