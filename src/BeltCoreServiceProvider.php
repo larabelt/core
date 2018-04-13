@@ -98,6 +98,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         // add alias/facade
         $loader = AliasLoader::getInstance();
         $loader->alias('Debugbar', Barryvdh\Debugbar\Facade::class);
+        $loader->alias('Excel', \Maatwebsite\Excel\Facades\Excel::class);
         $loader->alias('Form', Collective\Html\FormFacade::class);
         $loader->alias('Html', Collective\Html\HtmlFacade::class);
         $loader->alias('Morph', Belt\Core\Facades\MorphFacade::class);
@@ -126,6 +127,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
         $this->app->register(Barryvdh\Cors\ServiceProvider::class);
+        $this->app->register(\Maatwebsite\Excel\ExcelServiceProvider::class);
         if (env('APP_DEBUG') === true) {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
             $this->app->register(Barryvdh\Debugbar\ServiceProvider::class);
