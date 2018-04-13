@@ -21,7 +21,7 @@ class WorkflowsController extends ApiController
      */
     public function index()
     {
-        $this->authorize('view', WorkRequest::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], WorkRequest::class);
 
         $response = [];
         foreach (WorkflowService::get() as $key => $class) {

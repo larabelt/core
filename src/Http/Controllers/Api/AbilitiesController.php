@@ -41,7 +41,7 @@ class AbilitiesController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('view', Ability::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Ability::class);
 
         $request = Requests\PaginateAbilities::extend($request);
 
@@ -97,7 +97,7 @@ class AbilitiesController extends ApiController
 
         $ability = $this->get($id);
 
-        $this->authorize('view', $ability);
+        $this->authorize(['view', 'create', 'update', 'delete'], $ability);
 
         return response()->json($ability);
     }

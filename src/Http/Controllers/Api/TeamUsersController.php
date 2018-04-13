@@ -70,7 +70,7 @@ class TeamUsersController extends ApiController
      */
     public function index(Request $request, $team_id)
     {
-        $this->authorize('view', Team::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Team::class);
 
         $request = Requests\PaginateTeamUsers::extend($request);
 
@@ -120,7 +120,7 @@ class TeamUsersController extends ApiController
     {
         $team = $this->team($team_id);
 
-        $this->authorize('view', $team);
+        $this->authorize(['view', 'create', 'update', 'delete'], $team);
 
         $user = $this->user($id, $team);
 

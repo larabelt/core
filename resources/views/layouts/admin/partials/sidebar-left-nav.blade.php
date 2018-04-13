@@ -1,9 +1,9 @@
 @php
-    $can['alerts'] = Auth::user()->can('edit', Belt\Core\Alert::class);
-    $can['users'] = Auth::user()->can('edit', Belt\Core\User::class);
-    $can['teams'] = Auth::user()->can('edit', Belt\Core\Team::class);
-    $can['roles'] = Auth::user()->can('edit', Belt\Core\Role::class);
-    $can['workRequests'] = Auth::user()->can('edit', Belt\Core\WorkRequest::class);
+    $can['alerts'] = $auth->can(['create','update','delete'], Belt\Core\Alert::class);
+    $can['users'] = $auth->can(['create','update','delete'], Belt\Core\User::class);
+    $can['teams'] = $auth->can(['create','update','delete'], Belt\Core\Team::class);
+    $can['roles'] = $auth->can(['create','update','delete'], Belt\Core\Role::class);
+    $can['workRequests'] = $auth->can(['create','update','delete'], Belt\Core\WorkRequest::class);
 @endphp
 
 <li id="core-admin-sidebar-left-dashboard"><a href="/admin"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>

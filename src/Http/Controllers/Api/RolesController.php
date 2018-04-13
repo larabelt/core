@@ -41,7 +41,7 @@ class RolesController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('view', Role::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Role::class);
 
         $request = Requests\PaginateRoles::extend($request);
 
@@ -89,7 +89,7 @@ class RolesController extends ApiController
 
         $role = $this->get($id);
 
-        $this->authorize('view', $role);
+        $this->authorize(['view', 'create', 'update', 'delete'], $role);
 
         return response()->json($role);
     }

@@ -45,7 +45,7 @@ class TeamsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('view', Team::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Team::class);
 
         $request = Requests\PaginateTeams::extend($request);
 
@@ -94,7 +94,7 @@ class TeamsController extends ApiController
     {
         $team = $this->get($id);
 
-        $this->authorize('view', $team);
+        $this->authorize(['view', 'create', 'update', 'delete'], $team);
 
         return response()->json($team);
     }

@@ -3,12 +3,17 @@
 use Mockery as m;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Exceptions;
-use Belt\Core\Testing\CommonMocks;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
+use Belt\Core\Testing\BeltTestCase;
+use Belt\Core\Testing\CommonMocks;
 use Belt\Core\User;
+use Belt\Core\Team;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\Access\Response as AuthAccessResponse;
+use Illuminate\Contracts\Auth\Access\Gate;
 
-class ApiControllerTest extends \PHPUnit_Framework_TestCase
+class ApiControllerTest extends BeltTestCase
 {
     use CommonMocks;
 
@@ -23,6 +28,7 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
      * @covers \Belt\Core\Http\Controllers\ApiController::getPaginateRequest
      * @covers \Belt\Core\Http\Controllers\ApiController::set
      * @covers \Belt\Core\Http\Controllers\ApiController::setIfNotEmpty
+     * @covers \Belt\Core\Http\Controllers\ApiController::authorize
      */
     public function test()
     {
@@ -85,6 +91,24 @@ class ApiControllerTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertNull($user->password1);
         $this->assertNotNull($user->password2);
+
+        $gate = m::mock(Gate::class);
+        app()->instance(Gate::class, $gate);
+
+        # authorization: allowed
+        $gate->shouldReceive('allows')->with('foo', Team::class)->andReturn(false);
+        $gate->shouldReceive('allows')->with('bar', Team::class)->andReturn(true);
+        $response = $controller->authorize('bar', Team::class);
+        $this->assertInstanceOf(AuthAccessResponse::class, $response);
+
+        # authorization: denied
+        $gate->shouldReceive('allows')->with('forbidden', Team::class)->andReturn(false);
+        try {
+            $controller->authorize('forbidden', Team::class);
+            $this->exceptionNotThrown();
+        } catch (\Exception $e) {
+
+        }
     }
 
 }
