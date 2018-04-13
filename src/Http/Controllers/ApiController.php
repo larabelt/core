@@ -152,7 +152,7 @@ class ApiController extends Controller
             }
         }
 
-        $this->deny();
+        return $this->deny();
     }
 
 }

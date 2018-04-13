@@ -27,7 +27,7 @@ class BeltCorePermissibleSeeds extends Seeder
         foreach ($abilities as $entity_type => $set) {
             if (is_numeric($entity_type)) {
                 $entity_type = $set;
-                $set = ['*', 'create', 'view', 'update', 'delete'];
+                $set = ['*', 'create', 'update', 'delete'];
             }
             $set = is_array($set) ? $set : [$set];
             foreach ($set as $ability) {
