@@ -37,10 +37,13 @@ class GroupLengthAwarePaginator extends BaseLengthAwarePaginator
 
         $this->qb->offset($request->offset());
 
+        /**
+         * @todo better perPage is null
+         */
         $paginator = new LengthAwarePaginator(
             $request->items($this->qb),
             $count,
-            $request->perPage(),
+            $request->perPage() ?: ($count ?: 999999),
             $request->page()
         );
 
