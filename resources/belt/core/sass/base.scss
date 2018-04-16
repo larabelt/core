@@ -14,7 +14,7 @@
         margin-bottom: 10px;
     }
     .filter-set {
-        padding:0 0 10px;
+        padding: 0 0 10px;
         .filter {
             margin-right: 10px;
         }
@@ -43,6 +43,11 @@
         .form-group {
             margin: 0;
         }
+    }
+    .btn-default {
+        background-color: #f4f4f4;
+        color: #444;
+        border-color: #ddd;
     }
 }
 
@@ -82,8 +87,8 @@
 }
 
 .no-gutter > [class*='col-'] {
-    padding-right:0;
-    padding-left:0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .break-word {
@@ -98,11 +103,11 @@
     hyphens: auto;
 }
 
-.row-striped:nth-of-type(odd){
+.row-striped:nth-of-type(odd) {
     background-color: #efefef;
 }
 
-.row-striped:nth-of-type(even){
+.row-striped:nth-of-type(even) {
     background-color: #ffffff;
 }
 
