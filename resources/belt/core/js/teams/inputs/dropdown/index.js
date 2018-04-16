@@ -13,11 +13,6 @@ export default {
             default: true,
         }
     },
-    computed: {
-        zform() {
-            return this.$parent.form;
-        }
-    },
     mounted() {
         this.team_id = this.form.team_id;
     },

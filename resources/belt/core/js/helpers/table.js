@@ -49,7 +49,8 @@ class BaseTable {
      */
     updateQuery(query) {
         for (let field in query) {
-            this.query[field] = query[field];
+            //this.query[field] = query[field];
+            Vue.set(this.query, field, query[field]);
         }
     }
 
@@ -135,7 +136,7 @@ class BaseTable {
                     this.from = response.data.from;
                     this.to = response.data.to;
 
-                    if( options.append ) {
+                    if (options.append) {
                         _.each(response.data.data, item => {
                             this.items.push(item);
                         });

@@ -16,10 +16,7 @@ export default {
     },
     methods: {
         change() {
-            delete this.table.query.team_id;
-            if (this.team_id) {
-                this.table.updateQuery({team_id: this.team_id});
-            }
+            this.table.updateQuery({team_id: this.team_id});
             this.$emit('filter-team-update');
         },
     },
