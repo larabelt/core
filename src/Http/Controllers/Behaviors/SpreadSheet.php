@@ -24,7 +24,7 @@ trait SpreadSheet
                     if (is_array($headers)) {
                         $sheet->appendRow($headers);
                     }
-                    if ($headers === true) {
+                    if ($headers === true && isset($items[0])) {
                         $sheet->appendRow(array_keys($items[0]));
                     }
                 }
