@@ -2,19 +2,23 @@
 
 Route::get('/js/lang.js', function () {
 
-    $locale = Lang::getLocale();
-    $loader = Lang::getLoader();
+    $trans = Cache::rememberForever('lang.js', function () {
+        $locale = Lang::getLocale();
+        $loader = Lang::getLoader();
 
-    $trans = [];
+        $trans = [];
 
-    foreach (app('belt')->packages() as $name => $package) {
-        $namespace = sprintf('belt-%s', $name);
-        $files = glob(sprintf('%s/resources/lang/%s/*.php', $package['dir'], $locale));
-        foreach ($files as $file) {
-            $group = basename($file, '.php');
-            $trans[$namespace][$group] = $loader->load($locale, $group, $namespace);
+        foreach (app('belt')->packages() as $name => $package) {
+            $namespace = sprintf('belt-%s', $name);
+            $files = glob(sprintf('%s/resources/lang/%s/*.php', $package['dir'], $locale));
+            foreach ($files as $file) {
+                $group = basename($file, '.php');
+                $trans[$namespace][$group] = $loader->load($locale, $group, $namespace);
+            }
         }
-    }
+
+        return $trans;
+    });
 
     $js = sprintf('window.i18n = %s;', json_encode($trans));
 
