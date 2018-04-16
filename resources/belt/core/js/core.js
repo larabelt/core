@@ -30,6 +30,7 @@ import inputEditor from 'belt/core/js/inputs/editor';
 import inputSelect from 'belt/core/js/inputs/select';
 import inputText from 'belt/core/js/inputs/text';
 import inputTextarea from 'belt/core/js/inputs/textarea';
+
 Vue.component('input-editor', inputEditor);
 Vue.component('input-select', inputSelect);
 Vue.component('input-text', inputText);
@@ -38,8 +39,8 @@ Vue.component('input-textarea', inputTextarea);
 import tinymce from 'belt/core/js/editors/tinymce.vue';
 import codemirror from 'belt/core/js/editors/codemirror.vue';
 import textarea from 'belt/core/js/editors/textarea.vue';
-switch(process.env.MIX_LARABELT_EDITOR)
-{
+
+switch (process.env.MIX_LARABELT_EDITOR) {
     case 'codemirror':
         Vue.component('belt-editor', codemirror);
         break;
@@ -55,6 +56,22 @@ window.History = new History({});
 
 window.larabelt = _.get(window, 'larabelt', {});
 window.larabelt.core = _.get(window, 'larabelt.core', {});
+
+Vue.prototype.trans = (string, args) => {
+
+    console.log(string);
+
+    string = string.replace('::', '.');
+    console.log(string);
+    console.log(window.i18n);
+
+    let value = _.get(window.i18n, string);
+
+    _.eachRight(args, (paramVal, paramKey) => {
+        value = _.replace(value, `:${paramKey}`, paramVal);
+    });
+    return value;
+};
 
 export default class BeltCore {
 

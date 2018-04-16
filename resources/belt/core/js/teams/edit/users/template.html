@@ -3,7 +3,7 @@
         <h4>Search Users</h4>
         <form class="form-inline" style="margin-bottom: 20px;">
             <div class="form-group">
-                <p class="help-block">Use the search field to find users that can be linked to this team.</p>
+                <p class="help-block">Use the search field to find users that can be linked to this {{ trans('belt-core::teams.label').toLowerCase() }}.</p>
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-search"></i></div>
                     <input class="form-control" v-model.trim="detached.query.q" @keyup="detached.index()" placeholder="enter user email">
@@ -29,7 +29,7 @@
         <hr/>
         <h4>User List</h4>
         <div v-if="table.items.length">
-            <p class="help-block">The following users are linked to this team.</p>
+            <p class="help-block">The following users are linked to this {{ trans('belt-core::teams.label').toLowerCase() }}.</p>
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>

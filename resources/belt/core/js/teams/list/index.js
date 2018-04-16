@@ -23,7 +23,7 @@ export default {
     template: `
         <div>
             <heading>
-                <span slot="title">Team Manager</span>
+                <span slot="title">{{ trans('belt-core::teams.label') }} Manager</span>
             </heading>
             <section class="content">
                 <index></index>

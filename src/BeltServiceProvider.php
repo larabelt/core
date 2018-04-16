@@ -2,9 +2,8 @@
 
 namespace Belt\Core;
 
-use Belt, Event, Morph;
+use Belt, Event;
 use Belt\Core\Services\WorkflowService;
-use Belt\Core\Observers\WorkflowObserver;
 use Illuminate\Support\ServiceProvider;
 
 /**

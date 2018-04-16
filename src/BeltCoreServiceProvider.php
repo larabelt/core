@@ -2,19 +2,17 @@
 
 namespace Belt\Core;
 
-use Belt, Bouncer, Barryvdh, Collective, Event, Illuminate, Laravel, Rap2hpoutre, Silber;
+use Belt, Barryvdh, Collective, Illuminate, Laravel, Rap2hpoutre, Silber;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
-use Illuminate\Support\ServiceProvider;
-use Silber\Bouncer\BouncerFacade;
 
 /**
  * Class BeltCoreServiceProvider
  * @package Belt\Core
  */
-class BeltCoreServiceProvider extends ServiceProvider
+class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
 {
 
     /**
@@ -47,6 +45,13 @@ class BeltCoreServiceProvider extends ServiceProvider
         include __DIR__ . '/../routes/api.php';
         include __DIR__ . '/../routes/manage.php';
         include __DIR__ . '/../routes/web/base.php';
+        include __DIR__ . '/../routes/localization.php';
+
+        // beltable values for global belt command
+        $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
+        $this->app['belt']->addPackage('core', ['dir' => __DIR__ . '/..']);
+        $this->app['belt']->publish('belt-core:publish');
+        $this->app['belt']->seeders('BeltCoreSeeder');
     }
 
     /**
@@ -59,6 +64,9 @@ class BeltCoreServiceProvider extends ServiceProvider
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
+
+        // set backup translation paths
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'belt-core');
 
         // policies
         $this->registerPolicies($gate);
@@ -107,11 +115,6 @@ class BeltCoreServiceProvider extends ServiceProvider
         $this->app->bind('morph', function ($app) {
             return new Belt\Core\Helpers\MorphHelper();
         });
-
-        // beltable values for global belt command
-        $this->app->singleton('belt', 'Belt\Core\BeltSingleton');
-        $this->app['belt']->publish('belt-core:publish');
-        $this->app['belt']->seeders('BeltCoreSeeder');
 
         // view composers
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);

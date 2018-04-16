@@ -1,4 +1,5 @@
 <?php
+
 namespace Belt\Core;
 
 use Belt;
@@ -10,6 +11,11 @@ use Illuminate\Filesystem\FilesystemManager;
  */
 class BeltSingleton
 {
+
+    /**
+     * @var array
+     */
+    private $packages = [];
 
     /**
      * @var array
@@ -34,6 +40,29 @@ class BeltSingleton
         if (!in_array($key, $this->publish)) {
             array_push($this->publish, $key);
         }
+    }
+
+    /**
+     * @param $key
+     * @param array $params
+     * @return array
+     */
+    public function addPackage($key, $params = [])
+    {
+        return $this->packages[$key] = $params;
+    }
+
+    /**
+     * @param null $key
+     * @return array
+     */
+    public function packages($key = null, $params = [])
+    {
+        if (!$key) {
+            return $this->packages;
+        }
+
+        return array_get($this->packages, $key);
     }
 
     /**
