@@ -12,7 +12,7 @@ class TeamPolicyTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Policies\TeamPolicy::view
-     * @covers \Belt\Core\Policies\TeamPolicy::create
+     * @covers \Belt\Core\Policies\TeamPolicy::register
      * @covers \Belt\Core\Policies\TeamPolicy::delete
      * @covers \Belt\Core\Policies\TeamPolicy::update
      */
@@ -44,11 +44,11 @@ class TeamPolicyTest extends Testing\BeltTestCase
         # delete
         $this->assertNotTrue($policy->delete($user1, $team1));
 
-        # create
+        # register
         app()['config']->set('belt.core.teams.allow_public_signup', false);
-        $this->assertNotTrue($policy->create($user1));
+        $this->assertNotTrue($policy->register($user1));
         app()['config']->set('belt.core.teams.allow_public_signup', true);
-        $this->assertTrue($policy->create($user1));
+        $this->assertTrue($policy->register($user1));
     }
 
 }

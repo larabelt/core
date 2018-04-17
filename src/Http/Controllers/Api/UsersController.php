@@ -58,7 +58,7 @@ class UsersController extends ApiController
     public function store(Requests\StoreUser $request)
     {
 
-        $this->authorize('create', User::class);
+        $this->authorize(['create', 'register'], User::class);
 
         $input = $request->all();
 

@@ -35,11 +35,9 @@ class TeamPolicy extends BaseAdminPolicy
      * @param  mixed $arguments
      * @return mixed
      */
-    public function create(User $auth, $arguments = null)
+    public function register(User $auth, $arguments = null)
     {
-        $permission = parent::create($auth);
-
-        if ($permission || config('belt.core.teams.allow_public_signup')) {
+        if (config('belt.core.teams.allow_public_signup')) {
             return true;
         }
     }
