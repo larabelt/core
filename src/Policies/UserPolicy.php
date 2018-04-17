@@ -28,9 +28,10 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can create object.
      *
      * @param  User $auth
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function create(User $auth)
+    public function create(User $auth, $arguments = null)
     {
         $permission = parent::create($auth);
 

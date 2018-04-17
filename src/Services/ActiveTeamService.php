@@ -41,7 +41,7 @@ class ActiveTeamService
      */
     public function __construct($params = [])
     {
-        $this->user = array_get($params, 'user') ?? Auth::user() ?? new User();
+        $this->user = array_get($params, 'user', Auth::user()) ?: new User();
 
         $this->request = array_get($params, 'request', new Request());
     }
@@ -70,7 +70,7 @@ class ActiveTeamService
      */
     public function isAuthorized($team_id)
     {
-        if ($this->user->super) {
+        if ($this->user->super()) {
             return true;
         }
 
