@@ -63,7 +63,7 @@ class TeamsController extends ApiController
      */
     public function store(Requests\StoreTeam $request)
     {
-        $this->authorize('create', Team::class);
+        $this->authorize(['create', 'register'], Team::class);
 
         $input = $request->all();
 

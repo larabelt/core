@@ -20,20 +20,24 @@ class TeamPolicy extends BaseAdminPolicy
      */
     public function view(User $auth, $arguments = null)
     {
-        return $this->ofTeam($auth, $arguments);
+        if ($arguments instanceof Team) {
+            $this->teamService()->user = $auth;
+            if ($this->teamService()->isAuthorized($arguments->id)) {
+                return true;
+            }
+        }
     }
 
     /**
      * Determine whether the user can create object.
      *
      * @param  User $auth
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function create(User $auth)
+    public function register(User $auth, $arguments = null)
     {
-        $permission = parent::create($auth);
-
-        if ($permission || config('belt.core.teams.allow_public_signup')) {
+        if (config('belt.core.teams.allow_public_signup')) {
             return true;
         }
     }
@@ -47,18 +51,12 @@ class TeamPolicy extends BaseAdminPolicy
      */
     public function update(User $auth, $arguments = null)
     {
-        return $this->ofTeam($auth, $arguments);
+        if ($arguments instanceof Team) {
+            $this->teamService()->user = $auth;
+            if ($this->teamService()->isAuthorized($arguments->id)) {
+                return true;
+            }
+        }
     }
 
-    /**
-     * Determine whether the user can delete the object.
-     *
-     * @param  User $auth
-     * @param  mixed $arguments
-     * @return mixed
-     */
-    public function delete(User $auth, $arguments = null)
-    {
-        return false;
-    }
 }

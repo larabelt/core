@@ -6,8 +6,8 @@ use Mockery as m;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
-use Belt\Core\Role;
 use Belt\Core\Team;
+use Belt\Core\Services\ActiveTeamService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -114,7 +114,12 @@ trait CommonMocks
 
         if ($type == 'team') {
             Team::unguard();
-            $user->teams->push(factory(Team::class)->make(['id' => random_int(1, 999)]));
+            $team = factory(Team::class)->make([
+                'id' => random_int(1, 999),
+                'is_active' => true,
+            ]);
+            (new ActiveTeamService())->setTeam($team);
+            $user->teams->push($team);
         }
 
         return $user;

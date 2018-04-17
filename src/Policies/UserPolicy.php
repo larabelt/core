@@ -28,13 +28,12 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can create object.
      *
      * @param  User $auth
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function create(User $auth)
+    public function register(User $auth, $arguments = null)
     {
-        $permission = parent::create($auth);
-
-        if ($permission || config('belt.core.users.allow_public_signup')) {
+        if (config('belt.core.users.allow_public_signup')) {
             return true;
         }
     }

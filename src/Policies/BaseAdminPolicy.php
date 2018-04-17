@@ -41,8 +41,8 @@ class BaseAdminPolicy
      */
     public function view(User $auth, $arguments = null)
     {
-        if ($arguments instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $arguments->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -52,13 +52,8 @@ class BaseAdminPolicy
      * @param  User $auth
      * @return mixed
      */
-    public function create(User $auth)
+    public function create(User $auth, $arguments = null)
     {
-        $team = $this->teamService()->team();
-
-        if ($team) {
-            return $this->ofTeam($auth, $team);
-        }
 
     }
 
@@ -71,8 +66,8 @@ class BaseAdminPolicy
      */
     public function update(User $auth, $arguments = null)
     {
-        if ($arguments instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $arguments->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -85,8 +80,8 @@ class BaseAdminPolicy
      */
     public function delete(User $auth, $arguments = null)
     {
-        if ($arguments instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $arguments->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -94,12 +89,14 @@ class BaseAdminPolicy
      * Determine if user is of team
      *
      * @param User $auth
-     * @param Team $team
+     * @param  mixed $arguments
      * @return bool
      */
-    public function ofTeam(User $auth, Team $team = null)
+    public function ofTeam(User $auth, $arguments = null, $team = null)
     {
-        if ($team) {
+        $team = $team ?: $this->teamService()->team();
+
+        if ($team && $arguments instanceof TeamableInterface) {
             $this->teamService()->user = $auth;
             if ($this->teamService()->isAuthorized($team->id)) {
                 return true;
