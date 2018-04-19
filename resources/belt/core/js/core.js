@@ -59,17 +59,14 @@ window.larabelt.core = _.get(window, 'larabelt.core', {});
 
 Vue.prototype.trans = (string, args) => {
 
-    console.log(string);
-
     string = string.replace('::', '.');
-    console.log(string);
-    console.log(window.i18n);
 
     let value = _.get(window.i18n, string);
 
     _.eachRight(args, (paramVal, paramKey) => {
         value = _.replace(value, `:${paramKey}`, paramVal);
     });
+
     return value;
 };
 
