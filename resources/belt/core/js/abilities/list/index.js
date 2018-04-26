@@ -6,6 +6,11 @@ import html from 'belt/core/js/abilities/list/template.html';
 export default {
     mixins: [shared],
     props: ['storeKey'],
+    data() {
+        return {
+
+        }
+    },
     computed: {
         chunks() {
             let count = _.ceil(this.abilitiesByEntityType.length / 2);
