@@ -94,11 +94,19 @@ class BaseAdminPolicy
      */
     public function ofTeam(User $auth, $arguments = null, $team = null)
     {
-        $team = $team ?: $this->teamService()->team();
 
-        if ($team && $arguments instanceof TeamableInterface) {
+//        $team = $team ?: $this->teamService()->team();
+//        if ($team && $arguments instanceof TeamableInterface) {
+//            $this->teamService()->user = $auth;
+//            if ($this->teamService()->isAuthorized($team->id)) {
+//                return true;
+//            }
+//        }
+
+        if ($arguments instanceof TeamableInterface) {
+            $team = $team ?: $arguments->team;
             $this->teamService()->user = $auth;
-            if ($this->teamService()->isAuthorized($team->id)) {
+            if ($team && $this->teamService()->isAuthorized($team->id)) {
                 return true;
             }
         }
