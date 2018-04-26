@@ -1,16 +1,6 @@
 <tr>
-    <td>{{ entity_type }}</td>
+    <td>{{ ability.title }}</td>
     <td>
-        <template v-if="everythingAbility">
-            <ability-button name="*"></ability-button>
-        </template>
-        <template v-if="!everythingAbility || !canDoEverything">
-            <template v-for="name in defaultNames">
-                <ability-button :name="name"></ability-button>
-            </template>
-            <template v-for="name in otherNames">
-                <ability-button :name="name"></ability-button>
-            </template>
-        </template>
+        <ability-button :ability="ability" name="*"></ability-button>
     </td>
 </tr>

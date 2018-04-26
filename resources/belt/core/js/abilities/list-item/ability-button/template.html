@@ -1,12 +1,10 @@
 <span>
-    <template v-if="canToggle">
-        <button class="btn btn-sm" :class="_class" @click="toggle()" :title="title">
-            <template v-if="isAllowed">
-                <slot name="yes">{{ name }}</slot>
-            </template>
-            <template v-else>
-                <slot name="no">{{ name }}</slot>
-            </template>
-        </button>
-    </template>
+    <button class="btn btn-sm" :class="_class" @click="toggle()">
+        <template v-if="isAllowed">
+            <slot name="yes">{{ name }}</slot>
+        </template>
+        <template v-else>
+            <slot name="no">{{ name }}</slot>
+        </template>
+    </button>
 </span>

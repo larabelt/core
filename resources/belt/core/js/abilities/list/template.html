@@ -1,18 +1,18 @@
 <div>
 
-<!--    <template v-if="superAbility">-->
-<!--        <div class="clearfix">-->
-<!--            <ability-button entity_type="*" name="*">-->
-<!--                    <span slot="yes">-->
-<!--                        <i class="fa fa-check-square"></i> ALLOWED FULL ACCESS-->
-<!--                    </span>-->
-<!--                <span slot="no">-->
-<!--                        <i class="fa fa-square-o"></i> ALLOW FULL ACCESS-->
-<!--                    </span>-->
-<!--            </ability-button>-->
-<!--            </span>-->
-<!--        </div>-->
-<!--    </template>-->
+    <!--    <template v-if="superAbility">-->
+    <!--        <div class="clearfix">-->
+    <!--            <ability-button entity_type="*" name="*">-->
+    <!--                    <span slot="yes">-->
+    <!--                        <i class="fa fa-check-square"></i> ALLOWED FULL ACCESS-->
+    <!--                    </span>-->
+    <!--                <span slot="no">-->
+    <!--                        <i class="fa fa-square-o"></i> ALLOW FULL ACCESS-->
+    <!--                    </span>-->
+    <!--            </ability-button>-->
+    <!--            </span>-->
+    <!--        </div>-->
+    <!--    </template>-->
 
     <template v-if="isSuper">
 
@@ -22,21 +22,41 @@
 
     <template v-if="abilities.length && !isSuper">
 
-        <p class="help-block">Define access below. Clicking <code>*</code> will grant permission to all abilities of that group.</p>
+        <template v-if="entityChunks.length">
+            <h4>Miscellaneous Permissions</h4>
+            <p class="help-block">Clicking <code>*</code> will grant permission that ability.</p>
+            <div class="row">
+                <template v-for="chunk in nonEntityChunks">
+                    <div class="col-md-6">
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                            <template v-for="ability in chunk">
+                                <list-item :ability="ability"></list-item>
+                            </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+            </div>
+        </template>
 
-        <div class="row">
-            <template v-for="chunk in chunks">
-                <div class="col-md-6">
-                    <table class="table table-bordered table-hover">
-                        <tbody>
-                        <template v-for="ability in chunk">
-                            <ability-group :entity_type="ability.entity_type"></ability-group>
-                        </template>
-                        </tbody>
-                    </table>
-                </div>
-            </template>
-        </div>
+        <template v-if="entityChunks.length">
+            <h4>Permissions By Data Type</h4>
+            <p class="help-block">Clicking <code>*</code> will grant permission to all abilities of that group.</p>
+            <div class="row">
+                <template v-for="chunk in entityChunks">
+                    <div class="col-md-6">
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                            <template v-for="ability in chunk">
+                                <list-group :entity_type="ability.entity_type"></list-group>
+                            </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+            </div>
+        </template>
 
     </template>
 </div>
