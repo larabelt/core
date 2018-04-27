@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Auth;
 
+use Belt, Auth, Illuminate;
 use Belt\Core\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -56,5 +57,21 @@ class ResetPasswordController extends BaseController
                 'email' => $request->email
             ]
         );
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectTo()
+    {
+        if ($user = Auth::user()) {
+            if ($user->can('admin-dashboard') || $user->teams->count()) {
+                return '/admin';
+            }
+        }
+
+        return $this->redirectTo;
     }
 }
