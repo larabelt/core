@@ -2,7 +2,9 @@
     <vue-mce v-model="content"
              ref="editor"
              :config="config"
-             @input="updateValue"></vue-mce>
+             @input="updateValue"
+             @change="handleChange"
+    />
 </template>
 
 <script>
@@ -21,6 +23,9 @@
             }
         },
         methods: {
+            handleChange() {
+                this.$emit('change', this.content);
+            },
             setContent(value) {
                 /*
                        For some reason both of these in combo work but sometimes don't load when only 1 of them is present.

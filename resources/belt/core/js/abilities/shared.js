@@ -10,6 +10,16 @@ export default {
         abilities() {
             return this.$store.getters['abilities/data'];
         },
+        entityAbilities() {
+            let abilities = _.reject(this.abilities, {'entity_type': null});
+            abilities = _.reject(abilities, {'entity_type': '*'});
+            return abilities;
+        },
+        nonEntityAbilities() {
+            let abilities = _.filter(this.abilities, {'entity_type': null});
+            abilities = _.reject(abilities, {'entity_type': '*'});
+            return abilities;
+        },
         abilitiesByEntityType() {
             let abilities = _.uniqBy(this.abilities, 'entity_type');
             abilities = _.sortBy(abilities, [function (o) {

@@ -1,12 +1,28 @@
 import shared from 'belt/core/js/abilities/shared';
-import html from 'belt/core/js/abilities/list-item/ability-button/template.html';
+import html from 'belt/core/js/abilities/list-group/ability-button/template.html';
 
 export default {
     mixins: [shared],
-    props: ['ability', 'name'],
+    props: {
+        'entity_type': {
+            default: function () {
+                return this.$parent.entity_type;
+            },
+        },
+        'name': {},
+    },
     computed: {
         _class() {
             return this.isAllowed ? 'btn-primary' : 'btn-default';
+        },
+        ability() {
+            return _.find(this.abilities, {
+                entity_type: this.entity_type,
+                name: this.name,
+            });
+        },
+        canToggle() {
+            return !_.isEmpty(this.ability);
         },
         isAllowed() {
             if (_.isEmpty(this.ability)) {
@@ -14,6 +30,12 @@ export default {
             }
             return !!this.permissions[this.ability.id];
         },
+        title() {
+            if (this.name == '*') {
+                return 'grant all rights for ' + this.entity_type;
+            }
+            return '';
+        }
     },
     methods: {
         allow() {
