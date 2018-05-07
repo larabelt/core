@@ -74,6 +74,18 @@ abstract class BaseLengthAwarePaginator
     }
 
     /**
+     * @param $request
+     */
+    public function groupBy($request)
+    {
+        if ($groupBy = $request->groupBy()) {
+            $this->qb->select([$groupBy]);
+            $this->qb->groupBy($groupBy);
+            $request->orderBy = $groupBy;
+        }
+    }
+
+    /**
      * @return array
      */
     public function toArray()

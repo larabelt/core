@@ -15,11 +15,16 @@ trait HasConfig
     public $config = [];
 
     /**
+     * @var string
+     */
+    protected $configPath;
+
+    /**
      * @return string
      */
     public function configPath()
     {
-        return '';
+        return $this->configPath;
     }
 
     /**
@@ -37,9 +42,9 @@ trait HasConfig
      */
     public function setConfig($config = [], $includeDefaults = true)
     {
-        $defaults = $includeDefaults ? $this->configDefaults() : [];
+        $config = $config ? (array) $config : (array) config($this->configPath(), []);
 
-        $config = is_array($config) ? $config : config($this->configPath(), []);
+        $defaults = $includeDefaults ? $this->configDefaults() : [];
 
         return $this->config = array_merge($defaults, $config);
     }

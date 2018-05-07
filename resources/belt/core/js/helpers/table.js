@@ -1,3 +1,5 @@
+import Service from 'belt/core/js/helpers/service';
+
 class BaseTable {
 
     /**
@@ -33,6 +35,10 @@ class BaseTable {
 
         if (options.query) {
             this.updateQuery(options.query);
+        }
+
+        if (options.baseUrl) {
+            this.service = new Service({baseUrl: options.baseUrl});
         }
     }
 

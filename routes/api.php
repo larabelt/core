@@ -18,6 +18,9 @@ Route::group([
         # contact
         Route::post('contact', Api\ContactController::class . '@store');
 
+        # index
+        Route::get('index', Api\IndexController::class . '@index');
+
         # params
         Route::get('param-keys', Api\ParamsController::class . '@keys');
         Route::get('param-values', Api\ParamsController::class . '@values');
@@ -33,6 +36,13 @@ Route::group([
             Route::get('', Api\ParamablesController::class . '@index');
             Route::post('', Api\ParamablesController::class . '@store');
         });
+
+        # abilities
+        Route::get('abilities/{id}', Api\AbilitiesController::class . '@show');
+        Route::put('abilities/{id}', Api\AbilitiesController::class . '@update');
+        Route::delete('abilities/{id}', Api\AbilitiesController::class . '@destroy');
+        Route::get('abilities', Api\AbilitiesController::class . '@index');
+        Route::post('abilities', Api\AbilitiesController::class . '@store');
 
         # roles
         Route::get('roles/{id}', Api\RolesController::class . '@show');
@@ -56,12 +66,26 @@ Route::group([
         Route::get('teams', Api\TeamsController::class . '@index');
         Route::post('teams', Api\TeamsController::class . '@store');
 
-        # user-roles
-        Route::group(['prefix' => 'users/{user_id}/roles'], function () {
-            Route::get('{id}', Api\UserRolesController::class . '@show');
-            Route::delete('{id}', Api\UserRolesController::class . '@destroy');
-            Route::get('', Api\UserRolesController::class . '@index');
-            Route::post('', Api\UserRolesController::class . '@store');
+        # assigned roles
+        Route::group([
+            'prefix' => '{subject_type}/{subject_id}/roles',
+            'middleware' => 'request.injections:subject_type,subject_id',
+        ], function () {
+            Route::get('{role}', Api\AssignedRolesController::class . '@show');
+            Route::delete('{role}', Api\AssignedRolesController::class . '@destroy');
+            Route::get('', Api\AssignedRolesController::class . '@index');
+            Route::post('', Api\AssignedRolesController::class . '@store');
+        });
+
+        # permissions
+        Route::group([
+            'prefix' => '{entity_type}/{entity_id}/permissions',
+            'middleware' => 'request.injections:entity_type,entity_id',
+        ], function () {
+            Route::get('{ability_id}', Api\PermissionsController::class . '@show');
+            Route::delete('{ability_id}', Api\PermissionsController::class . '@destroy');
+            Route::get('', Api\PermissionsController::class . '@index');
+            Route::post('', Api\PermissionsController::class . '@store');
         });
 
         # users
@@ -70,5 +94,15 @@ Route::group([
         Route::delete('users/{user}', Api\UsersController::class . '@destroy');
         Route::get('users', Api\UsersController::class . '@index');
         Route::post('users', Api\UsersController::class . '@store');
+
+        # workflows
+        Route::get('workflows', Api\WorkflowsController::class . '@index');
+
+        # work-requests
+        Route::get('work-requests/{workRequest}', Api\WorkRequestsController::class . '@show');
+        Route::put('work-requests/{workRequest}', Api\WorkRequestsController::class . '@update');
+        Route::delete('work-requests/{workRequest}', Api\WorkRequestsController::class . '@destroy');
+        Route::get('work-requests', Api\WorkRequestsController::class . '@index');
+        Route::post('work-requests', Api\WorkRequestsController::class . '@store');
     }
 );

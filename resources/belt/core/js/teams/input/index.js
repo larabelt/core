@@ -1,4 +1,4 @@
-import index from 'belt/core/js/teams/ctlr/index';
+import list from 'belt/core/js/teams/list';
 import Form from 'belt/core/js/teams/form';
 import Table from 'belt/core/js/teams/table';
 import html from 'belt/core/js/teams/input/template.html';
@@ -20,9 +20,9 @@ export default {
         }
     },
     methods: {
-        filter: _.debounce(function () {
+        filter: _.debounce(function (query) {
             this.table.index();
-        }, 300),
+        }, 500),
         toggle() {
             if (!this.search) {
                 this.table.index();
@@ -41,7 +41,7 @@ export default {
         }
     },
     components: {
-        index
+        list
     },
     template: html
 }

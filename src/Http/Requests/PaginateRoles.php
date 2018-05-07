@@ -11,7 +11,7 @@ class PaginateRoles extends PaginateRequest
      */
     public $modelClass = Belt\Core\Role::class;
 
-    public $perPage = 20;
+    public $perPage = null;
 
     public $orderBy = 'roles.id';
 

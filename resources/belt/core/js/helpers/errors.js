@@ -43,7 +43,7 @@ class Errors {
      * @param {object} errors
      */
     record(errors = {}) {
-        this.errors = errors;
+        this.errors = _.assign({}, this.errors, errors);
     }
 
 
@@ -55,11 +55,11 @@ class Errors {
     clear(field = '') {
         if (field) {
             delete this.errors[field];
-
-            return;
+        } else {
+            this.errors = {};
         }
 
-        this.errors = {};
+        this.errors = _.assign({}, this.errors, {});
     }
 
     /**

@@ -1,0 +1,12 @@
+<span v-if="show">
+    <div class="form-group filter">
+        <div class="form-group">
+            <label><slot></slot></label>
+            <select class="form-control" v-model="indexable_type" title="item indexable_type" @change="change()">
+                <template v-for="option in options">
+                    <option :value="option">{{ option }}</option>
+                </template>
+            </select>
+        </div>
+    </div>
+</span>

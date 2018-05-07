@@ -1,0 +1,19 @@
+<div>
+    <template v-if="roles">
+        <h4>Available Roles</h4>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="text-right"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <template v-for="role in roles">
+                <row :role="role"></row>
+            </template>
+            </tbody>
+        </table>
+    </template>
+</div>

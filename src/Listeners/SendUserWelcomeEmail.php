@@ -35,7 +35,7 @@ class SendUserWelcomeEmail implements ShouldQueue
      */
     public function handle(UserCreated $event)
     {
-        $user = $event->user;
+        $user = $event->item();
 
         $mailable = new Belt\Core\Mail\UserWelcomeEmail([
             'user' => $user,

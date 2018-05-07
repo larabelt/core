@@ -50,17 +50,6 @@ class ParamablesController extends ApiController
         return $qb->first() ?: $this->abort(404);
     }
 
-//    /**
-//     * @param ParamableInterface $paramable
-//     * @param Param $param
-//     */
-//    public function contains(ParamableInterface $paramable, Param $param)
-//    {
-//        if (!$paramable->params->contains($param->id)) {
-//            $this->abort(404, 'item does not have this param');
-//        }
-//    }
-
     /**
      * Display a listing of the resource.
      *
@@ -73,7 +62,7 @@ class ParamablesController extends ApiController
 
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $paramable);
+        $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
         $request->merge([
             'paramable_id' => $paramable->id,
@@ -97,15 +86,17 @@ class ParamablesController extends ApiController
         /**
          * @var $paramable ParamableInterface
          */
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $paramable);
+        $this->authorize('update', $owner);
 
         $input = $request->all();
 
-        $param = $paramable->saveParam($input['key'], $input['value']);
+        $param = $owner->saveParam($input['key'], $input['value']);
 
-        $paramable->purgeDuplicateParams($param);
+        $owner->purgeDuplicateParams($param);
+
+        $this->itemEvent('params.created', $owner);
 
         return response()->json($param, 201);
     }
@@ -123,9 +114,9 @@ class ParamablesController extends ApiController
     //public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
     public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, $id)
     {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $paramable);
+        $this->authorize('update', $owner);
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);
@@ -138,7 +129,9 @@ class ParamablesController extends ApiController
 
         $param->save();
 
-        $paramable->purgeDuplicateParams($param);
+        $owner->purgeDuplicateParams($param);
+
+        $this->itemEvent('params.updated', $owner);
 
         return response()->json($param);
     }
@@ -156,7 +149,7 @@ class ParamablesController extends ApiController
     {
         $paramable = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('view', $paramable);
+        $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);
@@ -171,19 +164,20 @@ class ParamablesController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    //public function destroy($paramable_type, $paramable_id, Param $param)
     public function destroy($paramable_type, $paramable_id, $id)
     {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $paramable);
+        $this->authorize('update', $owner);
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);
 
-        $paramable->purgeDuplicateParams($param);
+        $owner->purgeDuplicateParams($param);
 
         $param->delete();
+
+        $this->itemEvent('params.deleted', $owner);
 
         return response()->json(null, 204);
     }

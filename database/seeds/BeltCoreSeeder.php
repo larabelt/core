@@ -15,5 +15,6 @@ class BeltCoreSeeder extends Seeder
         $this->call(BeltCoreRoleSeeds::class);
         $this->call(BeltCoreUserSeeds::class);
         $this->call(BeltCoreTeamSeeds::class);
+        $this->call(BeltCorePermissibleSeeds::class);
     }
 }

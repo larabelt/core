@@ -39,7 +39,7 @@ class UsersController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', User::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], User::class);
 
         $request = Requests\PaginateUsers::extend($request);
 
@@ -58,7 +58,7 @@ class UsersController extends ApiController
     public function store(Requests\StoreUser $request)
     {
 
-        $this->authorize('create', User::class);
+        $this->authorize(['create', 'register'], User::class);
 
         $input = $request->all();
 
@@ -78,6 +78,8 @@ class UsersController extends ApiController
 
         event(new Belt\Core\Events\UserCreated($user));
 
+        $this->itemEvent('created', $user);
+
         return response()->json($user, 201);
     }
 
@@ -90,7 +92,7 @@ class UsersController extends ApiController
      */
     public function show(User $user)
     {
-        $this->authorize('view', $user);
+        $this->authorize(['view', 'create', 'update', 'delete'], $user);
 
         return response()->json($user);
     }
@@ -126,6 +128,8 @@ class UsersController extends ApiController
 
         $user->save();
 
+        $this->itemEvent('updated', $user);
+
         return response()->json($user);
     }
 
@@ -140,6 +144,8 @@ class UsersController extends ApiController
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+
+        $this->itemEvent('deleted', $user);
 
         $user->delete();
 

@@ -21,9 +21,11 @@ trait Morphable
     }
 
     /**
-     * @param string $type
-     * @param integer $id
-     * @return Model
+     * @param $type
+     * @param $id
+     * @return mixed
+     * @throws \Belt\Core\Http\Exceptions\ApiException
+     * @throws \Belt\Core\Http\Exceptions\ApiNotFoundHttpException
      */
     public function morphable($type, $id)
     {

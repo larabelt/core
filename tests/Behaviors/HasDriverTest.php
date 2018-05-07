@@ -8,10 +8,10 @@ class HasDriverTest extends BeltTestCase
 {
 
     /**
-     * covers \Belt\Core\Behaviors\HasDriver::defaultDriverClass
-     * covers \Belt\Core\Behaviors\HasDriver::driverClass
-     * covers \Belt\Core\Behaviors\HasDriver::adapter
-     * covers \Belt\Core\Behaviors\HasDriver::initAdapter
+     * @covers \Belt\Core\Behaviors\HasDriver::defaultDriverClass
+     * @covers \Belt\Core\Behaviors\HasDriver::driverClass
+     * @covers \Belt\Core\Behaviors\HasDriver::adapter
+     * @covers \Belt\Core\Behaviors\HasDriver::initAdapter
      */
     public function test()
     {

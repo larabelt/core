@@ -2,6 +2,7 @@
 
 namespace Belt\Core;
 
+use Belt;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -10,7 +11,9 @@ use Illuminate\Notifications\Notifiable;
  * @package Belt\Core
  */
 class User extends Authenticatable
+    implements Belt\Core\Behaviors\PermissibleInterface
 {
+    use Belt\Core\Behaviors\Permissible;
     use Notifiable;
 
     /**
@@ -36,7 +39,7 @@ class User extends Authenticatable
     /**
      * @var array
      */
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'super'];
 
     /**
      * Default values
@@ -58,16 +61,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Associated User Roles
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
-    }
-
-    /**
      * Associated User Teams
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -75,7 +68,6 @@ class User extends Authenticatable
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'team_users', 'user_id', 'team_id')
-            //->where('teams.is_active', true)
             ->orderBy('teams.name');
     }
 
@@ -196,27 +188,6 @@ class User extends Authenticatable
         $fullname = sprintf('%s %s%s', $this->first_name, $this->mi ? $this->mi . '. ' : '', $this->last_name);
 
         return trim($fullname);
-    }
-
-    /**
-     * Determine if user has particular role
-     *
-     * @param $name
-     * @return bool
-     */
-    public function hasRole($name)
-    {
-        if ($this->is_super) {
-            return true;
-        }
-
-        $roleNames = $this->roles->pluck('name')->all();
-
-        if (in_array(strtoupper($name), $roleNames)) {
-            return true;
-        }
-
-        return false;
     }
 
 }

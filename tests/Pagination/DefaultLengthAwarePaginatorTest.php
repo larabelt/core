@@ -46,6 +46,25 @@ class DefaultLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(isset($array['meta']));
     }
 
+    /**
+     * @covers \Belt\Core\Pagination\BaseLengthAwarePaginator::groupBy
+     */
+    public function testGroupBy()
+    {
+        $model = new DefaultLengthAwarePaginatorModelGroupByStub();
+
+        $qb = $model->newQuery();
+
+        $request = new PaginateRequest([
+            'perPage' => 0,
+            'groupBy' => 'test.groupable_type',
+        ]);
+        $request->groupable = 'test.groupable_type';
+
+        $paginator = new DefaultLengthAwarePaginator($qb, $request);
+        $paginator->build();
+    }
+
 }
 
 class DefaultLengthAwarePaginatorModelStub extends Model
@@ -72,6 +91,22 @@ class DefaultLengthAwarePaginatorModelStub extends Model
         $qbMock->shouldReceive('count')->once()->andReturn(1000);
         $qbMock->shouldReceive('take')->once()->with(25);
         $qbMock->shouldReceive('offset')->once()->with(25);
+        $qbMock->shouldReceive('get')->once();
+
+        return $qbMock;
+    }
+
+}
+
+class DefaultLengthAwarePaginatorModelGroupByStub extends Model
+{
+    public function newQuery()
+    {
+        $qbMock = m::mock('Illuminate\Database\Eloquent\Builder');
+        $qbMock->shouldReceive('select')->once()->with(['test.groupable_type']);
+        $qbMock->shouldReceive('groupBy')->once()->with('test.groupable_type');
+        $qbMock->shouldReceive('orderBy')->once()->with('test.groupable_type', 'asc');
+        $qbMock->shouldReceive('count')->once()->andReturn(1000);
         $qbMock->shouldReceive('get')->once();
 
         return $qbMock;

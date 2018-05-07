@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
+use Belt, Bouncer;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Role;
 use Belt\Core\Http\Requests;
@@ -36,10 +37,11 @@ class RolesController extends ApiController
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Role::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Role::class);
 
         $request = Requests\PaginateRoles::extend($request);
 
@@ -51,9 +53,9 @@ class RolesController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Requests\StoreRole $request
-     *
+     * @param Requests\StoreRole $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Requests\StoreRole $request)
     {
@@ -64,7 +66,10 @@ class RolesController extends ApiController
         $role = $this->roles->create(['name' => $input['name']]);
 
         $this->set($role, $input, [
-            'slug',
+            'title',
+            'level',
+            'scope',
+            'description',
         ]);
 
         $role->save();
@@ -81,7 +86,10 @@ class RolesController extends ApiController
      */
     public function show($id)
     {
+
         $role = $this->get($id);
+
+        $this->authorize(['view', 'create', 'update', 'delete'], $role);
 
         return response()->json($role);
     }
@@ -89,10 +97,10 @@ class RolesController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  Requests\UpdateRole $request
-     * @param  string $id
-     *
+     * @param Requests\UpdateRole $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Requests\UpdateRole $request, $id)
     {
@@ -104,7 +112,10 @@ class RolesController extends ApiController
 
         $this->set($role, $input, [
             'name',
-            'slug',
+            'title',
+            'level',
+            'scope',
+            'description',
         ]);
 
         $role->save();
@@ -116,9 +127,9 @@ class RolesController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     *
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
     {

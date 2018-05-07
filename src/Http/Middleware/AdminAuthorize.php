@@ -1,6 +1,6 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Closure, Session;
+use Belt, Closure, Session, View;
 use Illuminate\Contracts\Auth\Guard;
 
 /**
@@ -9,7 +9,6 @@ use Illuminate\Contracts\Auth\Guard;
  */
 class AdminAuthorize
 {
-
     /**
      * The Guard implementation.
      *
@@ -50,7 +49,8 @@ class AdminAuthorize
         $user = $this->auth->user();
 
         // if admin-user or a team user, permission granted!
-        if ($user->hasRole('ADMIN') || $user->teams->count()) {
+        if ($user->can('admin-dashboard') || $user->teams->count()) {
+            View::share('auth', $user);
             return $next($request);
         }
 

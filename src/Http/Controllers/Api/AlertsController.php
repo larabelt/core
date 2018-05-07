@@ -47,10 +47,11 @@ class AlertsController extends ApiController
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
-        //$this->authorize('index', Alert::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Alert::class);
 
         $request = Requests\PaginateAlerts::extend($request);
 
@@ -101,7 +102,7 @@ class AlertsController extends ApiController
      */
     public function show(Alert $alert)
     {
-        //$this->authorize('view', $alert);
+        $this->authorize(['view', 'create', 'update', 'delete'], $alert);
 
         return response()->json($alert);
     }

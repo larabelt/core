@@ -1,8 +1,9 @@
 <?php
+
 namespace Belt\Core\Commands;
 
+use Queue;
 use Belt\Core\Helpers\BeltHelper;
-
 use Illuminate\Console\Command;
 
 /**
@@ -45,6 +46,9 @@ class TestDBCommand extends Command
      */
     public function fire()
     {
+
+        Queue::fake();
+
         putenv("APP_ENV=testing");
 
         app()['config']->set('belt.clip.default_driver', 'local');

@@ -45,7 +45,8 @@ class WindowConfigComposer
         $user = Auth::user();
         if ($user) {
             WindowConfigHelper::put('auth', [
-                'is_super' => $user->is_super,
+                'id' => $user->id,
+                'super' => $user->super(),
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,

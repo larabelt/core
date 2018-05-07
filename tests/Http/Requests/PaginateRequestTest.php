@@ -30,6 +30,7 @@ class PaginateRequestTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Http\Requests\PaginateRequest::morphClass
      * @covers \Belt\Core\Http\Requests\PaginateRequest::refetch
      * @covers \Belt\Core\Http\Requests\PaginateRequest::item
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::groupBy
      */
     public function test()
     {
@@ -126,6 +127,14 @@ class PaginateRequestTest extends Testing\BeltTestCase
         $this->assertEquals('-test.name,test.id', $request->orderBy());
         $request->merge(['orderBy' => '-test.name,test.not_allowed']);
         $this->assertEquals('test.id', $request->orderBy());
+
+        # groupBy
+        $request = new PaginateRequest(['groupBy' => 'test.testable_type']);
+        $request->groupable[] = 'test.testable_type';
+        $this->assertEquals('test.testable_type', $request->groupBy());
+        $request = new PaginateRequest(['groupBy' => 'test.testable_type']);
+        $request->groupable[] = null;
+        $this->assertNull($request->groupBy());
     }
 
 }

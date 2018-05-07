@@ -51,17 +51,20 @@ class ActiveTeamTest extends BeltTestCase
 
         # handle (set active team, authorized)
         $request = new Request(['team_id' => 1]);
-        $service = m::mock(ActiveTeamService::class . '[forgetTeam,isAuthorized,setTeam]');
+        $service = m::mock(ActiveTeamService::class . '[forgetTeam,isAuthorized,setTeam,getActiveTeamId,getDefaultTeamId]');
         $service->shouldReceive('forgetTeam')->once()->andReturnSelf();
         $service->shouldReceive('isAuthorized')->once()->andReturn(true);
         $service->shouldReceive('setTeam')->once()->andReturnSelf();
+        $service->shouldReceive('getActiveTeamId')->once()->andReturnNull();
+        $service->shouldReceive('getDefaultTeamId')->once()->andReturn(1);
         $middleware->service = $service;
         $middleware->handle($request, $next);
 
         # handle (set active team, not-authorized)
         $request = new Request(['team_id' => 1]);
-        $service = m::mock(ActiveTeamService::class . '[forgetTeam,isAuthorized]');
+        $service = m::mock(ActiveTeamService::class . '[forgetTeam,getActiveTeamId,isAuthorized]');
         $service->shouldReceive('forgetTeam')->once()->andReturnSelf();
+        $service->shouldReceive('getActiveTeamId')->once()->andReturn(2);
         $service->shouldReceive('isAuthorized')->once()->andReturn(false);
         $middleware->service = $service;
         try {

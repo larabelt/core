@@ -14,7 +14,7 @@ class HasGuzzleTest extends Testing\BeltTestCase
     }
 
     /**
-     * covers \Belt\Core\Behaviors\HasGuzzle::guzzle
+     * @covers \Belt\Core\Behaviors\HasGuzzle::guzzle
      */
     public function test()
     {

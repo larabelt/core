@@ -5,9 +5,11 @@ namespace Belt\Core\Policies;
 use Belt\Core\Behaviors\TeamableInterface;
 use Belt\Core\User;
 use Belt\Core\Team;
+use Belt\Core\Services\ActiveTeamService;
+use Belt\Core\Services\PermissibleService;
+use Belt\Core\Services\PermissibleServiceTrait;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
-use Belt\Core\Services\ActiveTeamService;
 
 /**
  * Class BaseAdminPolicy
@@ -22,45 +24,25 @@ class BaseAdminPolicy
      */
     public $teamService;
 
+    /**
+     * @return ActiveTeamService
+     */
     public function teamService()
     {
         return $this->teamService ?: $this->teamService = new ActiveTeamService();
     }
 
     /**
-     * @param $user
-     * @param $ability
-     * @return bool
-     */
-    public function before($user, $ability)
-    {
-        if ($user->hasRole('ADMIN')) {
-            return true;
-        }
-    }
-
-    /**
-     * Determine whether the user can view list of objects
-     *
-     * @param  User $auth
-     * @return mixed
-     */
-    public function index(User $auth)
-    {
-
-    }
-
-    /**
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $object)
+    public function view(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -70,13 +52,8 @@ class BaseAdminPolicy
      * @param  User $auth
      * @return mixed
      */
-    public function create(User $auth)
+    public function create(User $auth, $arguments = null)
     {
-        $team = $this->teamService()->team();
-
-        if ($team) {
-            return $this->ofTeam($auth, $team);
-        }
 
     }
 
@@ -84,13 +61,13 @@ class BaseAdminPolicy
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function update(User $auth, $object)
+    public function update(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -98,13 +75,13 @@ class BaseAdminPolicy
      * Determine whether the user can delete the object.
      *
      * @param  User $auth
-     * @param  Model $object
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function delete(User $auth, $object)
+    public function delete(User $auth, $arguments = null)
     {
-        if ($object instanceof TeamableInterface) {
-            return $this->ofTeam($auth, $object->team);
+        if ($this->ofTeam($auth, $arguments)) {
+            return true;
         }
     }
 
@@ -112,15 +89,26 @@ class BaseAdminPolicy
      * Determine if user is of team
      *
      * @param User $auth
-     * @param Team $team
+     * @param  mixed $arguments
      * @return bool
      */
-    public function ofTeam(User $auth, Team $team)
+    public function ofTeam(User $auth, $arguments = null, $team = null)
     {
-        $this->teamService()->user = $auth;
 
-        if ($this->teamService()->isAuthorized($team->id)) {
-            return true;
+//        $team = $team ?: $this->teamService()->team();
+//        if ($team && $arguments instanceof TeamableInterface) {
+//            $this->teamService()->user = $auth;
+//            if ($this->teamService()->isAuthorized($team->id)) {
+//                return true;
+//            }
+//        }
+
+        if ($arguments instanceof TeamableInterface) {
+            $team = $team ?: $arguments->team;
+            $this->teamService()->user = $auth;
+            if ($team && $this->teamService()->isAuthorized($team->id)) {
+                return true;
+            }
         }
     }
 }

@@ -1,22 +1,30 @@
+import workRequests from 'belt/core/js/work-requests/list-workable';
 import html from 'belt/core/js/base/heading/template.html';
 
 export default {
 
     props: {
-        // table: {default: null},
-    },
-    data() {
-        return {};
+        morphable_id: {
+            default: function () {
+                return this.$parent.morphable_id;
+            }
+        },
+        morphable_type: {
+            default: function () {
+                return this.$parent.morphable_type;
+            }
+        },
     },
     computed: {
         team() {
             return _.get(window, 'larabelt.activeTeam');
-        }
+        },
+        isSuper() {
+            return _.get(window, 'larabelt.auth.super');
+        },
     },
-    created() {
-
-
+    components: {
+        workRequests,
     },
-    methods: {},
     template: html
 }

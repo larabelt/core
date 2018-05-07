@@ -1,0 +1,41 @@
+<div class="row">
+
+    <div class="col-md-12">
+
+        <h4>Related List</h4>
+        <div v-if="table.items.length">
+            <p class="help-block">The following items are associated with this team.</p>
+
+            <div class="filter-set clearfix">
+                <div class="pull-left">
+                    <filter-search @filter-search-update="filter"></filter-search>
+                </div>
+                <div class="pull-left">
+                    <filter-type @filter-indexable_type-update="filter">Type</filter-type>
+                </div>
+            </div>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Type <column-sorter :column="'index.indexable_type'"></column-sorter></th>
+                    <th>ID <column-sorter :column="'index.indexable_id'"></column-sorter></th>
+                    <th>Name <column-sorter :column="'index.name'"></column-sorter></th>
+                    <th class="text-right">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="item in table.items">
+                    <row-item :item="item"></row-item>
+                </template>
+                </tbody>
+            </table>
+            <pagination></pagination>
+        </div>
+        <div v-else>
+            <p style="font-style: italic;">No items are currently linked to this item.</p>
+        </div>
+
+    </div>
+
+</div>

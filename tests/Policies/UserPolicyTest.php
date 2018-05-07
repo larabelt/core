@@ -11,7 +11,7 @@ class UserPolicyTest extends Testing\BeltTestCase
     /**
      * @covers \Belt\Core\Policies\UserPolicy::view
      * @covers \Belt\Core\Policies\UserPolicy::update
-     * @covers \Belt\Core\Policies\UserPolicy::create
+     * @covers \Belt\Core\Policies\UserPolicy::register
      */
     public function test()
     {
@@ -23,16 +23,18 @@ class UserPolicyTest extends Testing\BeltTestCase
         # view
         $this->assertTrue($policy->view($user1, $user1));
         $this->assertNotTrue($policy->view($user1, $user2));
+        $this->assertNotTrue($policy->view($user1, new \stdClass()));
 
         # update
         $this->assertTrue($policy->update($user1, $user1));
         $this->assertNotTrue($policy->update($user1, $user2));
+        $this->assertNotTrue($policy->update($user1, new \stdClass()));
 
-        # create
+        # register
         app()['config']->set('belt.core.users.allow_public_signup', false);
-        $this->assertNotTrue($policy->create($user1));
+        $this->assertNotTrue($policy->register($user1));
         app()['config']->set('belt.core.users.allow_public_signup', true);
-        $this->assertTrue($policy->create($user1));
+        $this->assertTrue($policy->register($user1));
     }
 
 }

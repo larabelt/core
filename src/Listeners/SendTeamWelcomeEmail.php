@@ -3,6 +3,7 @@
 namespace Belt\Core\Listeners;
 
 use Belt, Mail;
+use Belt\Core\Team;
 use Belt\Core\Events\TeamCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -35,8 +36,9 @@ class SendTeamWelcomeEmail implements ShouldQueue
      */
     public function handle(TeamCreated $event)
     {
-        $team = $event->team;
-        $user = $event->team->defaultUser;
+        /* @var $team Team */
+        $team = $event->item();
+        $user = $team->defaultUser;
 
         $mailable = new Belt\Core\Mail\TeamWelcomeEmail([
             'team' => $team,

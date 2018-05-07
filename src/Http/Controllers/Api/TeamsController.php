@@ -45,7 +45,7 @@ class TeamsController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('index', Team::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Team::class);
 
         $request = Requests\PaginateTeams::extend($request);
 
@@ -63,7 +63,7 @@ class TeamsController extends ApiController
      */
     public function store(Requests\StoreTeam $request)
     {
-        $this->authorize('create', Team::class);
+        $this->authorize(['create', 'register'], Team::class);
 
         $input = $request->all();
 
@@ -78,7 +78,7 @@ class TeamsController extends ApiController
 
         $team->save();
 
-        event(new Belt\Core\Events\TeamCreated($team));
+        $this->itemEvent('created', $team);
 
         return response()->json($team, 201);
     }
@@ -94,7 +94,7 @@ class TeamsController extends ApiController
     {
         $team = $this->get($id);
 
-        $this->authorize('view', $team);
+        $this->authorize(['view', 'create', 'update', 'delete'], $team);
 
         return response()->json($team);
     }
@@ -125,6 +125,8 @@ class TeamsController extends ApiController
 
         $team->save();
 
+        $this->itemEvent('updated', $team);
+
         return response()->json($team);
     }
 
@@ -141,6 +143,8 @@ class TeamsController extends ApiController
         $team = $this->get($id);
 
         $this->authorize('delete', $team);
+
+        $this->itemEvent('deleted', $team);
 
         $team->delete();
 

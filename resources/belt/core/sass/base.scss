@@ -14,7 +14,7 @@
         margin-bottom: 10px;
     }
     .filter-set {
-        padding:0 0 10px;
+        padding: 0 0 10px;
         .filter {
             margin-right: 10px;
         }
@@ -36,6 +36,12 @@
         }
         .input-group-addon {
             width: auto;
+        }
+    }
+    .filter-cell {
+        padding: 0;
+        .form-group {
+            margin: 0;
         }
     }
     .btn-default {
@@ -81,8 +87,8 @@
 }
 
 .no-gutter > [class*='col-'] {
-    padding-right:0;
-    padding-left:0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .break-word {

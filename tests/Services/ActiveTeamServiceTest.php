@@ -1,7 +1,6 @@
 <?php
 
 use Mockery as m;
-
 use Belt\Core\Services\ActiveTeamService;
 use Belt\Core\Testing;
 use Belt\Core\Team;
@@ -39,6 +38,7 @@ class ActiveTeamServiceTest extends Testing\BeltTestCase
 
         # __construct
         $service = new ActiveTeamService(['user' => $user]);
+        $service->forgetTeam();
         $this->assertInstanceOf(Request::class, $service->request);
         $this->assertInstanceOf(User::class, $service->user);
 
@@ -74,7 +74,7 @@ class ActiveTeamServiceTest extends Testing\BeltTestCase
         $service = new ActiveTeamService(['user' => $user]);
         $this->assertNull($service->getDefaultTeamId());
         $this->assertFalse($service->isAuthorized(3));
-        $user->is_super = true;
+        $user->setSuper(true);
         $this->assertTrue($service->isAuthorized(3));
 
     }

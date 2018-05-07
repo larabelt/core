@@ -2,14 +2,17 @@
 
 namespace Belt\Core\Http\Controllers;
 
+use Belt, Event;
 use Belt\Core\Http\Exceptions;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Routing\Controller;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
  * Class ApiController
@@ -18,7 +21,7 @@ use Illuminate\Routing\Controller;
 class ApiController extends Controller
 {
 
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, HandlesAuthorization;
 
     /**
      * @param $statusCode
@@ -99,6 +102,57 @@ class ApiController extends Controller
         } elseif (array_key_exists($key, $input) && $value = $input[$key]) {
             $item->$key = $value;
         }
+    }
+
+    /**
+     * @param $type
+     * @param $item
+     */
+    public function itemEvent($type, $item)
+    {
+        $name = sprintf('%s.%s', $item->getMorphClass(), $type);
+
+        $classes = [
+            'created' => Belt\Core\Events\ItemCreated::class,
+            'updated' => Belt\Core\Events\ItemUpdated::class,
+            'deleted' => Belt\Core\Events\ItemDeleted::class,
+            'attached' => Belt\Core\Events\ItemUpdated::class,
+            'detached' => Belt\Core\Events\ItemUpdated::class,
+        ];
+
+        $subtype = @end(explode('.', $type));
+
+        $class = array_get($classes, $subtype);
+
+        if ($class) {
+            $event = new $class($item, $name);
+            Event::dispatch($name, $event);
+        }
+
+    }
+
+    /**
+     * Authorize a given action for the current user.
+     *
+     * @todo re-write when upgrading to laravel 5.5
+     * @param  mixed $abilities
+     * @param  mixed|array $arguments
+     * @return \Illuminate\Auth\Access\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function authorize($abilities, $arguments = [])
+    {
+        $gate = app(Gate::class);
+
+        foreach ((array) $abilities as $ability) {
+            list($ability, $arguments) = $this->parseAbilityAndArguments($ability, $arguments);
+            if ($gate->allows($ability, $arguments)) {
+                return $this->allow();
+            }
+        }
+
+        return $this->deny();
     }
 
 }

@@ -10,7 +10,7 @@ class TeamForm extends BaseForm {
         this.setData({
             id: '',
             default_user_id: null,
-            is_active: 0,
+            is_active: false,
             name: '',
             slug: '',
             body: '',

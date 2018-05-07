@@ -6,8 +6,8 @@ use Mockery as m;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\User;
-use Belt\Core\Role;
 use Belt\Core\Team;
+use Belt\Core\Services\ActiveTeamService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -99,21 +99,27 @@ trait CommonMocks
      */
     function getUser($type = null)
     {
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->make(['super' => false]);
         $user->id = random_int(1, 10000);
         $user->roles = new Collection();
 
         if ($type == 'super') {
-            $user->is_super = true;
+            $user->setSuper(true);
         }
 
         if ($type == 'admin') {
-            $user->roles->push(factory(Role::class)->make(['name' => 'ADMIN']));
+            //$user->roles->push(factory(Role::class)->make(['name' => 'admin']));
+            $user->assign('admin');
         }
 
         if ($type == 'team') {
             Team::unguard();
-            $user->teams->push(factory(Team::class)->make(['id' => random_int(1, 999)]));
+            $team = factory(Team::class)->make([
+                'id' => random_int(1, 999),
+                'is_active' => true,
+            ]);
+            (new ActiveTeamService())->setTeam($team);
+            $user->teams->push($team);
         }
 
         return $user;

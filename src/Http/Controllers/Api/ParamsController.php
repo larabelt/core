@@ -49,7 +49,7 @@ class ParamsController extends ApiController
      */
     public function keys(Request $request)
     {
-        $this->authorize('view', Param::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Param::class);
 
         $request = Requests\PaginateRequest::extend($request);
 
@@ -68,7 +68,7 @@ class ParamsController extends ApiController
      */
     public function values(Request $request)
     {
-        $this->authorize('view', Param::class);
+        $this->authorize(['view', 'create', 'update', 'delete'], Param::class);
 
         $request = Requests\PaginateRequest::extend($request);
 

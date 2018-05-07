@@ -38,6 +38,19 @@ class MorphHelper
     }
 
     /**
+     * Convert morphable type to actual class
+     *
+     * @param $type
+     * @return Model
+     */
+    public function type2Table($type)
+    {
+        $class = $this->type2Class($type);
+
+        return (new $class())->getTable();
+    }
+
+    /**
      * Convert morphable type to actual query builder object
      *
      * @param $type
@@ -55,7 +68,7 @@ class MorphHelper
      *
      * @param $type
      * @param $id
-     * @return null
+     * @return Model|null
      */
     public function morph($type, $id)
     {

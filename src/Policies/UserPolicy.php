@@ -14,25 +14,26 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can view the object.
      *
      * @param  User $auth
-     * @param  User $user
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function view(User $auth, $user)
+    public function view(User $auth, $arguments = null)
     {
-        return $auth->id == $user->id;
+        if ($arguments instanceof User) {
+            return $auth->id == $arguments->id;
+        }
     }
 
     /**
      * Determine whether the user can create object.
      *
      * @param  User $auth
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function create(User $auth)
+    public function register(User $auth, $arguments = null)
     {
-        $permission = parent::create($auth);
-
-        if ($permission || config('belt.core.users.allow_public_signup')) {
+        if (config('belt.core.users.allow_public_signup')) {
             return true;
         }
     }
@@ -41,12 +42,14 @@ class UserPolicy extends BaseAdminPolicy
      * Determine whether the user can update the object.
      *
      * @param  User $auth
-     * @param  User $user
+     * @param  mixed $arguments
      * @return mixed
      */
-    public function update(User $auth, $user)
+    public function update(User $auth, $arguments = null)
     {
-        return $auth->id == $user->id;
+        if ($arguments instanceof User) {
+            return $auth->id == $arguments->id;
+        }
     }
 
 }

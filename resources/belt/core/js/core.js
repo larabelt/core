@@ -1,9 +1,11 @@
+import 'belt/core/js/belt-bootstrap';
+
 import alerts from 'belt/core/js/alerts/routes';
 import roles from 'belt/core/js/roles/routes';
 import teams from 'belt/core/js/teams/routes';
 import users from 'belt/core/js/users/routes';
+import workRequests from 'belt/core/js/work-requests/routes';
 import store from 'belt/core/js/store/index';
-import tinymce_directive from 'belt/core/js/directives/tinymce';
 
 import column_sorter from 'belt/core/js/base/column-sorter';
 import dropdown from 'belt/core/js/base/dropdown';
@@ -23,7 +25,21 @@ Vue.component('heading', heading);
 Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
-Vue.directive('tinymce', tinymce_directive);
+
+import tinymce from 'belt/core/js/editors/tinymce.vue';
+import codemirror from 'belt/core/js/editors/codemirror.vue';
+import textarea from 'belt/core/js/editors/textarea.vue';
+switch(process.env.MIX_LARABELT_EDITOR)
+{
+    case 'codemirror':
+        Vue.component('belt-editor', codemirror);
+        break;
+    case 'tinymce':
+        Vue.component('belt-editor', tinymce);
+        break;
+    default:
+        Vue.component('belt-editor', textarea);
+}
 
 window.Events = new Vue({});
 window.History = new History({});
@@ -52,6 +68,7 @@ export default class BeltCore {
             router.addRoutes(roles);
             router.addRoutes(teams);
             router.addRoutes(users);
+            router.addRoutes(workRequests);
 
             const app = new Vue({router, store}).$mount('#belt-core');
         }

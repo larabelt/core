@@ -25,7 +25,7 @@ class BaseForm {
         this.originalData = data;
 
         for (let field in data) {
-            this[field] = data[field];
+            Vue.set(this, field, data[field]);
         }
     }
 
