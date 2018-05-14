@@ -76,13 +76,8 @@ class BeltCommand extends Command
      */
     public function migrate()
     {
-        if ($this->option('force')) {
-            $this->call('migrate', ['--force' => true, '--path' => 'database/migrations/belt']);
-            $this->call('migrate', ['--force' => true]);
-        } else {
-            $this->call('migrate', ['--path' => 'database/migrations/belt']);
-            $this->call('migrate');
-        }
+        $this->call('migrate', ['--force' => $this->option('force'), '--path' => 'database/migrations/belt']);
+        $this->call('migrate', ['--force' => $this->option('force')]);
     }
 
     /**
