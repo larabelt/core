@@ -1,7 +1,8 @@
 <div>
     <heading>
         <span slot="title">Role Editor</span>
-        <li><router-link :to="{ name: 'roles' }">Roles</router-link></li>
+        <li><router-link :to="{ name: 'roles' }">Role Manager</router-link></li>
+        <li>{{ role.name }}</li>
     </heading>
     <section class="content">
         <div class="nav-tabs-custom">
