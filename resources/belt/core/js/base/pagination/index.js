@@ -25,12 +25,25 @@ export default {
         }
     },
     computed: {
-        show() {
+        showAll() {
             if (this.table == undefined || this.table.length == 0) {
                 return false;
             }
 
+            if (this.table.per_page <= 10) {
+                if (this.table.total <= 10) {
+                    return false;
+                }
+            }
+
             return this.table.total > 0 || this.table.total > this.table.per_page;
+        },
+        showPageLinks() {
+            if (this.table.total <= this.table.per_page) {
+                return false;
+            }
+
+            return true;
         },
         perPage() {
             return this.table.per_page ? this.table.per_page : 10;

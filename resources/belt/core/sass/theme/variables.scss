@@ -1,0 +1,36 @@
+//COLORS
+//--------------------------------------------------------
+
+//Primary
+$default-color: #3c8dbc !default;
+
+//LAYOUT
+//--------------------------------------------------------
+
+//When the logo should go to the top of the screen
+$screen-header-collapse: $screen-xs-max !default;
+
+//SIDEBAR SKINS
+//--------------------------------------------------------
+
+//Dark sidebar
+$sidebar-dark-bg: #222d32 !default;
+$sidebar-dark-hover-bg: darken($sidebar-dark-bg, 2%) !default;
+$sidebar-dark-color: lighten($sidebar-dark-bg, 60%) !default;
+$sidebar-dark-hover-color: #fff !default;
+$sidebar-dark-submenu-bg: lighten($sidebar-dark-bg, 5%) !default;
+$sidebar-dark-submenu-color: lighten($sidebar-dark-submenu-bg, 40%) !default;
+$sidebar-dark-submenu-hover-color: #fff !default;
+
+//Light sidebar
+$sidebar-light-bg: #f9fafc !default;
+$sidebar-light-hover-bg: lighten(#f0f0f1, 1.5%) !default;
+$sidebar-light-color: #444 !default;
+$sidebar-light-hover-color: #000 !default;
+$sidebar-light-submenu-bg: $sidebar-light-hover-bg !default;
+$sidebar-light-submenu-color: #777 !default;
+$sidebar-light-submenu-hover-color: #000 !default;
+
+//Transition global options
+$transition-speed: .3s !default;
+$transition-fn: ease-in-out !default;

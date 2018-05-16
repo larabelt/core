@@ -1,6 +1,6 @@
 <header class="main-header">
-    @include('belt-core::layouts.admin.partials.header-branding')
-    <!-- Header Navbar: style can be found in header.less -->
+@include('belt-core::layouts.admin.partials.header-branding')
+<!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -12,36 +12,40 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-user-circle"></i>
-                        <span class="hidden-xs">{{ Auth::user()->email }}</span>
+                        <i class="fa fa-user"></i>
+                        @if($auth->first_name && $auth->last_name)
+                            <span class="hidden-xs">{{ $auth->first_name }} {{ $auth->last_name }}</span>
+                        @else
+                            <span class="hidden-xs">{{ $auth->email }}</span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <i class="fa fa-5x fa-user-circle"></i>
-                            <p>
-                                {{ Auth::user()->email }}
-                                @if($team)
-                                    <div><i class="fa fa-users"></i> {{ $team->name }}</div>
-                                @endif
-                                <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
-                            </p>
+                            <i class="fa fa-4x fa-user"></i>
+                            <div>{{ Auth::user()->email }}</div>
+                            @if($team)
+                                <div><strong>{{ $team->name }}</strong></div>
+                            @endif
+                            <div><small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small></div>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="/admin/belt/core/self" class="btn btn-default btn-flat">Profile</a>
+                                <a href="/admin/belt/core/self" class="btn btn-default btn-flat">Edit Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="/logout" class="btn btn-default btn-flat">Sign Out</a>
                             </div>
                         </li>
                     </ul>
                 </li>
-                <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#control-sidebar-settings-tab" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                @if(Auth::user()->teams->count() > 1)
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#control-sidebar-settings-tab" data-toggle="control-sidebar"><i class="fa fa-users"></i></a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>

@@ -26,7 +26,7 @@
                 <li id="core-admin-sidebar-left-users"><a href="/admin/belt/core/users"><i class="fa fa-user"></i> <span>Users</span></a></li>
             @endif
             @if($can['teams'])
-                <li id="core-admin-sidebar-left-teams"><a href="/admin/belt/core/teams"><i class="fa fa-users"></i> <span>Teams</span></a></li>
+                <li id="core-admin-sidebar-left-teams"><a href="/admin/belt/core/teams"><i class="{{ trans('belt-core::teams.class.icon') }}"></i> <span>Teams</span></a></li>
             @endif
             @if($can['roles'])
                 <li id="core-admin-sidebar-left-roles"><a href="/admin/belt/core/roles"><i class="fa fa-key"></i> <span>Roles</span></a></li>

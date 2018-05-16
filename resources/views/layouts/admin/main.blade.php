@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
 </head>
 
-<body class="admin hold-transition skin-blue sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }}">
+<body class="admin hold-transition skin-belt sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }}">
 @include('belt-core::layouts.admin.scripts.body-open')
 <div class="wrapper">
 

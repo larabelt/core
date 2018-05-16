@@ -1,5 +1,5 @@
 <div>
-    <template v-if="show">
+    <template v-if="showAll">
         <div class="row belt-pagination">
             <div class="col-md-4">
                 <div class="pagination" role="status" aria-live="polite">
@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <span class="pull-right">
+                <span v-if="showPageLinks" class="pull-right">
                     <ul class="pagination-sm pagination">
                         <li v-if="isNotFirst">
                             <a href="" @click.prevent="paginate({page: 1})" title="first page"><i class="fa fa-step-backward"></i></a>

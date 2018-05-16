@@ -1,0 +1,29 @@
+.admin {
+    .box-body {
+        .btn-group {
+            margin-bottom: 10px;
+        }
+        p.bg-primary, p.bg-info, p.bg-warning, p.bg-danger, p.bg-success {
+            padding: 10px;
+        }
+    }
+    .btn-default {
+        background-color: #f4f4f4;
+        color: #444;
+        border-color: #ddd;
+    }
+    .btn-saveable {
+        width: 60px;
+
+        &.saving {
+            background: rgba(red(#3c8dbc), green(#3c8dbc), blue(#3c8dbc), .5);
+        }
+
+        &.saved {
+            background: green;
+        }
+    }
+    .sub-tab-btn-group {
+        margin-bottom: 10px;
+    }
+}

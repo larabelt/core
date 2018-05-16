@@ -69,7 +69,7 @@
         <!-- Custom tabs (Charts with tabs)-->
         <div class="nav-tabs-custom">
             <!-- Tabs within a box -->
-            <ul class="nav nav-tabs pull-right">
+            <ul class="nav nav-tabs">
                 <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
                 <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
                 <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>

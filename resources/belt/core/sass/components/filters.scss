@@ -1,0 +1,33 @@
+.admin {
+    .filter-set {
+        padding: 0 0 10px;
+        .filter {
+            margin-right: 10px;
+        }
+        .filter-set-badges {
+            margin-bottom: 10px;
+        }
+        .filter-set-badges-heading {
+            font-weight: 700;
+            float: left;
+            margin-right: 10px;
+        }
+        .filter-badge {
+            background-color: #d2d6de;
+            padding: 0px 5px;
+            margin-right: 5px;
+        }
+        .form-group {
+            margin-bottom: 0;
+        }
+        .input-group-addon {
+            width: auto;
+        }
+    }
+    .filter-cell {
+        padding: 0;
+        .form-group {
+            margin: 0;
+        }
+    }
+}

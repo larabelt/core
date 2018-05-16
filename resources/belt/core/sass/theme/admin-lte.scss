@@ -1,6 +1,8 @@
-@import"~admin-lte/dist/css/AdminLTE.min.css";
-// AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load.
-@import"~admin-lte/dist/css/skins/_all-skins.min.css";
+@import "~belt/core/sass/theme/variables";
+@import "mixins";
+@import "~admin-lte/dist/css/AdminLTE.min.css";
+@import "skin-belt";
+
 // iCheck
 //@import"~admin-lte/plugins/iCheck/flat/blue.css";
 // Date Picker
