@@ -2,7 +2,7 @@
 import Form from 'belt/core/js/alerts/form';
 
 // templates make a change
-import heading_html from 'belt/core/js/templates/heading.html';
+
 import edit_html from 'belt/core/js/alerts/templates/edit.html';
 import form_html from 'belt/core/js/alerts/templates/form.html';
 
@@ -18,7 +18,7 @@ export default {
         this.form.show(this.morphable_id);
     },
     components: {
-        heading: {template: heading_html},
+
         edit: {
             data() {
                 return {
