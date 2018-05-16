@@ -27,6 +27,9 @@ export default {
             }
             return true;
         },
+        isSuper() {
+            return _.get(window, 'larabelt.auth.super');
+        },
         show() {
             return this.table.items.length;
         },
