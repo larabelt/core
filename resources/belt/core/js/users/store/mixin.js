@@ -8,17 +8,21 @@ export default {
         }
     },
     computed: {
-        storeKey() {
-            return 'users' + this.user_id;
+        abilities() {
+            return this.$store.getters[this.storeKey + '/abilities/data'];
+        },
+
+        form() {
+            return this.user;
         },
         user() {
             return this.$store.getters[this.storeKey + '/form'];
         },
-        abilities() {
-            return this.$store.getters[this.storeKey + '/abilities/data'];
-        },
         roles() {
             return this.$store.getters[this.storeKey + '/roles/data'];
+        },
+        storeKey() {
+            return 'users' + this.user_id;
         },
     },
     data() {
