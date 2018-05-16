@@ -17,11 +17,8 @@ export default {
             },
             computed: {
                 form() {
-                    return this.team;
+                    return this.$parent.team;
                 }
-            },
-            mounted() {
-                this.$store.dispatch(this.storeKey + '/load', this.team_id);
             },
             template: html,
         },
