@@ -27,6 +27,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">Role Manager</span>
+                <li><router-link :to="{ name: 'roles' }">Role Manager</router-link></li>
             </heading>
             <section class="content">
                 <index></index>

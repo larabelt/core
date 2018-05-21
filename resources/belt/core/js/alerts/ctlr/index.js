@@ -27,6 +27,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">Alert Manager</span>
+                <li><router-link :to="{ name: 'alerts' }">Alert Manager</router-link></li>
             </heading>
             <section class="content">
                 <index></index>
