@@ -44,6 +44,6 @@
   @include skin-dark-sidebar($default-color);
 }
 
-.skin-blue.layout-top-nav .main-header > .logo {
-  @include logo-variant($default-color);
-}
+//.skin-blue.layout-top-nav .main-header > .logo {
+//  @include logo-variant($default-color);
+//}
