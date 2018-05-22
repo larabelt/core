@@ -1,10 +1,16 @@
-<div v-if="params.length">
-    <template v-for="param in params">
-        <edit :param="param" :config="getConfig('params.' + param.key)"></edit>
-    </template>
-    <div class="alt-box-footer text-right">
-        <button class="btn btn-primary" :class="{'btn-default': !dirty, 'btn-primary': dirty}" :disabled="!dirty" @click.prevent="update()">
-            <span>Save</span>
-        </button>
+<div>
+    <p class="text-muted">{{ trans('belt-core::paramables.manager.overall') }}</p>
+    <div v-if="params.length">
+        <template v-for="param in params">
+            <edit :param="param" :config="getConfig('params.' + param.key)"></edit>
+        </template>
+        <div class="alt-box-footer text-right">
+            <button class="btn btn-primary" :class="{'btn-default': !dirty, 'btn-primary': dirty}" :disabled="!dirty" @click.prevent="update()">
+                <span>Save</span>
+            </button>
+        </div>
+    </div>
+    <div v-else>
+        <p style="font-style: italic;">This item has no parameters.</p>
     </div>
 </div>
