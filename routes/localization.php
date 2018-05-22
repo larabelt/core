@@ -2,6 +2,8 @@
 
 Route::get('/js/lang.js', function () {
 
+    //Cache::forget('lang.js');
+
     $trans = Cache::rememberForever('lang.js', function () {
         $locale = Lang::getLocale();
         $loader = Lang::getLoader();
