@@ -1,3 +1,6 @@
+$fa-font-path: "/fonts";
+@import "node_modules/font-awesome/scss/font-awesome";
+
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "theme/admin-lte";
 @import "components/buttons";
@@ -7,6 +10,7 @@
 @import "components/filters";
 @import "components/form-roles";
 @import "components/header";
+@import "components/icons";
 @import "components/pagination";
 
 .no-gutter > [class*='col-'] {
@@ -33,3 +37,4 @@
 .row-striped:nth-of-type(even) {
     background-color: #ffffff;
 }
+

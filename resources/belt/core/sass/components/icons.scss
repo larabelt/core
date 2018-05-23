@@ -1,0 +1,6 @@
+.i-team {
+    @include fa-icon();
+    &:before {
+        content: "\f0c0";
+    }
+}

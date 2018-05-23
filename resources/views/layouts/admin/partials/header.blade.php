@@ -43,7 +43,7 @@
                 @if(Auth::user()->teams->count() > 1)
                     <!-- Control Sidebar Toggle Button -->
                     <li>
-                        <a href="#control-sidebar-settings-tab" data-toggle="control-sidebar"><i class="fa fa-users"></i></a>
+                        <a href="#control-sidebar-settings-tab" data-toggle="control-sidebar"><i class="i-team"></i></a>
                     </li>
                 @endif
             </ul>
