@@ -28,6 +28,7 @@ class BeltUpdateTemplates extends BaseUpdate
          * update
          * move
          * db
+         * views
          */
         $methods = $this->argument('methods');
         foreach (explode(',', $methods) as $method) {
@@ -265,6 +266,52 @@ class BeltUpdateTemplates extends BaseUpdate
             'after' => null,
         ]);
 
+    }
+
+    public function views()
+    {
+
+        $disk = \Belt\Core\Helpers\BeltHelper::baseDisk();
+
+        $paths = $disk->files('resources/views', true);
+
+        foreach ($paths as $path) {
+
+            $contents = $new_contents = $disk->get($path);
+
+            $configKey = $this->option('configKey', 'belt.templates');
+
+            foreach (config($configKey) as $morphClass => $templates) {
+                $new_contents = $this->__view($morphClass, $new_contents);
+            }
+
+            foreach (config($configKey . '.sections') as $morphClass => $templates) {
+                $new_contents = $this->__view($morphClass, $new_contents);
+            }
+
+            if ($new_contents != $contents) {
+                $this->info("updated view: $path");
+                $disk->put($path, $new_contents);
+            }
+        }
+
+    }
+
+    public function __view($morphClass, $content)
+    {
+        $search = sprintf('%s = $section->sectionable', str_singular($morphClass));
+        $replace = sprintf('%s = $section->morphParam(\'%s\')', str_singular($morphClass), $morphClass);
+        $content = str_replace($search, $replace, $content);
+
+        $content = str_replace('section->heading or ', 'section->heading ?: ', $content);
+        $content = str_replace('section->before or ', 'section->heading ?: ', $content);
+        $content = str_replace('section->after or ', 'section->heading ?: ', $content);
+
+        $content = str_replace('section->heading', 'section->param(\'heading\')', $content);
+        $content = str_replace('section->before', 'section->param(\'before\')', $content);
+        $content = str_replace('section->after', 'section->param(\'after\')', $content);
+
+        return $content;
     }
 
 }
