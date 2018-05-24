@@ -129,7 +129,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
 
         // load other packages
         $this->app->register(Collective\Html\HtmlServiceProvider::class);
-        $this->app->register(Barryvdh\Cors\ServiceProvider::class);
+        //$this->app->register(Barryvdh\Cors\ServiceProvider::class);
         $this->app->register(\Maatwebsite\Excel\ExcelServiceProvider::class);
         if (env('APP_DEBUG') === true) {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
