@@ -133,7 +133,7 @@ trait CommonMocks
      */
     function getUploadFile($path, $name = 'test.jpg', $mimetype = 'image/jpeg')
     {
-        $file = new UploadedFile($path, $name, filesize($path), $mimetype, null, true);
+        $file = new UploadedFile($path, $name, $mimetype, filesize($path), null, true);
 
         return $file;
     }
