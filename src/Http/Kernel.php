@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
             BeltMiddleware\OptionalBasicAuth::class,
             BeltMiddleware\ActiveTeam::class,
             BeltMiddleware\GuestUser::class,
-            'throttle:60,1',
+            'throttle',
             'request.replacements',
             'bindings',
         ],
@@ -80,4 +80,22 @@ class Kernel extends HttpKernel
         'request.injections' => BeltMiddleware\RequestInjections::class,
         'throttle' => Illuminate\Routing\Middleware\ThrottleRequests::class,
     ];
+
+    /**
+     * Create a new HTTP kernel instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application $app
+     * @param  \Illuminate\Routing\Router $router
+     * @return void
+     */
+    public function __construct(Illuminate\Contracts\Foundation\Application $app, Illuminate\Routing\Router $router)
+    {
+        foreach ($this->middlewareGroups['api'] as $n => $value) {
+            if ($value == 'throttle') {
+                $this->middlewareGroups['api'][$n] = 'throttle:' . env('API_THROTTLE', '60,1');
+            }
+        }
+
+        parent::__construct($app, $router);
+    }
 }

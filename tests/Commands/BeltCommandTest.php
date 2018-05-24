@@ -36,12 +36,6 @@ class BeltCommandTest extends BeltTestCase
         $cmd->shouldReceive('refresh')->once()->andReturn();
         $cmd->handle();
 
-        # handle -> migrate
-        $cmd = m::mock(BeltCommand::class . '[argument,migrate]');
-        $cmd->shouldReceive('argument')->once()->andReturn('migrate');
-        $cmd->shouldReceive('migrate')->once()->andReturn();
-        $cmd->handle();
-
     }
 
     /**
