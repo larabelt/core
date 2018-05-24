@@ -44,7 +44,7 @@ class TestDBCommand extends Command
      *
      * @return void|string
      */
-    public function fire()
+    public function handle()
     {
 
         Queue::fake();
