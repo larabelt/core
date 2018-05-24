@@ -23,7 +23,7 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
     {
         # modify
         $qb = m::mock(Builder::class);
-        $qb->shouldReceive('where')->once()->withArgs(['test.is_active', true]);
+        $qb->shouldReceive('where')->once()->withArgs(['teams.is_active', true]);
         $request = new IsActiveQueryModifierTestPaginateRequestStub(['is_active' => true]);
         $modifer = new IsActiveQueryModifier($qb, $request);
         $modifer->modify($qb, $request);
@@ -38,7 +38,10 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
 
 }
 
-class IsActiveQueryModifierTestPaginateRequestStub extends PaginateRequest {
+class IsActiveQueryModifierTestPaginateRequestStub extends PaginateRequest
+{
+    public $modelClass = \Belt\Core\Team::class;
+
     /**
      * @return string
      */

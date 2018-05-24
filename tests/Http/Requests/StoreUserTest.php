@@ -10,7 +10,6 @@ class StoreUserTest extends \PHPUnit\Framework\TestCase
      */
     public function test()
     {
-
         $request = new StoreUser();
 
         $this->assertNotEmpty($request->rules());

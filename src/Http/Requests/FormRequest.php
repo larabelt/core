@@ -12,6 +12,9 @@ class FormRequest extends BaseFormRequest implements
 
     use Belt\Core\Http\Requests\BaseRequest;
 
+    /**
+     * @return bool
+     */
     public function wantsJson()
     {
         return true;
@@ -27,6 +30,9 @@ class FormRequest extends BaseFormRequest implements
         return [];
     }
 
+    /**
+     * @return bool
+     */
     public function authorize()
     {
         // Only allow logged in users
@@ -35,6 +41,12 @@ class FormRequest extends BaseFormRequest implements
         return true;
     }
 
+    /**
+     * @param $table
+     * @param $column
+     * @param array $routeParameters
+     * @return Rules\Exists
+     */
     public function ruleExists($table, $column, $routeParameters = [])
     {
         $params = [];
@@ -51,6 +63,11 @@ class FormRequest extends BaseFormRequest implements
         return $rule;
     }
 
+    /**
+     * @param $table
+     * @param array $columns
+     * @return Rules\Unique
+     */
     public function ruleUnique($table, $columns = [])
     {
 

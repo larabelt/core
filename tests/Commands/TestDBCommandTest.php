@@ -35,7 +35,7 @@ class TestDBCommandTest extends BeltTestCase
         $cmd->expects($this->any())->method('disk')->willReturn($disk);
         $cmd->expects($this->any())->method('call')->willReturn(null);
 
-        $cmd->fire();
+        $cmd->handle();
 
     }
 

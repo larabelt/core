@@ -40,10 +40,6 @@ class BeltCommand extends Command
             return $this->publish($this->options());
         }
 
-        if ($action == 'migrate') {
-            return $this->migrate();
-        }
-
         if ($action == 'refresh') {
             $this->refresh();
         }
@@ -69,14 +65,6 @@ class BeltCommand extends Command
         }
 
         $this->process('composer dumpautoload');
-    }
-
-    /**
-     *
-     */
-    public function migrate()
-    {
-        $this->call('migrate', ['--force' => $this->option('force')]);
     }
 
     /**
