@@ -76,7 +76,6 @@ class BeltCommand extends Command
      */
     public function migrate()
     {
-        $this->call('migrate', ['--force' => $this->option('force'), '--path' => 'database/migrations/belt']);
         $this->call('migrate', ['--force' => $this->option('force')]);
     }
 
@@ -98,7 +97,6 @@ class BeltCommand extends Command
     {
         $this->publish(['force' => true]);
         $this->info('migrate:refresh');
-        $this->call('migrate:refresh', ['--path' => 'database/migrations/belt']);
         $this->call('migrate:refresh');
         $this->seed();
     }

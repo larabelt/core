@@ -64,7 +64,6 @@ class BeltCommandTest extends BeltTestCase
     {
         $cmd = m::mock(BeltCommand::class . '[call]');
         $cmd->shouldReceive('call')->once()->with('migrate');
-        $cmd->shouldReceive('call')->once()->with('migrate', ['--path' => 'database/migrations/belt']);
         $cmd->migrate();
     }
 
@@ -77,7 +76,6 @@ class BeltCommandTest extends BeltTestCase
         $cmd->shouldReceive('publish')->with(['force' => true])->once();
         $cmd->shouldReceive('info')->once()->with('migrate:refresh');
         $cmd->shouldReceive('call')->once()->with('migrate:refresh');
-        $cmd->shouldReceive('call')->once()->with('migrate:refresh', ['--path' => 'database/migrations/belt']);
         $cmd->shouldReceive('seed')->once();
         $cmd->refresh();
     }
