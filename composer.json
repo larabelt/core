@@ -27,7 +27,7 @@
     "kalnoy/nestedset": "^4.2",
     "kint-php/kint": "^2.0",
     "laravel/framework": ">=5.5.0",
-    "laravelcollective/html": "5.4.1",
+    "laravelcollective/html": "5.5.*",
     "maatwebsite/excel": "~2.1.0",
     "riimu/kit-phpencoder": "^2.1",
     "rutorika/sortable": "3.4.*",
