@@ -3,7 +3,7 @@
 use Belt\Core\Http\Exceptions\ApiException;
 use Illuminate\Support\MessageBag;
 
-class ApiExceptionTest extends \PHPUnit_Framework_TestCase
+class ApiExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Http\Exceptions\ApiException::__construct()

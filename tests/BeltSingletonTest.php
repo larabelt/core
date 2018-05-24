@@ -2,7 +2,7 @@
 
 use Belt\Core\BeltSingleton;
 
-class BeltSingletonTest extends \PHPUnit_Framework_TestCase
+class BeltSingletonTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\BeltSingleton::publish

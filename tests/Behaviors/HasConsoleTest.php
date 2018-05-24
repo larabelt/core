@@ -5,7 +5,7 @@ use Belt\Core\Behaviors\HasConsole;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 
-class HasConsoleTest extends \PHPUnit_Framework_TestCase
+class HasConsoleTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

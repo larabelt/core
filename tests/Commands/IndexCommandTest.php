@@ -4,7 +4,7 @@ use Mockery as m;
 use Belt\Core\Commands\IndexCommand;
 use Belt\Core\Services\IndexService;
 
-class IndexCommandTest extends \PHPUnit_Framework_TestCase
+class IndexCommandTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

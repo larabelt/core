@@ -5,7 +5,7 @@ use Belt\Core\Behaviors\HasPrimaryModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class HasPrimaryModelTest extends \PHPUnit_Framework_TestCase
+class HasPrimaryModelTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

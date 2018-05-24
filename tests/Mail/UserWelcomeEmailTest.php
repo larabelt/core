@@ -3,7 +3,7 @@
 use Belt\Core\User;
 use Belt\Core\Mail\UserWelcomeEmail;
 
-class UserWelcomeEmailTest extends \PHPUnit_Framework_TestCase
+class UserWelcomeEmailTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Mail\UserWelcomeEmail::__construct

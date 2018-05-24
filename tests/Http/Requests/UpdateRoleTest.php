@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\UpdateRole;
 
-class UpdateRoleTest extends \PHPUnit_Framework_TestCase
+class UpdateRoleTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

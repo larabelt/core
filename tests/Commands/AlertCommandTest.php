@@ -4,7 +4,7 @@ use Mockery as m;
 use Belt\Core\Commands\AlertCommand;
 use Belt\Core\Services\AlertService;
 
-class AlertCommandTest extends \PHPUnit_Framework_TestCase
+class AlertCommandTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

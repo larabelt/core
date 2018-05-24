@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\StoreAbility;
 
-class StoreAbilityTest extends \PHPUnit_Framework_TestCase
+class StoreAbilityTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

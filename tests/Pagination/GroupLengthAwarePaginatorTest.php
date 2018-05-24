@@ -7,7 +7,7 @@ use Belt\Core\Pagination\IsActiveQueryModifier;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class GroupLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
+class GroupLengthAwarePaginatorTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

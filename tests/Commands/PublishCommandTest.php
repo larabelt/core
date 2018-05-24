@@ -4,7 +4,7 @@ use Mockery as m;
 use Belt\Core\Commands\PublishCommand;
 use Belt\Core\Services\PublishService;
 
-class PublishCommandTest extends \PHPUnit_Framework_TestCase
+class PublishCommandTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

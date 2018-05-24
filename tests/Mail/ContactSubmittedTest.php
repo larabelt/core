@@ -2,7 +2,7 @@
 
 use Belt\Core\Mail\ContactSubmitted;
 
-class ContactSubmittedTest extends \PHPUnit_Framework_TestCase
+class ContactSubmittedTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Mail\ContactSubmitted::__construct

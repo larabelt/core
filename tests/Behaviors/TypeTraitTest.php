@@ -4,7 +4,7 @@ use Belt\Core\Behaviors\TypeInterface;
 use Belt\Core\Behaviors\TypeTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class TypeTraitTest extends \PHPUnit_Framework_TestCase
+class TypeTraitTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

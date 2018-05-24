@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\AttachUser;
 
-class AttachUserTest extends \PHPUnit_Framework_TestCase
+class AttachUserTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

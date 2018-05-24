@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\StrHelper;
 
-class StrHelperTest extends \PHPUnit_Framework_TestCase
+class StrHelperTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

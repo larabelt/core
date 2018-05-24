@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\StoreParam;
 
-class StoreParamTest extends \PHPUnit_Framework_TestCase
+class StoreParamTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

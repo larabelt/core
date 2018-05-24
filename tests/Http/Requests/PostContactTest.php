@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\PostContact;
 
-class PostContactTest extends \PHPUnit_Framework_TestCase
+class PostContactTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

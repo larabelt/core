@@ -4,7 +4,7 @@ use Mockery as m;
 use Belt\Core\Commands\BackupCommand;
 use Belt\Core\Services\BackupService;
 
-class BackupCommandTest extends \PHPUnit_Framework_TestCase
+class BackupCommandTest extends \PHPUnit\Framework\TestCase
 {
 
     public function tearDown()

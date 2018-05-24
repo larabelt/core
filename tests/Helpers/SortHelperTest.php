@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\SortHelper;
 
-class SortHelperTest extends \PHPUnit_Framework_TestCase
+class SortHelperTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

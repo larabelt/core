@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SluggableTest extends \PHPUnit_Framework_TestCase
+class SluggableTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

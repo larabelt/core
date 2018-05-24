@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\FactoryHelper;
 
-class FactoryHelperTest extends \PHPUnit_Framework_TestCase
+class FactoryHelperTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

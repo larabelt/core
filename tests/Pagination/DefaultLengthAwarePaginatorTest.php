@@ -6,7 +6,7 @@ use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\Pagination\IsActiveQueryModifier;
 use Illuminate\Database\Eloquent\Model;
 
-class DefaultLengthAwarePaginatorTest extends \PHPUnit_Framework_TestCase
+class DefaultLengthAwarePaginatorTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

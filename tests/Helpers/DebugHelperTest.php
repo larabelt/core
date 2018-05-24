@@ -4,7 +4,7 @@ use Mockery as m;
 use Belt\Core\Helpers\DebugHelper;
 use Illuminate\Database\Eloquent\Model;
 
-class DebugHelperTest extends \PHPUnit_Framework_TestCase
+class DebugHelperTest extends \PHPUnit\Framework\TestCase
 {
     public function tearDown()
     {

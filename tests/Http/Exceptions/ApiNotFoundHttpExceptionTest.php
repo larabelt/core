@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
 
-class ApiNotFoundHttpExceptionTest extends \PHPUnit_Framework_TestCase
+class ApiNotFoundHttpExceptionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Http\Exceptions\ApiNotFoundHttpException::__construct()

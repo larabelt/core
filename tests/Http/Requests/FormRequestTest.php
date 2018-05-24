@@ -3,7 +3,7 @@
 use Belt\Core\Http\Requests\FormRequest;
 use Illuminate\Validation\Rules;
 
-class FormRequestTest extends \PHPUnit_Framework_TestCase
+class FormRequestTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Http\Requests\FormRequest::rules

@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\UpdateTeam;
 
-class UpdateTeamTest extends \PHPUnit_Framework_TestCase
+class UpdateTeamTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

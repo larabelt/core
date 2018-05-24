@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Rutorika\Sortable\MorphToSortedMany;
 
-class PositionableTest extends \PHPUnit_Framework_TestCase
+class PositionableTest extends \PHPUnit\Framework\TestCase
 {
     use CommonMocks;
 

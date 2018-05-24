@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Requests\StoreTeam;
 
-class StoreTeamTest extends \PHPUnit_Framework_TestCase
+class StoreTeamTest extends \PHPUnit\Framework\TestCase
 {
 
     /**

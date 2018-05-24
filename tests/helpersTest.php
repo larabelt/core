@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\BeltHelper;
 
-class helpersTest extends \PHPUnit_Framework_TestCase
+class helpersTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test()

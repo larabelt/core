@@ -4,7 +4,7 @@ use Belt\Core\Team;
 use Belt\Core\User;
 use Belt\Core\Mail\TeamWelcomeEmail;
 
-class TeamWelcomeEmailTest extends \PHPUnit_Framework_TestCase
+class TeamWelcomeEmailTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \Belt\Core\Mail\TeamWelcomeEmail::__construct

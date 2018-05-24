@@ -4,7 +4,7 @@ use Belt\Core\Behaviors\PriorityInterface;
 use Belt\Core\Behaviors\PriorityTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class PriorityTraitTest extends \PHPUnit_Framework_TestCase
+class PriorityTraitTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
