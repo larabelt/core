@@ -27,7 +27,6 @@ class BeltHelper
         'core' => Belt\Core\BeltCoreServiceProvider::class,
         'clip' => Belt\Clip\BeltClipServiceProvider::class,
         'content' => Belt\Content\BeltContentServiceProvider::class,
-        'glue' => Belt\Glue\BeltGlueServiceProvider::class,
         'menu' => Belt\Menu\BeltMenuServiceProvider::class,
         'spot' => Belt\Spot\BeltSpotServiceProvider::class,
     ];
