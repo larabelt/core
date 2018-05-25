@@ -11,6 +11,7 @@ class UserForm extends BaseForm {
             id: '',
             is_active: 0,
             is_opted_in: 0,
+            has_agreed: 0,
             first_name: '',
             last_name: '',
             mi: '',
