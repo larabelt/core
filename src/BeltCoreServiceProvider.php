@@ -22,7 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.5.2';
+    const VERSION = '1.5.4';
 
     /**
      * The policy mappings for the application.
