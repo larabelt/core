@@ -12,6 +12,7 @@ $fa-font-path: "/fonts";
 @import "components/header";
 @import "components/icons";
 @import "components/pagination";
+@import "components/tiles";
 
 .no-gutter > [class*='col-'] {
     padding-right: 0;
@@ -38,3 +39,9 @@ $fa-font-path: "/fonts";
     background-color: #ffffff;
 }
 
+.truncate {
+    width: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

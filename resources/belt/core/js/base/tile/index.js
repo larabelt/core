@@ -17,6 +17,15 @@ export default {
                 is_image: true,
             });
         },
+        summary() {
+            let content = _.get(this.item, 'body', _.get(this.item, 'intro', _.get(this.item, 'meta_description')));
+
+            if (content.length > 100) {
+                content = content.substring(0, 100) + '...';
+            }
+
+            return content.replace(/<\/?[^>]+(>|$)/g, "");
+        },
         name() {
             return _.get(this.item, 'name', _.get(this.item, 'title'));
         },
