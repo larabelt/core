@@ -1,0 +1,8 @@
+<div class="box box-primary">
+    <div class="box-body">
+        {{ name }}
+        <template v-if="image">
+            <img class="img-responsive" :src="image.src" />
+        </template>
+    </div>
+</div>

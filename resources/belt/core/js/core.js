@@ -36,6 +36,10 @@ Vue.component('input-select', inputSelect);
 Vue.component('input-text', inputText);
 Vue.component('input-textarea', inputTextarea);
 
+import tileDefault from 'belt/core/js/base/tile';
+
+Vue.component('tile-default', tileDefault);
+
 import tinymce from 'belt/core/js/editors/tinymce.vue';
 import codemirror from 'belt/core/js/editors/codemirror.vue';
 import textarea from 'belt/core/js/editors/textarea.vue';
