@@ -83,7 +83,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         // observers
         Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
-        Belt\Core\WorkRequest::observe(Belt\Core\Observers\WorkRequestObserver::class);
 
         // morphMap
         Relation::morphMap([
@@ -93,7 +92,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
             'users' => Belt\Core\User::class,
-            'work_requests' => Belt\Core\WorkRequest::class,
         ]);
 
         // route model binding
@@ -101,7 +99,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
             return Belt\Core\Alert::sluggish($value)->first();
         });
         $router->model('user', Belt\Core\User::class);
-        $router->model('workRequest', Belt\Core\WorkRequest::class);
 
         // add alias/facade
         $loader = AliasLoader::getInstance();
