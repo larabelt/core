@@ -84,10 +84,10 @@ class IndexServiceTest extends Testing\BeltTestCase
     {
         $this->refreshDB();
         $service = new IndexService();
-        $this->assertFalse(in_array('starts_at', $service->columns(true)));
+        $this->assertFalse(in_array('default_user_id', $service->columns(true)));
         Morph::shouldReceive('type2Table')->with('teams')->andReturn('teams');
         $service->mergeSchema('teams');
-        $this->assertTrue(in_array('starts_at', $service->columns(true)));
+        $this->assertTrue(in_array('default_user_id', $service->columns(true)));
     }
 
     /**
