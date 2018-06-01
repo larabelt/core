@@ -1,15 +1,10 @@
 @php
-    $can['alerts'] = $auth->can(['create','update','delete'], Belt\Core\Alert::class);
     $can['users'] = $auth->can(['create','update','delete'], Belt\Core\User::class);
     $can['teams'] = $auth->can(['create','update','delete'], Belt\Core\Team::class);
     $can['roles'] = $auth->can(['create','update','delete'], Belt\Core\Role::class);
 @endphp
 
 <li id="core-admin-sidebar-left-dashboard"><a href="/admin"><i class="fa fa-tachometer"></i> <span>Dashboard</span></a></li>
-
-@if($can['alerts'])
-    <li id="core-admin-sidebar-left-alerts"><a href="/admin/belt/core/alerts"><i class="fa fa-bullhorn"></i> <span>Alerts</span></a></li>
-@endif
 
 @if($can['users'] || $can['teams'] || $can['roles'])
     <li id="core-admin-sidebar-left" class="treeview">

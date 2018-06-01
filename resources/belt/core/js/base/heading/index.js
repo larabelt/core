@@ -1,4 +1,3 @@
-import workRequests from 'belt/core/js/work-requests/list-workable';
 import html from 'belt/core/js/base/heading/template.html';
 
 export default {
@@ -24,7 +23,7 @@ export default {
         },
     },
     components: {
-        workRequests,
+
     },
     template: html
 }

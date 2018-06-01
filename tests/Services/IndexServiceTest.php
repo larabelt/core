@@ -85,8 +85,8 @@ class IndexServiceTest extends Testing\BeltTestCase
         $this->refreshDB();
         $service = new IndexService();
         $this->assertFalse(in_array('starts_at', $service->columns(true)));
-        Morph::shouldReceive('type2Table')->with('alerts')->andReturn('alerts');
-        $service->mergeSchema('alerts');
+        Morph::shouldReceive('type2Table')->with('teams')->andReturn('teams');
+        $service->mergeSchema('teams');
         $this->assertTrue(in_array('starts_at', $service->columns(true)));
     }
 
@@ -102,11 +102,11 @@ class IndexServiceTest extends Testing\BeltTestCase
         $qb->shouldReceive('offset')->withAnyArgs()->andReturnSelf();
         $qb->shouldReceive('get')->andReturn($items);
 
-        Morph::shouldReceive('type2QB')->with('alerts')->andReturn($qb);
+        Morph::shouldReceive('type2QB')->with('teams')->andReturn($qb);
 
         $service = m::mock(IndexService::class . '[upsert]');
         $service->shouldReceive('upsert')->andReturnSelf();
-        $service->batchUpsert('alerts');
+        $service->batchUpsert('teams');
     }
 
     /**

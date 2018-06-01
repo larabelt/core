@@ -20,7 +20,6 @@ class BeltCorePermissibleSeeds extends Seeder
             '' => [
                 'admin-dashboard',
             ],
-            'alerts',
             'teams',
             'users',
         ];

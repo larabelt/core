@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Belt\Core\Alert;
+use Belt\Core\Team;
 use Belt\Core\Helpers\MorphHelper;
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Http\Controllers\Behaviors\Morphable;
@@ -49,13 +49,13 @@ class MorphableTest extends BeltTestCase
         $this->assertNull($controller->morphRequest($request, 'invalid'));
 
         # morphContains
-        Alert::unguard();
-        $alert1 = factory(Alert::class)->make(['id' => 1]);
-        $alert2 = factory(Alert::class)->make(['id' => 2]);
-        $morphableStub->test = new Collection([$alert1]);
-        $controller->morphableContains($morphableStub, 'test', $alert1);
+        Team::unguard();
+        $team1 = factory(Team::class)->make(['id' => 1]);
+        $team2 = factory(Team::class)->make(['id' => 2]);
+        $morphableStub->test = new Collection([$team1]);
+        $controller->morphableContains($morphableStub, 'test', $team1);
         try {
-            $controller->morphableContains($morphableStub, 'test', $alert2);
+            $controller->morphableContains($morphableStub, 'test', $team2);
             $this->exceptionNotThrown();
         } catch (\Exception $e) {
 

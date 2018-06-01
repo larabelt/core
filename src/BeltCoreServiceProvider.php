@@ -28,7 +28,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
      * @var array
      */
     protected $policies = [
-        Belt\Core\Alert::class => Belt\Core\Policies\AlertPolicy::class,
         Belt\Core\User::class => Belt\Core\Policies\UserPolicy::class,
         Belt\Core\Role::class => Belt\Core\Policies\RolePolicy::class,
         Belt\Core\Team::class => Belt\Core\Policies\TeamPolicy::class,
@@ -72,7 +71,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $this->registerPolicies($gate);
 
         // commands
-        $this->commands(Belt\Core\Commands\AlertCommand::class);
         $this->commands(Belt\Core\Commands\BackupCommand::class);
         $this->commands(Belt\Core\Commands\BeltCommand::class);
         $this->commands(Belt\Core\Commands\IndexCommand::class);
@@ -87,7 +85,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         // morphMap
         Relation::morphMap([
             'abilities' => Belt\Core\Ability::class,
-            'alerts' => Belt\Core\Alert::class,
             'params' => Belt\Core\Param::class,
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
@@ -95,9 +92,6 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         ]);
 
         // route model binding
-        $router->model('alert', Belt\Core\Alert::class, function ($value) {
-            return Belt\Core\Alert::sluggish($value)->first();
-        });
         $router->model('user', Belt\Core\User::class);
 
         // add alias/facade

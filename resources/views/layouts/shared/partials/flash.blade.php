@@ -26,7 +26,4 @@
             @include('belt-core::layouts.shared.partials._flash', ['msgs' => Session::get('danger')])
         </div>
     @endif
-    @if(isset($alerts) && $alerts)
-        @each('belt-core::layouts.shared.partials._alert', $alerts, 'alert')
-    @endif
 </div>
