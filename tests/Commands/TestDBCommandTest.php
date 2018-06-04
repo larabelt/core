@@ -17,7 +17,7 @@ class TestDBCommandTest extends BeltTestCase
 
     /**
      * @covers \Belt\Core\Commands\TestDBCommand::disk
-     * @covers \Belt\Core\Commands\TestDBCommand::fire
+     * @covers \Belt\Core\Commands\TestDBCommand::handle
      */
     public function testHandle()
     {
