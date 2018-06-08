@@ -71,7 +71,11 @@ class ParamablesController extends ApiController
 
         $paginator = $this->paginator($this->params->query(), $request);
 
-        return response()->json($paginator->toArray());
+        $response = $paginator->toArray();
+
+        $response['config'] = $paramable->getParamConfig();
+
+        return response()->json($response);
     }
 
     /**

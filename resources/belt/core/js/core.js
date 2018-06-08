@@ -11,6 +11,7 @@ import heading from 'belt/core/js/base/heading';
 import pagination from 'belt/core/js/base/pagination';
 import modals from 'belt/core/js/base/modals/modals.vue';
 import modalDelete from 'belt/core/js/base/modals/modal-delete.vue';
+import paramList from 'belt/core/js/params/list';
 
 import meta from 'belt/core/js/mixins/meta/index';
 
@@ -23,6 +24,7 @@ Vue.component('heading', heading);
 Vue.component('pagination', pagination);
 Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
+Vue.component('param-list', paramList);
 
 import inputEditor from 'belt/core/js/inputs/editor';
 import inputSelect from 'belt/core/js/inputs/select';
