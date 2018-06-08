@@ -1,0 +1,6 @@
+<div>
+    <i v-if="paramsLoading" class="fa fa-spinner fa-spin"></i>
+    <template v-if="params.length" v-for="param in sortedParams">
+        <edit :param="param" :config="param.config"></edit>
+    </template>
+</div>
