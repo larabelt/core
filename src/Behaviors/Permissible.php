@@ -1,5 +1,6 @@
 <?php namespace Belt\Core\Behaviors;
 
+use Morph;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
@@ -26,12 +27,29 @@ trait Permissible
     public function can($abilities, $arguments = [])
     {
         foreach ((array) $abilities as $ability) {
-            if (parent::can($ability, $arguments)) {
+
+            if (is_string($arguments) && !class_exists($arguments)) {
+                $arguments = Morph::type2Class($arguments);
+            }
+
+            if ($this->parentCan($ability, $arguments)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @todo get rid of this
+     * @codeCoverageIgnore
+     * @param $ability
+     * @param array $arguments
+     * @return bool
+     */
+    public function parentCan($ability, $arguments = [])
+    {
+        return parent::can($ability, $arguments);
     }
 
     /**

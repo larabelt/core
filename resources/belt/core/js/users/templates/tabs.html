@@ -2,7 +2,7 @@
     <li class="tab-users-main" :class="{active: $router.currentRoute.name == 'users.edit'}">
         <router-link :to="{ name: 'users.edit', params: {id: $route.params.id}}">Main</router-link>
     </li>
-    <li class="tab-users-access" :class="{active: $router.currentRoute.name == 'users.access'}">
+    <li v-if="$parent.authCanAttachRoles" class="tab-users-access" :class="{active: $router.currentRoute.name == 'users.access'}">
         <router-link :to="{ name: 'users.access', params: {id: $route.params.id}}">Access</router-link>
     </li>
 </ul>
