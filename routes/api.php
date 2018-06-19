@@ -8,6 +8,14 @@ Route::group([
 ],
     function () {
 
+        # access
+        Route::group([
+            'prefix' => '{entity_type}/{entity_id}/access',
+            'middleware' => 'request.injections:entity_type,entity_id',
+        ], function () {
+            Route::get('{abilities}/{arguments}', Api\AccessController::class . '@show');
+        });
+
         # contact
         Route::post('contact', Api\ContactController::class . '@store');
 
