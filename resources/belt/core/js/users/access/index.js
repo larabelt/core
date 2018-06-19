@@ -1,3 +1,5 @@
+import shared from 'belt/core/js/users/ctlr/shared';
+
 import user from 'belt/core/js/users/store/mixin';
 import assignedRoles from 'belt/core/js/assigned-roles/list';
 import heading_html from 'belt/core/js/templates/heading.html';
@@ -6,6 +8,7 @@ import access_html from 'belt/core/js/users/access/template.html';
 import html from 'belt/core/js/users/templates/edit.html';
 
 export default {
+    mixins: [shared],
     data() {
         return {
             morphable_type: 'users',

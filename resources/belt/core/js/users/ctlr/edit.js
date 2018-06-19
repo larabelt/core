@@ -1,4 +1,4 @@
-import access from 'belt/core/js/access/shared';
+import shared from 'belt/core/js/users/ctlr/shared';
 
 // helpers
 import Form from 'belt/core/js/users/form';
@@ -10,17 +10,11 @@ import edit_html from 'belt/core/js/users/templates/edit.html';
 import form_html from 'belt/core/js/users/templates/form.html';
 
 export default {
-    mixins: [access],
+    mixins: [shared],
     data() {
-        this.authCan('attach', 'roles');
         return {
             morphable_type: 'users',
             morphable_id: this.$route.params.id,
-        }
-    },
-    computed: {
-        authCanAttachRoles() {
-            return _.get(this.authAccess, 'roles.attach');
         }
     },
     components: {
