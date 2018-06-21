@@ -15,9 +15,9 @@ class AccessService
      * @var array
      */
     public static $permissions = [
-        'roles' => ['*'],
-        'teams' => ['*'],
-        'users' => ['*'],
+        'roles' => ['*' => null],
+        'teams' => ['*' => null],
+        'users' => ['*' => null],
     ];
 
     /**
