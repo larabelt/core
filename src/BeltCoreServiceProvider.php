@@ -22,7 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.5.11';
+    const VERSION = '1.5.12';
 
     /**
      * The policy mappings for the application.
@@ -140,6 +140,10 @@ class BeltCoreServiceProvider extends ServiceProvider
         if (config('belt.core.index.enabled')) {
             Belt\Core\Services\IndexService::enable();
         }
+
+        // access map for window config
+        Belt\Core\Services\AccessService::put('attach', 'roles');
+        Belt\Core\Services\AccessService::put('view', 'users');
     }
 
     /**

@@ -29,8 +29,8 @@ Vue.component('modal-delete', modalDelete);
 import tinymce from 'belt/core/js/editors/tinymce.vue';
 import codemirror from 'belt/core/js/editors/codemirror.vue';
 import textarea from 'belt/core/js/editors/textarea.vue';
-switch(process.env.MIX_LARABELT_EDITOR)
-{
+
+switch (process.env.MIX_LARABELT_EDITOR) {
     case 'codemirror':
         Vue.component('belt-editor', codemirror);
         break;
@@ -46,6 +46,15 @@ window.History = new History({});
 
 window.larabelt = _.get(window, 'larabelt', {});
 window.larabelt.core = _.get(window, 'larabelt.core', {});
+
+Vue.prototype.can = (ability, model) => {
+
+    if (_.get(window.larabelt.access, model + '.*')) {
+        return true;
+    }
+
+    return _.get(window.larabelt.access, model + '.' + ability) ? true : false;
+};
 
 export default class BeltCore {
 

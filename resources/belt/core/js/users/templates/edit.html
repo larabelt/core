@@ -1,7 +1,7 @@
 <div>
     <heading>
         <span slot="title">User Editor</span>
-        <li v-if="$parent.authCanViewUsers"><router-link :to="{ name: 'users' }">Users</router-link></li>
+        <li v-if="can('view', 'users')"><router-link :to="{ name: 'users' }">Users</router-link></li>
     </heading>
     <section class="content">
         <div class="nav-tabs-custom">

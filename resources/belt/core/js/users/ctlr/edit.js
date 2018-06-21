@@ -1,5 +1,3 @@
-import shared from 'belt/core/js/users/ctlr/shared';
-
 // helpers
 import Form from 'belt/core/js/users/form';
 
@@ -10,7 +8,6 @@ import edit_html from 'belt/core/js/users/templates/edit.html';
 import form_html from 'belt/core/js/users/templates/form.html';
 
 export default {
-    mixins: [shared],
     data() {
         return {
             morphable_type: 'users',
