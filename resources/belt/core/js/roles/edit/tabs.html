@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
     <li :class="{active: $router.currentRoute.name == 'roles.edit'}">
-        <router-link :to="{ name: 'roles.edit', params: {id: $route.params.id}}"><span class="hidden-sm">Main</span> <i class="fa fa-home visible-sm"></i></router-link>
+        <router-link :to="{ name: 'roles.edit', params: {id: $route.params.id}}"><span class="hidden-sm hidden-xs">Main</span> <i class="fa fa-home visible-sm visible-xs"></i></router-link>
     </li>
     <li :class="{active: $router.currentRoute.name == 'roles.access'}">
         <router-link :to="{ name: 'roles.access', params: {id: $route.params.id}}">Access</router-link>
