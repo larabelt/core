@@ -141,6 +141,10 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         if (config('belt.core.index.enabled')) {
             Belt\Core\Services\IndexService::enable();
         }
+
+        // access map for window config
+        Belt\Core\Services\AccessService::put('attach', 'roles');
+        Belt\Core\Services\AccessService::put('view', 'users');
     }
 
     /**

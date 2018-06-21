@@ -2,8 +2,9 @@
 
 namespace Belt\Core\Http\ViewComposers;
 
-use Belt, Auth, Route;
+use Belt, Auth, Cache, Route;
 use Belt\Core\Helpers\WindowConfigHelper;
+use Belt\Core\Services\AccessService;
 use Belt\Core\Services\ActiveTeamService;
 use Illuminate\Contracts\View\View;
 
@@ -75,6 +76,9 @@ class WindowConfigComposer
             'lng' => env('COORDS_LNG', -82.9988),
             'zoom' => env('COORDS_ZOOM', 17),
         ]);
+
+        // access
+        WindowConfigHelper::put('access', (new AccessService())->map());
     }
 
     /**

@@ -16,6 +16,7 @@ class WindowConfigHelper
         'adminMode' => [],
         'auth' => [],
         'coords' => [],
+        'access' => [],
     ];
 
     /**

@@ -72,6 +72,15 @@ Vue.prototype.trans = (string, args) => {
     return value;
 };
 
+Vue.prototype.can = (ability, model) => {
+
+    if (_.get(window.larabelt.access, model + '.*')) {
+        return true;
+    }
+
+    return _.get(window.larabelt.access, model + '.' + ability) ? true : false;
+};
+
 export default class BeltCore {
 
     constructor(components = []) {
