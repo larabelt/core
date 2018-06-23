@@ -22,7 +22,6 @@ Vue.component('column-sorter', column_sorter);
 Vue.component('dropdown', dropdown);
 Vue.component('heading', heading);
 Vue.component('pagination', pagination);
-Vue.component('modals', modals);
 Vue.component('modal-delete', modalDelete);
 Vue.component('param-list', paramList);
 
@@ -107,8 +106,11 @@ export default class BeltCore {
             const app = new Vue({router, store}).$mount('#belt-core');
         }
 
-        let modals = new Vue({
-            el: '#vue-modals'
+        let modal_app = new Vue({
+            el: '#vue-modals',
+            components: {
+                modals: modals
+            }
         });
     }
 
