@@ -19,6 +19,7 @@ class ParamableTest extends Testing\BeltTestCase
     }
 
     /**
+     * @covers \Belt\Core\Behaviors\Paramable::bootParamable
      * @covers \Belt\Core\Behaviors\Paramable::param
      * @covers \Belt\Core\Behaviors\Paramable::params
      * @covers \Belt\Core\Behaviors\Paramable::saveParam
@@ -27,6 +28,7 @@ class ParamableTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\Paramable::morphParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
+     * @covers \Belt\Core\Behaviors\Paramable::getParamConfig
      */
     public function test()
     {
@@ -35,6 +37,10 @@ class ParamableTest extends Testing\BeltTestCase
         $paramable = new ParamableStub();
         $paramable->params = new Collection();
         $paramable->params->add(new Param(['key' => 'foo', 'value' => 'bar']));
+
+
+        # bootParamable
+        ParamableStub::bootParamable();
 
         # paramQB
         $this->assertInstanceOf(Builder::class, $paramable->paramQB());
@@ -124,6 +130,9 @@ class ParamableTest extends Testing\BeltTestCase
             })
         );
         $paramable->scopeHasParam($qb, 'foo', 'bar');
+
+        # getParamConfig
+        $this->assertEquals([], $paramable->getParamConfig());
 
     }
 
