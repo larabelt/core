@@ -22,10 +22,6 @@ Route::group([
         # index
         Route::get('index', Api\IndexController::class . '@index');
 
-        # params
-        Route::get('param-keys', Api\ParamsController::class . '@keys');
-        Route::get('param-values', Api\ParamsController::class . '@values');
-
         # paramables
         Route::group([
             'prefix' => '{paramable_type}/{paramable_id}/params',
