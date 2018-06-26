@@ -49,10 +49,19 @@ class UrlHelper
         $exists = true;
 
         try {
+
             $headers = get_headers($url);
-            if (!$headers || $headers[0] == 'HTTP/1.1 404 Not Found') {
+
+            $status = $headers[0] ?? false;
+
+            if (in_array($status, [
+                false,
+                'HTTP/1.1 404 Not Found',
+                'HTTP/1.1 500 Internal Server Error',
+            ])) {
                 $exists = false;
             }
+
         } catch (\Exception $e) {
             $exists = false;
         }
