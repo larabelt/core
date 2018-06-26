@@ -40,6 +40,7 @@
         <section>
             <div class="row">
                 <div class="col-lg-12">
+                    @include('belt-core::layouts.admin.partials.includes-pre-main')
                     @yield('main')
                 </div>
             </div>

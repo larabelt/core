@@ -108,6 +108,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         });
 
         // view composers
+        view()->composer(['belt-core::layouts.admin.partials.includes-pre-main'], Belt\Core\Http\ViewComposers\PreMainAdminComposer::class);
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
         view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);
 
