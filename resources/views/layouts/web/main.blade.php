@@ -30,6 +30,7 @@
 <div id="main" role="main">
     <div id="app">
         @include('belt-core::layouts.shared.partials.flash')
+        @includeIf('belt-convo::layouts.shared.partials.alerts')
         @yield('main')
     </div>
 </div>
