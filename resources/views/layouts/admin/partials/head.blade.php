@@ -1,4 +1,5 @@
-<meta charset="utf-8">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Language" content="en">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>@yield('meta-title', 'Admin')</title>
 <!-- Tell the browser to be responsive to screen width -->
