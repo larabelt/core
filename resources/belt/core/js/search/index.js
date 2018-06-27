@@ -2,10 +2,20 @@ import Table from 'belt/core/js/search/table';
 import html from 'belt/core/js/search/template.html';
 
 export default {
+    props: {
+        'type': {
+            default: function () {
+                return '';
+            },
+        }
+    },
     data() {
         return {
             table: new Table(),
         }
+    },
+    mounted() {
+        this.table.updateQuery({type: this.type});
     },
     methods: {
         attach(item) {

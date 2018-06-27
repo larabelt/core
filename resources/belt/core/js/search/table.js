@@ -6,6 +6,7 @@ class Table extends BaseTable {
         options.baseUrl = `/api/v1/index/`;
         super(options);
         this.query.perPage = 12;
+        this.query.type = '';
     }
 
 }

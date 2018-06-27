@@ -49,11 +49,15 @@ class IndexCommand extends Command
         $action = $this->argument('action');
 
         if ($action == 'merge-schema' && $type = $this->option('type')) {
-            $this->service()->mergeSchema($type);
+            foreach (explode(',', $type) as $type) {
+                $this->service()->mergeSchema($type);
+            }
         }
 
         if ($action == 'batch-upsert' && $type = $this->option('type')) {
-            $this->service()->batchUpsert($type);
+            foreach (explode(',', $type) as $type) {
+                $this->service()->batchUpsert($type);
+            }
         }
 
     }
