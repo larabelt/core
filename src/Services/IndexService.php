@@ -22,11 +22,6 @@ class IndexService
      */
     protected static $primaryModel = Index::class;
 
-//    /**
-//     * @var bool
-//     */
-//    protected static $enabled = false;
-
     /**
      * @var Model
      */
@@ -41,30 +36,6 @@ class IndexService
         Index::unguard();
         $this->setConsole(array_get($options, 'console'));
     }
-
-//    /**
-//     * Enable service
-//     */
-//    public static function enable()
-//    {
-//        self::$enabled = true;
-//    }
-//
-//    /**
-//     * Disable service
-//     */
-//    public static function disable()
-//    {
-//        self::$enabled = false;
-//    }
-//
-//    /**
-//     * Check if service is enabled
-//     */
-//    public static function isEnabled()
-//    {
-//        return self::$enabled;
-//    }
 
     /**
      * @param Model $item
