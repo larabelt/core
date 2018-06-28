@@ -25,7 +25,7 @@ class BeltHelper
      */
     private $available = [
         'core' => Belt\Core\BeltCoreServiceProvider::class,
-        'clip' => Belt\Clip\BeltClipServiceProvider::class,
+        'clip' => Belt\Content\BeltClipServiceProvider::class,
         'content' => Belt\Content\BeltContentServiceProvider::class,
         'menu' => Belt\Menu\BeltMenuServiceProvider::class,
         'spot' => Belt\Spot\BeltSpotServiceProvider::class,
