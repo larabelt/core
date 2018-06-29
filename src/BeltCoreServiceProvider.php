@@ -105,10 +105,14 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $loader->alias('Form', Collective\Html\FormFacade::class);
         $loader->alias('Html', Collective\Html\HtmlFacade::class);
         $loader->alias('Morph', Belt\Core\Facades\MorphFacade::class);
+        $loader->alias('Translate', Belt\Core\Facades\TranslateFacade::class);
 
         // bind for facade
         $this->app->bind('morph', function () {
             return new Belt\Core\Helpers\MorphHelper();
+        });
+        $this->app->bind('translate', function ($app) {
+            return new Belt\Core\Services\TranslateService();
         });
 
         // view composers
