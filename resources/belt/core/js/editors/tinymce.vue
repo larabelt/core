@@ -10,6 +10,7 @@
 <script>
     import { component } from 'vue-mce';
     import editorMixins from 'belt/core/js/editors/mixins';
+    import example from 'belt/core/js/editors/tinymce/plugins/example';
 
     export default {
         components: { 'vue-mce': component },
@@ -17,8 +18,8 @@
             return {
                 config: {
                     height: '300',
-                    plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste code',
-                    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code'
+                    plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste code example',
+                    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code | example'
                 }
             }
         },
