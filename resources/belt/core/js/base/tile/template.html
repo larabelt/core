@@ -1,11 +1,16 @@
 <div class="box">
     <div class="box-body">
-        <h5 class="truncate">{{ name }}</h5>
+        <p v-if="template" class="text-muted">type: {{ template }}</p>
+        <h5 v-if="name" class="truncate">{{ name }}</h5>
         <template v-if="image">
             <img class="img-responsive" :src="image.src" />
         </template>
         <template v-else>
             <p>{{ summary }}</p>
+        </template>
+        <template v-for="param in params">
+            <h6 class="text-muted">{{ param.key }}</h6>
+            <p v-html="param.value"></p>
         </template>
     </div>
 </div>
