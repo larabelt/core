@@ -34,6 +34,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         Belt\Core\User::class => Belt\Core\Policies\UserPolicy::class,
         Belt\Core\Role::class => Belt\Core\Policies\RolePolicy::class,
         Belt\Core\Team::class => Belt\Core\Policies\TeamPolicy::class,
+        Belt\Core\Form::class => Belt\Core\Policies\FormPolicy::class,
     ];
 
     /**
@@ -88,6 +89,7 @@ class BeltCoreServiceProvider extends ServiceProvider
             'params' => Belt\Core\Param::class,
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
+            'forms' => Belt\Core\Form::class,
             'users' => Belt\Core\User::class,
             'work_requests' => Belt\Core\WorkRequest::class,
         ]);
@@ -96,6 +98,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         $router->model('alert', Belt\Core\Alert::class, function ($value) {
             return Belt\Core\Alert::sluggish($value)->first();
         });
+        $router->model('form', Belt\Core\Form::class);
         $router->model('user', Belt\Core\User::class);
         $router->model('workRequest', Belt\Core\WorkRequest::class);
 
