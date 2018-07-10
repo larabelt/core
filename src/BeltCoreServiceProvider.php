@@ -31,6 +31,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         Belt\Core\User::class => Belt\Core\Policies\UserPolicy::class,
         Belt\Core\Role::class => Belt\Core\Policies\RolePolicy::class,
         Belt\Core\Team::class => Belt\Core\Policies\TeamPolicy::class,
+        Belt\Core\Form::class => Belt\Core\Policies\FormPolicy::class,
     ];
 
     /**
@@ -88,10 +89,12 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
             'params' => Belt\Core\Param::class,
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
+            'forms' => Belt\Core\Form::class,
             'users' => Belt\Core\User::class,
         ]);
 
         // route model binding
+        $router->model('form', Belt\Core\Form::class);
         $router->model('user', Belt\Core\User::class);
 
         // add alias/facade
@@ -103,7 +106,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $loader->alias('Morph', Belt\Core\Facades\MorphFacade::class);
 
         // bind for facade
-        $this->app->bind('morph', function ($app) {
+        $this->app->bind('morph', function () {
             return new Belt\Core\Helpers\MorphHelper();
         });
 
