@@ -52,6 +52,11 @@ Route::group([
         Route::get('abilities', Api\AbilitiesController::class . '@index');
         Route::post('abilities', Api\AbilitiesController::class . '@store');
 
+        # forms
+        Route::get('forms/{form}', Api\FormsController::class . '@show');
+        Route::post('forms', Api\FormsController::class . '@store');
+        Route::put('forms/{form}', Api\FormsController::class . '@update');
+
         # roles
         Route::get('roles/{id}', Api\RolesController::class . '@show');
         Route::put('roles/{id}', Api\RolesController::class . '@update');
