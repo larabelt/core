@@ -5,6 +5,8 @@ namespace Belt\Core\Http\Requests;
 use Belt;
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 use Illuminate\Validation\Rules;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class FormRequest extends BaseFormRequest implements
     Belt\Core\Http\Requests\BaseRequestInterface
@@ -13,11 +15,21 @@ class FormRequest extends BaseFormRequest implements
     use Belt\Core\Http\Requests\BaseRequest;
 
     /**
+     * @todo figure out what happened to Laravel 5.6
+     *
      * @return bool
      */
     public function wantsJson()
     {
-        return true;
+        if ($route = $this->route()) {
+            if ($middleware = $route->middleware()) {
+                if (in_array('api', $middleware)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -79,6 +91,23 @@ class FormRequest extends BaseFormRequest implements
         });
 
         return $rule;
+    }
+
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        if ($this->wantsJson()) {
+            throw new HttpResponseException(response()->json($validator->errors(), 422));
+        }
+
+        parent::failedValidation($validator);
     }
 
 }
