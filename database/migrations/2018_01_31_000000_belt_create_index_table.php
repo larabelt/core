@@ -34,6 +34,6 @@ class BeltCreateIndexTable extends Migration
      */
     public function down()
     {
-        Schema::drop('index');
+        Schema::dropIfExists('index');
     }
 }

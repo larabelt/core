@@ -15,7 +15,9 @@ class CreateBouncerTables extends Migration
     public function up()
     {
 
-        Schema::rename('roles', 'roles_archived');
+        if(Schema::hasTable('roles')) {
+            Schema::rename('roles', 'roles_archived');
+        }
 
         Schema::create(Models::table('abilities'), function (Blueprint $table) {
             $table->increments('id');
@@ -81,10 +83,12 @@ class CreateBouncerTables extends Migration
      */
     public function down()
     {
-        Schema::drop(Models::table('permissions'));
-        Schema::drop(Models::table('assigned_roles'));
-        Schema::drop(Models::table('roles'));
-        Schema::drop(Models::table('abilities'));
-        Schema::rename('roles_archived', 'roles');
+        Schema::dropIfExists(Models::table('permissions'));
+        Schema::dropIfExists(Models::table('assigned_roles'));
+        Schema::dropIfExists(Models::table('roles'));
+        Schema::dropIfExists(Models::table('abilities'));
+        if(Schema::hasTable('roles_archived')) {
+            Schema::rename('roles_archived', 'roles');
+        }
     }
 }

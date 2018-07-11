@@ -29,7 +29,7 @@ class CreateFormsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('forms');
+        Schema::dropIfExists('forms');
     }
 
 }

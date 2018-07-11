@@ -28,6 +28,6 @@ class BeltCreateParamsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('params');
+        Schema::dropIfExists('params');
     }
 }

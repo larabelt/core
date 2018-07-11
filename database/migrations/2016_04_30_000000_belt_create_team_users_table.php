@@ -29,7 +29,7 @@ class BeltCreateTeamUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('team_users');
+		Schema::dropIfExists('team_users');
 	}
 
 }
