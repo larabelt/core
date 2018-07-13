@@ -46,8 +46,8 @@ export default {
             let value = _.get(config, key);
             return value ? value : defaultValue;
         },
-        emitEvent() {
-            this.$emit('input-updated');
+        emitEvent(payload) {
+            this.$emit('input-updated', payload);
         }
     },
 }
