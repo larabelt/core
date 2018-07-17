@@ -10,7 +10,7 @@
     export default {
         computed: {
             parent() {
-                if( !this.callingObject ) {
+                if (!this.callingObject) {
                     return this.$parent;
                 }
 
@@ -19,8 +19,11 @@
         },
         created() {
             Events.$on('modal-confirmation', (key) => {
-                if( key == this.key ) {
-                    this.parent.destroy(this.itemId);
+                if (key == this.key) {
+                    this.parent.destroy(this.itemId)
+                        .then(() => {
+                            Events.$emit('modal-delete-confirmed', this.itemId);
+                        });
                 }
             });
         },
@@ -51,7 +54,7 @@
             _class: {
                 default: 'btn btn-xs btn-danger',
             },
-            itemId : {
+            itemId: {
                 default: null
             },
             callingObject: {

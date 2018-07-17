@@ -43,4 +43,13 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    .transparent-image {
+        background: repeating-linear-gradient(
+                        45deg,
+                        #ffffff,
+                        #ffffff 5px,
+                        #e7e7e7 5px,
+                        #e7e7e7 10px
+        );
+    }
 }
