@@ -22,7 +22,7 @@ class BeltCoreServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    const VERSION = '1.5.14';
+    const VERSION = '1.5.15';
 
     /**
      * The policy mappings for the application.
@@ -78,6 +78,7 @@ class BeltCoreServiceProvider extends ServiceProvider
         Event::subscribe(Belt\Core\Listeners\TeamEventSubscriber::class);
 
         // observers
+        Belt\Core\Form::observe(Belt\Core\Observers\FormObserver::class);
         Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
         Belt\Core\WorkRequest::observe(Belt\Core\Observers\WorkRequestObserver::class);

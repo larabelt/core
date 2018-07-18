@@ -17,7 +17,11 @@ class FormService
      */
     public function keys()
     {
-        return array_keys(config('belt.forms', []));
+        $keys = array_keys(config('belt.forms', []));
+
+        sort($keys);
+
+        return $keys;
     }
 
 
