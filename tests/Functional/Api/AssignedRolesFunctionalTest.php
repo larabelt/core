@@ -2,7 +2,7 @@
 
 use Belt\Core\Testing;
 
-class PermissibleRolesFunctionalTest extends Testing\BeltTestCase
+class AssignedRolesFunctionalTest extends Testing\BeltTestCase
 {
 
     public function test()
@@ -18,8 +18,10 @@ class PermissibleRolesFunctionalTest extends Testing\BeltTestCase
         $response = $this->json('POST', '/api/v1/users/1/roles', [
             'id' => 1,
         ]);
+
         $response->assertStatus(201);
-        $response->assertJsonFragment(['id']);
+        $response->assertJsonFragment(['id' => 1]);
+
         $response = $this->json('GET', "/api/v1/users/1/roles/1");
         $response->assertStatus(200);
         $response = $this->json('POST', '/api/v1/users/1/roles', [

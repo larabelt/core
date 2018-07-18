@@ -21,7 +21,7 @@ class TeamsFunctionalTest extends Testing\BeltTestCase
             'name' => 'test',
         ]);
         $response->assertStatus(201);
-        $response->assertJsonFragment(['id']);
+        $response->assertJsonFragment(['name' => 'TEST']);
         $teamID = array_get($response->json(), 'id');
 
         # show

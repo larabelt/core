@@ -22,7 +22,7 @@ class PermissionsFunctionalTest extends Testing\BeltTestCase
             'ability_id' => 1,
         ]);
         $response->assertStatus(201);
-        $response->assertJsonFragment(['id']);
+        $response->assertJsonFragment(['id' => 1]);
 
         # attach
         $response = $this->json('GET', '/api/v1/users/1/permissions/1');
