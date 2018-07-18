@@ -56,7 +56,7 @@ class BeltSingleton
      * @param null $key
      * @return array
      */
-    public function packages($key = null, $params = [])
+    public function packages($key = null)
     {
         if (!$key) {
             return $this->packages;

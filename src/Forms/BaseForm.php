@@ -62,8 +62,10 @@ abstract class BaseForm
 
     /**
      * @param array $input
+     * @param Form|null $form
+     * @return array
      */
-    public function data(array $input, Form $form = null)
+    public function data(array $input = [], Form $form = null)
     {
         $form = $form ?: $this->form;
 
@@ -71,12 +73,11 @@ abstract class BaseForm
 
         foreach ($this->attributes as $key => $values) {
 
-            //$data[$key] = $form->data[$key] ?? null;
             $data[$key] = $form->data($key) ?? null;
 
             if (array_key_exists($key, $input)) {
                 $default = is_array($values) ? $values[0] : $values;
-                $data[$key] = array_get($input, $key) ?? $default;
+                $data[$key] = array_get($input, $key) ?: $default;
             }
         }
 

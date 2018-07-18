@@ -28,6 +28,7 @@ class ParamableTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\Paramable::morphParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
+     * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
      * @covers \Belt\Core\Behaviors\Paramable::getParamConfig
      */
     public function test()
@@ -59,6 +60,8 @@ class ParamableTest extends Testing\BeltTestCase
         $morphMany = m::mock(MorphMany::class);
         $morphMany->shouldReceive('firstOrNew')->once()->andReturn($param);
         $paramable = m::mock(ParamableStub::class . '[params]');
+
+        $paramable::bootParamable();
         $paramable->params = new Collection();
         $paramable->shouldReceive('params')->once()->andReturn($morphMany);
         $paramable->saveParam('missing', 'test');

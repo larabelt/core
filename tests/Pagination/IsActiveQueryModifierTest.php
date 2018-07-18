@@ -1,6 +1,7 @@
 <?php
 
 use Mockery as m;
+use Belt\Core\Team;
 use Belt\Core\Testing;
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\IsActiveQueryModifier;
@@ -40,7 +41,8 @@ class IsActiveQueryModifierTest extends Testing\BeltTestCase
 
 class IsActiveQueryModifierTestPaginateRequestStub extends PaginateRequest
 {
-    public $modelClass = \Belt\Core\Team::class;
+
+    public $modelClass = Team::class;
 
     /**
      * @return string

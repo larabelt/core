@@ -1,8 +1,9 @@
 <?php
 
+use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Http\Requests\StoreUser;
 
-class StoreUserTest extends \PHPUnit\Framework\TestCase
+class StoreUserTest extends BeltTestCase
 {
 
     /**
