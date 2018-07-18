@@ -82,6 +82,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $this->commands(Belt\Core\Commands\UpdateCommand::class);
 
         // observers
+        Belt\Core\Form::observe(Belt\Core\Observers\FormObserver::class);
         Belt\Core\Team::observe(Belt\Core\Observers\TeamObserver::class);
         Belt\Core\User::observe(Belt\Core\Observers\UserObserver::class);
         Belt\Core\WorkRequest::observe(Belt\Core\Observers\WorkRequestObserver::class);

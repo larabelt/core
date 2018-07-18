@@ -59,7 +59,11 @@ class StoreForm extends FormRequest
      */
     public function messages()
     {
-        return $this->template()->messages('store');
+        if ($this->template()) {
+            return $this->template()->messages('store');
+        }
+
+        return [];
     }
 
 }
