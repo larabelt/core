@@ -62,8 +62,9 @@ class BeltCommandTest extends BeltTestCase
      */
     public function testMigrate()
     {
-        $cmd = m::mock(BeltCommand::class . '[call]');
-        $cmd->shouldReceive('call')->once()->with('migrate');
+        $cmd = m::mock(BeltCommand::class . '[call,option]');
+        $cmd->shouldReceive('call')->once()->with('migrate', ['--force' => true])->andReturnSelf();
+        $cmd->shouldReceive('option')->once()->with('force')->andReturn(true);
         $cmd->migrate();
     }
 
