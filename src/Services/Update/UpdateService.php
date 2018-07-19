@@ -5,6 +5,7 @@ namespace Belt\Core\Services\Update;
 use Belt;
 use Belt\Core\Behaviors\HasConsole;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Str;
 
 /**
  * Class UpdateService
@@ -26,7 +27,10 @@ class UpdateService
     public function __construct($options = [])
     {
         $this->console = array_get($options, 'console');
+
         $this->path = array_get($options, 'path', __DIR__ . '/updates');
+
+        $this->registerUpdates();
     }
 
     /**
@@ -36,26 +40,29 @@ class UpdateService
      */
     public function registerUpdates()
     {
-        $this->register('templates', function ($service, $options = []) {
-            if (belt()->uses('content')) {
-                $this->runUpdate('templates.php', $options);
+        foreach (app('belt')->packages() as $package) {
+            $path = $package['dir'] . '/updates';
+            if (file_exists($path)) {
+                foreach (scandir($path) as $file) {
+                    if (str_contains($file, '.php')) {
+                        $name = $this->getUpdateKey($file);
+                        $fullpath = "$path/$file";
+                        $this->register($name, function ($service, $options = []) use ($fullpath) {
+                            $this->runUpdate($fullpath, $options);
+                        });
+                    }
+                }
             }
-        });
-
-        $this->register('roles', function ($service, $options = []) {
-            if (belt()->uses('content')) {
-                $this->runUpdate('admin_roles.php', $options);
-            }
-        });
+        }
     }
 
     /**
-     * @param $version
+     * @param $name
      * @param callable $macro
      */
-    public static function register($version, callable $macro)
+    public static function register($name, callable $macro)
     {
-        static::macro(base64_encode($version), $macro);
+        static::macro(base64_encode($name), $macro);
     }
 
     /**
@@ -70,6 +77,29 @@ class UpdateService
         }
     }
 
+    /**
+     * Resolve a migration instance from a file.
+     *
+     * @param  string $file
+     * @return object
+     */
+    public function getUpdateClass($path)
+    {
+        return sprintf('BeltUpdate%s', Str::studly($this->getUpdateKey($path)));
+    }
+
+    /**
+     * Get the name of the migration.
+     *
+     * @param  string $path
+     * @return string
+     */
+    public function getUpdateKey($path)
+    {
+        $stripped_name = str_replace('.php', '', basename($path));
+
+        return implode('_', array_slice(explode('_', $stripped_name), 4));
+    }
 
     /**
      * Find corresponding update file and run it
@@ -77,20 +107,20 @@ class UpdateService
      * @param $key
      * @param $options
      */
-    public function runUpdate($key, $options = [])
+    public function runUpdate($path, $options = [])
     {
-        foreach (scandir($this->path) as $file) {
-            if (str_contains($file, $key)) {
-                include sprintf('%s/%s', $this->path, $file);
-                $class = 'BeltUpdate' . title_case(str_replace('.php', '', $key));
-                $params = [
-                    'console' => $this->console,
-                    'options' => $options,
-                ];
-                $updater = new $class($params);
-                $updater->up();
-            }
-        }
+        include $path;
+
+        $class = $this->getUpdateClass($path);
+
+        $params = [
+            'console' => $this->console,
+            'options' => $options,
+        ];
+
+        $updater = new $class($params);
+
+        $updater->up();
     }
 
 }

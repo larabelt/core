@@ -41,6 +41,9 @@
     "rap2hpoutre/laravel-log-viewer": "^0.8.0"
   },
   "autoload": {
+    "classmap": [
+      "updates"
+    ],
     "psr-4": {
       "Belt\\Core\\": "src/"
     },
