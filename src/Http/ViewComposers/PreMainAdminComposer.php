@@ -24,6 +24,14 @@ class PreMainAdminComposer
     }
 
     /**
+     * @return array
+     */
+    public static function all()
+    {
+        return static::$includes;
+    }
+
+    /**
      * Bind data to the view.
      *
      * @param  View $view
@@ -31,7 +39,7 @@ class PreMainAdminComposer
      */
     public function compose(View $view)
     {
-        $view->with('includes', static::$includes);
+        $view->with('includes', static::all());
     }
 
 }

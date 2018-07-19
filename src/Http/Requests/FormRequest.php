@@ -84,11 +84,16 @@ class FormRequest extends BaseFormRequest implements
     {
 
         $rule = new Rules\Unique($table);
-        $rule->where(function ($query) use ($columns) {
-            foreach ($columns as $column) {
-                $query->where($column, $this->get($column));
-            }
-        });
+
+        foreach ($columns as $column) {
+            $rule->where($column, $this->get($column));
+        }
+
+//        $rule->where(function ($query) use ($columns) {
+//            foreach ($columns as $column) {
+//                $query->where($column, $this->get($column));
+//            }
+//        });
 
         return $rule;
     }
@@ -97,7 +102,6 @@ class FormRequest extends BaseFormRequest implements
      * Handle a failed validation attempt.
      *
      * @param  \Illuminate\Contracts\Validation\Validator $validator
-     * @return void
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -107,7 +111,7 @@ class FormRequest extends BaseFormRequest implements
             throw new HttpResponseException(response()->json($validator->errors(), 422));
         }
 
-        parent::failedValidation($validator);
+        return parent::failedValidation($validator);
     }
 
 }

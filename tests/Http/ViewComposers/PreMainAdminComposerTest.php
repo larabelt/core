@@ -3,7 +3,6 @@
 use Mockery as m;
 
 use Belt\Core\Http\ViewComposers\PreMainAdminComposer;
-use Belt\Core\Testing\BeltTestCase;
 use Illuminate\Contracts\View\View;
 
 class PreMainAdminComposerTest extends \PHPUnit\Framework\TestCase
@@ -15,14 +14,23 @@ class PreMainAdminComposerTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers \Belt\Core\Http\ViewComposers\PreMainAdminComposer::push
+     * @covers \Belt\Core\Http\ViewComposers\PreMainAdminComposer::all
      * @covers \Belt\Core\Http\ViewComposers\PreMainAdminComposer::compose
      */
     public function test()
     {
         $composer = new PreMainAdminComposer();
+
+        # push
         $composer->push('foo');
+
+        # all
+        $includes = $composer->all();
+        $this->assertTrue(in_array('foo', $includes));
+
+        # compose
         $view = m::mock(View::class);
-        $view->shouldReceive('with')->once()->with('includes', ['foo']);
+        $view->shouldReceive('with')->once()->with('includes', $includes);
         $composer->compose($view);
     }
 }
