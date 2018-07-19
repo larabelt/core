@@ -44,7 +44,7 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         $this->assertEquals('pages', $templateStub->getSubtypeGroup());
 
         # template_view
-        app()['config']->set('belt.templates.pages', [
+        app()['config']->set('belt.subtypes.pages', [
             'default' => [
                 'foo' => 'bar',
                 'path' => 'belt-content::pages.sections.default',
@@ -102,7 +102,7 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         $templateStub->reconcileSubtypeParams();
 
         # getDefaultSubtypeKey
-        app()['config']->set('belt.templates.pages', [
+        app()['config']->set('belt.subtypes.pages', [
             'pagetest' => 'belt-content::pages.sections.test',
             'pagetest2' => 'belt-content::pages.sections.test',
         ]);
@@ -110,24 +110,24 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         $this->assertEquals('pagetest', $templateStub->getDefaultSubtypeKey());
 
         # getSubtypeConfigPrefix
-        $this->assertEquals('belt.templates.pages', $templateStub->getSubtypeConfigPrefix());
+        $this->assertEquals('belt.subtypes.pages', $templateStub->getSubtypeConfigPrefix());
 
         # getSubtypeAttribute
         $templateStub->setAttribute('template', 'test');
         $this->assertEquals('test', $templateStub->subtype);
 
         # getParamConfig
-        app()['config']->set('belt.templates.pages.foo', [
+        app()['config']->set('belt.subtypes.pages.foo', [
             'name' => 'test',
             'params' => [
                 'foo' => 'bar'
             ],
         ]);
         $templateStub->subtype = 'foo';
-        $this->assertEquals(config('belt.templates.pages.foo.params'), $templateStub->getParamConfig());
+        $this->assertEquals(config('belt.subtypes.pages.foo.params'), $templateStub->getParamConfig());
 
         # getConfigAttribute
-        $this->assertEquals(config('belt.templates.pages.foo'), $templateStub->config);
+        $this->assertEquals(config('belt.subtypes.pages.foo'), $templateStub->config);
     }
 
     public function tearDown()
