@@ -11,7 +11,7 @@ class Form extends BaseForm {
     constructor(options = {}) {
         super(options);
 
-        let baseUrl = `/api/v1/users/${this.morphable_id}/roles/`;
+        let baseUrl = `/api/v1/users/${this.entity_id}/roles/`;
 
         this.service = new BaseService({baseUrl: baseUrl});
         this.routeEditName = 'users.roles';

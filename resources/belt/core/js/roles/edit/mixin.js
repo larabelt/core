@@ -4,8 +4,8 @@ import html from 'belt/core/js/roles/edit/template.html';
 export default {
     data() {
         return {
-            morphable_type: 'roles',
-            morphable_id: this.$route.params.id,
+            entity_type: 'roles',
+            entity_id: this.$route.params.id,
             role_id: this.$route.params.id,
         }
     },

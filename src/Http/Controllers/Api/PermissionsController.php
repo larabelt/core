@@ -6,7 +6,7 @@ use Bouncer;
 use Belt\Core\Behaviors\PermissibleInterface;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Requests;
-use Belt\Core\Http\Controllers\Morphable;
+use Belt\Core\Http\Controllers\Behaviors\Morphable;
 
 class PermissionsController extends ApiController
 {
@@ -22,7 +22,7 @@ class PermissionsController extends ApiController
      */
     private function permissible($entity_type, $entity_id)
     {
-        $permissible = $this->morphable($entity_type, $entity_id);
+        $permissible = $this->morph($entity_type, $entity_id);
 
         return $permissible instanceof PermissibleInterface ? $permissible : $this->abort(400);
     }

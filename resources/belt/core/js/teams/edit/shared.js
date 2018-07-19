@@ -6,8 +6,8 @@ export default {
     mixins: [team],
     data() {
         return {
-            morphable_type: 'teams',
-            morphable_id: this.$route.params.id,
+            entity_type: 'teams',
+            entity_id: this.$route.params.id,
             team_id: this.$route.params.id,
         }
     },

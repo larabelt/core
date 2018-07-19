@@ -5,7 +5,7 @@ class TeamUserTable extends BaseTable {
 
     constructor(options = {}) {
         super(options);
-        let baseUrl = `/api/v1/teams/${this.morphable_id}/users/`;
+        let baseUrl = `/api/v1/teams/${this.entity_id}/users/`;
         this.service = new BaseService({baseUrl: baseUrl});
     }
 

@@ -6,22 +6,22 @@ export default {
         return {
             config: {},
             data: {},
-            morph_id: '',
-            morph_type: '',
+            entity_id: '',
+            entity_type: '',
         }
     },
     mutations: {
         config: (state, value) => state.config = value,
         data: (state, value) => state.data = value,
-        morph_id: (state, value) => state.morph_id = value,
-        morph_type: (state, value) => state.morph_type = value,
+        entity_id: (state, value) => state.entity_id = value,
+        entity_type: (state, value) => state.entity_type = value,
     },
     actions: {
         config: (context, value) => context.commit('config', value),
         data: (context, value) => context.commit('data', value),
         load: (context) => {
             context.commit('data', {});
-            let table = new Table({morphable_type: context.state.morph_type, morphable_id: context.state.morph_id});
+            let table = new Table({entity_type: context.state.entity_type, entity_id: context.state.entity_id});
             return new Promise((resolve, reject) => {
                 table.index()
                     .then(response => {
@@ -35,11 +35,11 @@ export default {
             });
         },
         set: (context, options) => {
-            if (options.morph_type) {
-                context.commit('morph_type', options.morph_type);
+            if (options.entity_type) {
+                context.commit('entity_type', options.entity_type);
             }
-            if (options.morph_id) {
-                context.commit('morph_id', options.morph_id);
+            if (options.entity_id) {
+                context.commit('entity_id', options.entity_id);
             }
         },
     },

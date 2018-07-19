@@ -11,7 +11,7 @@ export default {
         if (!this.$store.state[this.paramStoreKey]) {
             this.$store.registerModule(this.paramStoreKey, store);
         }
-        this.$store.dispatch(this.paramStoreKey + '/set', {morph_type: this.paramable_type, morph_id: this.paramable_id});
+        this.$store.dispatch(this.paramStoreKey + '/set', {entity_type: this.paramable_type, entity_id: this.paramable_id});
 
         this.paramsLoading = true;
         this.$store.dispatch(this.paramStoreKey + '/load')

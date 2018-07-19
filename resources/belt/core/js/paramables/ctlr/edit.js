@@ -15,7 +15,7 @@ export default {
     data() {
         return {
             eventBus: this.$parent.eventBus,
-            form: new Form({morphable_type: this.$parent.paramable_type, morphable_id: this.$parent.paramable_id}),
+            form: new Form({entity_type: this.$parent.paramable_type, entity_id: this.$parent.paramable_id}),
         }
     },
     computed: {

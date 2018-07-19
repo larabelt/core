@@ -8,8 +8,8 @@ export default {
     data() {
         return {
             groupedItems: new Table({
-                morphable_type: this.morphable_type,
-                morphable_id: this.morphable_id,
+                entity_type: this.entity_type,
+                entity_id: this.entity_id,
             }),
             indexable_type: null,
         }

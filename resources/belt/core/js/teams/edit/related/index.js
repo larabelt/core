@@ -10,22 +10,22 @@ export default {
     components: {
         edit: {
             props: {
-                morphable_type: {
+                entity_type: {
                     default: function () {
-                        return this.$parent.morphable_type;
+                        return this.$parent.entity_type;
                     }
                 },
-                morphable_id: {
+                entity_id: {
                     default: function () {
-                        return this.$parent.morphable_id;
+                        return this.$parent.entity_id;
                     }
                 },
             },
             data() {
                 return {
                     table: new Table({
-                        morphable_type: 'teams',
-                        morphable_id: this.morphable_id,
+                        entity_type: 'teams',
+                        entity_id: this.entity_id,
                     }),
                 }
             },

@@ -6,20 +6,20 @@ export default {
         return {
             data: {},
             configKey: '',
-            morphType: '',
+            entity_type: '',
         }
     },
     mutations: {
         data: (state, value) => state.data = value,
         configKey: (state, value) => state.configKey = value,
-        morphType: (state, value) => state.morphType = value,
+        entity_type: (state, value) => state.entity_type = value,
     },
     actions: {
         data: (context, value) => context.commit('data', value),
         configKey: (context, value) => context.commit('configKey', value),
-        morphType: (context, value) => context.commit('morphType', value),
+        entity_type: (context, value) => context.commit('entity_type', value),
         load: ({dispatch, commit, state}) => {
-            dispatch('configs/get', {type: state.morphType, template: state.configKey}, {root: true})
+            dispatch('configs/get', {type: state.entity_type, template: state.configKey}, {root: true})
                 .then((config) => {
                     commit('data', config);
                 });
@@ -28,8 +28,8 @@ export default {
             if (options.configKey) {
                 context.commit('configKey', options.configKey);
             }
-            if (options.morphType) {
-                context.commit('morphType', options.morphType);
+            if (options.entity_type) {
+                context.commit('entity_type', options.entity_type);
             }
         },
     },

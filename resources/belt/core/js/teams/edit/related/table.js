@@ -5,7 +5,7 @@ class Table extends BaseTable {
     constructor(options = {}) {
         options.baseUrl = `/api/v1/index/`;
         super(options);
-        this.query.team_id = this.morphable_id;
+        this.query.team_id = this.entity_id;
     }
 
 }

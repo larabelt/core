@@ -10,12 +10,12 @@ export default {
     data() {
         return {
             form: new Form(),
-            morphable_type: 'users',
-            morphable_id: this.$route.params.id,
+            entity_type: 'users',
+            entity_id: this.$route.params.id,
         }
     },
     mounted() {
-        this.form.show(this.morphable_id);
+        this.form.show(this.entity_id);
     },
     components: {
         tabs: {template: tabs_html},

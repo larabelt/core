@@ -9,8 +9,8 @@ import edit_html from 'belt/core/js/users/templates/edit.html';
 export default {
     data() {
         return {
-            morphable_type: 'users',
-            morphable_id: this.$route.params.id,
+            entity_type: 'users',
+            entity_id: this.$route.params.id,
         }
     },
     components: {

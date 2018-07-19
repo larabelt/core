@@ -7,12 +7,12 @@ export default {
     props: {
         paramable_type: {
             default: function () {
-                return this.$parent.morphable_type;
+                return this.$parent.entity_type;
             }
         },
         paramable_id: {
             default: function () {
-                return this.$parent.morphable_id;
+                return this.$parent.entity_id;
             }
         },
     },

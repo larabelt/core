@@ -3,14 +3,14 @@ import html from 'belt/core/js/base/heading/template.html';
 export default {
 
     props: {
-        morphable_id: {
+        entity_id: {
             default: function () {
-                return this.$parent.morphable_id;
+                return this.$parent.entity_id;
             }
         },
-        morphable_type: {
+        entity_type: {
             default: function () {
-                return this.$parent.morphable_type;
+                return this.$parent.entity_type;
             }
         },
     },

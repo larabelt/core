@@ -8,8 +8,8 @@ export default {
     mixins: [user],
     data() {
         return {
-            morphable_type: 'users',
-            morphable_id: this.$route.params.id,
+            entity_type: 'users',
+            entity_id: this.$route.params.id,
             user_id: this.$route.params.id,
         }
     },
@@ -21,9 +21,9 @@ export default {
         edit: {
             data() {
                 return {
-                    morphable_type: this.$parent.morphable_type,
-                    morphable_id: this.$parent.morphable_id,
-                    user_id: this.$parent.morphable_id,
+                    entity_type: this.$parent.entity_type,
+                    entity_id: this.$parent.entity_id,
+                    user_id: this.$parent.entity_id,
                     storeKey: this.$parent.storeKey,
                 }
             },

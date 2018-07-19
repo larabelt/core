@@ -1,6 +1,6 @@
 export default {
     beforeCreate() {
-        this.morphable_type = this.$parent.morphable_type;
-        this.morphable_id = this.$parent.morphable_id;
+        this.entity_type = this.$parent.entity_type;
+        this.entity_id = this.$parent.entity_id;
     },
 }

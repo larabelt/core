@@ -7,7 +7,7 @@ use Belt\Core\Param;
 use Belt\Core\Helpers\MorphHelper;
 use Belt\Core\Http\Controllers\ApiController;
 use Belt\Core\Http\Requests;
-use Belt\Core\Http\Controllers\Morphable;
+use Belt\Core\Http\Controllers\Behaviors\Morphable;
 use Illuminate\Http\Request;
 
 class ParamablesController extends ApiController
@@ -60,7 +60,7 @@ class ParamablesController extends ApiController
     {
         $request = Requests\PaginateParamables::extend($request);
 
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $paramable = $this->morph($paramable_type, $paramable_id);
 
         $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
@@ -90,7 +90,7 @@ class ParamablesController extends ApiController
         /**
          * @var $paramable ParamableInterface
          */
-        $owner = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morph($paramable_type, $paramable_id);
 
         $this->authorize('update', $owner);
 
@@ -118,7 +118,7 @@ class ParamablesController extends ApiController
     //public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, Param $param)
     public function update(Requests\UpdateParam $request, $paramable_type, $paramable_id, $id)
     {
-        $owner = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morph($paramable_type, $paramable_id);
 
         $this->authorize('update', $owner);
 
@@ -151,7 +151,7 @@ class ParamablesController extends ApiController
      */
     public function show($paramable_type, $paramable_id, $id)
     {
-        $paramable = $this->morphable($paramable_type, $paramable_id);
+        $paramable = $this->morph($paramable_type, $paramable_id);
 
         $this->authorize(['view', 'create', 'update', 'delete'], $paramable);
 
@@ -170,7 +170,7 @@ class ParamablesController extends ApiController
      */
     public function destroy($paramable_type, $paramable_id, $id)
     {
-        $owner = $this->morphable($paramable_type, $paramable_id);
+        $owner = $this->morph($paramable_type, $paramable_id);
 
         $this->authorize('update', $owner);
 

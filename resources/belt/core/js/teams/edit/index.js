@@ -10,9 +10,9 @@ export default {
             mixins: [team],
             data() {
                 return {
-                    morphable_type: 'teams',
-                    morphable_id: this.$parent.morphable_id,
-                    team_id: this.$parent.morphable_id,
+                    entity_type: 'teams',
+                    entity_id: this.$parent.entity_id,
+                    team_id: this.$parent.entity_id,
                 }
             },
             computed: {

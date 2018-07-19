@@ -10,8 +10,8 @@ class BaseTable {
     constructor(options = {}) {
 
         this.router = options.router;
-        this.morphable_type = options.morphable_type;
-        this.morphable_id = options.morphable_id;
+        this.entity_type = options.entity_type;
+        this.entity_id = options.entity_id;
         this.service = null;
         this.loading = false;
 
