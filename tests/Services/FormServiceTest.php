@@ -20,7 +20,7 @@ class FormServiceTest extends Testing\BeltTestCase
     {
         app()['config']->set('belt.forms', [
             'test' => [
-                'template' => FormServiceTestTemplate::class,
+                'subtype' => FormServiceTestTemplate::class,
             ],
             'foo' => [],
             'bar' => [],

@@ -72,11 +72,11 @@ class ContactServiceTest extends Testing\BeltTestCase
         $this->assertEquals('default', $service->get('new-foo', 'default'));
 
         # request
-        $service->setRequest(new PostContact(['template' => 'test']));
+        $service->setRequest(new PostContact(['subtype' => 'test']));
         $this->assertInstanceOf(Request::class, $service->getRequest());
 
         # template
-        $service->setRequest(new PostContact(['template' => 'foo']));
+        $service->setRequest(new PostContact(['subtype' => 'foo']));
         $this->assertEquals('foo', $service->getTemplate());
 
         # queue

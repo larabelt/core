@@ -7,5 +7,5 @@ return [
             'name' => env('FORMS_CONTACT_AUTORESPONDER_FROM_NAME', env('MAIL_FROM_NAME')),
         ]
     ],
-    'template' => \Belt\Core\Forms\Contact\Template::class,
+    'subtype' => \Belt\Core\Forms\Contact\Template::class,
 ];
