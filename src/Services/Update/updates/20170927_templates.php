@@ -62,8 +62,8 @@ class BeltUpdateTemplates extends BaseUpdate
         $type = $this->getTemplateType($morphClass);
 
         $previews = [
-            'albums' => 'belt-clip::albums.previews.default',
-            'attachments' => 'belt-clip::attachments.previews.default',
+            'albums' => 'belt-content::albums.previews.default',
+            'attachments' => 'belt-content::attachments.previews.default',
             'menus' => 'belt-menu::menus.previews.default',
             'touts' => 'belt-content::attachments.previews.default',
         ];
