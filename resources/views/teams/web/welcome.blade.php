@@ -4,7 +4,7 @@
 
     @if($page)
         <div class="container">
-            @include($page->template_view)
+            @include($page->subtype_view)
         </div>
     @else
         <div class="container">

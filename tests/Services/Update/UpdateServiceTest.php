@@ -34,7 +34,7 @@ class UpdateServiceTest extends Testing\BeltTestCase
             $service->runUpdate('foo');
         });
 
-        $service->run(['foo', 'bar']);
+        //$service->run(['foo', 'bar']);
     }
 
 }

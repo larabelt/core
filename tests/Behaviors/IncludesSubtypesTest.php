@@ -14,14 +14,14 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::bootIncludesSubtypes
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getDefaultTemplateKey
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::setTemplateAttribute
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getTemplateAttribute
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getDefaultSubtypeKey
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::setSubtypeAttribute
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeAttribute
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeConfigPrefix
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeConfig
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getTemplateGroup
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getTemplateViewAttribute
-     * @covers \Belt\Core\Behaviors\IncludesSubtypes::reconcileTemplateParams
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeGroup
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeViewAttribute
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::reconcileSubtypeParams
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getParamConfig
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getConfigAttribute
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::bootIncludesSubtypes
@@ -37,11 +37,11 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         $templateStub->bootIncludesSubtypes();
 
         # template
-        $templateStub->setTemplateAttribute(' Test ');
-        $this->assertEquals('test', $templateStub->template);
+        $templateStub->setSubtypeAttribute(' Test ');
+        $this->assertEquals('test', $templateStub->subtype);
 
-        # getTemplateGroup
-        $this->assertEquals('pages', $templateStub->getTemplateGroup());
+        # getSubtypeGroup
+        $this->assertEquals('pages', $templateStub->getSubtypeGroup());
 
         # template_view
         app()['config']->set('belt.templates.pages', [
@@ -68,53 +68,53 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
             ],
             'pagetest' => 'belt-content::pages.sections.test',
         ]);
-        $templateStub->template = 'missing';
-        $this->assertEquals('belt-content::pages.sections.default', $templateStub->template_view);
-        $templateStub->template = 'PageTest';
-        $this->assertEquals('belt-content::pages.sections.test', $templateStub->template_view);
+        $templateStub->subtype = 'missing';
+        $this->assertEquals('belt-content::pages.sections.default', $templateStub->subtype_view);
+        $templateStub->subtype = 'PageTest';
+        $this->assertEquals('belt-content::pages.sections.test', $templateStub->subtype_view);
 
         # getSubtypeConfig
-        $templateStub->template = 'default';
+        $templateStub->subtype = 'default';
         $this->assertEquals('bar', $templateStub->getSubtypeConfig('foo'));
         $this->assertEquals('some-default', $templateStub->getSubtypeConfig('missing', 'some-default'));
 
         # template_view (exception due to missing config)
         $missingStub = new IncludesSubtypesTest2Stub();
         try {
-            $missingStub->template_view;
+            $missingStub->subtype_view;
             $this->exceptionNotThrown();
         } catch (\Exception $e) {
 
         }
 
-        # reconcileTemplateParams where not paramable
+        # reconcileSubtypeParams where not paramable
         $notParamableStub = new IncludesSubtypesTest2Stub();
-        $notParamableStub->reconcileTemplateParams();
+        $notParamableStub->reconcileSubtypeParams();
 
         /**
-         * reconcileTemplateParams where paramable
+         * reconcileSubtypeParams where paramable
          *
          * class param will remain unchanged
          * icon param value will be overwritten b/c current value is not in config
          * foo will be added as a new param with default value
          */
         $templateStub = new IncludesSubtypesTest3Stub();
-        $templateStub->reconcileTemplateParams();
+        $templateStub->reconcileSubtypeParams();
 
-        # getDefaultTemplateKey
+        # getDefaultSubtypeKey
         app()['config']->set('belt.templates.pages', [
             'pagetest' => 'belt-content::pages.sections.test',
             'pagetest2' => 'belt-content::pages.sections.test',
         ]);
         $templateStub = new IncludesSubtypesTestStub();
-        $this->assertEquals('pagetest', $templateStub->getDefaultTemplateKey());
+        $this->assertEquals('pagetest', $templateStub->getDefaultSubtypeKey());
 
         # getSubtypeConfigPrefix
         $this->assertEquals('belt.templates.pages', $templateStub->getSubtypeConfigPrefix());
 
-        # getTemplateAttribute
+        # getSubtypeAttribute
         $templateStub->setAttribute('template', 'test');
-        $this->assertEquals('test', $templateStub->template);
+        $this->assertEquals('test', $templateStub->subtype);
 
         # getParamConfig
         app()['config']->set('belt.templates.pages.foo', [
@@ -123,7 +123,7 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
                 'foo' => 'bar'
             ],
         ]);
-        $templateStub->template = 'foo';
+        $templateStub->subtype = 'foo';
         $this->assertEquals(config('belt.templates.pages.foo.params'), $templateStub->getParamConfig());
 
         # getConfigAttribute
