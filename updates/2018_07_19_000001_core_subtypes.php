@@ -16,4 +16,28 @@ class BeltUpdateCoreSubtypes extends BaseUpdate
 
     }
 
+    public function move()
+    {
+        //$tmpPath = $this->option('new-path', 'templates-tmp');
+        $tmpPath = config_path('belt/templates');
+
+        dump($tmpPath);
+
+
+        return;
+        if ($tmpPath && file_exists($tmpPath)) {
+            $targetPath = $this->option('target-path', 'templates');
+            $targetPath = config_path('belt/' . $targetPath);
+            if ($targetPath) {
+                if (file_exists($targetPath)) {
+                    $archivedPath = "$targetPath-archived";
+                    rename($targetPath, $archivedPath);
+                    $this->info("moved existing path to: $archivedPath");
+                }
+                rename($tmpPath, $targetPath);
+                $this->info("moved new path to: $targetPath");
+            }
+        }
+    }
+
 }
