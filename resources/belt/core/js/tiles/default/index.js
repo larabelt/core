@@ -1,4 +1,4 @@
-import html from 'belt/core/js/base/tile/template.html';
+import html from 'belt/core/js/tiles/default/template.html';
 
 export default {
     props: {

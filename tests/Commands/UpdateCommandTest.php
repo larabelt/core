@@ -3,8 +3,9 @@
 use Mockery as m;
 use Belt\Core\Commands\UpdateCommand;
 use Belt\Core\Services\Update\UpdateService;
+use Belt\Core\Testing\BeltTestCase;
 
-class UpdateCommandTest extends \PHPUnit\Framework\TestCase
+class UpdateCommandTest extends BeltTestCase
 {
 
     public function tearDown()
@@ -19,13 +20,14 @@ class UpdateCommandTest extends \PHPUnit\Framework\TestCase
     public function test()
     {
         // service
-        $cmd = new UpdateCommand();
+        $cmd = m::mock(UpdateCommand::class . '[argument]');
+        $cmd->shouldReceive('argument')->once()->with('package')->andReturn('core');
         $this->assertInstanceOf(UpdateService::class, $cmd->service());
 
         // handle
         $service = m::mock(UpdateService::class);
-        $service->shouldReceive('registerUpdates')->once()->andReturnNull();
         $service->shouldReceive('run')->once()->andReturnNull();
+
         $cmd = m::mock(UpdateCommand::class . '[service,argument]');
         $cmd->shouldReceive('service')->once()->andReturn($service);
         $cmd->shouldReceive('argument')->once()->with('update')->andReturn('foo');

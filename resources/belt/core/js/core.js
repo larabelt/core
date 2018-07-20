@@ -35,7 +35,7 @@ Vue.component('input-select', inputSelect);
 Vue.component('input-text', inputText);
 Vue.component('input-textarea', inputTextarea);
 
-import tileDefault from 'belt/core/js/base/tile';
+import tileDefault from 'belt/core/js/tiles/default';
 
 Vue.component('tile-default', tileDefault);
 
