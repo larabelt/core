@@ -92,7 +92,7 @@ class UpdateService
      */
     public function getUpdateClass($path)
     {
-        return sprintf('BeltUpdate%s', Str::studly($this->getUpdateKey($path)));
+        return sprintf('BeltUpdate%s%s', Str::studly($this->packageKey), Str::studly($this->getUpdateKey($path)));
     }
 
     /**

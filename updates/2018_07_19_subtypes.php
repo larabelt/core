@@ -6,7 +6,7 @@ use Belt\Core\Services\Update\BaseUpdate;
  * Class UpdateService
  * @package Belt\Core\Services
  */
-class BeltUpdateSubtypes extends BaseUpdate
+class BeltUpdateCoreSubtypes extends BaseUpdate
 {
     public function up()
     {
