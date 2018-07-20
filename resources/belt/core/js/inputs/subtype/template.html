@@ -1,0 +1,11 @@
+<div>
+    <div class="form-group" :class="{ 'has-error': form.error('subtype') }">
+        <label for="subtype"><slot>Type</slot></label>
+        <select v-model="form.subtype" name="subtype" class="form-control">
+            <template v-for="label, value in dropdown">
+                <option :value="value">{{ label }}</option>
+            </template>
+        </select>
+        <span v-for="error in form.error('subtype')" class="contents-danger">{{ error }}</span>
+    </div>
+</div>

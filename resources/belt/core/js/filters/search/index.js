@@ -1,5 +1,5 @@
-import base from 'belt/core/js/inputs/filter-base';
-import html from 'belt/core/js/inputs/filter-search/template.html';
+import base from 'belt/core/js/filters/base';
+import html from 'belt/core/js/filters/search/template.html';
 
 export default {
     mixins: [base],

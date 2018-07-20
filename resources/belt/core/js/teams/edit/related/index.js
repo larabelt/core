@@ -1,5 +1,5 @@
 import edit from 'belt/core/js/teams/edit/shared';
-import filterSearch from 'belt/core/js/inputs/filter-search';
+
 import filterType from 'belt/core/js/teams/edit/related/filters/type';
 import Table from 'belt/core/js/teams/edit/related/table';
 import rowItem from 'belt/core/js/teams/edit/related/row-item';
@@ -46,7 +46,7 @@ export default {
                 }, 300),
             },
             components: {
-                filterSearch,
+                
                 filterType,
                 rowItem,
             },

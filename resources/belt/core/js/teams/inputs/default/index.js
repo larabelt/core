@@ -1,5 +1,5 @@
 import shared from 'belt/core/js/teams/inputs/shared';
-import html from 'belt/core/js/teams/inputs/dropdown/template.html';
+import html from 'belt/core/js/teams/inputs/default/template.html';
 
 export default {
     mixins: [shared],

@@ -1,14 +1,29 @@
-import shared from 'belt/core/js/inputs/priority/shared';
-import html from 'belt/core/js/inputs/priority/filter/template.html';
+import html from 'belt/core/js/filters/priority/template.html';
 
 export default {
-    mixins: [shared],
     props: {
         table: {
             default: function () {
                 return this.$parent.table;
             }
         },
+        options: {
+            default: function () {
+                return [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                ]
+            }
+        }
     },
     data() {
         return {

@@ -1,5 +1,12 @@
+import html from 'belt/core/js/inputs/priority/template.html';
+
 export default {
     props: {
+        form: {
+            default: function () {
+                return this.$parent.form;
+            }
+        },
         options: {
             default: function () {
                 return [
@@ -18,4 +25,5 @@ export default {
             }
         }
     },
+    template: html
 }

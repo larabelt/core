@@ -1,6 +1,6 @@
-import filter from 'belt/core/js/inputs/filter-base';
+import filter from 'belt/core/js/filters/base';
 import shared from 'belt/core/js/teams/inputs/shared';
-import html from 'belt/core/js/teams/inputs/filter/template.html';
+import html from 'belt/core/js/teams/filters/default/template.html';
 
 export default {
     mixins: [filter, shared],

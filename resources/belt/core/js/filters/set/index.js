@@ -1,5 +1,5 @@
-import base from 'belt/core/js/inputs/filter-base';
-import html from 'belt/core/js/inputs/filter-set/template.html';
+import base from 'belt/core/js/filters/base';
+import html from 'belt/core/js/filters/set/template.html';
 
 export default {
     props: {

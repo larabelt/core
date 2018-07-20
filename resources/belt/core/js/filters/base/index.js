@@ -1,4 +1,4 @@
-import html from 'belt/core/js/inputs/filter-base/template.html';
+import html from 'belt/core/js/filters/base/template.html';
 
 export default {
     props: {
