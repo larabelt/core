@@ -44,10 +44,10 @@ export default class BeltCore {
             router.addRoutes(teams);
             router.addRoutes(users);
 
-            const app = new Vue({router, store}).$mount('#belt-core');
+            new Vue({router, store}).$mount('#belt-core');
         }
 
-        let modal_app = new Vue({
+        new Vue({
             el: '#vue-modals',
             components: {
                 modals: modals
