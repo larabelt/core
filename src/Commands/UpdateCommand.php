@@ -18,7 +18,7 @@ class UpdateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:update {update*}';
+    protected $signature = 'belt-core:update {package} {update*}';
 
     /**
      * The console command description.
@@ -39,6 +39,7 @@ class UpdateCommand extends Command
     {
         $this->service = $this->service ?: new UpdateService([
             'console' => $this,
+            'package' => $this->argument('package'),
         ]);
 
         return $this->service;
@@ -54,7 +55,6 @@ class UpdateCommand extends Command
         $service = $this->service();
 
         if ($update = $this->argument('update')) {
-            $service->registerUpdates();
             $service->run($update);
         }
 

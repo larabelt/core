@@ -1,40 +1,31 @@
 <?php
 
-use Mockery as m;
-
 use Belt\Core\Services\Update\UpdateService;
 use Belt\Core\Testing;
 
 class UpdateServiceTest extends Testing\BeltTestCase
 {
-    public function tearDown()
-    {
-        m::close();
-    }
-
     /**
      * @covers \Belt\Core\Services\Update\UpdateService::__construct
      * @covers \Belt\Core\Services\Update\UpdateService::registerUpdates
-     * @covers \Belt\Core\Services\Update\UpdateService::register
+     * @covers \Belt\Core\Services\Update\UpdateService::registerUpdate
      * @covers \Belt\Core\Services\Update\UpdateService::run
      * @covers \Belt\Core\Services\Update\UpdateService::runUpdate
+     * @covers \Belt\Core\Services\Update\UpdateService::getUpdateClass
+     * @covers \Belt\Core\Services\Update\UpdateService::getUpdateKey
      */
     public function test()
     {
+        app('belt')->addPackage('test', ['dir' => __DIR__]);
 
-        $path = __DIR__ . '/updates';
+        $service = new UpdateService(['package' => 'test']);
 
-        # __construct
-        $service = new UpdateService(['path' => $path]);
-        $service->registerUpdates();
-        $this->assertEquals($path, $service->path);
+        $this->assertEquals('test', $service->packageKey);
 
-        # update
-        UpdateService::register('foo', function ($service) {
-            $service->runUpdate('foo');
-        });
+        $this->assertEquals('foo', $service->run(['foo', 'bar']));
 
-        //$service->run(['foo', 'bar']);
+        $this->assertNull($service->run('bar'));
+
     }
 
 }

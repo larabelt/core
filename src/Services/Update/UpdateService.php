@@ -16,9 +16,9 @@ class UpdateService
     use HasConsole, Macroable;
 
     /**
-     * @var array
+     * @var string
      */
-    public $path;
+    public $packageKey = 'core';
 
     /**
      * PublishService constructor.
@@ -28,7 +28,7 @@ class UpdateService
     {
         $this->console = array_get($options, 'console');
 
-        $this->path = array_get($options, 'path', __DIR__ . '/updates');
+        $this->packageKey = array_get($options, 'package', 'core');
 
         $this->registerUpdates();
     }
@@ -36,21 +36,26 @@ class UpdateService
     /**
      * Register updates
      *
-     * @codeCoverageIgnore
+     * zodeCoverageIgnore
+     *
+     * @param null $packageKey
      */
-    public function registerUpdates()
+    public function registerUpdates($packageKey = null)
     {
-        foreach (app('belt')->packages() as $package) {
-            $path = $package['dir'] . '/updates';
-            if (file_exists($path)) {
-                foreach (scandir($path) as $file) {
-                    if (str_contains($file, '.php')) {
-                        $name = $this->getUpdateKey($file);
-                        $fullpath = "$path/$file";
-                        $this->register($name, function ($service, $options = []) use ($fullpath) {
-                            $this->runUpdate($fullpath, $options);
-                        });
-                    }
+        $packageKey = $packageKey ?: $this->packageKey;
+
+        $package = app('belt')->packages($packageKey);
+
+        $path = $package['dir'] . '/updates';
+
+        if (file_exists($path)) {
+            foreach (scandir($path) as $file) {
+                if (str_contains($file, '.php')) {
+                    $name = $this->getUpdateKey($file);
+                    $fullpath = "$path/$file";
+                    $this->registerUpdate($name, function ($service, $options = []) use ($fullpath) {
+                        return $this->runUpdate($fullpath, $options);
+                    });
                 }
             }
         }
@@ -60,20 +65,22 @@ class UpdateService
      * @param $name
      * @param callable $macro
      */
-    public static function register($name, callable $macro)
+    public static function registerUpdate($name, callable $macro)
     {
         static::macro(base64_encode($name), $macro);
     }
 
     /**
      * @param $params
+     * @return mixed
      */
     public function run($params)
     {
         $name = base64_encode($params[0]);
+
         if (static::hasMacro($name)) {
             unset($params[0]);
-            static::$name($this, $params);
+            return static::$name($this, $params);
         }
     }
 
@@ -98,14 +105,15 @@ class UpdateService
     {
         $stripped_name = str_replace('.php', '', basename($path));
 
-        return implode('_', array_slice(explode('_', $stripped_name), 4));
+        return implode('_', array_slice(explode('_', $stripped_name), 3));
     }
 
     /**
      * Find corresponding update file and run it
      *
-     * @param $key
-     * @param $options
+     * @param $path
+     * @param array $options
+     * @return mixed
      */
     public function runUpdate($path, $options = [])
     {
@@ -120,7 +128,7 @@ class UpdateService
 
         $updater = new $class($params);
 
-        $updater->up();
+        return $updater->up();
     }
 
 }

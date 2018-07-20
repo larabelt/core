@@ -14,13 +14,13 @@ class MorphableTest extends BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Http\Controllers\Behaviors\Morphable::morphable
+     * @covers \Belt\Core\Http\Controllers\Behaviors\Morphable::morph
      */
     public function test()
     {
         $controller = new MorphableControllerStub();
 
-        # morphable
+        # morph
         $morphableStub = new MorphableModelStub();
         Morph::shouldReceive('morph')->withArgs(['pages', 1])->andReturn($morphableStub);
         Morph::shouldReceive('morph')->withArgs(['pages', 2])->andThrow(new \Exception());
