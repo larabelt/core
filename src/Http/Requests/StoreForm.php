@@ -33,9 +33,9 @@ class StoreForm extends FormRequest
     /**
      * @return \Belt\Core\Forms\BaseForm
      */
-    public function template()
+    public function extension()
     {
-        return $this->service()->template($this->get('config_key'));
+        return $this->service()->extension($this->get('subtype'));
     }
 
     /**
@@ -43,12 +43,12 @@ class StoreForm extends FormRequest
      */
     public function rules()
     {
-        if ($this->template()) {
-            return $this->template()->rules('store');
+        if ($this->extension()) {
+            return $this->extension()->rules('store');
         }
 
         return [
-            'config_key' => 'required|in:' . implode(',', $this->service()->keys()),
+            'subtype' => 'required|in:' . implode(',', $this->service()->subtypes()),
         ];
     }
 
@@ -59,8 +59,8 @@ class StoreForm extends FormRequest
      */
     public function messages()
     {
-        if ($this->template()) {
-            return $this->template()->messages('store');
+        if ($this->extension()) {
+            return $this->extension()->messages('store');
         }
 
         return [];

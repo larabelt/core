@@ -22,7 +22,7 @@ class Form extends Illuminate\Database\Eloquent\Model
     /**
      * @var array
      */
-    protected $fillable = ['config_key'];
+    protected $fillable = ['subtype'];
 
     /**
      * @var array
@@ -45,7 +45,7 @@ class Form extends Illuminate\Database\Eloquent\Model
      */
     public function configPath()
     {
-        return 'belt.forms.' . $this->config_key;
+        return 'belt.subtypes.forms.' . $this->subtype;
     }
 
     /**
@@ -61,9 +61,9 @@ class Form extends Illuminate\Database\Eloquent\Model
     /**
      * @return mixed
      */
-    public function template()
+    public function extension()
     {
-        $class = $this->config('template');
+        $class = $this->config('extension');
 
         return new $class($this);
     }

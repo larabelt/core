@@ -39,7 +39,7 @@ class AutoResponder extends Mailable
     public function build()
     {
         return $this
-            ->from(config('belt.forms.contact.autoresponder.from.email'))
+            ->from(config('belt.subtypes.forms.contact.autoresponder.from.email'))
             ->subject('Thank you for contacting us')
             ->view('belt-core::mail.forms.contact.auto-responder')
             ->text('belt-core::mail.forms.contact.auto-responder-plain')

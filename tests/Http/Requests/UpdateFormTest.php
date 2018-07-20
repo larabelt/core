@@ -19,24 +19,24 @@ class UpdateFormTest extends BeltTestCase
      */
     public function test()
     {
-        app()['config']->set('belt.forms.test.template', UpdateFormTestTemplate::class);
+        app()['config']->set('belt.subtypes.forms.test.extension', UpdateFormTestExtension::class);
 
-        $form = new Form(['config_key' => 'test']);
+        $form = new Form(['subtype' => 'test']);
 
         $request = m::mock(UpdateForm::class . '[route]');
         $request->shouldReceive('route')->with('form')->andReturn($form);
 
         # rules
-        $template = new UpdateFormTestTemplate($form);
-        $this->assertEquals($template->rules('update'), $request->rules());
+        $extension = new UpdateFormTestExtension($form);
+        $this->assertEquals($extension->rules('update'), $request->rules());
 
         # messages
-        $this->assertEquals($template->messages('update'), $request->messages());
+        $this->assertEquals($extension->messages('update'), $request->messages());
     }
 
 }
 
-class UpdateFormTestTemplate extends \Belt\Core\Forms\BaseForm
+class UpdateFormTestExtension extends \Belt\Core\Forms\BaseForm
 {
     /**
      * @var array

@@ -16,9 +16,6 @@ Route::group([
             Route::get('{abilities}/{arguments}', Api\AccessController::class . '@show');
         });
 
-        # contact
-        Route::post('contact', Api\ContactController::class . '@store');
-
         # index
         Route::get('index', Api\IndexController::class . '@index');
 

@@ -8,7 +8,7 @@ use Belt;
  * Class Template
  * @package Belt\Core\Forms\Contact
  */
-class Template extends Belt\Core\Forms\BaseForm
+class Extension extends Belt\Core\Forms\BaseForm
 {
 
     /**

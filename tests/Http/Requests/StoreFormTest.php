@@ -10,37 +10,37 @@ class StoreFormTest extends BeltTestCase
 
     /**
      * @covers \Belt\Core\Http\Requests\StoreForm::service
-     * @covers \Belt\Core\Http\Requests\StoreForm::template
+     * @covers \Belt\Core\Http\Requests\StoreForm::extension
      * @covers \Belt\Core\Http\Requests\StoreForm::rules
      * @covers \Belt\Core\Http\Requests\StoreForm::messages
      */
     public function test()
     {
-        app()['config']->set('belt.forms.test.template', StoreFormTestTemplate::class);
+        app()['config']->set('belt.subtypes.forms.test.extension', StoreFormTestExtension::class);
 
-        $form = new Form(['config_key' => 'test']);
+        $form = new Form(['subtype' => 'test']);
 
-        $request = new StoreForm(['config_key' => 'test']);
+        $request = new StoreForm(['subtype' => 'test']);
 
         # service
         $this->assertInstanceOf(FormService::class, $request->service());
 
-        # template
-        $this->assertInstanceOf(StoreFormTestTemplate::class, $request->template());
+        # extension
+        $this->assertInstanceOf(StoreFormTestExtension::class, $request->extension());
 
         # rules
-        $template = new StoreFormTestTemplate($form);
-        $this->assertEquals($template->rules('store'), $request->rules());
-        $this->assertNotEmpty(array_get((new StoreForm())->rules(), 'config_key'));
+        $extension = new StoreFormTestExtension($form);
+        $this->assertEquals($extension->rules('store'), $request->rules());
+        $this->assertNotEmpty(array_get((new StoreForm())->rules(), 'subtype'));
 
         # messages
-        $this->assertEquals($template->messages('store'), $request->messages());
+        $this->assertEquals($extension->messages('store'), $request->messages());
         $this->assertEquals([], (new StoreForm())->messages());
     }
 
 }
 
-class StoreFormTestTemplate extends \Belt\Core\Forms\BaseForm
+class StoreFormTestExtension extends \Belt\Core\Forms\BaseForm
 {
     /**
      * @var array

@@ -8,26 +8,25 @@ class FormTest extends BeltTestCase
     /**
      * @covers \Belt\Core\Form::__toString
      * @covers \Belt\Core\Form::configPath
-     * @covers \Belt\Core\Form::template
+     * @covers \Belt\Core\Form::extension
      * @covers \Belt\Core\Form::data
      * @covers \Belt\Core\Form::__get
      */
     public function test()
     {
-        app()['config']->set('belt.forms.test.template', FormTestTemplate::class);
+        app()['config']->set('belt.subtypes.forms.test.extension', FormTestExtension::class);
 
-        $form = new Form();
-        $form->config_key = 'test';
+        $form = new Form(['subtype' => 'test']);
 
         # toString
         $form->token = 'test';
         $this->assertEquals('test', $form->__toString());
 
         # configPath
-        $this->assertEquals('belt.forms.test', $form->configPath());
+        $this->assertEquals('belt.subtypes.forms.test', $form->configPath());
 
-        # template
-        $this->assertInstanceOf(FormTestTemplate::class, $form->template());
+        # extension
+        $this->assertInstanceOf(FormTestExtension::class, $form->extension());
 
         # data
         $this->assertNull($form->data(null));
@@ -37,7 +36,7 @@ class FormTest extends BeltTestCase
 
 }
 
-class FormTestTemplate extends \Belt\Core\Forms\BaseForm
+class FormTestExtension extends \Belt\Core\Forms\BaseForm
 {
 
 }

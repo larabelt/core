@@ -11,15 +11,15 @@ class FormsFunctionalTest extends Testing\BeltTestCase
         $this->refreshDB();
         $this->actAsSuper();
 
-        app()['config']->set('belt.forms.test.template', FormsFunctionalTestTemplate::class);
+        app()['config']->set('belt.subtypes.forms.test.extension', FormsFunctionalTestExtension::class);
 
         # store
         $response = $this->json('POST', '/api/v1/forms', [
-            'config_key' => 'test',
+            'subtype' => 'test',
             'name' => 'created',
         ]);
         $response->assertStatus(201);
-        $response->assertJsonFragment(['config_key' => 'test']);
+        $response->assertJsonFragment(['subtype' => 'test']);
         $formID = array_get($response->json(), 'id');
 
         # show
@@ -36,7 +36,7 @@ class FormsFunctionalTest extends Testing\BeltTestCase
 
 }
 
-class FormsFunctionalTestTemplate extends \Belt\Core\Forms\BaseForm
+class FormsFunctionalTestExtension extends \Belt\Core\Forms\BaseForm
 {
     /**
      * @var array

@@ -5,8 +5,9 @@ class ContactForm extends BaseForm {
 
     constructor(options = {}) {
         super(options);
-        this.service = new BaseService({baseUrl: '/api/v1/contact/'});
+        this.service = new BaseService({baseUrl: '/api/v1/forms/'});
         this.setData({
+            subtype: 'contact',
             name: '',
             email: '',
             comments: '',

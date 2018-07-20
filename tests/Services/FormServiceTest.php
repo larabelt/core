@@ -13,14 +13,14 @@ class FormServiceTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Services\FormService::keys
-     * @covers \Belt\Core\Services\FormService::template
+     * @covers \Belt\Core\Services\FormService::subtypes
+     * @covers \Belt\Core\Services\FormService::extension
      */
     public function test()
     {
-        app()['config']->set('belt.forms', [
+        app()['config']->set('belt.subtypes.forms', [
             'test' => [
-                'subtype' => FormServiceTestTemplate::class,
+                'extension' => FormServiceTestExtension::class,
             ],
             'foo' => [],
             'bar' => [],
@@ -29,18 +29,18 @@ class FormServiceTest extends Testing\BeltTestCase
 
         $service = new FormService();
 
-        # keys
-        $this->assertEquals(['bar', 'foo', 'test'], $service->keys());
+        # subtypes
+        $this->assertEquals(['bar', 'foo', 'test'], $service->subtypes());
 
-        # template
-        $this->assertInstanceOf(FormServiceTestTemplate::class, $service->template('test'));
-        $this->assertNull($service->template('foo'));
+        # extension
+        $this->assertInstanceOf(FormServiceTestExtension::class, $service->extension('test'));
+        $this->assertNull($service->extension('foo'));
 
     }
 
 }
 
-class FormServiceTestTemplate extends \Belt\Core\Forms\BaseForm
+class FormServiceTestExtension extends \Belt\Core\Forms\BaseForm
 {
 
 }

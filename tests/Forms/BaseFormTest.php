@@ -15,29 +15,28 @@ class BaseFormTest extends BeltTestCase
      */
     public function test()
     {
-        app()['config']->set('belt.forms.test.template', BaseFormTestStubTemplate::class);
+        app()['config']->set('belt.subtypes.forms.test.extension', BaseFormTestStubExtension::class);
 
-        $form = new Form();
-        $form->config_key = 'test';
+        $form = new Form(['subtype' => 'test']);
 
         # construct
-        $template = $form->template();
+        $extension = $form->extension();
 
         # rules
-        $this->assertNotEmpty($template->rules('store'));
+        $this->assertNotEmpty($extension->rules('store'));
 
         # messages
-        $this->assertNotEmpty($template->messages('store'));
+        $this->assertNotEmpty($extension->messages('store'));
 
         # data
-        $data = $template->data(['name' => '', 'preference' => '']);
+        $data = $extension->data(['name' => '', 'preference' => '']);
         $this->assertEquals('foo', array_get($data, 'name'));
         $this->assertEquals('default', array_get($data, 'preference'));
     }
 
 }
 
-class BaseFormTestStubTemplate extends BaseForm
+class BaseFormTestStubExtension extends BaseForm
 {
     /**
      * @var array

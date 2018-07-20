@@ -32,14 +32,14 @@ class FormsController extends ApiController
     {
         $input = $request->all();
 
-        $form = $this->forms->create(['config_key' => $input['config_key']]);
+        $form = $this->forms->create(['subtype' => $input['subtype']]);
 
-        $form->data = $form->template()->data($input);
+        $form->data = $form->extension()->data($input);
 
         $form->save();
 
         // event
-        $name = array_get($input, '_event', "forms.created.$form->config_key");
+        $name = array_get($input, '_event', "forms.created.$form->subtype");
         $event = new Belt\Core\Events\ItemCreated($form, $name);
         event($name, $event);
 
@@ -70,12 +70,12 @@ class FormsController extends ApiController
 
         $input = $request->all();
 
-        $form->data = $form->template()->data($input);
+        $form->data = $form->extension()->data($input);
 
         $form->save();
 
         // event
-        $name = array_get($input, '_event', "forms.updated.$form->config_key");
+        $name = array_get($input, '_event', "forms.updated.$form->subtype");
         $event = new Belt\Core\Events\ItemUpdated($form, $name);
         event($name, $event);
 

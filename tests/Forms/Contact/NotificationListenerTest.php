@@ -18,7 +18,7 @@ class FormsContactNotificationListenerTest extends BeltTestCase
         app()['config']->set('mail.from.address', 'support@larabelt.org');
 
         Form::unguard();
-        $form = new Form(['id' => 1, 'config_key' => 'contact']);
+        $form = new Form(['id' => 1, 'subtype' => 'contact']);
         $form->data = ['email' => 'foo@bar.com'];
         $event = new Events\ItemCreated($form);
 

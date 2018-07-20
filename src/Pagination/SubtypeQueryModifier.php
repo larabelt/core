@@ -17,8 +17,8 @@ class SubtypeQueryModifier extends PaginationQueryModifier
      */
     public function modify(Builder $qb, PaginateRequest $request)
     {
-        if ($template = $request->query->get('template')) {
-            $qb->where($request->morphClass() . '.template', $template);
+        if ($subtype = $request->query->get('subtype')) {
+            $qb->where($request->morphClass() . '.subtype', $subtype);
         }
     }
 

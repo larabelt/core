@@ -16,7 +16,7 @@ class FormsContactAutoResponderListenerTest extends BeltTestCase
     public function test()
     {
         Form::unguard();
-        $form = new Form(['id' => 1, 'config_key' => 'contact']);
+        $form = new Form(['id' => 1, 'subtype' => 'contact']);
         $form->data = ['email' => 'foo@bar.com'];
         $event = new Events\ItemCreated($form);
 

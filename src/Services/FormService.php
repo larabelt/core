@@ -15,24 +15,24 @@ class FormService
     /**
      * @return array
      */
-    public function keys()
+    public function subtypes()
     {
-        $keys = array_keys(config('belt.forms', []));
+        $subtypes = array_keys(config('belt.subtypes.forms', []));
 
-        sort($keys);
+        sort($subtypes);
 
-        return $keys;
+        return $subtypes;
     }
 
 
     /**
-     * @param $key
+     * @param $subtype
      * @param null $form
      * @return BaseForm
      */
-    public function template($key, $form = null)
+    public function extension($subtype, $form = null)
     {
-        $class = config("belt.forms.$key.template");
+        $class = config("belt.subtypes.forms.$subtype.extension");
 
         if ($class && class_exists($class)) {
             return new $class($form ?: new Form());

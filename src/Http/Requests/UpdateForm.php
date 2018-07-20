@@ -13,7 +13,7 @@ class UpdateForm extends StoreForm
      */
     public function rules()
     {
-        return $this->route('form')->template()->rules('update');
+        return $this->route('form')->extension()->rules('update');
     }
 
     /**
@@ -23,7 +23,7 @@ class UpdateForm extends StoreForm
      */
     public function messages()
     {
-        return $this->route('form')->template()->messages('update');
+        return $this->route('form')->extension()->messages('update');
     }
 
 }

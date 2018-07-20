@@ -3,7 +3,7 @@
 use Mockery as m;
 use Belt\Core\Testing;
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Content\Pagination\SubtypeQueryModifier;
+use Belt\Core\Pagination\SubtypeQueryModifier;
 use Illuminate\Database\Eloquent\Builder;
 
 class SubtypeQueryModifierTest extends Testing\BeltTestCase
@@ -17,7 +17,7 @@ class SubtypeQueryModifierTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Content\Pagination\SubtypeQueryModifier::modify
+     * @covers \Belt\Core\Pagination\SubtypeQueryModifier::modify
      */
     public function test()
     {

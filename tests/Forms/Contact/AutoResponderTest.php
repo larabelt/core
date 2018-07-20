@@ -13,7 +13,7 @@ class FormsContactAutoResponderTest extends BeltTestCase
      */
     public function test()
     {
-        $form = new Form(['config_key' => 'contact']);
+        $form = new Form(['subtype' => 'contact']);
 
         # construct
         $mailable = new AutoResponder($form);

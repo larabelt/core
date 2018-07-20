@@ -13,7 +13,7 @@ class FormsContactNotificationTest extends BeltTestCase
      */
     public function test()
     {
-        $form = new Form(['config_key' => 'contact']);
+        $form = new Form(['subtype' => 'contact']);
 
         # construct
         $mailable = new Notification($form);
