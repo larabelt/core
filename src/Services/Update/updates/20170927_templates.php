@@ -136,7 +136,7 @@ class BeltUpdateTemplates extends BaseUpdate
 
     public function create()
     {
-        $configKey = $this->option('configKey', 'belt.templates');
+        $configKey = $this->option('configKey', 'belt.subtypes');
 
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
@@ -164,7 +164,7 @@ class BeltUpdateTemplates extends BaseUpdate
 
     public function update()
     {
-        $configKey = $this->option('configKey', 'belt.templates');
+        $configKey = $this->option('configKey', 'belt.subtypes');
 
         foreach (config($configKey) as $morphClass => $templates) {
             foreach ($templates as $templateKey => $config) {
@@ -279,7 +279,7 @@ class BeltUpdateTemplates extends BaseUpdate
 
             $contents = $new_contents = $disk->get($path);
 
-            $configKey = $this->option('configKey', 'belt.templates');
+            $configKey = $this->option('configKey', 'belt.subtypes');
 
             foreach (config($configKey) as $morphClass => $templates) {
                 $new_contents = $this->__view($morphClass, $new_contents);

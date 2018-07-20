@@ -9,7 +9,7 @@ class Config extends BaseConfig {
 
     set(morph_class, template) {
 
-        let baseUrl = '/api/v1/config/belt.templates/' + morph_class;
+        let baseUrl = '/api/v1/config/belt.subtypes/' + morph_class;
         if (template) {
             baseUrl = baseUrl + '.' + template;
         }
