@@ -59,7 +59,7 @@
         },
         mounted() {
             _vue = this;
-            loadGoogleMapsAPI({key: config('gmaps_api_key')})
+            loadGoogleMapsAPI({key: config('google_api_key')})
                 .then(() => this.initMap())
                 .then(() => this.table.index())
                 .then(() => this.addPlaces())

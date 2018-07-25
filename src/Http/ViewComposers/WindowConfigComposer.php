@@ -71,7 +71,7 @@ class WindowConfigComposer
 
         // coords
         WindowConfigHelper::put('coords', [
-            'gmaps_api_key' => env('GMAPS_API_KEY'),
+            'google_api_key' => env('GOOGLE_API_KEY'),
             'lat' => env('COORDS_LAT', 39.9612),
             'lng' => env('COORDS_LNG', -82.9988),
             'zoom' => env('COORDS_ZOOM', 17),
