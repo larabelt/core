@@ -171,6 +171,16 @@ class PaginateRequest extends Request implements
     /**
      * @return string
      */
+    public function embed()
+    {
+        if ($embed = $this->query('embed')) {
+            return explode(',', $embed);
+        }
+    }
+
+    /**
+     * @return string
+     */
     public function sortBy()
     {
         $sortBy = strtolower($this->query('sortBy'));

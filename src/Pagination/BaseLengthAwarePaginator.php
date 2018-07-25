@@ -61,6 +61,16 @@ abstract class BaseLengthAwarePaginator
     /**
      * @param $request
      */
+    public function embed($request)
+    {
+        foreach ((array) $request->embed() as $embeddable) {
+            $this->qb->with($embeddable);
+        }
+    }
+
+    /**
+     * @param $request
+     */
     public function orderBy($request)
     {
         $orderBy = $request->orderBy();
