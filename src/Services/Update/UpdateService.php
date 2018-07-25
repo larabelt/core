@@ -92,7 +92,11 @@ class UpdateService
      */
     public function getUpdateClass($path)
     {
-        return sprintf('BeltUpdate%s%s', Str::studly($this->packageKey), Str::studly($this->getUpdateKey($path)));
+        $packageKey = Str::studly($this->packageKey);
+
+        $updateKey = str_replace(['.'], '', Str::studly($this->getUpdateKey($path)));
+
+        return sprintf('BeltUpdate%s%s', $packageKey, $updateKey);
     }
 
     /**

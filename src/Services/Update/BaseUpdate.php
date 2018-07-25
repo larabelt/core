@@ -4,6 +4,7 @@ namespace Belt\Core\Services\Update;
 
 use Belt;
 use Belt\Core\Behaviors\HasConsole;
+use Belt\Core\Behaviors\HasDisk;
 
 /**
  * Class BaseUpdate
@@ -12,6 +13,7 @@ use Belt\Core\Behaviors\HasConsole;
 abstract class BaseUpdate
 {
     use HasConsole;
+    use HasDisk;
 
     /**
      * @var array
@@ -71,6 +73,40 @@ abstract class BaseUpdate
         }
 
         return $default;
+    }
+
+    /**
+     * @param $old_path
+     * @param $new_path
+     */
+    public function rename($old_path, $new_path)
+    {
+        if (file_exists($old_path)) {
+            rename($old_path, $new_path);
+            $this->info("rename old path: $old_path");
+            $this->info("rename new path: $new_path");
+        }
+    }
+
+    /**
+     * @param $path
+     * @param array $replacements
+     * @param bool $recursive
+     */
+    public function replace($path, $replacements = [], $recursive = false)
+    {
+        $files = $this->disk()->files($path, $recursive);
+
+        foreach ($files as $file) {
+            $contents = $new_contents = $this->disk()->get($file);
+            foreach ($replacements as $search => $replace) {
+                $new_contents = str_replace($search, $replace, $new_contents);
+            }
+            if ($new_contents != $contents) {
+                $this->info("updating file: $file");
+                $this->disk()->put($file, $new_contents);
+            }
+        }
     }
 
 }

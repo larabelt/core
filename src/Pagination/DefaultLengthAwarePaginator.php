@@ -78,9 +78,6 @@ class DefaultLengthAwarePaginator extends BaseLengthAwarePaginator
             $count = $items->count() < $perPage ? $count : $count + 1;
         }
 
-        /**
-         * @todo better perPage is null
-         */
         $paginator = new LengthAwarePaginator(
             $items,
             $count,
