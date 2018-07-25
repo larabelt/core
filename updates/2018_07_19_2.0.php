@@ -54,6 +54,8 @@ class BeltUpdateCore20 extends BaseUpdate
         $this->replace('app', [
             'php artisan belt-content:elastic import' => 'php artisan belt-elastic:search upsert',
             'belt-content:elastic import' => 'belt-elastic:search upsert',
+            'Belt\Glue\Category' => 'Belt\Content\Term',
+            'Belt\Glue\Tag' => 'Belt\Content\Term',
             'Belt\Core\Alert' => 'Belt\Notify\Alert',
             'Belt\Core\Http\ViewComposers\AlertsComposer' => 'Belt\Notify\Http\ViewComposers\AlertsComposer',
             'Belt\Clip' => 'Belt\Content',
@@ -79,6 +81,8 @@ class BeltUpdateCore20 extends BaseUpdate
         # replacements / views
         $this->replace('resources/views', [
             'template_view' => 'subtype_view',
+            'Belt\Glue\Category' => 'Belt\Content\Term',
+            'Belt\Glue\Tag' => 'Belt\Content\Term',
             'Belt\Clip' => 'Belt\Content',
             'Belt\Core\Alert' => 'Belt\Notify\Alert',
             'Belt\Content\Tout' => 'Belt\Content\Block',
