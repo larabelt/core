@@ -16,7 +16,7 @@ class BaseTable {
         this.loading = false;
 
         // paginator
-        this.items = {};
+        this.items = [];
         this.total = null;
         this.per_page = null;
         this.current_page = 1;
