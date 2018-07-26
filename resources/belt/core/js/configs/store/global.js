@@ -15,17 +15,17 @@ export default {
     },
     actions: {
         get: (context, options) => {
-            let config = _.get(context.state.data, options.type + '.' + options.template);
+            let config = _.get(context.state.data, options.type + '.' + options.subtype);
             if (config) {
                 return Promise.resolve(config);
             }
 
             let service = new Service();
-            service.set(options.type, options.template);
+            service.set(options.type, options.subtype);
             return new Promise((resolve, reject) => {
                 service.load()
                     .then(config => {
-                        context.commit('data', {path: options.type + '.' + options.template, data: config});
+                        context.commit('data', {path: options.type + '.' + options.subtype, data: config});
                         resolve(config);
                     })
                     .catch(error => {

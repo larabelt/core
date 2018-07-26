@@ -1,7 +1,7 @@
 import BaseConfig from 'belt/core/js/helpers/config';
 import BaseService from 'belt/core/js/helpers/service';
 
-class TemplateConfig extends BaseConfig {
+class SubtypeConfig extends BaseConfig {
 
     constructor(options = {}) {
         super(options);
@@ -26,4 +26,4 @@ class TemplateConfig extends BaseConfig {
 
 }
 
-export default TemplateConfig;
+export default SubtypeConfig;
