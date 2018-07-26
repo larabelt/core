@@ -53,6 +53,7 @@ class BeltUpdateCore20 extends BaseUpdate
         # replacements / app
         $this->replace('app', [
             'php artisan belt-content:elastic import' => 'php artisan belt-elastic:search upsert',
+            'belt-clip::' => 'belt-content::',
             'belt-content:elastic import' => 'belt-elastic:search upsert',
             'Belt\Glue\Category' => 'Belt\Content\Term',
             'Belt\Glue\Tag' => 'Belt\Content\Term',
@@ -72,6 +73,7 @@ class BeltUpdateCore20 extends BaseUpdate
 
         # replacements / config
         $this->replace('config/belt', [
+            'belt-clip::' => 'belt-content::',
             'Belt\Clip' => 'Belt\Content',
         ], true);
 
@@ -80,6 +82,7 @@ class BeltUpdateCore20 extends BaseUpdate
 
         # replacements / views
         $this->replace('resources/views', [
+            'belt-clip::' => 'belt-content::',
             'template_view' => 'subtype_view',
             'Belt\Glue\Category' => 'Belt\Content\Term',
             'Belt\Glue\Tag' => 'Belt\Content\Term',
