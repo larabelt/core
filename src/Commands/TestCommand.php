@@ -2,29 +2,31 @@
 
 namespace Belt\Core\Commands;
 
-use Queue;
+use Auth, Morph, Queue;
 use Belt\Core\Helpers\BeltHelper;
+use Belt\Core\Helpers\UrlHelper;
+use Belt\Core\User;
 use Illuminate\Console\Command;
 
 /**
- * Class TestDBCommand
+ * Class TestCommand
  *
  * Create and copy test DB in sqlite for easier testing
  *
  * @package TN\Cms\Command
  */
-class TestDBCommand extends Command
+class TestCommand extends Command
 {
 
     /**
      * @var string
      */
-    protected $signature = 'belt-core:test-db';
+    protected $signature = 'belt-core:test {action} {--types=}';
 
     /**
      * @var string
      */
-    protected $description = 'create and seed test sqlite db';
+    protected $description = 'testing functions';
 
     /**
      * @var \Illuminate\Contracts\Filesystem\Filesystem
@@ -47,6 +49,40 @@ class TestDBCommand extends Command
     public function handle()
     {
 
+        $action = $this->argument('action');
+        $types = $this->option('types');
+
+        if ($action == 'db') {
+            $this->buildTestingDB();
+        }
+
+        if ($action == 'responses' && $types) {
+
+            $user = new User(['is_super' => true]);
+            $user->setSuper(true);
+            Auth::login($user);
+
+            foreach (explode(',', $types) as $type) {
+                $qb = Morph::type2QB($type);
+                foreach ($qb->get() as $item) {
+
+                    try {
+                        $url = url($item->default_url);
+                        if ($url && !UrlHelper::exists($url)) {
+                            $this->warn(sprintf("failed: %s %s: %s", $type, $item->id, $url));
+                        }
+                    } catch (\Exception $e) {
+
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    public function buildTestingDB()
+    {
         Queue::fake();
 
         putenv("APP_ENV=testing");

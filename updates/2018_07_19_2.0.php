@@ -1,6 +1,7 @@
 <?php
 
 use Belt\Core\Services\Update\BaseUpdate;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class UpdateService
@@ -10,6 +11,8 @@ class BeltUpdateCore20 extends BaseUpdate
 {
     public function up()
     {
+        // bouncer related...
+
         # renames
         $this->info(sprintf('2.0 renaming'));
         $this->rename(config_path('belt/templates'), config_path('belt/subtypes'));
@@ -89,7 +92,12 @@ class BeltUpdateCore20 extends BaseUpdate
             'Belt\Clip' => 'Belt\Content',
             'Belt\Core\Alert' => 'Belt\Notify\Alert',
             'Belt\Content\Tout' => 'Belt\Content\Block',
+            "->morphParam('albums')" => "->morphParam('lists')",
+            "->morphParam('itineraries')" => "->morphParam('lists')",
+            "->morphParam('touts')" => "->morphParam('blocks')",
             'hasTag(' => 'hasTerm(',
+            'tout->body' => "tout->param('body')",
+            'tout->btn_text' => "tout->param('btn_text')",
             '->btn_url' => "->param('btn_url')",
             '->template' => "->subtype",
             "@include('belt-clip::layouts.admin.partials.sidebar-left-nav')" => '',
