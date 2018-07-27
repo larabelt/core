@@ -57,28 +57,42 @@ class TestCommand extends Command
         }
 
         if ($action == 'responses' && $types) {
-
-            $user = new User(['is_super' => true]);
-            $user->setSuper(true);
-            Auth::login($user);
-
-            foreach (explode(',', $types) as $type) {
-                $qb = Morph::type2QB($type);
-                foreach ($qb->get() as $item) {
-
-                    try {
-                        $url = url($item->default_url);
-                        if ($url && !UrlHelper::exists($url)) {
-                            $this->warn(sprintf("failed: %s %s: %s", $type, $item->id, $url));
-                        }
-                    } catch (\Exception $e) {
-
-                    }
-
-                }
-            }
+            $this->responses($types);
         }
 
+    }
+
+    public function responses($types)
+    {
+        foreach (explode(',', $types) as $type) {
+
+            $qb = Morph::type2QB($type);
+
+            foreach ($qb->get() as $item) {
+
+                $toggle = false;
+                if (in_array('is_active', $item->getAttributes()) && !$item->is_active) {
+                    $toggle = true;
+                    $item->is_active = true;
+                    $item->save();
+                }
+
+                try {
+                    $url = url($item->default_url);
+                    if ($url && !UrlHelper::exists($url)) {
+                        $this->warn(sprintf("failed: %s %s: %s", $type, $item->id, $url));
+                    }
+                } catch (\Exception $e) {
+
+                }
+
+                if ($toggle) {
+                    $item->is_active = false;
+                    $item->save();
+                }
+
+            }
+        }
     }
 
     public function buildTestingDB()
