@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Http;
 
-use Illuminate;
+use Belt, Illuminate;
 use Belt\Core\Http\Middleware as BeltMiddleware;
 use Illuminate\Foundation\Http\Middleware as IlluminateMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
             BeltMiddleware\SetGuidCookie::class,
             Illuminate\Session\Middleware\StartSession::class,
             Illuminate\Session\Middleware\AuthenticateSession::class,
+            'auth.basic.once',
             Illuminate\View\Middleware\ShareErrorsFromSession::class,
             BeltMiddleware\VerifyCsrfToken::class,
             'bindings',
@@ -72,6 +73,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.basic.once' => Belt\Core\Http\Middleware\AuthenticateOnceWithBasicAuth::class,
         'bindings' => Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => Illuminate\Auth\Middleware\Authorize::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
