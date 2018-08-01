@@ -183,4 +183,15 @@ trait IncludesSubtypes
         return $this->getSubtypeConfig();
     }
 
+    /**
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     * @throws \Exception
+     */
+    public function config($key = null, $default = null)
+    {
+        return $this->getSubtypeConfig($key, $default);
+    }
+
 }

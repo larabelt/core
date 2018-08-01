@@ -105,6 +105,8 @@ class BeltUpdateCore20 extends BaseUpdate
             '->template' => "->subtype",
             "@include('belt-clip::layouts.admin.partials.sidebar-left-nav')" => '',
             "@include('belt-glue::layouts.admin.partials.sidebar-left-nav')" => '',
+            "'tag'" => "'term'",
+            '$tag' => '$term',
         ], true);
     }
 

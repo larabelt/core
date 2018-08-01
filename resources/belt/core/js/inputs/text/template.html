@@ -2,7 +2,7 @@
     <div class="form-group" :class="{ 'has-error': form && form.error(column) }">
         <label><slot>{{ label }}</slot></label>
         <input type="text" class="form-control" v-model="form[column]" :placeholder="placeholder" @keyup="emitEvent()">
-        <span class="help-block">{{ description }}</span>
+        <span class="help-block" v-html="description"></span>
         <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     </div>
 </span>
