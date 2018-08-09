@@ -155,4 +155,37 @@ class ApiController extends Controller
         return $this->deny();
     }
 
+    /**
+     * @param $request
+     * @param $item
+     */
+    public function append($request, $items)
+    {
+        $items = is_array($items) ? $items : [$items];
+
+        if ($append = $request->get('append')) {
+            foreach ((array) $items as $item) {
+                $item->append(explode(',', $append));
+            }
+        }
+    }
+
+    /**
+     * @param $request
+     * @param $item
+     */
+    public function embed($request, $items)
+    {
+        $items = is_array($items) ? $items : [$items];
+
+        if ($embed = $request->get('embed')) {
+            foreach ((array) $items as $item) {
+                foreach (explode(',', $embed) as $relation) {
+                    $item->$relation;
+                }
+            }
+        }
+    }
+
+
 }
