@@ -1,13 +1,14 @@
 <div>
     <i v-if="paramsLoading" class="fa fa-spinner fa-spin"></i>
-    <template v-if="params.length" v-for="group, index in sortedParams">
-        <template v-if="index == 'default'">
-            <edit v-for="param in group" :param="param" :config="param.config" :key="param.id"></edit>
+    <template v-if="params.length" v-for="paramGroup, groupKey in sortedParams">
+        <template v-if="!isGroup(groupKey)">
+            <edit v-for="param in paramGroup" :param="param" :config="param.config" :key="param.id"></edit>
         </template>
         <template v-else>
-            <div class="well well-sm well-default" :class="'group-' + index">
-                <edit v-for="param in group" :param="param" :config="param.config" :key="param.id"></edit>
-            </div>
+            <group :groupKey="groupKey" :group="group(groupKey)" :params="paramGroup"></group>
+            <!--            <div class="well well-sm well-default" :class="'group-' + index">-->
+            <!--                <edit v-for="param in group" :param="param" :config="param.config" :key="param.id"></edit>-->
+            <!--            </div>-->
         </template>
     </template>
 </div>

@@ -173,6 +173,17 @@ trait IncludesSubtypes
     }
 
     /**
+     * @param null $key
+     * @param null $default
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getParamGroupsConfig()
+    {
+        return $this->getSubtypeConfig('param_groups');
+    }
+
+    /**
      * Get config attribute
      *
      * @return mixed

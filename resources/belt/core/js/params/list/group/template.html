@@ -1,0 +1,13 @@
+<div class="panel panel-default bg-gray" :class="'group-' + groupKey">
+    <div class="panel-heading">
+        <h3 v-if="label || collapsible" class="panel-title">
+            {{ label }}
+            <span v-if="collapsible" class="pull-right" @click.prevent="toggle()"><i class="fa fa-plus"></i></span>
+        </h3>
+    </div>
+    <div v-if="description" v-html="description" class="panel-footer"></div>
+    <div v-if="expanded" class="panel-body">
+        <p class="help-block"></p>
+        <edit v-for="param in params" :param="param" :config="param.config" :key="param.id"></edit>
+    </div>
+</div>
