@@ -171,6 +171,16 @@ class PaginateRequest extends Request implements
     /**
      * @return string
      */
+    public function append()
+    {
+        if ($append = $this->query('append')) {
+            return explode(',', $append);
+        }
+    }
+
+    /**
+     * @return string
+     */
     public function embed()
     {
         if ($embed = $this->query('embed')) {
@@ -251,7 +261,13 @@ class PaginateRequest extends Request implements
      */
     public function items(Builder $query)
     {
-        return $query->get();
+        $items = $query->get();
+
+        foreach ($items as $item) {
+            $item->append($this->append());
+        }
+
+        return $items;
     }
 
     /**
@@ -265,6 +281,7 @@ class PaginateRequest extends Request implements
         $ids = $query->get([$this->fullKey()]);
         foreach ($ids->pluck('id')->all() as $id) {
             $item = $this->item($id);
+            $item->append($this->append());
             $items->add($item);
         }
 
