@@ -176,6 +176,8 @@ class PaginateRequest extends Request implements
         if ($append = $this->query('append')) {
             return explode(',', $append);
         }
+
+        return [];
     }
 
     /**
@@ -186,6 +188,8 @@ class PaginateRequest extends Request implements
         if ($embed = $this->query('embed')) {
             return explode(',', $embed);
         }
+
+        return [];
     }
 
     /**
