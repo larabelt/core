@@ -11,7 +11,6 @@ export default {
         group: {
             default: function () {
                 return {
-                    zlabel: '',
                     description: null,
                     collapsible: true,
                     collapsed: false,
@@ -45,12 +44,13 @@ export default {
     },
     mounted() {
         if (this.collapsible && _.get(this.group, 'collapsed') === true) {
-            this.expanded = false;
+            this.expanded = History.get('param.collapsed', this.groupKey) ? History.get('param.collapsed', this.groupKey) : false;
         }
     },
     methods: {
         toggle() {
             this.expanded = !this.expanded;
+            History.set('param.collapsed', this.groupKey, this.expanded);
         },
     },
     components: {

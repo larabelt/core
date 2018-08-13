@@ -1,0 +1,11 @@
+<span>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"
+                   v-model="form[column]"
+                   :true-value="true"
+                   :false-value="false"
+            > <slot>{{ label }}</slot>
+        </label>
+    </div>
+</span>

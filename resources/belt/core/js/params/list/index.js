@@ -37,7 +37,6 @@ export default {
             let configs = _.get(this.paramConfigs, 'params');
             let sorted = {};
             _.forEach(configs, (config, paramKey) => {
-                console.log(paramKey);
                 let param = _.find(this.params, {key: paramKey});
                 if (param) {
                     let groupKey = _.get(config, 'group', 'not-a-group-' + param.id);
