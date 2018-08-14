@@ -39,7 +39,7 @@ export default {
             _.forEach(configs, (config, paramKey) => {
                 let param = _.find(this.params, {key: paramKey});
                 if (param) {
-                    let groupKey = _.get(config, 'group', 'not-a-group-' + param.id);
+                    let groupKey = _.get(config, 'group') ? _.get(config, 'group') : 'not-a-group-' + param.id;
                     param.config = config;
                     _.set(sorted, groupKey + '.' + paramKey, param);
                 }
@@ -50,7 +50,7 @@ export default {
     methods: {
         isGroup(key) {
             return !key.includes('not-a-group');
-            return isNaN(parseFloat(key)) && !isFinite(key);
+            //return isNaN(parseFloat(key)) && !isFinite(key);
         },
         group(key) {
             return _.get(this.groups, key);

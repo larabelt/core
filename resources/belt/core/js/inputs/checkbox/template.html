@@ -3,8 +3,8 @@
         <label>
             <input type="checkbox"
                    v-model="form[column]"
-                   :true-value="true"
-                   :false-value="false"
+                   :true-value="1"
+                   :false-value="0"
             > <slot>{{ label }}</slot>
         </label>
     </div>
