@@ -21,7 +21,7 @@ class TestCommand extends Command
     /**
      * @var string
      */
-    protected $signature = 'belt-core:test {action} {--types=}';
+    protected $signature = 'belt-core:test {action} {--types=} {--subtypes=}';
 
     /**
      * @var string
@@ -68,6 +68,10 @@ class TestCommand extends Command
 
             $qb = Morph::type2QB($type);
 
+            if ($subtypes = $this->option('subtypes')) {
+                $qb->whereIn('subtype', explode(',', $subtypes));
+            }
+
             foreach ($qb->get() as $item) {
 
                 $toggle = false;
@@ -80,7 +84,9 @@ class TestCommand extends Command
                 try {
                     $url = url($item->default_url);
                     if ($url && !UrlHelper::exists($url)) {
-                        $this->warn(sprintf("failed: %s %s: %s", $type, $item->id, $url));
+                        $this->warn(sprintf("NOK: %s %s: %s", $type, $item->id, $url));
+                    } else {
+                        $this->info(sprintf("OK: %s %s: %s", $type, $item->id, $url));
                     }
                 } catch (\Exception $e) {
 
