@@ -15,17 +15,11 @@ use Belt\Core\Observers\IncludesSubtypesObserver;
  */
 trait IncludesSubtypes
 {
-
-    use Copyable;
-
-    use Paramable;
-
     /**
      * Binds events to subclass
      */
     public static function bootIncludesSubtypes()
     {
-        static::observe(ParamableObserver::class);
         static::observe(IncludesSubtypesObserver::class);
     }
 
@@ -169,7 +163,7 @@ trait IncludesSubtypes
      * @return mixed
      * @throws \Exception
      */
-    public function getParamConfig()
+    public function zgetParamConfig()
     {
         return $this->getSubtypeConfig('params');
     }

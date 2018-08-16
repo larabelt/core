@@ -15,6 +15,7 @@ class Param extends Model implements
 {
     use Belt\Core\Behaviors\Translatable;
     use Belt\Core\Behaviors\TypeTrait;
+    use Belt\Core\Behaviors\Copyable;
 
     /**
      * @var string

@@ -151,6 +151,8 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
 class IncludesSubtypesTestStub extends Model
 {
     use IncludesSubtypes;
+    use IncludesSubtypes;
+    use Paramable;
 
     public function getMorphClass()
     {
@@ -161,6 +163,7 @@ class IncludesSubtypesTestStub extends Model
 class IncludesSubtypesTest2Stub extends Model
 {
     use IncludesSubtypes;
+    use Paramable;
 
     public function getMorphClass()
     {
@@ -171,6 +174,7 @@ class IncludesSubtypesTest2Stub extends Model
 class IncludesSubtypesTest3Stub extends Model implements ParamableInterface
 {
     use IncludesSubtypes;
+    use Paramable;
 
     public function getMorphClass()
     {

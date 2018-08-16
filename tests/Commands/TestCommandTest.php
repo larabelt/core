@@ -21,6 +21,7 @@ class TestCommandTest extends BeltTestCase
      * @covers \Belt\Core\Commands\TestCommand::handle
      * @covers \Belt\Core\Commands\TestCommand::responses
      * @covers \Belt\Core\Commands\TestCommand::buildTestingDB
+     * @covers \Belt\Core\Commands\TestCommand::responses
      */
     public function testHandle()
     {
@@ -32,6 +33,13 @@ class TestCommandTest extends BeltTestCase
 
         # fire (option.env is testing)
         $disk = $this->mockDisk();
+        $cmd = $this->getMockBuilder(TestCommand::class)
+            ->setMethods(['disk', 'call', 'argument', 'option'])
+            ->getMock();
+        $cmd->expects($this->any())->method('argument')->willReturn('db');
+        $cmd->expects($this->any())->method('option')->willReturn('pages');
+        $cmd->expects($this->any())->method('disk')->willReturn($disk);
+        $cmd->expects($this->any())->method('call')->willReturn(null);
 
         # handle (action=db)
         $cmd = m::mock(TestCommand::class . '[argument,option,disk,call]');

@@ -33,7 +33,7 @@ class HasConfigTest extends BeltTestCase
         $this->assertEquals([], $stub->configDefaults());
 
         # configPath
-        $this->assertEquals('', $stub->configPath());
+        $this->assertEquals('test.HasConfigTestStub', $stub->configPath());
 
         # configDefaults
         # setConfig
@@ -56,10 +56,7 @@ class HasConfigTest extends BeltTestCase
 class HasConfigTestStub extends Model
 {
     use HasConfig;
-}
 
-class HasConfigTestStub2 extends HasConfigTestStub
-{
     /**
      * {@inheritdoc}
      */
@@ -67,6 +64,10 @@ class HasConfigTestStub2 extends HasConfigTestStub
     {
         return 'test.HasConfigTestStub';
     }
+}
+
+class HasConfigTestStub2 extends HasConfigTestStub
+{
 
     /**
      * @return array
