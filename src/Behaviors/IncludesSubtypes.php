@@ -7,7 +7,7 @@ use Belt\Core\Behaviors\ParamableInterface;
 use Belt\Core\Behaviors\Paramable;
 use Belt\Core\Helpers\ArrayHelper;
 use Belt\Core\Observers\ParamableObserver;
-use Belt\Content\Observers\IncludesSubtypesObserver;
+use Belt\Core\Observers\IncludesSubtypesObserver;
 
 /**
  * Class IncludesSubtypes

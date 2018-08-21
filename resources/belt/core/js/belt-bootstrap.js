@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 
 import 'admin-lte';
 import 'belt/core/js/adminlte/helper';
+import 'belt-vue-components';
 import 'bootstrap-sass';
 
 global.Vuex = Vuex;
