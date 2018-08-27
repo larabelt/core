@@ -45,6 +45,15 @@ trait Paramable
 
     /**
      * @param $key
+     * @return bool
+     */
+    public function hasParam($key)
+    {
+        return $this->params->where('key', $key)->first() ? true : false;
+    }
+
+    /**
+     * @param $key
      * @param null $default
      * @return null
      */
