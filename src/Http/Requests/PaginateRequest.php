@@ -267,8 +267,10 @@ class PaginateRequest extends Request implements
     {
         $items = $query->get();
 
-        foreach ($items as $item) {
-            $item->append($this->append());
+        if ($items) {
+            foreach ($items as $item) {
+                $item->append($this->append());
+            }
         }
 
         return $items;
