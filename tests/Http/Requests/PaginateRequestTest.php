@@ -31,6 +31,8 @@ class PaginateRequestTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Http\Requests\PaginateRequest::refetch
      * @covers \Belt\Core\Http\Requests\PaginateRequest::item
      * @covers \Belt\Core\Http\Requests\PaginateRequest::groupBy
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::append
+     * @covers \Belt\Core\Http\Requests\PaginateRequest::embed
      */
     public function test()
     {
@@ -135,6 +137,22 @@ class PaginateRequestTest extends Testing\BeltTestCase
         $request = new PaginateRequest(['groupBy' => 'test.testable_type']);
         $request->groupable[] = null;
         $this->assertNull($request->groupBy());
+
+        # append
+        $this->assertEquals([], (new PaginateRequest())->append());
+        $this->assertEquals(['foo', 'bar'], (new PaginateRequest(['append' => 'foo,bar']))->append());
+
+        # embed
+        $this->assertEquals([], (new PaginateRequest())->embed());
+        $this->assertEquals(['foo', 'bar'], (new PaginateRequest(['embed' => 'foo,bar']))->embed());
+
+        # items
+        $user = m::mock(User::class);
+        $user->shouldReceive('append')->with(['foo', 'bar'])->andReturnSelf();
+        $builder = m::mock(Builder::class);
+        $builder->shouldReceive('get')->andReturn([$user]);
+        (new PaginateRequest(['append' => 'foo,bar']))->items($builder);
+
     }
 
 }

@@ -149,9 +149,7 @@ class PaginateRequest extends Request implements
      */
     public function orderBy()
     {
-        $orderBy = $this->query('orderBy');
-
-        if ($orderBy) {
+        if ($orderBy = $this->query('orderBy')) {
             foreach (explode(',', $orderBy) as $_orderBy) {
                 $_orderBy = ltrim($_orderBy, '-');
                 if (!in_array($_orderBy, $this->sortable)) {
@@ -160,10 +158,6 @@ class PaginateRequest extends Request implements
                 }
             }
         }
-
-        //if ($orderBy && in_array(ltrim($orderBy, '-'), $this->sortable)) {
-        //    return (string) $orderBy;
-        //}
 
         return (string) $orderBy ?: $this->orderBy;
     }

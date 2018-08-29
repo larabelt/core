@@ -78,6 +78,7 @@ abstract class BaseUpdate
     /**
      * @param $old_path
      * @param $new_path
+     * @codeCoverageIgnore
      */
     public function rename($old_path, $new_path)
     {
@@ -92,6 +93,7 @@ abstract class BaseUpdate
      * @param $path
      * @param array $replacements
      * @param bool $recursive
+     * @codeCoverageIgnore
      */
     public function replace($path, $replacements = [], $recursive = false)
     {

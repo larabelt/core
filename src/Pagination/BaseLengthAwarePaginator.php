@@ -73,8 +73,7 @@ abstract class BaseLengthAwarePaginator
      */
     public function orderBy($request)
     {
-        $orderBy = $request->orderBy();
-        if ($orderBy) {
+        if ($orderBy = $request->orderBy()) {
             foreach (explode(',', $orderBy) as $orderBy) {
                 $prefix = substr($orderBy, 0, 1);
                 $sortBy = $prefix == '-' ? 'desc' : $request->sortBy();
