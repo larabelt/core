@@ -12,12 +12,7 @@ export default {
             this.$store.registerModule(this.paramStoreKey, store);
         }
         this.$store.dispatch(this.paramStoreKey + '/set', {entity_type: this.paramable_type, entity_id: this.paramable_id});
-
-        this.paramsLoading = true;
-        this.$store.dispatch(this.paramStoreKey + '/load')
-            .then(() => {
-                this.paramsLoading = false;
-            });
+        this.paramsLoad();
     },
     computed: {
         params() {
@@ -30,4 +25,13 @@ export default {
             return 'params/' + this.paramable_type + this.paramable_id;
         },
     },
+    methods: {
+        paramsLoad() {
+            this.paramsLoading = true;
+            this.$store.dispatch(this.paramStoreKey + '/load')
+                .then(() => {
+                    this.paramsLoading = false;
+                });
+        },
+    }
 }

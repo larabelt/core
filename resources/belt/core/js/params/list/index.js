@@ -57,6 +57,7 @@ export default {
         },
         update() {
             this.eventBus.$emit('update');
+            this.paramsLoad();
         },
     },
     components: {
