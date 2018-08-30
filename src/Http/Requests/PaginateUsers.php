@@ -17,7 +17,7 @@ class PaginateUsers extends PaginateRequest
     /**
      * @var int
      */
-    public $perPage = 5;
+    public $perPage = 20;
 
     /**
      * @var string
