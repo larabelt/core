@@ -8,6 +8,11 @@
     <div v-if="description" v-html="description" class="panel-footer"></div>
     <div v-if="expanded" class="panel-body">
         <p class="help-block"></p>
-        <edit v-for="param in params" :param="param" :config="param.config" :key="param.id"></edit>
+        <template v-if="customGroupComponent">
+            <component :is="customGroupComponent" :params="params"></component>
+        </template>
+        <template v-else>
+            <edit v-for="param in params" :param="param" :config="param.config" :key="param.id"></edit>
+        </template>
     </div>
 </div>

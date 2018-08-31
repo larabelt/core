@@ -14,6 +14,7 @@ export default {
                     description: null,
                     collapsible: true,
                     collapsed: false,
+                    component: null,
                 }
             }
         },
@@ -40,6 +41,10 @@ export default {
         },
         label() {
             return _.get(this.group, 'label', 'Param Group');
+        },
+        customGroupComponent() {
+            let componentName = 'param-group-' + this.group.component;
+            return _.has(Vue.options.components, componentName) ? componentName : null;
         },
     },
     mounted() {
