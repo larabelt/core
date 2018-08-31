@@ -30,7 +30,7 @@ export default {
             return _.find(this.params, {key: key});
         },
         paramConfig(key) {
-            return this.param(key).config;
+            return _.get(this.param(key), 'config', {});
         },
     },
     components: {
