@@ -1,5 +1,5 @@
 import mixin from 'belt/core/js/assigned-roles/list/mixin';
-import html from 'belt/core/js/assigned-roles/list/row/template.html';
+import html from 'belt/core/js/assigned-roles/list/row-item/template.html';
 
 export default {
     mixins: [mixin],
@@ -14,6 +14,8 @@ export default {
                 return this.$parent.storeKey;
             }
         },
+    },
+    mounted() {
     },
     computed: {
         hasRole() {
