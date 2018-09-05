@@ -34,6 +34,8 @@ class MorphHelper
      */
     public function type2Class($type)
     {
+        $type = str_replace('-', '_', $type);
+
         return array_get($this->map(), $type);
     }
 
