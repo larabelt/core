@@ -18,6 +18,9 @@ export default {
                 return this.$parent.entity_type;
             }
         },
+        allowed_types: {
+            default: [],
+        },
     },
     data() {
 
@@ -27,15 +30,15 @@ export default {
 
         return {
             config: new Config(),
-            dropdown: {},
+            options: {},
             form: form,
         }
     },
     created() {
         this.config.setService(this.type);
         this.config.load()
-            .then((response) => {
-                this.dropdown = this.config.options();
+            .then(() => {
+                this.options = this.config.options();
                 if (this.autoset) {
                     this.form.subtype = this.defaultSubtype;
                 }
@@ -44,6 +47,18 @@ export default {
     computed: {
         defaultSubtype() {
             return _.keys(this.dropdown)[0];
+        },
+        dropdown() {
+            let options = this.options;
+            if (this.allowed_types.length) {
+                options = {};
+                _.forOwn(this.options, (option, key) => {
+                    if (this.allowed_types.includes(key)) {
+                        options[key] = option;
+                    }
+                });
+            }
+            return options;
         },
         type() {
             return this.entity_type ? this.entity_type : this.$parent.entity_type;
