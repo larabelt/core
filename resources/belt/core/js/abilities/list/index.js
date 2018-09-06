@@ -8,9 +8,18 @@ export default {
     mixins: [shared],
     props: ['storeKey'],
     computed: {
+        abilityEntityTypes() {
+            let entities = [];
+            _.forEach(this.abilitiesByEntityType, function (ability) {
+                if (ability.entity_type) {
+                    entities.push(ability.entity_type);
+                }
+            });
+            return entities;
+        },
         entityChunks() {
-            let count = _.ceil(this.entityAbilities.length / 2);
-            return _.chunk(this.entityAbilities, count)
+            let count = _.ceil(this.abilityEntityTypes.length / 2);
+            return _.chunk(this.abilityEntityTypes, count)
         },
         nonEntityChunks() {
             let count = _.ceil(this.nonEntityAbilities.length / 2);

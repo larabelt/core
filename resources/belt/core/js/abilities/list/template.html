@@ -48,8 +48,8 @@
                     <div class="col-md-6">
                         <table class="table table-bordered table-hover">
                             <tbody>
-                            <template v-for="ability in chunk">
-                                <list-group :entity_type="ability.entity_type"></list-group>
+                            <template v-for="entity_type in chunk">
+                                <list-group :entity_type="entity_type"></list-group>
                             </template>
                             </tbody>
                         </table>
