@@ -19,7 +19,9 @@ export default {
             }
         },
         allowed_types: {
-            default: [],
+            default: function () {
+                return [];
+            }
         },
     },
     data() {
