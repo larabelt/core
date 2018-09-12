@@ -41,7 +41,7 @@ export default {
         this.config.load()
             .then(() => {
                 this.options = this.config.options();
-                if (this.autoset) {
+                if (this.autoset && !this.form.subtype) {
                     this.form.subtype = this.defaultSubtype;
                 }
             });
@@ -61,6 +61,9 @@ export default {
                 });
             }
             return options;
+        },
+        showDropdown() {
+            return _.size(this.dropdown) > 1;
         },
         type() {
             return this.entity_type ? this.entity_type : this.$parent.entity_type;

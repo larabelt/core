@@ -1,4 +1,4 @@
-<div>
+<div v-if="showDropdown">
     <div class="form-group" :class="{ 'has-error': form.error('subtype') }">
         <label for="subtype"><slot>Type</slot></label>
         <select v-model="form.subtype" name="subtype" class="form-control">
