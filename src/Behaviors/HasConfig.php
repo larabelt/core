@@ -76,6 +76,8 @@ trait HasConfig
         $config = $this->getConfig();
 
         if ($key) {
+            /* @todo uncomment below. seems better but might break something? */
+            //return array_has($config, $key) ? $config[$key] : $default;
             return array_get($config, $key, $default);
         }
 
