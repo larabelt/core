@@ -40,7 +40,15 @@ export default {
             return _.get(this.group, 'description');
         },
         label() {
-            return _.get(this.group, 'label', 'Param Group');
+            let label = _.get(this.group, 'label');
+
+            // if (!label) {
+            //     _.each(this.params, (param) => {
+            //         label = _.get(param, 'config.label')
+            //     })
+            // }
+
+            return label ? label : this.toTitleCase(this.groupKey);
         },
         customGroupComponent() {
             let componentName = 'param-group-' + this.group.component;
@@ -48,8 +56,12 @@ export default {
         },
     },
     mounted() {
-        if (this.collapsible && _.get(this.group, 'collapsed') === true) {
-            this.expanded = History.get('param.collapsed', this.groupKey) ? History.get('param.collapsed', this.groupKey) : false;
+        if (this.collapsible) {
+            if (History.has('param.collapsed', this.groupKey)) {
+                this.expanded = History.get('param.collapsed', this.groupKey);
+            } else {
+                this.expanded = !_.get(this.group, 'collapsed', false);
+            }
         }
     },
     methods: {

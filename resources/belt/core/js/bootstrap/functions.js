@@ -19,3 +19,14 @@ Vue.prototype.can = (ability, model) => {
 
     return _.get(window.larabelt.access, model + '.' + ability) ? true : false;
 };
+
+Vue.prototype.toTitleCase = (str) => {
+    str = str.replace(/_/g, ' ');
+    str = str.replace(/-/g, ' ');
+    return str.replace(
+        /\w\S*/g,
+        function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+};

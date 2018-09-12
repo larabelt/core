@@ -37,6 +37,13 @@ class History {
         return result;
     }
 
+    has(group, path) {
+
+        let object = this.parseGroup(group);
+
+        return _.has(object, path);
+    }
+
     parseGroupCookie(group) {
         let value = (new Cookies).get(group);
 
