@@ -76,6 +76,7 @@ trait HasParams
     {
         if ($param instanceof BaseParamGroup) {
             foreach ($param->params() as $_param) {
+                $_param->setGroup($param->getKey());
                 $this->__makeParams($_param);
             }
         }
