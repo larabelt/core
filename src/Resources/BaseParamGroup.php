@@ -13,6 +13,11 @@ abstract class BaseParamGroup extends Belt\Core\Resources\BaseResource
     use Belt\Core\Resources\Traits\HasParams, Belt\Core\Resources\Traits\HasGroup;
 
     /**
+     * @var mixed
+     */
+    protected $prefix;
+
+    /**
      * @var bool
      */
     protected $collapsible = true;
@@ -30,6 +35,29 @@ abstract class BaseParamGroup extends Belt\Core\Resources\BaseResource
     public function setup()
     {
         $this->makeParams();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrefix()
+    {
+        if ($this->prefix === false) {
+            return false;
+        }
+
+        return $this->prefix ?: $this->getKey();
+    }
+
+    /**
+     * @param mixed $prefix
+     * @return $this
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
     }
 
     /**

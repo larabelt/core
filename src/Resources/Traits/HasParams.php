@@ -75,7 +75,12 @@ trait HasParams
     public function __makeParams($param)
     {
         if ($param instanceof BaseParamGroup) {
-            foreach ($param->params() as $_param) {
+            $group = $param;
+            foreach ($group->params() as $_param) {
+                if ($prefix = $group->getPrefix()) {
+                    $prefixed_key = sprintf('%s_%s', $prefix, $_param->getKey());
+                    $_param->setKey($prefixed_key);
+                }
                 $_param->setGroup($param->getKey());
                 $this->__makeParams($_param);
             }
