@@ -1,5 +1,5 @@
 <span>
-    <div class="form-group" :class="{ 'has-error': form && form.error('priority') }">
+    <div class="form-group form-input-priority" :class="{ 'has-error': form && form.error('priority') }">
         <label><slot>Priority</slot></label>
         <div class="form-group">
             <select class="form-control" v-model="form.priority" title="item priority">
