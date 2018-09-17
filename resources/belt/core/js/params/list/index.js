@@ -57,7 +57,9 @@ export default {
         },
         update() {
             this.eventBus.$emit('update');
-            this.paramsLoad();
+            setTimeout(() => {
+                this.paramsLoad();
+            }, 500);
         },
     },
     components: {
