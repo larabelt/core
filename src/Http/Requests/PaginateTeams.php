@@ -11,7 +11,7 @@ class PaginateTeams extends PaginateRequest
      */
     public $modelClass = Belt\Core\Team::class;
 
-    public $perPage = 5;
+    public $perPage = 20;
 
     public $orderBy = 'teams.id';
 
