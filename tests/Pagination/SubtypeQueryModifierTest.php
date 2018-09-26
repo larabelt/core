@@ -23,8 +23,8 @@ class SubtypeQueryModifierTest extends Testing\BeltTestCase
     {
         # modify
         $qb = m::mock(Builder::class);
-        $qb->shouldReceive('where')->once()->withArgs(['test.subtype', true]);
-        $request = new SubtypeQueryModifierTestPaginateRequestStub(['subtype' => true]);
+        $qb->shouldReceive('whereIn')->once()->withArgs(['test.subtype', ['foo', 'bar']]);
+        $request = new SubtypeQueryModifierTestPaginateRequestStub(['subtype' => 'foo,bar']);
         $modifer = new SubtypeQueryModifier($qb, $request);
         $modifer->modify($qb, $request);
 

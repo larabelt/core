@@ -9,7 +9,6 @@ use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Testing\CommonMocks;
 use Belt\Core\User;
 use Belt\Core\Team;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Access\Response as AuthAccessResponse;
 use Illuminate\Contracts\Auth\Access\Gate;
 
@@ -29,6 +28,9 @@ class ApiControllerTest extends BeltTestCase
      * @covers \Belt\Core\Http\Controllers\ApiController::set
      * @covers \Belt\Core\Http\Controllers\ApiController::setIfNotEmpty
      * @covers \Belt\Core\Http\Controllers\ApiController::authorize
+     * @covers \Belt\Core\Http\Controllers\ApiController::append
+     * @covers \Belt\Core\Http\Controllers\ApiController::embed
+     * @covers \Belt\Core\Http\Controllers\ApiController::itemEvent
      */
     public function test()
     {
@@ -109,6 +111,31 @@ class ApiControllerTest extends BeltTestCase
         } catch (\Exception $e) {
 
         }
+
+//        # itemEvent
+//        $item = new ApiControllerTestStub();
+//        $event = new \Belt\Core\Events\ItemCreated($item, 'foo.created');
+//        \Illuminate\Support\Facades\Event::shouldReceive('dispatch')->with('foo.created', $event);
+//        $controller->itemEvent('created', $item);
+
+        # append
+        $item1 = m::mock(\Illuminate\Database\Eloquent\Model::class);
+        $item1->shouldReceive('append')->with(['foo', 'bar'])->andReturnSelf();
+        $controller->append(new \Illuminate\Http\Request(['append' => 'foo,bar']), $item1);
+
+        # append
+        $item2 = m::mock(\Illuminate\Database\Eloquent\Model::class);
+        $item2->shouldReceive('getAttribute')->with('foo')->andReturnSelf();
+        $item2->shouldReceive('getAttribute')->with('bar')->andReturnSelf();
+        $controller->embed(new \Illuminate\Http\Request(['embed' => 'foo,bar']), $item2);
     }
 
+}
+
+class ApiControllerTestStub extends \Illuminate\Database\Eloquent\Model
+{
+    public function getMorphClass()
+    {
+        return 'foo';
+    }
 }

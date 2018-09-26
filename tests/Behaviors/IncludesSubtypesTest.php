@@ -22,9 +22,11 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeGroup
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getSubtypeViewAttribute
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::reconcileSubtypeParams
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::getParamGroupsConfig
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getParamConfig
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::getConfigAttribute
      * @covers \Belt\Core\Behaviors\IncludesSubtypes::bootIncludesSubtypes
+     * @covers \Belt\Core\Behaviors\IncludesSubtypes::config
      */
     public function test()
     {
@@ -119,6 +121,9 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         # getParamConfig
         app()['config']->set('belt.subtypes.pages.foo', [
             'name' => 'test',
+            'param_groups' => [
+                'hello' => 'world'
+            ],
             'params' => [
                 'foo' => 'bar'
             ],
@@ -126,8 +131,14 @@ class IncludesSubtypesTest extends Testing\BeltTestCase
         $subtypeStub->subtype = 'foo';
         $this->assertEquals(config('belt.subtypes.pages.foo.params'), $subtypeStub->getParamConfig());
 
+        # getParamGroupsConfig
+        $this->assertEquals($subtypeStub->getSubtypeConfig('param_groups'), $subtypeStub->getParamGroupsConfig());
+
         # getConfigAttribute
         $this->assertEquals(config('belt.subtypes.pages.foo'), $subtypeStub->config);
+
+        # config
+        $this->assertEquals($subtypeStub->getSubtypeConfig('foo'), $subtypeStub->config('foo'));
     }
 
     public function tearDown()

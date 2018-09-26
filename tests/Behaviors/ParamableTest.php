@@ -20,6 +20,7 @@ class ParamableTest extends Testing\BeltTestCase
 
     /**
      * @covers \Belt\Core\Behaviors\Paramable::bootParamable
+     * @covers \Belt\Core\Behaviors\Paramable::hasParam
      * @covers \Belt\Core\Behaviors\Paramable::param
      * @covers \Belt\Core\Behaviors\Paramable::params
      * @covers \Belt\Core\Behaviors\Paramable::saveParam
@@ -30,6 +31,7 @@ class ParamableTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
      * @covers \Belt\Core\Behaviors\Paramable::scopeHasDefinedParam
      * @covers \Belt\Core\Behaviors\Paramable::getParamConfig
+     * @covers \Belt\Core\Behaviors\Paramable::getParamGroupsConfig
      */
     public function test()
     {
@@ -38,6 +40,7 @@ class ParamableTest extends Testing\BeltTestCase
         $paramable = new ParamableStub();
         $paramable->params = new Collection();
         $paramable->params->add(new Param(['key' => 'foo', 'value' => 'bar']));
+        $paramable->params->add(new Param(['key' => 'hello', 'value' => null]));
 
 
         # bootParamable
@@ -53,6 +56,10 @@ class ParamableTest extends Testing\BeltTestCase
         $this->assertEquals('bar', $paramable->param('foo'));
         $this->assertEquals('default', $paramable->param('missing', 'default'));
         $this->assertEquals(null, $paramable->param('invalid'));
+
+        # hasParam
+        $this->assertTrue($paramable->hasParam('hello'));
+        $this->assertFalse($paramable->hasParam('world'));
 
         # saveParam (create/update)
         $param = m::mock(Param::class . '[save]');
@@ -136,6 +143,9 @@ class ParamableTest extends Testing\BeltTestCase
 
         # getParamConfig
         $this->assertEquals([], $paramable->getParamConfig());
+
+        # getParamGroupsConfig
+        $this->assertEquals([], $paramable->getParamGroupsConfig());
 
     }
 
