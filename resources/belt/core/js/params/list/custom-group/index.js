@@ -8,11 +8,6 @@ export default {
                 return [];
             }
         },
-        prefix: {
-            default: function () {
-                return [];
-            }
-        }
     },
     data() {
         return {
@@ -21,16 +16,30 @@ export default {
             paramable_id: this.$parent.paramable_id,
         }
     },
-    computed: {},
+    computed: {
+        prefix() {
+            for (let key in this.params) {
+                if (key.substring(0, 5) == 'hero_') {
+                    return 'hero_';
+                }
+                ;
+                return '';
+            }
+            return '';
+        }
+    },
     mounted() {
 
     },
     methods: {
         param(key) {
-            return _.find(this.params, {key: key});
+            return _.find(this.params, {key: this.prefixedKey(key)});
         },
         paramConfig(key) {
             return _.get(this.param(key), 'config', {});
+        },
+        prefixedKey(key) {
+            return this.prefix + key;
         },
     },
     components: {

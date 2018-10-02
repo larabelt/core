@@ -9,8 +9,10 @@
             <p>{{ summary }}</p>
         </template>
         <template v-for="param in params">
-            <h6 class="text-muted">{{ param.key }}</h6>
-            <p v-html="param.value"></p>
+            <template v-if="param.value">
+                <h6 class="text-muted">{{ param.key }}</h6>
+                <p v-html="param.value"></p>
+            </template>
         </template>
     </div>
 </div>
