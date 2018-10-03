@@ -9,8 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * Class Param
  * @package Belt\Core
  */
-class Param extends Model
+class Param extends Model implements
+    Belt\Core\Behaviors\TranslatableInterface
 {
+    use Belt\Core\Behaviors\Translatable;
+
     /**
      * @var string
      */
@@ -25,6 +28,50 @@ class Param extends Model
      * @var array
      */
     protected $fillable = ['key', 'value'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function paramable()
+    {
+        return $this->morphTo('paramable');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        $config = [];
+
+        if ($this->paramable) {
+            if ($this->paramable instanceof Belt\Core\Behaviors\ParamableInterface) {
+                $config = $this->paramable->getParamConfig();
+            }
+        }
+
+        return array_get($config, $this->key, []);
+    }
+
+    /**
+     * @param $key
+     * @param null $default
+     * @return mixed
+     */
+    public function config($key, $default = null)
+    {
+        $config = $this->getConfig();
+
+        return $config[$key] ?? $default;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTranslatable()
+    {
+        return $this->config('translatable') ? 'value' : null;
+    }
 
     /**
      * @param $value
@@ -55,14 +102,6 @@ class Param extends Model
 
         return $value;
     }
-
-//    /**
-//     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
-//     */
-//    public function owner()
-//    {
-//        return $this->morphTo('paramable');
-//    }
 
     /**
      * @param $param

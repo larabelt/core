@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Services;
 
-use App, Belt;
+use App, Belt, Cookie;
 use Belt\Core\Behaviors\HasConfig;
 
 /**

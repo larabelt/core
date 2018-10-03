@@ -9,6 +9,22 @@ use Belt\Core\Translation;
 interface TranslatableInterface
 {
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function translations();
 
+    /**
+     * @param $attribute
+     * @param $value
+     * @param $locale
+     * @return mixed
+     */
+    public function saveTranslation($attribute, $value, $locale = 'en_US');
+
+    /**
+     * @param string $locale
+     */
+    public function setTranslations($locale = 'en_US');
 
 }

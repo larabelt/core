@@ -138,6 +138,8 @@ class ParamablesController extends ApiController
 
         $this->itemEvent('params.updated', $owner);
 
+        unset($param->paramable);
+
         return response()->json($param);
     }
 
@@ -158,6 +160,8 @@ class ParamablesController extends ApiController
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);
+
+        unset($param->paramable);
 
         return response()->json($param);
     }

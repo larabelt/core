@@ -19,7 +19,7 @@ trait Translatable
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function translations()
     {
@@ -27,34 +27,40 @@ trait Translatable
     }
 
     /**
-     * @param $key
+     * @return mixed
+     */
+    public function getTranslatable()
+    {
+        return $this->config('translatable');
+    }
+
+    /**
+     * @param $attribute
      * @param $value
      * @param $locale
      * @return mixed
      */
-    public function saveTranslation($key, $value, $locale = 'en_US')
+    public function saveTranslation($attribute, $value, $locale = 'en_US')
     {
-        $this->load('translations');
-        $translation = $this->translations()->firstOrNew([
+        $translation = $this->translations()->updateOrCreate([
             'locale' => $locale,
-            'key' => $key,
+            'key' => $attribute,
+        ], [
+            'value' => $value
         ]);
-        $translation->value = $value;
-        $translation->save();
 
         return $translation;
     }
 
     /**
-     * @param $key
-     * @param null $default
-     * @return null
+     * @param string $locale
      */
-    public function translation($key, $default = null)
+    public function setTranslations($locale = 'en_US')
     {
-        $translation = $this->translations->where('key', $key)->first();
-
-        return $translation ? $translation->value : $default;
+        $this->load('translations');
+        foreach ($this->translations->where('locale', $locale) as $translation) {
+            $this->setAttribute($translation->key, $translation->value);
+        }
     }
 
 }

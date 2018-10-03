@@ -25,6 +25,7 @@ class Kernel extends HttpKernel
         IlluminateMiddleware\ValidatePostSize::class,
         BeltMiddleware\TrimStrings::class,
         IlluminateMiddleware\ConvertEmptyStringsToNull::class,
+        BeltMiddleware\SetLocale::class,
     ];
 
     /**

@@ -21,6 +21,7 @@ class EncryptCookies extends BaseEncrypter
      */
     protected $except = [
         'adminlte',
+        'locale',
         'guid',
     ];
 
