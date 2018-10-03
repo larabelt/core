@@ -157,7 +157,7 @@ trait IncludesSubtypes
 
         foreach ($this->params as $param) {
             if (!in_array($param->key, array_keys($configParams))) {
-                $param->delete();
+                //$param->delete();
             }
         }
 
