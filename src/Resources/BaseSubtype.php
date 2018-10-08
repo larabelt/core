@@ -34,16 +34,6 @@ abstract class BaseSubtype extends Belt\Core\Resources\BaseResource
      */
     protected $preview;
 
-    /**
-     * @var boolean
-     */
-    protected $force_compile = false;
-
-    /**
-     * @var boolean
-     */
-    protected $sectionable = false;
-
     public function setup()
     {
         $this->makeParams();
@@ -84,44 +74,6 @@ abstract class BaseSubtype extends Belt\Core\Resources\BaseResource
     public function setPreview($preview)
     {
         $this->preview = $preview;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isForceCompile()
-    {
-        return $this->force_compile;
-    }
-
-    /**
-     * @param bool $force_compile
-     * @return $this
-     */
-    public function setForceCompile($force_compile)
-    {
-        $this->force_compile = $force_compile;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSectionable()
-    {
-        return $this->sectionable;
-    }
-
-    /**
-     * @param bool $sectionable
-     * @return $this
-     */
-    public function setSectionable($sectionable)
-    {
-        $this->sectionable = $sectionable;
 
         return $this;
     }
@@ -176,8 +128,6 @@ abstract class BaseSubtype extends Belt\Core\Resources\BaseResource
             'path' => $this->getPath(),
             'builder' => $this->getBuilder(),
             'preview' => $this->getPreview(),
-            'force_compile' => $this->isForceCompile(),
-            'sectionable' => $this->isSectionable(),
             'param_groups' => $this->getParamGroups()->toArray(),
             'params' => $this->getParams()->toArray(),
         ];
