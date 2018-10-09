@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Http\ViewComposers;
 
-use Belt, Auth, Cache, Route;
+use Belt, Auth, Cache, Route, Translate;
 use Belt\Core\Helpers\WindowConfigHelper;
 use Belt\Core\Services\AccessService;
 use Belt\Core\Services\ActiveTeamService;
@@ -79,6 +79,11 @@ class WindowConfigComposer
 
         // access
         WindowConfigHelper::put('access', (new AccessService())->map());
+
+        // locale / translate
+        WindowConfigHelper::put('locale', Translate::getLocale());
+        WindowConfigHelper::put('alt-locale', Translate::getAlternateLocale());
+        WindowConfigHelper::put('translate', config('belt.core.translate'));
     }
 
     /**

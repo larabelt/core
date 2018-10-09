@@ -1,0 +1,7 @@
+<div v-if="show" class="sidebar-form">
+    <select class="form-control" v-model="locale" title="select locale" @change="change()">
+        <template v-for="option, slug in options">
+            <option :value="slug">{{ option }}</option>
+        </template>
+    </select>
+</div>

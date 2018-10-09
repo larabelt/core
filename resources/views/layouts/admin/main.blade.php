@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
 </head>
 
-<body class="admin hold-transition skin-belt sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }}">
+<body class="admin hold-transition skin-belt sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }} {{ Translate::getAlternateLocale() ? 'alt-locale' : '' }}">
 @include('belt-core::layouts.admin.scripts.body-open')
 <div class="wrapper">
 
@@ -22,6 +22,7 @@
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
+            @include('belt-core::layouts.admin.partials.sidebar-left-top')
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 @include('belt-core::layouts.admin.partials.sidebar-left')

@@ -12,6 +12,7 @@ import teams from 'belt/core/js/teams/routes';
 import users from 'belt/core/js/users/routes';
 import store from 'belt/core/js/store/index';
 
+import localeDropdown from 'belt/core/js/base/locale-dropdown';
 import modals from 'belt/core/js/base/modals/modals.vue';
 
 window.Events = new Vue({});
@@ -45,6 +46,12 @@ export default class BeltCore {
             router.addRoutes(users);
 
             new Vue({router, store}).$mount('#belt-core');
+        }
+
+        if ($('#belt-locale-dropdown').length > 0) {
+            let router = new VueRouter({mode: 'history'});
+            Vue.component('locale-dropdown', localeDropdown);
+            new Vue({router, store, el: '#belt-locale-dropdown'});
         }
 
         new Vue({
