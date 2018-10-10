@@ -31,25 +31,6 @@ Vue.prototype.trans = (string, args) => {
     return value;
 };
 
-// Vue.prototype.disable = (form, attribute) => {
-//
-//     if (!_.get(window, 'larabelt.alt-locale')) {
-//         return false;
-//     }
-//
-//     let translatable = _.get(form, 'config.translatable');
-//
-//     if (translatable === true) {
-//         return false;
-//     }
-//
-//     if (_.includes(translatable, attribute)) {
-//         return false;
-//     }
-//
-//     return true;
-// };
-
 /**
  * null == doesn't matter
  * true == can be translated

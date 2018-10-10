@@ -1,4 +1,5 @@
 import 'belt/core/js/belt-bootstrap';
+import 'belt/core/js/bootstrap/buttons';
 import 'belt/core/js/bootstrap/inputs';
 import 'belt/core/js/bootstrap/editors';
 import 'belt/core/js/bootstrap/filters';

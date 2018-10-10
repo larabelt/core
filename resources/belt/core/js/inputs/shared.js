@@ -11,6 +11,7 @@ export default {
                 return this.$parent.form;
             }
         },
+        required: {default: false},
         table: {
             default: function () {
                 return this.$parent.table;
