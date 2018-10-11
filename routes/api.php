@@ -31,6 +31,18 @@ Route::group([
             Route::post('', Api\ParamablesController::class . '@store');
         });
 
+        # translatables
+        Route::group([
+            'prefix' => '{translatable_type}/{translatable_id}/translations',
+            'middleware' => 'request.injections:translatable_type,translatable_id',
+        ], function () {
+            Route::get('{id}', Api\TranslatablesController::class . '@show');
+            Route::put('{id}', Api\TranslatablesController::class . '@update');
+            Route::delete('{id}', Api\TranslatablesController::class . '@destroy');
+            Route::get('', Api\TranslatablesController::class . '@index');
+            Route::post('', Api\TranslatablesController::class . '@store');
+        });
+
         # abilities
         Route::get('abilities/{id}', Api\AbilitiesController::class . '@show');
         Route::put('abilities/{id}', Api\AbilitiesController::class . '@update');

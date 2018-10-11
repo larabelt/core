@@ -3,7 +3,11 @@
         <slot>{{ label }}</slot>
         <span v-if="required">*</span>
     </label>
-    <input type="text" class="form-control" v-model="form[column]" :placeholder="placeholder" @keyup="emitEvent()">
+    <div :class="{'input-group': hasInputGroups}">
+        <input-addon-translatable v-if="translatable"></input-addon-translatable>
+        <input type="text" class="form-control" v-model="form[column]" :placeholder="placeholder" @keyup="emitEvent()">
+    </div>
     <span class="help-block" v-html="description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
+    <input-group-translations v-if="form.id && translatable" :translatable_type="form.morph_class" :translatable_id="form.id"></input-group-translations>
 </div>

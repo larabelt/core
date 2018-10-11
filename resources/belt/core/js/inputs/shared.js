@@ -5,7 +5,11 @@ export default {
                 return this.$parent.config;
             }
         },
-        column: {default: ''},
+        column: {
+            default: function () {
+                return this.$parent.column;
+            }
+        },
         form: {
             default: function () {
                 return this.$parent.form;
@@ -33,6 +37,9 @@ export default {
         },
         value() {
             return this.form[this.column];
+        },
+        translatable() {
+            return Vue.prototype.translatable(this.form, this.column);
         }
     },
     created() {

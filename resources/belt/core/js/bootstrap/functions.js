@@ -31,19 +31,11 @@ Vue.prototype.trans = (string, args) => {
     return value;
 };
 
-/**
- * null == doesn't matter
- * true == can be translated
- * false == cannot be translated
- * @param form
- * @param attribute
- * @returns {boolean}
- */
 Vue.prototype.translatable = (form, attribute) => {
 
-    if (!_.get(window, 'larabelt.alt-locale')) {
-        return true;
-    }
+    // if (!_.get(window, 'larabelt.alt-locale')) {
+    //     return true;
+    // }
 
     let translatable = _.get(form, 'config.translatable');
 
