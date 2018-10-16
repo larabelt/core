@@ -1,22 +1,14 @@
 <div v-if="visible">
     <div class="well well-sm well-default">
-        <h5 class="clearfix">Translations <span class="pull-right"><button class="btn btn-default btn-xs"><i class="fa fa-refresh"></i> All</button></span></h5>
-        <div class="btn-group">
-            <button class="btn btn-default">fetch</button>
-            <button class="btn btn-default">load from form</button>
-            <button class="btn btn-default">list</button>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-addon"><code>de</code></div>
-                <input type="text" class="form-control" value="german name"/>
-                <div class="input-group-addon"><i class="fa fa-refresh"></i></div>
-            </div>
-            <div class="input-group">
-                <div class="input-group-addon"><code>fr</code></div>
-                <input type="text" class="form-control" value="french name"/>
-                <div class="input-group-addon"><i class="fa fa-refresh"></i></div>
-            </div>
+        <h5 class="clearfix">Translations <span class="pull-right"><input type="checkbox" :true-value="true" :false-value="false"/></span></h5>
+<!--        <div class="btn-group">-->
+<!--            <button class="btn btn-default">fetch</button>-->
+<!--            <button class="btn btn-default">load from form</button>-->
+<!--            <button class="btn btn-default">list</button>-->
+<!--        </div>-->
+        <div v-if="translationsByColumn.length" class="form-group">
+            <translation-text-input v-for="translation in translationsByColumn" :key="translation.locale" :translation="translation"></translation-text-input>
+            <div class="clearfix"><span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span></div>
         </div>
     </div>
 </div>

@@ -1,0 +1,7 @@
+<div class="input-group">
+    <div class="input-group-addon"><code>{{ translation.locale }}</code></div>
+    <input type="text" class="form-control" v-model="translation.value"/>
+    <div class="input-group-addon">
+        <input type="checkbox" v-model="checked" :true-value="true" :false-value="false"/>
+    </div>
+</div>

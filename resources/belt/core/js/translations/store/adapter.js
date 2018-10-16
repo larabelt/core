@@ -2,41 +2,55 @@ import Form from 'belt/core/js/translations/form';
 import store from 'belt/core/js/translations/store';
 
 export default {
+    props: {
+        translatable_type: {
+            default: function () {
+                return this.$parent.entity_type;
+            }
+        },
+        translatable_id: {
+            default: function () {
+                return this.$parent.entity_id;
+            }
+        },
+    },
     data() {
         return {
-            loading: false,
+            translationsLoading: false,
         }
     },
     created() {
-        if (!this.$store.state[this.storeKey]) {
-            this.$store.registerModule(this.storeKey, store);
+        if (!this.$store.state[this.translationsStoreKey]) {
+            this.$store.registerModule(this.translationsStoreKey, store);
         }
-        this.$store.dispatch(this.storeKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
-        //this.translationsLoad();
+        this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
     },
     computed: {
+        locales() {
+            return _.get(window, 'larabelt.translate.locales', {});
+        },
         translations() {
-            return this.$store.getters[this.storeKey + '/data'];
+            return this.$store.getters[this.translationsStoreKey + '/data'];
         },
-        translationConfigs() {
-            return this.$store.getters[this.storeKey + '/config'];
+        translationsConfig() {
+            return this.$store.getters[this.translationsStoreKey + '/config'];
         },
-        storeKey() {
+        translationsStoreKey() {
             return 'translations/' + this.translatable_type + this.translatable_id;
         },
-        visibility() {
-            return this.$store.getters[this.storeKey + '/visibility'];
+        translationsVisibility() {
+            return this.$store.getters[this.translationsStoreKey + '/visibility'];
         },
     },
     methods: {
-        toggleVisibility(column) {
-            this.$store.dispatch(this.storeKey + '/toggleVisibility', column)
+        toggleTranslationsVisibility(column) {
+            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility', column)
         },
         translationsLoad() {
-            this.loading = true;
-            this.$store.dispatch(this.storeKey + '/load')
+            this.translationsLoading = true;
+            this.$store.dispatch(this.translationsStoreKey + '/load')
                 .then(() => {
-                    this.loading = false;
+                    this.translationsLoading = false;
                 });
         },
     }

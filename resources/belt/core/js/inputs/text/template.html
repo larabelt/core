@@ -9,5 +9,5 @@
     </div>
     <span class="help-block" v-html="description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
-    <input-group-translations v-if="form.id && translatable" :translatable_type="form.morph_class" :translatable_id="form.id"></input-group-translations>
+    <input-group-translations v-if="translatable"></input-group-translations>
 </div>

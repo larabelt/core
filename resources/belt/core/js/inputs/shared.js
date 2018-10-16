@@ -29,6 +29,12 @@ export default {
         description() {
             return this.getConfig('description');
         },
+        entity_type() {
+            return this.form.morph_class;
+        },
+        entity_id() {
+            return this.form.id;
+        },
         label() {
             return this.getConfig('label');
         },
@@ -39,7 +45,7 @@ export default {
             return this.form[this.column];
         },
         translatable() {
-            return Vue.prototype.translatable(this.form, this.column);
+            return this.form.id ? Vue.prototype.translatable(this.form, this.column) : false;
         }
     },
     created() {
