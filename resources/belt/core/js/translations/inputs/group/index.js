@@ -1,3 +1,4 @@
+import Form from 'belt/core/js/translations/form';
 import baseInput from 'belt/core/js/inputs/shared';
 import storeAdapter from 'belt/core/js/translations/store/adapter';
 import translationTextInput from 'belt/core/js/translations/inputs/text';
@@ -24,16 +25,22 @@ export default {
             return _.get(this.translationsVisibility, this.column, true);
         },
         translationsByColumn() {
+
             let translations = [];
 
-            //sort by locale... show empty, late to STORE vs UPDATE
-
             _.forOwn(this.locales, (name, locale) => {
-                let translation = _.find(this.translations, {
-                    locale: locale,
-                    key: this.column,
-                });
-                translations.push(translation ? translation : {locale: locale, key: this.column});
+                if (locale != this.fallbackLocale) {
+                    let translation = _.find(this.translations, {
+                        locale: locale,
+                        key: this.column,
+                    });
+                    translations.push(translation ? translation : new Form({
+                        entity_type: this.entity_type,
+                        entity_id: this.entity_id,
+                        locale: locale,
+                        key: this.column,
+                    }));
+                }
             });
 
             return translations;
@@ -42,9 +49,9 @@ export default {
     methods: {
         update() {
             this.eventBus.$emit('update');
-            setTimeout(() => {
-                this.load();
-            }, 500);
+            // setTimeout(() => {
+            //     this.load();
+            // }, 500);
         },
     },
     components: {

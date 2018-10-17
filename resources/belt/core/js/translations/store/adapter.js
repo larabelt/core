@@ -26,6 +26,9 @@ export default {
         this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
     },
     computed: {
+        fallbackLocale() {
+            return _.get(window, 'larabelt.fallback_locale', {});
+        },
         locales() {
             return _.get(window, 'larabelt.translate.locales', {});
         },

@@ -99,7 +99,7 @@ class TranslatablesController extends ApiController
 
         $input = $request->all();
 
-        $translation = $translatable->saveTranslation($input['key'], $input['value']);
+        $translation = $translatable->saveTranslation($input['key'], $input['value'], $input['locale']);
 
         $this->itemEvent('translations.created', $translatable);
 

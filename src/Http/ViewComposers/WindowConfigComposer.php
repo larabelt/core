@@ -82,6 +82,7 @@ class WindowConfigComposer
 
         // locale / translate
         WindowConfigHelper::put('locale', Translate::getLocale());
+        WindowConfigHelper::put('fallback_locale', config('app.fallback_locale'));
         WindowConfigHelper::put('alt-locale', Translate::getAlternateLocale());
         WindowConfigHelper::put('translate', config('belt.core.translate'));
     }

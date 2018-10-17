@@ -10,6 +10,7 @@ class Form extends BaseForm {
 
         this.setData({
             id: '',
+            locale: options.locale ? options.locale : '',
             key: options.key ? options.key : '',
             value: '',
         });

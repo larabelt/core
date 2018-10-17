@@ -1,3 +1,4 @@
+import Form from 'belt/core/js/translations/form';
 import Table from 'belt/core/js/translations/table';
 
 export default {
@@ -5,7 +6,7 @@ export default {
     state() {
         return {
             config: {},
-            data: {},
+            data: [],
             entity_id: '',
             entity_type: '',
             visibility: {},
@@ -13,7 +14,15 @@ export default {
     },
     mutations: {
         config: (state, value) => state.config = value,
-        data: (state, value) => state.data = value,
+        data: (state, translations) => {
+            let forms = [];
+            _.each(translations, (translation) => {
+                let form = new Form({entity_type: state.entity_type, entity_id: state.entity_id});
+                form.setData(translation);
+                forms.push(form);
+            });
+            state.data = forms;
+        },
         entity_id: (state, value) => state.entity_id = value,
         entity_type: (state, value) => state.entity_type = value,
         visibility: (state, values) => state.visibility = Object.assign({}, state.visibility, {[values.column]: values.visibility}),
@@ -22,7 +31,7 @@ export default {
         config: (context, value) => context.commit('config', value),
         data: (context, value) => context.commit('data', value),
         load: (context) => {
-            context.commit('data', {});
+            context.commit('data', []);
             let table = new Table({entity_type: context.state.entity_type, entity_id: context.state.entity_id});
             return new Promise((resolve, reject) => {
                 table.index()
