@@ -1,48 +1,59 @@
 import Form from 'belt/core/js/translations/form';
 import Table from 'belt/core/js/translations/table';
+import {getField, updateField} from 'vuex-map-fields';
 
 export default {
     namespaced: true,
     state() {
         return {
-            config: {},
-            data: [],
+            translations: [],
             entity_id: '',
             entity_type: '',
             visibility: {},
         }
     },
     mutations: {
-        config: (state, value) => state.config = value,
-        data: (state, translations) => {
-            let forms = [];
-            _.each(translations, (translation) => {
-                let form = new Form({entity_type: state.entity_type, entity_id: state.entity_id});
-                form.setData(translation);
-                forms.push(form);
-            });
-            state.data = forms;
-        },
+        updateField,
+        translations: (state, translations) => state.translations = translations,
         entity_id: (state, value) => state.entity_id = value,
         entity_type: (state, value) => state.entity_type = value,
         visibility: (state, values) => state.visibility = Object.assign({}, state.visibility, {[values.column]: values.visibility}),
     },
     actions: {
-        config: (context, value) => context.commit('config', value),
-        data: (context, value) => context.commit('data', value),
+        translations: (context, translations) => context.commit('translations', translations),
         load: (context) => {
-            context.commit('data', []);
+            //context.commit('translations', []);
             let table = new Table({entity_type: context.state.entity_type, entity_id: context.state.entity_id});
             return new Promise((resolve, reject) => {
                 table.index()
                     .then(response => {
-                        context.commit('config', response.config);
-                        context.commit('data', response.data);
+                        context.dispatch('pushTranslations', response.data);
                         resolve(response);
                     })
                     .catch(error => {
                         reject(error);
                     })
+            });
+        },
+        pushTranslation: ({state}, values) => {
+
+            console.log(111, values);
+
+            let translation = state.translations.find(translation => translation.locale === values.locale && translation.key === values.key);
+            if (!translation) {
+                console.log(222, 'missing');
+                translation = new Form({entity_type: state.entity_type, entity_id: state.entity_id});
+                translation.mergeData(values);
+                state.translations.push(translation);
+            }
+
+            for (let field in values) {
+                Vue.set(translation, field, values[field]);
+            }
+        },
+        pushTranslations: (context, translations) => {
+            _.each(translations, (translation) => {
+                context.dispatch('pushTranslation', translation);
             });
         },
         set: (context, options) => {
@@ -58,8 +69,25 @@ export default {
         },
     },
     getters: {
-        config: state => state.config,
-        data: state => state.data,
+        getField,
+        translation: (state) => (values) => {
+            if (values.id) {
+                return state.translations.find(translation => translation.id === values.id);
+            }
+            if (values.locale && values.column) {
+                let translation = state.translations.find(translation => translation.locale === values.locale && translation.key === values.column);
+                if (!translation) {
+
+                }
+                return translation;
+            }
+        },
+        translations: (state) => (values) => {
+            if (values.column) {
+                return _.filter(state.translations, {key: values.column});
+            }
+            return state.translations;
+        },
         visibility: state => state.visibility,
     }
 }

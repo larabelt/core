@@ -24,26 +24,9 @@ export default {
         visible() {
             return _.get(this.translationsVisibility, this.column, true);
         },
-        translationsByColumn() {
-
-            let translations = [];
-
-            _.forOwn(this.locales, (name, locale) => {
-                if (locale != this.fallbackLocale) {
-                    let translation = _.find(this.translations, {
-                        locale: locale,
-                        key: this.column,
-                    });
-                    translations.push(translation ? translation : new Form({
-                        entity_type: this.entity_type,
-                        entity_id: this.entity_id,
-                        locale: locale,
-                        key: this.column,
-                    }));
-                }
-            });
-
-            return translations;
+        translations() {
+            let translations = this.$store.getters[this.translationsStoreKey + '/translations']({column: this.column});
+            return _.sortBy(translations, ['locale']);
         },
     },
     methods: {

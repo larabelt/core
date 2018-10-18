@@ -1,4 +1,4 @@
-<div class="input-group">
+<div v-if="translation" class="input-group">
     <div class="input-group-addon"><code>{{ translation.locale }}</code></div>
     <input type="text" class="form-control" v-model="translation.value"/>
     <div class="input-group-addon">

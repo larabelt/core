@@ -1,5 +1,6 @@
 import Form from 'belt/core/js/translations/form';
 import store from 'belt/core/js/translations/store';
+import {mapMultiRowFields} from 'vuex-map-fields';
 
 export default {
     props: {
@@ -26,17 +27,17 @@ export default {
         this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
     },
     computed: {
+        altLocales() {
+            return _.differenceBy(this.locales, [{'code': this.fallbackLocale}], 'code');
+        },
         fallbackLocale() {
-            return _.get(window, 'larabelt.fallback_locale', {});
+            return _.get(window, 'larabelt.fallback_locale', '');
         },
         locales() {
-            return _.get(window, 'larabelt.translate.locales', {});
+            return _.get(window, 'larabelt.locales', []);
         },
         translations() {
-            return this.$store.getters[this.translationsStoreKey + '/data'];
-        },
-        translationsConfig() {
-            return this.$store.getters[this.translationsStoreKey + '/config'];
+            return this.$store.getters[this.translationsStoreKey + '/translations'];
         },
         translationsStoreKey() {
             return 'translations/' + this.translatable_type + this.translatable_id;
@@ -46,6 +47,9 @@ export default {
         },
     },
     methods: {
+        pushTranslation(values) {
+            this.$store.dispatch(this.translationsStoreKey + '/pushTranslation', values)
+        },
         toggleTranslationsVisibility(column) {
             this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility', column)
         },

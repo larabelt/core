@@ -30,6 +30,15 @@ class BaseForm {
     }
 
     /**
+     * Merge all relevant data for the form.
+     */
+    mergeData(data) {
+        for (let field in data) {
+            Vue.set(this, field, data[field]);
+        }
+    }
+
+    /**
      * Fetch all relevant data for the form.
      */
     data() {

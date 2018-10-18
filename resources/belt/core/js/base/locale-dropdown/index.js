@@ -7,11 +7,11 @@ export default {
         }
     },
     computed: {
-        options() {
-            return _.get(window, 'larabelt.translate.locales', {});
+        locales() {
+            return _.get(window, 'larabelt.locales', []);
         },
         show() {
-            return !_.isEmpty(this.options);
+            return !_.isEmpty(this.locales);
         },
     },
     methods: {

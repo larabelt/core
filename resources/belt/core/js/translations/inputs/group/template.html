@@ -1,14 +1,15 @@
 <div v-if="visible">
     <div class="well well-sm well-default">
         <h5 class="clearfix">Translations <span class="pull-right"><input type="checkbox" :true-value="true" :false-value="false"/></span></h5>
-<!--        <div class="btn-group">-->
-<!--            <button class="btn btn-default">fetch</button>-->
-<!--            <button class="btn btn-default">load from form</button>-->
-<!--            <button class="btn btn-default">list</button>-->
-<!--        </div>-->
-        <div v-if="translationsByColumn.length" class="form-group">
-            <translation-text-input v-for="translation in translationsByColumn" :key="translation.locale" :translation="translation"></translation-text-input>
-            <div class="clearfix"><span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span></div>
+        <!--        <div v-if="translations.length" class="form-group">-->
+        <!--            <translation-text-input v-for="translation in translations" :translation_id="translation.id" :key="translation.locale" :locale="translation.locale" :column="this.column"></translation-text-input>-->
+        <!--            <div class="clearfix"><span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span></div>-->
+        <!--        </div>-->
+        <div v-if="altLocales.length" class="form-group">
+            <translation-text-input v-for="locale in altLocales" :key="locale.code" :locale="locale.code"></translation-text-input>
+            <div class="clearfix">
+                <span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span>
+            </div>
         </div>
     </div>
 </div>
