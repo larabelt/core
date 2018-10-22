@@ -1,14 +1,26 @@
 <div v-if="visible">
     <div class="well well-sm well-default">
-        <h5 class="clearfix">Translations <span class="pull-right"><input type="checkbox" :true-value="true" :false-value="false"/></span></h5>
-        <!--        <div v-if="translations.length" class="form-group">-->
-        <!--            <translation-text-input v-for="translation in translations" :translation_id="translation.id" :key="translation.locale" :locale="translation.locale" :column="this.column"></translation-text-input>-->
-        <!--            <div class="clearfix"><span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span></div>-->
-        <!--        </div>-->
+        <h5 class="clearfix">Translations
+            <span class="pull-right">
+                <input
+                        type="checkbox"
+                        :true-value="true"
+                        :false-value="false"
+                        v-model="checked"
+                        @click.prevent="toggleChecked"
+                />
+            </span>
+        </h5>
         <div v-if="altLocales.length" class="form-group">
             <translation-text-input v-for="locale in altLocales" :key="locale.code" :locale="locale.code"></translation-text-input>
             <div class="clearfix">
-                <span class="pull-right"><button class="btn btn-default btn-xs" @click.prevent="">auto-translate</button></span>
+                <span class="pull-right">
+                    <button
+                            class="btn btn-default btn-xs"
+                            @click.prevent="fetchAutoTranslation">
+                        auto-translate
+                    </button>
+                </span>
             </div>
         </div>
     </div>

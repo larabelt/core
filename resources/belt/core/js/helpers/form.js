@@ -34,6 +34,7 @@ class BaseForm {
      */
     mergeData(data) {
         for (let field in data) {
+            Vue.set(this.originalData, field, data[field]);
             Vue.set(this, field, data[field]);
         }
     }

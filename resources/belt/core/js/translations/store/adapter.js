@@ -23,8 +23,8 @@ export default {
     created() {
         if (!this.$store.state[this.translationsStoreKey]) {
             this.$store.registerModule(this.translationsStoreKey, store);
+            this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
         }
-        this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
     },
     computed: {
         altLocales() {
@@ -55,10 +55,18 @@ export default {
         },
         translationsLoad() {
             this.translationsLoading = true;
-            this.$store.dispatch(this.translationsStoreKey + '/load')
-                .then(() => {
-                    this.translationsLoading = false;
-                });
+            let translations = _.get(this.form, 'translations', []);
+            if (translations.length) {
+                this.$store.dispatch(this.translationsStoreKey + '/pushTranslations', translations)
+                    .then(() => {
+                        this.translationsLoading = false;
+                    });
+            } else {
+                this.$store.dispatch(this.translationsStoreKey + '/load')
+                    .then(() => {
+                        this.translationsLoading = false;
+                    });
+            }
         },
     }
 }

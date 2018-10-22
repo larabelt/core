@@ -8,6 +8,7 @@ export default {
     mixins: [baseInput, storeAdapter],
     data() {
         return {
+            checked: false,
             eventBus: new Vue(),
         }
     },
@@ -30,6 +31,13 @@ export default {
         },
     },
     methods: {
+        fetchAutoTranslation() {
+            this.eventBus.$emit('fetch-auto-translation');
+        },
+        toggleChecked() {
+            this.checked = !this.checked;
+            this.eventBus.$emit('toggle-checked', this.checked);
+        },
         update() {
             this.eventBus.$emit('update');
             // setTimeout(() => {

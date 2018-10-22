@@ -54,13 +54,14 @@ class TranslateService
 
     /**
      * @todo abstract this
-     * @param $source
      * @param $target
      * @param $text
+     * @param $source
      * @return \Aws\Result
      */
-    public function translate($source = 'en', $target, $text)
+    public function translate($target, $text, $source = 'en')
     {
+        $source = $source ?: config('app.fallback_locale');
         $source = substr($source, 0, 2);
         $target = substr($target, 0, 2);
 
@@ -75,7 +76,7 @@ class TranslateService
             'Text' => $text, // REQUIRED
         ]);
 
-        return $result;
+        return $result->get('TranslatedText');
     }
 
 }

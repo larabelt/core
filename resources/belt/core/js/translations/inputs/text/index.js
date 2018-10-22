@@ -1,4 +1,3 @@
-import Form from 'belt/core/js/translations/form';
 import baseInput from 'belt/core/js/inputs/shared';
 import storeAdapter from 'belt/core/js/translations/store/adapter';
 import html from 'belt/core/js/translations/inputs/text/template.html';
@@ -9,22 +8,14 @@ export default {
     data() {
         return {
             checked: false,
+            loading: false,
             eventBus: this.$parent.eventBus,
         }
     },
     computed: {
-        // column() {
-        //     return this.$parent.column;
-        // },
         dirty() {
             return this.translation.dirty('value');
         },
-        // entity_type() {
-        //     return this.$parent.entity_type;
-        // },
-        // entity_id() {
-        //     return this.$parent.entity_id;
-        // },
         translation() {
             return this.$store.getters[this.translationsStoreKey + '/translation']({
                 locale: this.locale,
@@ -37,12 +28,18 @@ export default {
     },
     mounted() {
         this.pushTranslation({locale: this.locale, key: this.column});
+        this.eventBus.$on('fetch-auto-translation', () => {
+            if (this.checked) {
+                this.translation._auto_translate = true;
+                this.submit();
+            }
+        });
+        this.eventBus.$on('toggle-checked', (checked) => {
+            this.checked = checked;
+        });
         this.eventBus.$on('update', () => {
             this.update();
         });
-    },
-    updated() {
-        //this.pushTranslation({locale: this.locale, key: this.column});
     },
     methods: {
         update() {
@@ -50,6 +47,13 @@ export default {
                 this.translation.submit();
             }
         },
+        submit() {
+            this.loading = true;
+            this.translation.submit()
+                .then(() => {
+                    this.loading = false;
+                });
+        }
     },
     template: html,
 }

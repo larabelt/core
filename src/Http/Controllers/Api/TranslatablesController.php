@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Http\Controllers\Api;
 
+use Translate;
 use Belt\Core\Behaviors\TranslatableInterface;
 use Belt\Core\Translation;
 use Belt\Core\Http\Controllers\ApiController;
@@ -127,6 +128,11 @@ class TranslatablesController extends ApiController
         $translation = $this->translation($translatable_type, $translatable_id, $id);
 
         $input = $request->all();
+
+        if (array_get($input, '_auto_translate')) {
+            $input['value'] = Translate::translate($translation->locale, $translatable->getOriginal($translation->key));
+            //$input['value'] = $translatable->getOriginal($translation->key);
+        }
 
         $this->set($translation, $input, [
             'value',

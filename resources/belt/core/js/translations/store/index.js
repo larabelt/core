@@ -1,6 +1,5 @@
 import Form from 'belt/core/js/translations/form';
 import Table from 'belt/core/js/translations/table';
-import {getField, updateField} from 'vuex-map-fields';
 
 export default {
     namespaced: true,
@@ -13,7 +12,6 @@ export default {
         }
     },
     mutations: {
-        updateField,
         translations: (state, translations) => state.translations = translations,
         entity_id: (state, value) => state.entity_id = value,
         entity_type: (state, value) => state.entity_type = value,
@@ -36,20 +34,16 @@ export default {
             });
         },
         pushTranslation: ({state}, values) => {
-
-            console.log(111, values);
-
             let translation = state.translations.find(translation => translation.locale === values.locale && translation.key === values.key);
             if (!translation) {
-                console.log(222, 'missing');
                 translation = new Form({entity_type: state.entity_type, entity_id: state.entity_id});
-                translation.mergeData(values);
+                //translation.mergeData(values);
                 state.translations.push(translation);
             }
-
-            for (let field in values) {
-                Vue.set(translation, field, values[field]);
-            }
+            translation.mergeData(values);
+            // for (let field in values) {
+            //     Vue.set(translation, field, values[field]);
+            // }
         },
         pushTranslations: (context, translations) => {
             _.each(translations, (translation) => {
@@ -69,7 +63,6 @@ export default {
         },
     },
     getters: {
-        getField,
         translation: (state) => (values) => {
             if (values.id) {
                 return state.translations.find(translation => translation.id === values.id);

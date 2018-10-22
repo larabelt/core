@@ -14,18 +14,18 @@ class TranslatableObserver
      */
     public function saving(TranslatableInterface $item)
     {
-        if ($locale = Translate::getAlternateLocale()) {
-            if ($translatable = $item->getTranslatable()) {
-                foreach ($item->getDirty() as $attribute => $newValue) {
-                    $oldValue = $item->getOriginal($attribute);
-                    //dump("$attribute: $oldValue --> $newValue");
-                    $item->setAttribute($attribute, $oldValue ?: $newValue);
-                    if (in_array($attribute, (array) $translatable)) {
-                        $item->saveTranslation($attribute, $newValue, $locale);
-                    }
-                }
-            }
-        }
+//        if ($locale = Translate::getAlternateLocale()) {
+//            if ($translatable = $item->getTranslatable()) {
+//                foreach ($item->getDirty() as $attribute => $newValue) {
+//                    $oldValue = $item->getOriginal($attribute);
+//                    //dump("$attribute: $oldValue --> $newValue");
+//                    $item->setAttribute($attribute, $oldValue ?: $newValue);
+//                    if (in_array($attribute, (array) $translatable)) {
+//                        $item->saveTranslation($attribute, $newValue, $locale);
+//                    }
+//                }
+//            }
+//        }
     }
 
     /**
@@ -36,7 +36,7 @@ class TranslatableObserver
     public function saved(TranslatableInterface $item)
     {
         if ($locale = Translate::getAlternateLocale()) {
-            $item->setTranslations($locale);
+            //$item->setTranslations($locale);
         }
     }
 
@@ -49,7 +49,7 @@ class TranslatableObserver
     public function retrieved(TranslatableInterface $item)
     {
         if ($locale = Translate::getAlternateLocale()) {
-            $item->setTranslations($locale);
+            //$item->setTranslations($locale);
         }
     }
 
