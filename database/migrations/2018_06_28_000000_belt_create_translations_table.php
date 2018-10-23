@@ -15,10 +15,10 @@ class BeltCreateTranslationsTable extends Migration
         Schema::create('translations', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('translatable');
+            $table->string('translatable_column');
             $table->string('locale', 10)->default('en_US');
-            $table->string('key');
             $table->text('value')->nullable();
-            $table->index(['translatable_type', 'translatable_id', 'locale', 'key']);
+            $table->index(['translatable_type', 'translatable_id', 'translatable_column', 'locale'], 'main');
             $table->timestamps();
         });
     }

@@ -9,20 +9,20 @@ class PaginateTranslatables extends PaginateRequest
 {
     public $perPage = 10;
 
-    public $orderBy = 'translations.key';
+    public $orderBy = 'translations.translatable_column';
 
     public $sortable = [
         'translations.id',
         'translations.translatable_id',
         'translations.translatable_type',
-        'translations.key',
+        'translations.translatable_column',
     ];
 
     public $searchable = [
         'translations.id',
         'translations.translatable_id',
         'translations.translatable_type',
-        'translations.key',
+        'translations.translatable_column',
         'translations.value',
     ];
 

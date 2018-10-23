@@ -1,7 +1,7 @@
 <div v-if="translation" class="input-group">
     <div class="input-group-addon"><code>{{ translation.locale }}</code></div>
     <input type="text" class="form-control" v-model="translation.value"/>
-    <div class="input-group-addon">
+    <div v-if="canAutoTranslate" class="input-group-addon">
         <i v-if="loading" class="fa fa-refresh fa-spin"></i>
         <input v-else type="checkbox" v-model="checked" :true-value="true" :false-value="false"/>
     </div>

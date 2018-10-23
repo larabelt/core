@@ -30,6 +30,9 @@ export default {
         altLocales() {
             return _.differenceBy(this.locales, [{'code': this.fallbackLocale}], 'code');
         },
+        canAutoTranslate() {
+            return _.get(window, 'larabelt.translate.auto-translate', false);
+        },
         fallbackLocale() {
             return _.get(window, 'larabelt.fallback_locale', '');
         },

@@ -15,6 +15,11 @@ export default {
                 return this.$parent.form;
             }
         },
+        placeholder: {
+            default: function () {
+                return '';
+            }
+        },
         required: {default: false},
         table: {
             default: function () {
@@ -38,8 +43,9 @@ export default {
         label() {
             return this.getConfig('label');
         },
-        placeholder() {
-            return this.getConfig('placeholder');
+        _placeholder() {
+            let placeholder = this.getConfig('placeholder');
+            return placeholder ? placeholder : this.placeholder;
         },
         value() {
             return this.form[this.column];

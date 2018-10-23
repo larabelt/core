@@ -19,7 +19,7 @@ class StoreTranslation extends FormRequest
             'translatable_id' => 'required',
             'key' => [
                 'required',
-                $this->ruleUnique('translations', ['translatable_type', 'translatable_id', 'key', 'locale']),
+                $this->ruleUnique('translations', ['translatable_type', 'translatable_id', 'translatable_column', 'locale']),
             ],
         ];
     }

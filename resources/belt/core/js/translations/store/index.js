@@ -34,7 +34,7 @@ export default {
             });
         },
         pushTranslation: ({state}, values) => {
-            let translation = state.translations.find(translation => translation.locale === values.locale && translation.key === values.key);
+            let translation = state.translations.find(translation => translation.locale === values.locale && translation.translatable_column === values.translatable_column);
             if (!translation) {
                 translation = new Form({entity_type: state.entity_type, entity_id: state.entity_id});
                 //translation.mergeData(values);
@@ -68,7 +68,7 @@ export default {
                 return state.translations.find(translation => translation.id === values.id);
             }
             if (values.locale && values.column) {
-                let translation = state.translations.find(translation => translation.locale === values.locale && translation.key === values.column);
+                let translation = state.translations.find(translation => translation.locale === values.locale && translation.translatable_column === values.column);
                 if (!translation) {
 
                 }
@@ -77,7 +77,7 @@ export default {
         },
         translations: (state) => (values) => {
             if (values.column) {
-                return _.filter(state.translations, {key: values.column});
+                return _.filter(state.translations, {translatable_column: values.column});
             }
             return state.translations;
         },

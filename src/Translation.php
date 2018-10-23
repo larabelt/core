@@ -24,7 +24,7 @@ class Translation extends Model
     /**
      * @var array
      */
-    protected $fillable = ['locale', 'key', 'value'];
+    protected $fillable = ['locale', 'translatable_column', 'value'];
 
     /**
      * @param $translation

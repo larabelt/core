@@ -45,7 +45,7 @@ class TranslatablesController extends ApiController
         if (is_numeric($id)) {
             $qb->where('id', $id);
         } else {
-            $qb->where('key', $id);
+            $qb->where('translatable_column', $id);
         }
 
         return $qb->first() ?: $this->abort(404);
@@ -100,7 +100,7 @@ class TranslatablesController extends ApiController
 
         $input = $request->all();
 
-        $translation = $translatable->saveTranslation($input['key'], $input['value'], $input['locale']);
+        $translation = $translatable->saveTranslation($input['translatable_column'], $input['value'], $input['locale']);
 
         $this->itemEvent('translations.created', $translatable);
 
@@ -130,8 +130,8 @@ class TranslatablesController extends ApiController
         $input = $request->all();
 
         if (array_get($input, '_auto_translate')) {
-            $input['value'] = Translate::translate($translation->locale, $translatable->getOriginal($translation->key));
-            //$input['value'] = $translatable->getOriginal($translation->key);
+            $input['value'] = Translate::translate($translation->locale, $translatable->getOriginal($translation->translatable_column));
+            //$input['value'] = $translatable->getOriginal($translation->translatable_column);
         }
 
         $this->set($translation, $input, [

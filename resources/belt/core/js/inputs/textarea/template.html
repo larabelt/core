@@ -5,4 +5,10 @@
         <span class="help-block" v-html="description"></span>
         <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     </div>
+    <div v-if="translatable" class="clearfix">
+        <span class="pull-right">
+            <input-addon-translatable><a href="#">translate</a></input-addon-translatable>
+        </span>
+    </div>
+    <input-group-translations v-if="translatable"></input-group-translations>
 </span>

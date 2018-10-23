@@ -44,7 +44,7 @@ trait Translatable
     {
         $translation = $this->translations()->updateOrCreate([
             'locale' => $locale,
-            'key' => $attribute,
+            'translatable_column' => $attribute,
         ], [
             'value' => $value
         ]);
@@ -59,7 +59,7 @@ trait Translatable
     {
         $this->load('translations');
         foreach ($this->translations->where('locale', $locale) as $translation) {
-            $this->setAttribute($translation->key, $translation->value);
+            $this->setAttribute($translation->translatable_column, $translation->value);
         }
     }
 

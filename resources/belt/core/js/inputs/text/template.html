@@ -4,8 +4,10 @@
         <span v-if="required">*</span>
     </label>
     <div :class="{'input-group': hasInputGroups}">
-        <input-addon-translatable v-if="translatable"></input-addon-translatable>
-        <input type="text" class="form-control" v-model="form[column]" :placeholder="placeholder" @keyup="emitEvent()">
+        <div v-if="translatable" class="input-group-addon">
+            <input-addon-translatable></input-addon-translatable>
+        </div>
+        <input type="text" class="form-control" v-model="form[column]" :placeholder="_placeholder" @keyup="emitEvent()">
     </div>
     <span class="help-block" v-html="description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
