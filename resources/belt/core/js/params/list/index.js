@@ -23,12 +23,15 @@ export default {
         }
     },
     created() {
-        let eventKey = this.paramable_type + ':' + this.paramable_id + ':updating';
-        Events.$on(eventKey, () => {
-            this.update();
-        });
+        Events.$on(this.eventKey, this.update);
+    },
+    destroyed() {
+        Events.$off(this.eventKey, this.update);
     },
     computed: {
+        eventKey() {
+            return this.paramable_type + ':' + this.paramable_id + ':updating';
+        },
         groups() {
             return _.get(this.paramConfigs, 'groups', []);
         },
@@ -56,9 +59,10 @@ export default {
             return _.get(this.groups, key);
         },
         update() {
-            this.eventBus.$emit('update');
+            Events.$emit('update-params');
             setTimeout(() => {
-                this.paramsLoad();
+                this.$forceUpdate();
+                //this.paramsLoad();
             }, 500);
         },
     },

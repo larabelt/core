@@ -16,13 +16,15 @@ export default {
     },
     data() {
         return {
-            eventBus: this.$parent.eventBus,
             form: new Form({entity_type: this.$parent.paramable_type, entity_id: this.$parent.paramable_id}),
         }
     },
     computed: {
         dirty() {
             return this.form.dirty('value');
+        },
+        eventBus() {
+            return this.$parent.eventBus;
         },
         componentKey() {
             let type = _.get(this.config, 'type');
@@ -52,10 +54,11 @@ export default {
         }
     },
     mounted() {
-        this.eventBus.$on('update', () => {
-            this.update();
-        });
+        Events.$on('update-params', this.update);
         this.reset();
+    },
+    destroyed() {
+        Events.$off('update-params', this.update);
     },
     methods: {
         reset() {
