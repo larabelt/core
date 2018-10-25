@@ -12,7 +12,7 @@ class Form extends BaseForm {
             id: '',
             _auto_translate: false,
             locale: options.locale ? options.locale : '',
-            key: options.key ? options.key : '',
+            translatable_column: options.translatable_column ? options.translatable_column : '',
             value: '',
         });
     }

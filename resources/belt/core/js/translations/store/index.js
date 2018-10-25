@@ -67,8 +67,8 @@ export default {
             if (values.id) {
                 return state.translations.find(translation => translation.id === values.id);
             }
-            if (values.locale && values.column) {
-                let translation = state.translations.find(translation => translation.locale === values.locale && translation.translatable_column === values.column);
+            if (values.locale && values.translatable_column) {
+                let translation = state.translations.find(translation => translation.locale === values.locale && translation.translatable_column === values.translatable_column);
                 if (!translation) {
 
                 }
@@ -76,8 +76,8 @@ export default {
             }
         },
         translations: (state) => (values) => {
-            if (values.column) {
-                return _.filter(state.translations, {translatable_column: values.column});
+            if (values.translatable_column) {
+                return _.filter(state.translations, {translatable_column: values.translatable_column});
             }
             return state.translations;
         },

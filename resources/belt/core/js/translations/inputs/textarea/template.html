@@ -1,0 +1,5 @@
+<div v-if="translation">
+    <div class="form-group" :class="{ 'has-error': form && form.error(column) }">
+        <textarea class="form-control" rows="10" v-model="translation.value"></textarea>
+    </div>
+</div>

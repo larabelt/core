@@ -26,7 +26,7 @@ export default {
             return _.get(this.translationsVisibility, this.column, true);
         },
         translations() {
-            let translations = this.$store.getters[this.translationsStoreKey + '/translations']({column: this.column});
+            let translations = this.$store.getters[this.translationsStoreKey + '/translations']({translatable_column: this.column});
             return _.sortBy(translations, ['locale']);
         },
     },

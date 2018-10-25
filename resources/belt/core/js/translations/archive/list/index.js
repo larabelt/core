@@ -37,7 +37,7 @@ export default {
             let configs = _.get(this.translationConfigs, 'translations');
             let sorted = {};
             _.forEach(configs, (config, translationKey) => {
-                let translation = _.find(this.translations, {key: translationKey});
+                let translation = _.find(this.translations, {translatable_column: translationKey});
                 if (translation) {
                     let groupKey = _.get(config, 'group') ? _.get(config, 'group') : 'not-a-group-' + translation.id;
                     translation.config = config;

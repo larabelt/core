@@ -27,6 +27,10 @@ export default {
         }
     },
     computed: {
+        altLocale() {
+            let locale = _.get(window, 'larabelt.locale', []);
+            return locale != this.fallbackLocale ? locale : false;
+        },
         altLocales() {
             return _.differenceBy(this.locales, [{'code': this.fallbackLocale}], 'code');
         },
