@@ -1,17 +1,10 @@
 export default {
     props: {
         form: {
+            type: Object,
             default: function () {
                 return this.$parent.form;
             }
         },
     },
-    data() {
-        return {};
-    },
-    computed: {},
-    created() {
-
-    },
-    methods: {},
 }

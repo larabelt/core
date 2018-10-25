@@ -1,8 +1,8 @@
 import Form from 'belt/core/js/translations/form';
 import baseInput from 'belt/core/js/inputs/shared';
 import storeAdapter from 'belt/core/js/translations/store/adapter';
-import translationTextInput from 'belt/core/js/translations/inputs/text';
-import html from 'belt/core/js/translations/inputs/group/template.html';
+import translationTextInput from 'belt/core/js/translations/input/text';
+import html from 'belt/core/js/translations/input/group/template.html';
 
 export default {
     mixins: [baseInput, storeAdapter],
@@ -23,7 +23,7 @@ export default {
     },
     computed: {
         visible() {
-            return _.get(this.translationsVisibility, this.column, true);
+            return _.get(this.translationsVisibility, this.column, false);
         },
         translations() {
             let translations = this.$store.getters[this.translationsStoreKey + '/translations']({translatable_column: this.column});

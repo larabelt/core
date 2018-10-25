@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @package Belt\Core
  */
 class Param extends Model implements
-    Belt\Core\Behaviors\TranslatableInterface
+    Belt\Core\Behaviors\TranslatableInterface,
+    Belt\Core\Behaviors\TypeInterface
 {
     use Belt\Core\Behaviors\Translatable;
+    use Belt\Core\Behaviors\TypeTrait;
 
     /**
      * @var string
@@ -28,6 +30,11 @@ class Param extends Model implements
      * @var array
      */
     protected $fillable = ['key', 'value'];
+
+    /**
+     * @var array
+     */
+    protected $appends = ['morph_class'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo

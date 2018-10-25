@@ -1,18 +1,11 @@
 import shared from 'belt/core/js/inputs/shared';
-import inputAddonTranslatable from 'belt/core/js/translations/inputs/addon';
-import inputGroupTranslations from 'belt/core/js/translations/inputs/group';
+import TranslationInputGroup from 'belt/core/js/translations/input/group';
 import html from 'belt/core/js/inputs/text/template.html';
 
 export default {
     mixins: [shared],
-    computed: {
-        hasInputGroups() {
-            return this.translatable;
-        },
-    },
     components: {
-        inputAddonTranslatable,
-        inputGroupTranslations,
+        TranslationInputGroup,
     },
-    template: html
+    template: html,
 }

@@ -140,7 +140,8 @@ class BaseForm {
             this.service.put(id, this.data())
                 .then(response => {
                     this.saving = null;
-                    this.setData(response.data);
+                    //this.setData(response.data);
+                    this.mergeData(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {

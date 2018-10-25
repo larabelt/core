@@ -1,7 +1,9 @@
 import Form from 'belt/core/js/params/form';
+import TranslationStore from 'belt/core/js/translations/store/adapter';
 import html from 'belt/core/js/params/edit/template.html';
 
 export default {
+    mixins: [TranslationStore],
     props: {
         config: {
             default: function () {
@@ -16,12 +18,16 @@ export default {
     },
     data() {
         return {
+            entity_type: 'params',
             form: new Form({entity_type: this.$parent.paramable_type, entity_id: this.$parent.paramable_id}),
         }
     },
     computed: {
         dirty() {
             return this.form.dirty('value');
+        },
+        entity_id() {
+            return this.param.id;
         },
         eventBus() {
             return this.$parent.eventBus;
@@ -47,13 +53,25 @@ export default {
             }
             return options;
         },
+        translatable_type() {
+            return 'params';
+        },
+        translatable_id() {
+            return this.entity_id;
+        },
     },
     watch: {
         'param.id': function () {
             this.reset();
         }
     },
+    created() {
+
+    },
     mounted() {
+        if (_.get(this.config, 'translatable')) {
+            this.bootTranslationStore();
+        }
         Events.$on('update-params', this.update);
         this.reset();
     },
@@ -67,8 +85,12 @@ export default {
         },
         update() {
             if (this.dirty) {
-                this.form.submit();
+                this.submit();
             }
+        },
+        submit() {
+            Events.$emit('params:' + this.form.id + ':updating', this.form);
+            this.form.submit();
         },
     },
     template: html

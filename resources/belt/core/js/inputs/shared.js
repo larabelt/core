@@ -43,6 +43,9 @@ export default {
         label() {
             return this.getConfig('label');
         },
+        parentUpdateEvent() {
+            return this.entity_type + ':' + this.entity_id + ':updating';
+        },
         _placeholder() {
             let placeholder = this.getConfig('placeholder');
             return placeholder ? placeholder : this.placeholder;
@@ -50,15 +53,6 @@ export default {
         value() {
             return this.form[this.column];
         },
-        translatable() {
-            return this.form.id ? Vue.prototype.translatable(this.form, this.column) : false;
-        }
-    },
-    created() {
-        // // set dynamic form watcher
-        // this.$watch('form.' + this.column, function (newValue) {
-        //
-        // });
     },
     methods: {
         getConfig(key, defaultValue) {

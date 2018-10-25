@@ -1,21 +1,16 @@
 import baseInput from 'belt/core/js/inputs/shared';
 import storeAdapter from 'belt/core/js/translations/store/adapter';
-import html from 'belt/core/js/translations/inputs/textarea/template.html';
+import html from 'belt/core/js/translations/input/text/template.html';
 
 export default {
     mixins: [baseInput, storeAdapter],
     props: ['locale'],
     data() {
         return {
+            checked: false,
             loading: false,
             eventBus: this.$parent.eventBus,
         }
-    },
-    created() {
-        let eventKey = this.entity_type + ':' + this.entity_id + ':updating';
-        Events.$on(eventKey, () => {
-            this.update();
-        });
     },
     computed: {
         dirty() {
@@ -23,7 +18,7 @@ export default {
         },
         translation() {
             return this.$store.getters[this.translationsStoreKey + '/translation']({
-                locale: this.altLocale,
+                locale: this.locale,
                 translatable_column: this.column,
             });
         },
@@ -32,10 +27,20 @@ export default {
         },
     },
     mounted() {
-        this.pushTranslation({locale: this.altLocale, translatable_column: this.column});
-        // this.eventBus.$on('update', () => {
-        //     this.update();
-        // });
+        this.pushTranslation({locale: this.locale, translatable_column: this.column});
+        this.eventBus.$on('fetch-auto-translation', () => {
+            if (this.checked) {
+                console.log('_auto_translate');
+                this.translation._auto_translate = true;
+                this.submit();
+            }
+        });
+        this.eventBus.$on('toggle-checked', (checked) => {
+            this.checked = checked;
+        });
+        this.eventBus.$on('update', () => {
+            this.update();
+        });
     },
     methods: {
         update() {

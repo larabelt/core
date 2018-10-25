@@ -1,21 +1,29 @@
+import Form from 'belt/core/js/translations/form';
 import store from 'belt/core/js/translations/store';
+import {mapMultiRowFields} from 'vuex-map-fields';
 
 export default {
-    // props: {
-    //     translatable_type: {
-    //         default: function () {
-    //             return this.$parent.entity_type;
-    //         }
-    //     },
-    //     translatable_id: {
-    //         default: function () {
-    //             return this.$parent.entity_id;
-    //         }
-    //     },
-    // },
+    props: {
+        translatable_type: {
+            default: function () {
+                return this.$parent.entity_type;
+            }
+        },
+        translatable_id: {
+            default: function () {
+                return this.$parent.entity_id;
+            }
+        },
+    },
     data() {
         return {
             translationsLoading: false,
+        }
+    },
+    created() {
+        if (!this.$store.state[this.translationsStoreKey]) {
+            this.$store.registerModule(this.translationsStoreKey, store);
+            this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
         }
     },
     computed: {
@@ -35,34 +43,24 @@ export default {
         locales() {
             return _.get(window, 'larabelt.locales', []);
         },
-        translatable_type() {
-            return this.$parent.entity_type;
-        },
-        translatable_id() {
-            return this.$parent.entity_id;
-        },
         translations() {
             return this.$store.getters[this.translationsStoreKey + '/translations'];
         },
         translationsStoreKey() {
             return 'translations/' + this.translatable_type + this.translatable_id;
         },
-        translationsVisible() {
-            return this.$store.getters[this.translationsStoreKey + '/visible'];
+        translationsVisibility() {
+            return this.$store.getters[this.translationsStoreKey + '/visibility'];
         },
     },
     methods: {
-        bootTranslationStore() {
-            if (!this.$store.state[this.translationsStoreKey]) {
-                this.$store.registerModule(this.translationsStoreKey, store);
-                this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
-                this.loadTranslations();
-            }
-        },
         pushTranslation(values) {
             this.$store.dispatch(this.translationsStoreKey + '/pushTranslation', values)
         },
-        loadTranslations() {
+        toggleTranslationsVisibility(column) {
+            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility', column)
+        },
+        translationsLoad() {
             this.translationsLoading = true;
             let translations = _.get(this.form, 'translations', []);
             if (translations.length) {
@@ -76,9 +74,6 @@ export default {
                         this.translationsLoading = false;
                     });
             }
-        },
-        toggleTranslationsVisibility(values) {
-            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility', values)
         },
     }
 }

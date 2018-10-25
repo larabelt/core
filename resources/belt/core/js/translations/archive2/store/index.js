@@ -8,14 +8,14 @@ export default {
             translations: [],
             entity_id: '',
             entity_type: '',
-            visible: true,
+            visibility: {},
         }
     },
     mutations: {
         translations: (state, translations) => state.translations = translations,
         entity_id: (state, value) => state.entity_id = value,
         entity_type: (state, value) => state.entity_type = value,
-        visible: (state, value) => state.visible = value,
+        visibility: (state, values) => state.visibility = Object.assign({}, state.visibility, {[values.column]: values.visibility}),
     },
     actions: {
         translations: (context, translations) => context.commit('translations', translations),
@@ -41,6 +41,9 @@ export default {
                 state.translations.push(translation);
             }
             translation.mergeData(values);
+            // for (let field in values) {
+            //     Vue.set(translation, field, values[field]);
+            // }
         },
         pushTranslations: (context, translations) => {
             _.each(translations, (translation) => {
@@ -55,8 +58,8 @@ export default {
                 context.commit('entity_id', options.entity_id);
             }
         },
-        toggleVisibility: (context) => {
-            context.commit('visible', !context.state.visible);
+        toggleVisibility: (context, column) => {
+            context.commit('visibility', {column: column, visibility: !_.get(context.state.visibility, column, false)});
         },
     },
     getters: {
@@ -78,6 +81,6 @@ export default {
             }
             return state.translations;
         },
-        visible: state => state.visible,
+        visibility: state => state.visibility,
     }
 }

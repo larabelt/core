@@ -1,6 +1,6 @@
 import baseInput from 'belt/core/js/inputs/shared';
 import storeAdapter from 'belt/core/js/translations/store/adapter';
-import html from 'belt/core/js/translations/inputs/addon/template.html';
+import html from 'belt/core/js/translations/input/addon/template.html';
 
 export default {
     mixins: [baseInput, storeAdapter],

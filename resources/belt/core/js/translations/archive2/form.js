@@ -17,11 +17,6 @@ class Form extends BaseForm {
         });
     }
 
-    mergeData(data) {
-        data._auto_translate = false;
-        super.mergeData(data);
-    }
-
 }
 
 export default Form;
