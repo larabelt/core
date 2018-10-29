@@ -1,23 +1,16 @@
 export default {
     created() {
         this.content = !_.isEmpty(this.value) ? this.value : '';
-        // if (!this.async) {
-        //     this.watchForAsync = false;
-        // }
     },
     data() {
         return {
             content: '',
-            // watchForAsync: true,
         }
     },
     props: {
         value: {
             type: String
         },
-        // async: {
-        //     default: true
-        // }
     },
     methods: {
         updateValue(value) {

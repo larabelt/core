@@ -1,5 +1,5 @@
 <template>
-    <belt-editor v-model="translation.value"></belt-editor>
+    <belt-editor :initialValue="translation.value" @input="emitEvent"></belt-editor>
 </template>
 
 <script>
@@ -7,5 +7,10 @@
 
     export default {
         mixins: [BaseTranslationInput],
+        methods: {
+            emitEvent(payload) {
+                this.translation.value = payload;
+            }
+        },
     }
 </script>

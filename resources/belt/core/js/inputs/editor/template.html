@@ -1,6 +1,6 @@
 <div class="form-group" :class="{ 'has-error': form && form.error(column) }">
     <label><slot>{{ label }}</slot></label>
-    <belt-editor v-model="form[column]" @input="emitEvent()"></belt-editor>
+    <belt-editor :initialValue="form[column]" @input="emitEvent()"></belt-editor>
     <span class="help-block" v-html="description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     <translation-input-group type="editor"></translation-input-group>
