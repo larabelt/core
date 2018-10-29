@@ -15,7 +15,7 @@ class UpdateTranslation extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'sometimes|required',
+            //'value' => 'sometimes|required',
         ];
     }
 

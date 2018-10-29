@@ -31,8 +31,10 @@
                 return 'translations/' + this.entity_type + this.entity_id;
             },
         },
-        mounted() {
+        created() {
             this.pushTranslation({locale: this.altLocale, translatable_column: this.column});
+        },
+        mounted() {
             this.eventBus.$on('update', this.submitIfDirty);
             this.eventBus.$on('fetch-auto-translation', this.fetchAutoTranslation);
         },

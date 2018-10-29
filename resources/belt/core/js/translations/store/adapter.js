@@ -41,9 +41,9 @@ export default {
         translatable_id() {
             return this.$parent.entity_id;
         },
-        translations() {
-            return this.$store.getters[this.translationsStoreKey + '/translations'];
-        },
+        // translations() {
+        //     return this.$store.getters[this.translationsStoreKey + '/translations'];
+        // },
         translationsStoreKey() {
             return 'translations/' + this.translatable_type + this.translatable_id;
         },

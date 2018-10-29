@@ -66,7 +66,7 @@ export default {
         }
     },
     created() {
-
+        this.form.setData(this.param);
     },
     mounted() {
         if (_.get(this.config, 'translatable')) {
@@ -84,12 +84,12 @@ export default {
             this.form.setData(this.param);
         },
         update() {
+            Events.$emit('params:' + this.form.id + ':updating', this.form);
             if (this.dirty) {
                 this.submit();
             }
         },
         submit() {
-            Events.$emit('params:' + this.form.id + ':updating', this.form);
             this.form.submit();
         },
     },
