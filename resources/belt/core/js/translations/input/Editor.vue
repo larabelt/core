@@ -1,5 +1,9 @@
 <template>
-    <belt-editor :initialValue="translation.value" @input="emitEvent"></belt-editor>
+    <belt-editor
+            :form="translation"
+            @input="emitEvent"
+    >
+    </belt-editor>
 </template>
 
 <script>
@@ -7,9 +11,12 @@
 
     export default {
         mixins: [BaseTranslationInput],
+        mounted() {
+            //this.eventBus.$on('fetch-auto-translation', this.fetchAutoTranslation);
+        },
         methods: {
             emitEvent(payload) {
-                this.translation.value = payload;
+                //this.translation.value = payload;
             }
         },
     }

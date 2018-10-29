@@ -40,6 +40,7 @@
         },
         methods: {
             fetchAutoTranslation() {
+                Events.$emit('allow-override-editor-content');
                 this.translation._auto_translate = true;
                 this.submit();
             },

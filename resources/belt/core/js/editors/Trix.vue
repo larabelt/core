@@ -3,8 +3,7 @@
         <input
                 type="hidden"
                 :id="inputID"
-                z-model="form[column]"
-                v-model="content"
+                v-model="form[column]"
                 :name="name"
         />
         <trix-editor
@@ -23,14 +22,11 @@
 
     export default {
         mixins: [base_input],
-        props: {
-            initialValue: {
-                type: String,
-            },
-        },
+        props: {},
         data() {
             let name = Math.random().toString(36).substring(7);
             return {
+                canOverrideEditorContent: true,
                 content: '',
                 editorID: 'trix-' + name,
                 inputID: 'editor-' + name,
@@ -38,12 +34,17 @@
             }
         },
         created() {
-            this.content = !_.isEmpty(this.initialValue) ? this.initialValue : '';
+            // set dynamic form watcher
+            this.$watch('form.' + this.column, function (newValue) {
+                this.overrideEditorContent(newValue);
+            });
+            Events.$on('allow-override-editor-content', () => {
+                console.log(111, this.canOverrideEditorContent);
+                this.canOverrideEditorContent = true;
+            });
         },
-        watch: {
-            initialValue() {
-                this.passInitialValue();
-            }
+        mounted() {
+
         },
         computed: {
             document() {
@@ -58,16 +59,26 @@
         },
         methods: {
             change() {
-                //this.form[this.column] = this.element.value;
+                this.form[this.column] = this.element.value;
                 this.setContent(this.element.value);
-                console.log(111, this.element.value, this.content, String(this.content));
                 this.$emit('input', String(this.content));
             },
-            passInitialValue() {
-                if (this.initialValue && !this.content) {
-                    this.setContent(this.initialValue);
-                    this.editor.insertHTML(this.initialValue);
+            overrideEditorContent(value) {
+                console.log(111, this.editorID, 'override');
+                if (value && this.canOverrideEditorContent) {
+                    this.canOverrideEditorContent = false;
+                    //if (!this.content) {
+                        console.log(222, this.editorID, 'override');
+                        this.setContent(value);
+                        this.setEditorContent(value);
+                    //}
                 }
+            },
+            setEditorContent(value) {
+                //this.editor.loadHTML("");
+                this.element.value = '';
+                //this.element.value = value;
+                this.editor.insertHTML(value);
             },
             setContent(value) {
                 this.content = value;
