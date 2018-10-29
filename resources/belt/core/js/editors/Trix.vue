@@ -39,7 +39,6 @@
                 this.overrideEditorContent(newValue);
             });
             Events.$on('allow-override-editor-content', () => {
-                console.log(111, this.canOverrideEditorContent);
                 this.canOverrideEditorContent = true;
             });
         },
@@ -64,21 +63,14 @@
                 this.$emit('input', String(this.content));
             },
             overrideEditorContent(value) {
-                console.log(111, this.editorID, 'override');
                 if (value && this.canOverrideEditorContent) {
                     this.canOverrideEditorContent = false;
-                    //if (!this.content) {
-                        console.log(222, this.editorID, 'override');
-                        this.setContent(value);
-                        this.setEditorContent(value);
-                    //}
+                    this.setContent(value);
+                    this.setEditorContent(value);
                 }
             },
             setEditorContent(value) {
-                //this.editor.loadHTML("");
-                this.element.value = '';
-                //this.element.value = value;
-                this.editor.insertHTML(value);
+                this.element.value = value;
             },
             setContent(value) {
                 this.content = value;
