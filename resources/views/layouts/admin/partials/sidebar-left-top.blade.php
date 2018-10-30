@@ -1,3 +1,3 @@
-<div id="belt-locale-dropdown">
-    <locale-dropdown></locale-dropdown>
-</div>
+{{--<div id="belt-locale-dropdown">--}}
+    {{--<locale-dropdown></locale-dropdown>--}}
+{{--</div>--}}
