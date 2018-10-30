@@ -8,7 +8,7 @@ export default {
             translations: [],
             entity_id: '',
             entity_type: '',
-            visible: true,
+            visible: false,
         }
     },
     mutations: {

@@ -77,8 +77,8 @@ export default {
                     });
             }
         },
-        toggleTranslationsVisibility(values) {
-            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility', values)
+        toggleTranslationsVisibility() {
+            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility')
         },
     }
 }
