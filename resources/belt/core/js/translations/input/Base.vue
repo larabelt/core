@@ -10,7 +10,9 @@
     export default {
         mixins: [BaseInput, StoreAdapter],
         data() {
+            let key = Math.random().toString(36).substring(7);
             return {
+                key: key,
                 loading: false,
             }
         },
@@ -40,7 +42,7 @@
         },
         methods: {
             fetchAutoTranslation() {
-                Events.$emit('allow-override-editor-content');
+                //Events.$emit('allow-override-editor-content');
                 this.translation._auto_translate = true;
                 this.submit();
             },
@@ -54,6 +56,7 @@
                 this.translation.submit()
                     .then(() => {
                         this.loading = false;
+                        this.key = Math.random().toString(36).substring(7);
                     });
             },
         },

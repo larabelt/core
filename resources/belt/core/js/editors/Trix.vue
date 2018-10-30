@@ -4,7 +4,7 @@
                 type="hidden"
                 :id="inputID"
                 v-model="form[column]"
-                :name="name"
+                :name="key"
         />
         <trix-editor
                 :id="editorID"
@@ -24,13 +24,13 @@
         mixins: [base_input],
         props: {},
         data() {
-            let name = Math.random().toString(36).substring(7);
+            let key = Math.random().toString(36).substring(7);
             return {
                 canOverrideEditorContent: true,
                 content: '',
-                editorID: 'trix-' + name,
-                inputID: 'editor-' + name,
-                name: name,
+                editorID: 'trix-' + key,
+                inputID: 'editor-' + key,
+                key: key,
             }
         },
         created() {
@@ -50,7 +50,7 @@
                 return _.get(this.editor, 'getDocument', {});
             },
             element() {
-                return document.querySelector("#trix-" + this.name, {});
+                return document.querySelector("#trix-" + this.key, {});
             },
             editor() {
                 return _.get(this.element, 'editor');
