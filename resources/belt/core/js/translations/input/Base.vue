@@ -57,6 +57,7 @@
                     .then(() => {
                         this.loading = false;
                         this.key = Math.random().toString(36).substring(7);
+                        this.eventBus.$emit('updated');
                     });
             },
         },

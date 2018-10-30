@@ -3,7 +3,8 @@
         <div class="box-header with-border">
             <span><code>{{ altLocale }}</code></span>
             <span v-if="showAutoTranslate" class="pull-right">
-                <button class="btn btn-default btn-xs" @click.prevent="fetchAutoTranslation">auto-translate</button>
+                <button v-if="!loading" class="btn btn-default btn-xs" @click.prevent="fetchAutoTranslation">auto-translate</button>
+                <span v-else class="btn btn-default btn-xs"><i class="fa fa-refresh fa-spin"></i></span>
             </span>
         </div>
         <div class="box-body">
@@ -32,10 +33,12 @@
         data() {
             return {
                 eventBus: new Vue(),
+                loading: false,
             }
         },
         created() {
             Events.$on(this.parentUpdateEvent, this.update);
+            this.eventBus.$on('updated', this.updated);
         },
         computed: {
             inputComponent() {
@@ -59,10 +62,14 @@
         },
         methods: {
             fetchAutoTranslation() {
+                this.loading = true;
                 this.eventBus.$emit('fetch-auto-translation');
             },
             update() {
                 this.eventBus.$emit('update');
+            },
+            updated() {
+                this.loading = false;
             },
         },
         components: {
