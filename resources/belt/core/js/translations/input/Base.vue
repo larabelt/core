@@ -33,7 +33,7 @@
                 return 'translations/' + this.entity_type + this.entity_id;
             },
         },
-        created() {
+        beforeMount() {
             this.pushTranslation({locale: this.altLocale, translatable_column: this.column});
         },
         mounted() {

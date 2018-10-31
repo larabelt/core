@@ -6,7 +6,8 @@
     </select>
 </template>
 <script>
-    import locales from 'belt/core/js/translations/mixins/locales';
+    //import locales from 'belt/core/js/translations/mixins/locales';
+    import locales from 'belt/core/js/locales/mixin';
 
     export default {
         mixins: [locales],

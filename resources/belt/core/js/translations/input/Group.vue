@@ -8,7 +8,7 @@
             </span>
         </div>
         <div class="box-body">
-            <component :is="inputComponent" ></component>
+            <component :is="inputComponent"></component>
         </div>
     </div>
 </template>
@@ -25,6 +25,7 @@
         props: {
             type: {
                 type: String,
+                required: true,
                 default: function () {
                     return 'text';
                 }
@@ -41,10 +42,14 @@
         created() {
             Events.$on(this.parentUpdateEvent, this.update);
             this.eventBus.$on('updated', this.updated);
+            console.log(111, this.type, this.column, this.translatable, this.translationsVisible);
+        },
+        mounted() {
+            console.log(222, this.type, this.column, this.translatable, this.translationsVisible);
         },
         computed: {
             groupKey() {
-                return this.locale + '-' + this.key;
+                return this.locale + '-' + this.type + '-' + this.key;
             },
             inputComponent() {
                 if (this.type == 'editor') {

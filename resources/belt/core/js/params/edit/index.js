@@ -68,10 +68,12 @@ export default {
     created() {
         this.form.setData(this.param);
     },
-    mounted() {
+    beforeMount() {
         if (_.get(this.config, 'translatable')) {
             this.bootTranslationStore();
         }
+    },
+    mounted() {
         Events.$on('update-params', this.update);
         this.reset();
     },
