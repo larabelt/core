@@ -65,9 +65,10 @@ class SetLocale
                     $request->server->all(),
                     $request->getContent()
                 );
+
+                return $next($newRequest);
             }
 
-            return $next($newRequest);
         }
 
         return $next($request);

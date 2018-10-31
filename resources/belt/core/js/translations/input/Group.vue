@@ -8,7 +8,7 @@
             </span>
         </div>
         <div class="box-body">
-            <component :is="inputComponent"></component>
+            <component :is="inputComponent" ></component>
         </div>
     </div>
 </template>
