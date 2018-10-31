@@ -1,5 +1,5 @@
 <template>
-    <div class="zbtn-group form-inline">
+    <div class="form-inline">
         <button
                 class="btn btn-sm"
                 :class="buttonClass"
@@ -7,7 +7,7 @@
         >
             translate
         </button>
-        <filter-locale v-if="translationsVisible"></filter-locale>
+        <filter-locale v-if="translationsVisible" @change-locale="changeLocale"></filter-locale>
     </div>
 </template>
 
@@ -35,6 +35,11 @@
             },
         },
         methods: {
+            changeLocale(code) {
+                console.log('change-locale', code);
+                Cookies.set('locale', code);
+                this.$emit('change-locale');
+            },
             toggle() {
                 this.toggleTranslationsVisibility();
                 History.set('translations', 'visible', this.translationsVisible);

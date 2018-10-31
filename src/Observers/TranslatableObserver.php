@@ -48,8 +48,8 @@ class TranslatableObserver
      */
     public function retrieved(TranslatableInterface $item)
     {
-        if ($locale = Translate::getAlternateLocale()) {
-            //$item->setTranslations($locale);
+        if ($locale = Translate::getAlternateLocale() && Translate::canTranslateObjects()) {
+            $item->setTranslations($locale);
         }
     }
 

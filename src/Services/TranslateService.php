@@ -13,6 +13,8 @@ class TranslateService
 {
     use HasConfig;
 
+    protected static $translateObjects = false;
+
     /**
      * @return string
      */
@@ -32,13 +34,44 @@ class TranslateService
     /**
      * @param $lang
      */
-    public function setLocale($locale)
+    public function setLocale($code)
     {
-        $locales = array_keys((array) $this->config('locales'));
-
-        if (in_array($locale, $locales)) {
-            App::setLocale($locale);
+        if ($this->isAvailableLocale($code)) {
+            App::setLocale($code);
+            Cookie::queue(Cookie::make('locale', $code, 86400 * 365, null, null, false, false));
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocaleFromRequest($request)
+    {
+        $code = $request->get('locale') ?? $request->segments()[0];
+
+        if ($code && $this->isAvailableLocale($code)) {
+            return $code;
+        }
+    }
+
+    /**
+     * @param $code
+     * @return bool
+     */
+    public function isAvailableLocale($code)
+    {
+        return array_first($this->getAvailableLocales(), function ($locale) use ($code) {
+            return array_get($locale, 'code') == $code;
+        });
+    }
+
+    /**
+     * @param $locale
+     * @return bool
+     */
+    public function getAvailableLocales()
+    {
+        return $this->config('locales');
     }
 
     /**
@@ -46,10 +79,27 @@ class TranslateService
      */
     public function getAlternateLocale()
     {
-        $locale = $this->getLocale();
-        if ($locale != config('app.fallback_locale')) {
-            return $locale;
+        $code = $this->getLocale();
+
+        if ($code != config('app.fallback_locale') && $this->isAvailableLocale($code)) {
+            return $code;
         }
+    }
+
+    /**
+     * @param $value
+     */
+    public static function setTranslateObjects($value)
+    {
+        static::$translateObjects = $value;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function canTranslateObjects()
+    {
+        return static::$translateObjects;
     }
 
     /**

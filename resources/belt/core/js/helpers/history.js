@@ -1,4 +1,4 @@
-import Cookies from 'belt/core/js/helpers/cookies';
+//import Cookies from 'belt/core/js/helpers/cookies';
 
 class History {
 
@@ -45,7 +45,7 @@ class History {
     }
 
     parseGroupCookie(group) {
-        let value = (new Cookies).get(group);
+        let value = Cookies.get(group);
 
         value = value === null ? '{}' : value;
 
@@ -58,7 +58,7 @@ class History {
 
         _.set(object, path, value);
 
-        (new Cookies).set(group, JSON.stringify(object));
+        Cookies.set(group, JSON.stringify(object));
     }
 
     getCookie(group, path, _default) {

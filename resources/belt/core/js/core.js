@@ -18,6 +18,10 @@ import modals from 'belt/core/js/base/modals/modals.vue';
 
 window.Events = new Vue({});
 
+import Cookies from 'belt/core/js/helpers/cookies';
+
+window.Cookies = new Cookies({});
+
 import History from 'belt/core/js/helpers/history';
 
 window.History = new History({});

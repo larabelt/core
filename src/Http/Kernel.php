@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
             'bindings',
         ],
         'web' => [
+            //BeltMiddleware\SetLocale::class,
             BeltMiddleware\EncryptCookies::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             BeltMiddleware\SetGuidCookie::class,

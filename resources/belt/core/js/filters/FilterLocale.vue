@@ -1,5 +1,5 @@
 <template>
-    <select class="form-control" v-model="locale" title="select locale" @change="change()">
+    <select class="form-control" v-model="activeLocale" title="select locale" @change="change()">
         <template v-for="locale in altLocales">
             <option :value="locale.code">{{ locale.label }}</option>
         </template>
@@ -12,21 +12,17 @@
         mixins: [locales],
         data() {
             return {
-                locale: '',
+                activeLocale: '',
             }
         },
         mounted() {
-            this.locale = this.altLocale;
-        },
-        computed: {
-            show() {
-                return !_.isEmpty(this.locales);
-            },
+            this.activeLocale = this.locale;
         },
         methods: {
             change(event) {
-                this.$router.push({query: {locale: this.locale}});
-                window.location.reload();
+                //this.$router.push({query: {locale: this.locale}});
+                //window.location.reload();
+                this.$emit('change-locale', this.activeLocale);
             },
         },
     }

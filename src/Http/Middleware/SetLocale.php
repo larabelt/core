@@ -2,6 +2,7 @@
 
 use Closure, Cookie;
 use Belt\Core\Services\TranslateService;
+use Illuminate\Http\Request;
 
 /**
  * Class SetLocale
@@ -32,12 +33,41 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->get('locale') ?: $request->cookie('locale');
 
-        if ($locale) {
-            $this->service()->setLocale($locale);
-            Cookie::queue(Cookie::make('locale', $locale, 86400 * 365, null, null, false, false));
+        $code = $this->service()->getLocaleFromRequest($request);
 
+        if ($code) {
+
+            $this->service()->setLocale($code);
+
+            if ($this->service()->getAlternateLocale()) {
+                TranslateService::setTranslateObjects(true);
+            }
+
+            $uri = $request->server->get('REQUEST_URI');
+            foreach (config('belt.core.translate.locales') as $locale) {
+                $prefix = sprintf('/%s', $locale['code']);
+                if (substr($uri, 0, strlen($prefix)) == $prefix) {
+                    $newUri = substr($uri, strlen($prefix));
+                }
+            }
+
+            if (isset($newUri)) {
+                $request->server->set('REQUEST_URI', $newUri);
+
+                $newRequest = new Request();
+                $newRequest->initialize(
+                    $request->query->all(),
+                    $request->request->all(),
+                    $request->attributes->all(),
+                    $request->cookies->all(),
+                    $request->files->all(),
+                    $request->server->all(),
+                    $request->getContent()
+                );
+            }
+
+            return $next($newRequest);
         }
 
         return $next($request);

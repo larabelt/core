@@ -1,5 +1,5 @@
 <template>
-    <div v-if="visible" class="box box-solid box-warning">
+    <div v-if="visible" class="box box-solid box-warning" :key="groupKey">
         <div class="box-header with-border">
             <span><code>{{ altLocale }}</code></span>
             <span v-if="showAutoTranslate" class="pull-right">
@@ -31,7 +31,9 @@
             },
         },
         data() {
+            let key = Math.random().toString(36).substring(7);
             return {
+                key: key,
                 eventBus: new Vue(),
                 loading: false,
             }
@@ -41,6 +43,9 @@
             this.eventBus.$on('updated', this.updated);
         },
         computed: {
+            groupKey() {
+                return this.locale + '-' + this.key;
+            },
             inputComponent() {
                 if (this.type == 'editor') {
                     return 'TranslationInputEditor'
