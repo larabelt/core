@@ -58,6 +58,9 @@ export default {
         toggleVisibility: (context) => {
             context.commit('visible', !context.state.visible);
         },
+        setVisibility: (context, value) => {
+            context.commit('visible', value);
+        },
     },
     getters: {
         translation: (state) => (values) => {

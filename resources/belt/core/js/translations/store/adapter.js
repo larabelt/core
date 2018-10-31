@@ -1,4 +1,5 @@
-import locales from 'belt/core/js/translations/mixins/locales';
+//import locales from 'belt/core/js/translations/mixins/locales';
+import locales from 'belt/core/js/locales/mixin';
 import store from 'belt/core/js/translations/store';
 
 export default {
@@ -49,7 +50,10 @@ export default {
             }
         },
         toggleTranslationsVisibility() {
-            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility')
+            this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility');
+        },
+        setTranslationsVisibility(value) {
+            this.$store.dispatch(this.translationsStoreKey + '/setVisibility', value);
         },
     }
 }
