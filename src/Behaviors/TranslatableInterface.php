@@ -1,7 +1,5 @@
 <?php namespace Belt\Core\Behaviors;
 
-use Belt\Core\Translation;
-
 /**
  * Interface TranslatableInterface
  * @package Belt\Core\Behaviors
@@ -10,9 +8,24 @@ interface TranslatableInterface
 {
 
     /**
+     * Binds events to subclass
+     */
+    public static function bootTranslatable();
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function translations();
+
+    /**
+     * @return mixed
+     */
+    public function getTranslatableAttributes();
+
+    /**
+     * @return mixed
+     */
+    public function getTranslatedAttributes();
 
     /**
      * @param $attribute
@@ -20,11 +33,13 @@ interface TranslatableInterface
      * @param $locale
      * @return mixed
      */
-    public function saveTranslation($attribute, $value, $locale = 'en_US');
+    public function saveTranslation($attribute, $value, $locale);
 
     /**
      * @param string $locale
      */
-    public function setTranslations($locale = 'en_US');
+    public function translate($locale);
+
+    public function untranslate();
 
 }

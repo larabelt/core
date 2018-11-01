@@ -75,7 +75,7 @@ class Param extends Model implements
     /**
      * @return mixed
      */
-    public function getTranslatable()
+    public function getTranslatableAttributes()
     {
         return $this->config('translatable') ? 'value' : null;
     }

@@ -10,6 +10,8 @@ use Belt\Core\Observers\TranslatableObserver;
 trait Translatable
 {
 
+    protected $translated = [];
+
     /**
      * Binds events to subclass
      */
@@ -29,9 +31,17 @@ trait Translatable
     /**
      * @return mixed
      */
-    public function getTranslatable()
+    public function getTranslatableAttributes()
     {
         return $this->config('translatable');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTranslatedAttributes()
+    {
+        return $this->translated;
     }
 
     /**
@@ -40,7 +50,7 @@ trait Translatable
      * @param $locale
      * @return mixed
      */
-    public function saveTranslation($attribute, $value, $locale = 'en_US')
+    public function saveTranslation($attribute, $value, $locale)
     {
         $translation = $this->translations()->updateOrCreate([
             'locale' => $locale,
@@ -55,11 +65,21 @@ trait Translatable
     /**
      * @param string $locale
      */
-    public function setTranslations($locale = 'en_US')
+    public function translate($locale)
     {
         $this->load('translations');
         foreach ($this->translations->where('locale', $locale) as $translation) {
+            //$this->translated[$translation->translatable_column] = $this->getAttribute($translation->translatable_column);
+            $this->translated[] = $translation->translatable_column;
             $this->setAttribute($translation->translatable_column, $translation->value);
+        }
+    }
+
+    public function untranslate()
+    {
+        foreach ($this->getTranslatedAttributes() as $n => $attribute) {
+            $this->setAttribute($attribute, $this->getOriginal($attribute));
+            unset($this->translated[$n]);
         }
     }
 

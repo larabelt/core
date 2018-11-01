@@ -3,7 +3,7 @@
 namespace Belt\Core\Services;
 
 use App, Belt, Cookie;
-use Belt\Core\Behaviors\HasConfig;
+use Belt\Core\Behaviors;
 
 /**
  * Class TranslateService
@@ -11,9 +11,19 @@ use Belt\Core\Behaviors\HasConfig;
  */
 class TranslateService
 {
-    use HasConfig;
+    use Behaviors\CanEnable, Behaviors\HasConfig;
 
     protected static $translateObjects = false;
+
+    /**
+     * TranslateService constructor.
+     */
+    public function __construct()
+    {
+        if (count($this->getAvailableLocales()) > 1) {
+            static::enable();
+        }
+    }
 
     /**
      * @return string
@@ -21,6 +31,11 @@ class TranslateService
     public function configPath()
     {
         return 'belt.core.translate';
+    }
+
+    public static function active()
+    {
+        return static::active();
     }
 
     /**

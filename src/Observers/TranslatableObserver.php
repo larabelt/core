@@ -8,6 +8,21 @@ use Belt\Core\Behaviors\TranslatableInterface;
 class TranslatableObserver
 {
     /**
+     * Listen to the TranslatableInterface retrieved $item.
+     *
+     * @param  TranslatableInterface $item
+     * @return void
+     */
+    public function retrieved(TranslatableInterface $item)
+    {
+        if ($locale = Translate::getAlternateLocale()) {
+            if (Translate::canTranslateObjects()) {
+                $item->translate($locale);
+            }
+        }
+    }
+
+    /**
      * Listen to the Model saving $item.
      *
      * @param TranslatableInterface $item
@@ -26,31 +41,7 @@ class TranslatableObserver
 //                }
 //            }
 //        }
-    }
-
-    /**
-     * Listen to the Model saving $item.
-     *
-     * @param TranslatableInterface $item
-     */
-    public function saved(TranslatableInterface $item)
-    {
-        if ($locale = Translate::getAlternateLocale()) {
-            //$item->setTranslations($locale);
-        }
-    }
-
-    /**
-     * Listen to the TranslatableInterface retrieved $item.
-     *
-     * @param  TranslatableInterface $item
-     * @return void
-     */
-    public function retrieved(TranslatableInterface $item)
-    {
-        if ($locale = Translate::getAlternateLocale() && Translate::canTranslateObjects()) {
-            $item->setTranslations($locale);
-        }
+        $item->untranslate();
     }
 
 }

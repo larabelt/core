@@ -33,6 +33,9 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
+        if (!$this->service()->isEnabled()) {
+            return $next($request);
+        }
 
         $code = $this->service()->getLocaleFromRequest($request);
 
@@ -53,6 +56,7 @@ class SetLocale
             }
 
             if (isset($newUri)) {
+
                 $request->server->set('REQUEST_URI', $newUri);
 
                 $newRequest = new Request();
