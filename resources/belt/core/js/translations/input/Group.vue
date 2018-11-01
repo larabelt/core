@@ -42,10 +42,8 @@
         created() {
             Events.$on(this.parentUpdateEvent, this.update);
             this.eventBus.$on('updated', this.updated);
-            console.log(111, this.type, this.column, this.translatable, this.translationsVisible);
         },
         mounted() {
-            console.log(222, this.type, this.column, this.translatable, this.translationsVisible);
         },
         computed: {
             groupKey() {

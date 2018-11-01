@@ -36,7 +36,6 @@ export default {
             return _.get(this.paramConfigs, 'groups', []);
         },
         sortedParams() {
-            //let sorted = [];
             let configs = _.get(this.paramConfigs, 'params');
             let sorted = {};
             _.forEach(configs, (config, paramKey) => {

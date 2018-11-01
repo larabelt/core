@@ -5,7 +5,7 @@ export default {
     state() {
         return {
             config: {},
-            data: {},
+            data: [],
             entity_id: '',
             entity_type: '',
         }
@@ -20,7 +20,7 @@ export default {
         config: (context, value) => context.commit('config', value),
         data: (context, value) => context.commit('data', value),
         load: (context) => {
-            context.commit('data', {});
+            context.commit('data', []);
             let table = new Table({entity_type: context.state.entity_type, entity_id: context.state.entity_id});
             return new Promise((resolve, reject) => {
                 table.index()
@@ -32,6 +32,17 @@ export default {
                     .catch(error => {
                         reject(error);
                     })
+            });
+        },
+        pushParam: ({state}, value) => {
+            let param = state.data.find(param => param.key === value.locale);
+            if (!param) {
+                state.data.push(value);
+            }
+        },
+        pushParams: (context, params) => {
+            _.each(params, (param) => {
+                context.dispatch('pushParam', param);
             });
         },
         set: (context, options) => {
