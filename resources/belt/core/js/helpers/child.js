@@ -19,4 +19,14 @@ export function propEntityType() {
     }
 }
 
-export default {propEntityID, propEntityType}
+export function propForm() {
+    return {
+        form: {
+            default: function () {
+                return this.$parent.form;
+            }
+        }
+    }
+}
+
+export default {propEntityID, propEntityType, propForm}
