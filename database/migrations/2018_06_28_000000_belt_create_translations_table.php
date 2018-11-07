@@ -16,7 +16,7 @@ class BeltCreateTranslationsTable extends Migration
             $table->increments('id');
             $table->morphs('translatable');
             $table->string('translatable_column');
-            $table->string('locale', 10)->default('en_US');
+            $table->string('locale', 5)->default('en_US');
             $table->text('value')->nullable();
             $table->index(['translatable_type', 'translatable_id', 'translatable_column', 'locale'], 'main');
             $table->timestamps();

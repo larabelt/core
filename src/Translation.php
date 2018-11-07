@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  * @package Belt\Core
  */
 class Translation extends Model
+    implements Belt\Core\Behaviors\IncludesLocaleInterface
 {
+    use Belt\Core\Behaviors\IncludesLocale;
+
     /**
      * @var string
      */

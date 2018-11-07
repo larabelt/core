@@ -19,6 +19,9 @@ export default {
         altLocales() {
             return _.differenceBy(this.locales, [{'code': this.fallbackLocale}], 'code');
         },
+        hasLocales() {
+            return this.altLocales.length ? true : false;
+        },
     },
     methods: {
         initializeLocalesStore() {

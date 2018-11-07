@@ -1,9 +1,8 @@
-//import locales from 'belt/core/js/translations/mixins/locales';
-import locales from 'belt/core/js/locales/mixin';
+import LocalesStore from 'belt/core/js/locales/store/adapter';
 import store from 'belt/core/js/translations/store';
 
 export default {
-    mixins: [locales],
+    mixins: [LocalesStore],
     data() {
         return {
             translationsLoading: false,

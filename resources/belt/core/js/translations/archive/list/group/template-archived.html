@@ -1,7 +1,0 @@
-<div>
-    <div class="well well-sm well-default" :class="'group-' + groupKey">
-        {{ group.label }}
-        {{ group.description }}
-        <edit v-for="translation in translations" :translation="translation" :config="translation.config" :key="translation.id"></edit>
-    </div>
-</div>

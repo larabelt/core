@@ -1,5 +1,5 @@
 <template>
-    <div class="form-inline">
+    <div v-if="hasLocales" class="form-inline">
         <button
                 class="btn btn-sm"
                 :class="buttonClass"
@@ -13,7 +13,7 @@
 
 <script>
     import shared from 'belt/core/js/button/shared';
-    import FilterLocale from 'belt/core/js/filters/FilterLocale';
+    import FilterLocale from 'belt/core/js/locales/filter/FilterLocale';
     import translatable from 'belt/core/js/translations/store/adapter';
 
     export default {

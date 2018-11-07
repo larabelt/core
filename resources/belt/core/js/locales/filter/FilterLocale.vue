@@ -7,7 +7,7 @@
 </template>
 <script>
     //import locales from 'belt/core/js/translations/mixins/locales';
-    import locales from 'belt/core/js/locales/mixin';
+    import locales from 'belt/core/js/locales/store/adapter';
 
     export default {
         mixins: [locales],
