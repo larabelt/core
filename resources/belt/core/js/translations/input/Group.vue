@@ -40,6 +40,7 @@
             }
         },
         created() {
+            console.log(111, this.parentUpdateEvent);
             Events.$on(this.parentUpdateEvent, this.update);
             this.eventBus.$on('updated', this.updated);
         },

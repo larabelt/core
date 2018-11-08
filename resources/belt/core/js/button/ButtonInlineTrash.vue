@@ -10,13 +10,13 @@
         <template v-else>
             <div class="btn-group">
                 <button
-                        class="btn btn-xs btn-warning"
+                        class="btn btn-xs btn-danger"
                         @click.prevent="confirm"
-                >trash</button>
+                ><i class="fa fa-trash"></i></button>
                 <button
                         class="btn btn-xs btn-default"
                         @click.prevent="cancel"
-                >cancel</button>
+                ><i class="fa fa-undo"></i></button>
             </div>
         </template>
     </span>

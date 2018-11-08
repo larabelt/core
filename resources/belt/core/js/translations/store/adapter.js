@@ -3,11 +3,6 @@ import store from 'belt/core/js/translations/store';
 
 export default {
     mixins: [LocalesStore],
-    data() {
-        return {
-            translationsLoading: false,
-        }
-    },
     computed: {
         translatable_type() {
             return this.$parent.entity_type;
@@ -34,18 +29,11 @@ export default {
             this.$store.dispatch(this.translationsStoreKey + '/pushTranslation', values)
         },
         loadTranslations() {
-            this.translationsLoading = true;
             let translations = _.get(this.form, 'translations', []);
             if (translations.length) {
-                this.$store.dispatch(this.translationsStoreKey + '/pushTranslations', translations)
-                    .then(() => {
-                        this.translationsLoading = false;
-                    });
+                this.$store.dispatch(this.translationsStoreKey + '/pushTranslations', translations);
             } else {
-                this.$store.dispatch(this.translationsStoreKey + '/load')
-                    .then(() => {
-                        this.translationsLoading = false;
-                    });
+                this.$store.dispatch(this.translationsStoreKey + '/load');
             }
         },
         toggleTranslationsVisibility() {

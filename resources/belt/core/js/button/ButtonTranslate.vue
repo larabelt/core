@@ -20,7 +20,6 @@
         mixins: [shared, translatable],
         mounted() {
             if (!this.translationsVisible && History.get('translations', 'visible')) {
-                //this.toggleTranslationsVisibility();
                 this.toggle();
             }
         },
@@ -41,21 +40,14 @@
                 this.setLocale(code);
             },
             toggle() {
-
                 let visible = !this.translationsVisible;
-
-                //this.toggleTranslationsVisibility();
-
                 this.setTranslationsVisibility(visible);
-
-                //History.set('translations', 'visible', this.translationsVisible);
                 History.set('translations', 'visible', visible);
                 let paramsStoreKey = 'params/' + this.translatable_type + this.translatable_id;
                 let params = this.$store.getters[paramsStoreKey + '/data'];
                 _.each(params, (param) => {
                     let paramTranslationStoreKey = 'translations/params' + param.id;
                     if (this.$store.state[paramTranslationStoreKey]) {
-                        //this.$store.dispatch(paramTranslationStoreKey + '/toggleVisibility');
                         this.$store.dispatch(paramTranslationStoreKey + '/setVisibility', visible);
                     }
                 });
