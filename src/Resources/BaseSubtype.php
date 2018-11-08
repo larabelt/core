@@ -12,7 +12,8 @@ use Illuminate\Support\Collection;
 abstract class BaseSubtype extends Belt\Core\Resources\BaseResource
 {
     use Belt\Core\Resources\Traits\HasParams,
-        Belt\Core\Resources\Traits\HasParamGroups;
+        Belt\Core\Resources\Traits\HasParamGroups,
+        Belt\Core\Resources\Traits\HasTranslatable;
 
     /**
      * @var string
@@ -128,6 +129,7 @@ abstract class BaseSubtype extends Belt\Core\Resources\BaseResource
             'path' => $this->getPath(),
             'builder' => $this->getBuilder(),
             'preview' => $this->getPreview(),
+            'translatable' => $this->getTranslatable() ?: [],
             'param_groups' => $this->getParamGroups()->toArray(),
             'params' => $this->getParams()->toArray(),
         ];

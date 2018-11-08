@@ -11,7 +11,8 @@ use Belt, Illuminate;
 abstract class BaseParam extends Belt\Core\Resources\BaseResource
 {
 
-    use Belt\Core\Resources\Traits\HasGroup;
+    use Belt\Core\Resources\Traits\HasGroup,
+        Belt\Core\Resources\Traits\HasTranslatable;
 
     /**
      * @var string
@@ -47,6 +48,7 @@ abstract class BaseParam extends Belt\Core\Resources\BaseResource
             'type' => $this->getType(),
             'label' => $this->getLabel(),
             'description' => $this->getDescription(),
+            'translatable' => $this->getTranslatable() ? true : false,
         ];
     }
 }
