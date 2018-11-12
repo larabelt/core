@@ -60,9 +60,23 @@ class TranslateService
     /**
      * @return mixed
      */
+    public function prefixUrls(): bool
+    {
+        return $this->config('prefix-urls');
+    }
+
+    /**
+     * @return mixed
+     */
     public function getLocaleFromRequest($request)
     {
-        $code = $request->get('locale') ?? $request->segment(1);
+        //$code = $request->get('locale') ?? $request->segment(1);
+
+        $code = $request->get('locale');
+
+        if (!$code && $this->prefixUrls()) {
+            $code = $request->segment(1);
+        }
 
         if ($code && $this->isAvailableLocale($code)) {
             return $code;
