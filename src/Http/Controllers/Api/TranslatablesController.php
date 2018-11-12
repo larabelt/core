@@ -101,7 +101,7 @@ class TranslatablesController extends ApiController
         $input = $request->all();
 
         if (array_get($input, '_auto_translate')) {
-            $input['value'] = Translate::translate($input['locale'], $translatable->getOriginal($input['translatable_column']));
+            $input['value'] = Translate::translate($translatable->getOriginal($input['translatable_column']), $input['locale']);
         }
 
         $translation = $translatable->saveTranslation($input['translatable_column'], $input['value'], $input['locale']);
@@ -134,7 +134,7 @@ class TranslatablesController extends ApiController
         $input = $request->all();
 
         if (array_get($input, '_auto_translate')) {
-            $input['value'] = Translate::translate($translation->locale, $translatable->getOriginal($translation->translatable_column));
+            $input['value'] = Translate::translate($translatable->getOriginal($translation->translatable_column), $translation->locale);
         }
 
         $this->set($translation, $input, [

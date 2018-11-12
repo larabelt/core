@@ -62,7 +62,7 @@ class TranslateService
      */
     public function getLocaleFromRequest($request)
     {
-        $code = $request->get('locale') ?? $request->segments()[0];
+        $code = $request->get('locale') ?? $request->segment(1);
 
         if ($code && $this->isAvailableLocale($code)) {
             return $code;
@@ -118,30 +118,21 @@ class TranslateService
     }
 
     /**
-     * @todo abstract this
-     * @param $target
      * @param $text
-     * @param $source
+     * @param $target_locale
+     * @param $source_locale
      * @return \Aws\Result
      */
-    public function translate($target, $text, $source = 'en')
+    public function translate($text, $target_locale = null, $source_locale = null)
     {
-        $source = $source ?: config('app.fallback_locale');
-        $source = substr($source, 0, 2);
-        $target = substr($target, 0, 2);
+        $source_locale = $source_locale ?: config('app.fallback_locale');
+        $target_locale = $target_locale ?: $this->getAlternateLocale();
 
-        $client = new \Aws\Translate\TranslateClient([
-            'version' => 'latest',
-            'region' => 'us-east-2'
-        ]);
+        $driver_class = $this->config('auto-translate.driver');
 
-        $result = $client->translateText([
-            'SourceLanguageCode' => $source, // REQUIRED
-            'TargetLanguageCode' => $target, // REQUIRED
-            'Text' => $text, // REQUIRED
-        ]);
+        $driver = new $driver_class($this);
 
-        return $result->get('TranslatedText');
+        return $driver->translate($text, $target_locale, $source_locale);
     }
 
 }
