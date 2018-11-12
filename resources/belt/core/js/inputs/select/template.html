@@ -6,7 +6,7 @@
                 <option :value="option.value">{{ option.label }}</option>
             </template>
         </select>
-        <span class="help-block" v-html="description"></span>
+        <span class="help-block" v-html="_description"></span>
         <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     </div>
 </span>

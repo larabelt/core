@@ -10,6 +10,11 @@ export default {
                 return this.$parent.column;
             }
         },
+        description: {
+            default: function () {
+                return '';
+            }
+        },
         form: {
             default: function () {
                 return this.$parent.form;
@@ -31,8 +36,8 @@ export default {
         return {};
     },
     computed: {
-        description() {
-            return this.getConfig('description');
+        _description() {
+            return this.description ? this.description : this.getConfig('description');
         },
         entity_type() {
             return this.form.morph_class;

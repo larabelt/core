@@ -4,7 +4,7 @@
         <span v-if="required">*</span></label>
     </label>
     <textarea class="form-control" rows="10" v-model="form[column]" @keyup="emitEvent()"></textarea>
-    <span class="help-block" v-html="description"></span>
+    <span class="help-block" v-html="_description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     <translation-input-group type="textarea"></translation-input-group>
 </div>
