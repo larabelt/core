@@ -116,6 +116,22 @@ class TranslateService
     }
 
     /**
+     * @return mixed
+     */
+    public function getAlternateLocales()
+    {
+        $locales = [];
+
+        foreach ($this->getAvailableLocales() as $locale) {
+            if ($locale['code'] != config('app.fallback_locale')) {
+                $locales[] = $locale;
+            }
+        }
+
+        return $locales;
+    }
+
+    /**
      * @param $value
      */
     public static function setTranslateObjects($value)

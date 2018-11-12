@@ -77,6 +77,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $this->commands(Belt\Core\Commands\IndexCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestCommand::class);
+        $this->commands(Belt\Core\Commands\TranslateCommand::class);
         $this->commands(Belt\Core\Commands\UpdateCommand::class);
 
         // observers
