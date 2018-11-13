@@ -16,7 +16,7 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} ';
+    protected $signature = 'translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug}';
 
     /**
      * The console command description.
@@ -75,6 +75,9 @@ class TranslateCommand extends Command
             foreach ($this->locales() as $locale) {
                 if ($newValue = Translate::translate($originalValue, $locale)) {
                     $item->saveTranslation($attribute, $newValue, $locale);
+                    if ($this->option('debug')) {
+                        $this->info("($locale) $attribute: $originalValue --> $newValue");
+                    }
                 }
             }
         }

@@ -19,4 +19,28 @@ abstract class BaseAutoTranslate
 
     abstract function translate($text, $target_locale, $source_locale);
 
+    public function split($text, $size = 1000)
+    {
+        $sections = [];
+
+        $helper = new Belt\Core\Services\AutoTranslate\Helpers\Sentence();
+
+        $elements = $helper->split($text);
+
+        foreach ($elements as $n => $element) {
+            $section = isset($section) ? $section : '';
+            $section .= $element;
+            if (strlen($section) >= $size) {
+                $sections[] = $section;
+                unset($section);
+            }
+        }
+
+        if (isset($section)) {
+            $sections[] = $section;
+        }
+
+        return $sections;
+    }
+
 }
