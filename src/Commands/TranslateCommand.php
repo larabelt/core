@@ -16,7 +16,7 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug}';
+    protected $signature = 'translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug} {--queue}';
 
     /**
      * The console command description.
@@ -73,10 +73,14 @@ class TranslateCommand extends Command
 
         if ($originalValue) {
             foreach ($this->locales() as $locale) {
-                if ($newValue = Translate::translate($originalValue, $locale)) {
-                    $item->saveTranslation($attribute, $newValue, $locale);
-                    if ($this->option('debug')) {
-                        $this->info("($locale) $attribute: $originalValue --> $newValue");
+                if ($this->option('queue')) {
+                    dispatch(new Belt\Core\Jobs\TranslateValue($item, $attribute, $originalValue, $locale));
+                } else {
+                    if ($newValue = Translate::translate($originalValue, $locale)) {
+                        $item->saveTranslation($attribute, $newValue, $locale);
+                        if ($this->option('debug')) {
+                            $this->info("($locale) $attribute: $originalValue --> $newValue");
+                        }
                     }
                 }
             }
