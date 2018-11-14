@@ -1,5 +1,5 @@
 <template>
-    <div v-if="hasLocales" class="form-inline">
+    <div v-if="showButton" class="form-inline">
         <button
                 class="btn btn-sm"
                 :class="buttonClass"
@@ -14,10 +14,10 @@
 <script>
     import shared from 'belt/core/js/button/shared';
     import FilterLocale from 'belt/core/js/locales/filter/FilterLocale';
-    import translatable from 'belt/core/js/translations/store/adapter';
+    import TranslatableStore from 'belt/core/js/translations/store/adapter';
 
     export default {
-        mixins: [shared, translatable],
+        mixins: [shared, TranslatableStore],
         mounted() {
             if (!this.translationsVisible && History.get('translations', 'visible')) {
                 this.toggle();
@@ -26,6 +26,25 @@
         computed: {
             buttonClass() {
                 return this.translationsVisible ? 'btn-warning' : 'btn-default';
+            },
+            hasTranslatableAttributes() {
+
+                if (!_.isEmpty(_.get(this.form, 'config.translatable', []))) {
+                    return true;
+                }
+
+                let paramsConfig = _.get(this.form, 'config.params', {});
+                for (let key in paramsConfig) {
+                    let paramConfig = paramsConfig[key];
+                    if (_.get(paramConfig, 'translatable')) {
+                        return true;
+                    }
+                }
+
+                return false;
+            },
+            showButton() {
+                return this.hasLocales && this.hasTranslatableAttributes;
             },
             translatable_type() {
                 return this.form.morph_class;
