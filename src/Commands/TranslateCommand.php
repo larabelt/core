@@ -16,7 +16,7 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug} {--queue}';
+    protected $signature = 'belt-core:translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug} {--queue} {--force}';
 
     /**
      * The console command description.
@@ -32,21 +32,25 @@ class TranslateCommand extends Command
      */
     public function handle()
     {
-        $limit = $this->option('limit');
+
 
         foreach ($this->types() as $type) {
+
+            $limit = $this->option('limit');
+
             $qb = Morph::type2QB($type);
 
             if ($ids = $this->ids()) {
+                $limit = count($ids);
                 $qb->whereIn('id', $ids);
             }
 
             $count = 1;
             foreach ($qb->get() as $item) {
-                foreach ($item->config('translatable') as $attribute) {
+                foreach ((array) $item->config('translatable') as $attribute) {
                     $this->translate($item, $attribute);
                 }
-                foreach ($item->config('params') as $key => $config) {
+                foreach ((array) $item->config('params') as $key => $config) {
                     if (array_get($config, 'translatable')) {
                         if ($param = $item->params->where('key', $key)->first()) {
                             $this->translate($param, 'value');
@@ -69,18 +73,33 @@ class TranslateCommand extends Command
             }
         }
 
-        $originalValue = $item->getOriginal($attribute);
+        $sourceValue = $item->getOriginal($attribute);
 
-        if ($originalValue) {
-            foreach ($this->locales() as $locale) {
-                if ($this->option('queue')) {
-                    dispatch(new Belt\Core\Jobs\TranslateValue($item, $attribute, $originalValue, $locale));
-                } else {
-                    if ($newValue = Translate::translate($originalValue, $locale)) {
-                        $item->saveTranslation($attribute, $newValue, $locale);
-                        if ($this->option('debug')) {
-                            $this->info("($locale) $attribute: $originalValue --> $newValue");
-                        }
+        if (!$sourceValue) {
+            return;
+        }
+
+        foreach ($this->locales() as $locale) {
+
+            $existingTranslation = $item->translations
+                ->where('translatable_column', $attribute)
+                ->where('locale', $locale)
+                ->first();
+            //$this->info($existingTranslation->value);
+
+            if (!$this->option('force') && $existingTranslation && $existingTranslation->value) {
+                continue;
+            }
+
+            if ($this->option('queue')) {
+                dispatch(new Belt\Core\Jobs\TranslateValue($item, $attribute, $sourceValue, $locale));
+            } else {
+                if ($newValue = Translate::translate($sourceValue, $locale)) {
+                    $item->saveTranslation($attribute, $newValue, $locale);
+                    if ($this->option('debug')) {
+                        $this->info("($locale) $attribute \r\n from: $sourceValue \r\n to: $newValue");
+                        //$this->info("($locale) $attribute to: \r\n $newValue");
+                        //$this->info("($locale) $attribute: $sourceValue --> $newValue");
                     }
                 }
             }
