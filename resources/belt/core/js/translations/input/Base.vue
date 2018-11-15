@@ -5,7 +5,7 @@
 <script>
     import BaseInput from 'belt/core/js/inputs/shared';
     import StoreAdapter from 'belt/core/js/translations/store/adapter';
-    import TranslationInputGroup from 'belt/core/js/translations/input/group';
+    import TranslationInputGroup from 'belt/core/js/translations/input/Group';
 
     export default {
         mixins: [BaseInput, StoreAdapter],
