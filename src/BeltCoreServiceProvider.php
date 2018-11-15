@@ -67,6 +67,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
 
         // set backup translation paths
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'belt-core');
+        $this->loadJsonTranslationsFrom(storage_path('app/lang'), '');
 
         // policies
         $this->registerPolicies($gate);
@@ -92,11 +93,13 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
             'forms' => Belt\Core\Form::class,
+            'translatable_strings' => Belt\Core\TranslatableString::class,
             'users' => Belt\Core\User::class,
         ]);
 
         // route model binding
         $router->model('form', Belt\Core\Form::class);
+        $router->model('translatableStrings', Belt\Core\TranslatableString::class);
         $router->model('user', Belt\Core\User::class);
 
         // add alias/facade

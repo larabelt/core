@@ -99,6 +99,13 @@ Route::group([
             Route::post('', Api\PermissionsController::class . '@store');
         });
 
+        # translatable-strings
+        Route::get('translatable-strings/{translatableStrings}', Api\TranslatableStringsController::class . '@show');
+        Route::put('translatable-strings/{translatableStrings}', Api\TranslatableStringsController::class . '@update');
+        Route::delete('translatable-strings/{translatableStrings}', Api\TranslatableStringsController::class . '@destroy');
+        Route::get('translatable-strings', Api\TranslatableStringsController::class . '@index');
+        Route::post('translatable-strings', Api\TranslatableStringsController::class . '@store');
+
         # users
         Route::get('users/{user}', Api\UsersController::class . '@show');
         Route::put('users/{user}', Api\UsersController::class . '@update');
