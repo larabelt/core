@@ -92,6 +92,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
             'roles' => Belt\Core\Role::class,
             'teams' => Belt\Core\Team::class,
             'forms' => Belt\Core\Form::class,
+            'translations' => Belt\Core\Translation::class,
             'users' => Belt\Core\User::class,
         ]);
 

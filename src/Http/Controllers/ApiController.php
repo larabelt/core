@@ -113,6 +113,7 @@ class ApiController extends Controller
         $name = sprintf('%s.%s', $item->getMorphClass(), $type);
 
         $classes = [
+            'saved' => Belt\Core\Events\ItemSaved::class,
             'created' => Belt\Core\Events\ItemCreated::class,
             'updated' => Belt\Core\Events\ItemUpdated::class,
             'deleted' => Belt\Core\Events\ItemDeleted::class,
@@ -126,7 +127,7 @@ class ApiController extends Controller
 
         if ($class) {
             $event = new $class($item, $name);
-            Event::dispatch($name, $event);
+            $result = Event::dispatch($name, $event);
         }
 
     }

@@ -106,7 +106,8 @@ class TranslatablesController extends ApiController
 
         $translation = $translatable->saveTranslation($input['translatable_column'], $input['value'], $input['locale']);
 
-        $this->itemEvent('translations.created', $translatable);
+        $this->itemEvent('created', $translation);
+        $this->itemEvent('saved', $translation);
 
         return response()->json($translation, 201);
     }
@@ -143,7 +144,8 @@ class TranslatablesController extends ApiController
 
         $translation->save();
 
-        $this->itemEvent('translations.updated', $translation);
+        $this->itemEvent('updated', $translation);
+        $this->itemEvent('saved', $translation);
 
         return response()->json($translation);
     }

@@ -4,6 +4,7 @@ namespace Belt\Core;
 
 use Belt;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Class Translation
@@ -28,5 +29,15 @@ class Translation extends Model
      * @var array
      */
     protected $fillable = ['locale', 'translatable_column', 'value'];
+
+    /**
+     * The Associated owning model
+     *
+     * @return MorphTo|Model
+     */
+    public function translatable()
+    {
+        return $this->morphTo();
+    }
 
 }
