@@ -16,9 +16,9 @@
 <script>
     import BaseInput from 'belt/core/js/inputs/shared';
     import StoreAdapter from 'belt/core/js/translations/store/adapter';
-    import TranslationInputEditor from 'belt/core/js/translations/input/editor';
-    import TranslationInputText from 'belt/core/js/translations/input/text';
-    import TranslationInputTextarea from 'belt/core/js/translations/input/textarea';
+    import TranslationInputEditor from 'belt/core/js/translations/input/Editor';
+    import TranslationInputText from 'belt/core/js/translations/input/Text';
+    import TranslationInputTextarea from 'belt/core/js/translations/input/Textarea';
 
     export default {
         mixins: [BaseInput, StoreAdapter],
