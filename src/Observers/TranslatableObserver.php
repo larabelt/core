@@ -44,4 +44,14 @@ class TranslatableObserver
         $item->untranslate();
     }
 
+    /**
+     * Listen to the Model saving $item.
+     *
+     * @param TranslatableInterface $item
+     */
+    public function saved(TranslatableInterface $item)
+    {
+        $item->retranslate();
+    }
+
 }

@@ -10,6 +10,9 @@ use Belt\Core\Observers\TranslatableObserver;
 trait Translatable
 {
 
+    /**
+     * @var array
+     */
     protected $translated = [];
 
     /**
@@ -70,16 +73,24 @@ trait Translatable
         $this->load('translations');
         foreach ($this->translations->where('locale', $locale) as $translation) {
             //$this->translated[$translation->translatable_column] = $this->getAttribute($translation->translatable_column);
-            $this->translated[] = $translation->translatable_column;
+            //$this->translated[] = $translation->translatable_column;
+            $this->translated[$translation->translatable_column] = $translation->value;
             $this->setAttribute($translation->translatable_column, $translation->value);
         }
     }
 
     public function untranslate()
     {
-        foreach ($this->getTranslatedAttributes() as $n => $attribute) {
+        foreach ($this->getTranslatedAttributes() as $attribute => $value) {
             $this->setAttribute($attribute, $this->getOriginal($attribute));
-            unset($this->translated[$n]);
+            //unset($this->translated[$n]);
+        }
+    }
+
+    public function retranslate()
+    {
+        foreach ($this->getTranslatedAttributes() as $attribute => $value) {
+            $this->setAttribute($attribute, $value);
         }
     }
 
