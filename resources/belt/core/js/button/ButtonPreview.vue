@@ -10,9 +10,10 @@
 <script>
     import shared from 'belt/core/js/button/shared';
     import LocalesStore from 'belt/core/js/locales/store/adapter';
+    import TranslatableStore from 'belt/core/js/translations/store/adapter';
 
     export default {
-        mixins: [shared, LocalesStore],
+        mixins: [shared, LocalesStore, TranslatableStore],
         props: {
             href: {
                 type: String,
@@ -24,11 +25,17 @@
         computed: {
             _href() {
                 let href = this.href;
-                if (this.altLocale) {
+                if (this.translationsVisible && this.altLocale) {
                     href = href + '?locale=' + this.altLocale;
                 }
                 return href;
-            }
+            },
+            translatable_type() {
+                return this.form.morph_class;
+            },
+            translatable_id() {
+                return this.form.id;
+            },
         }
     }
 </script>
