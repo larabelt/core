@@ -2,7 +2,14 @@
     <label :for="column">
         <slot>{{ label }}</slot>
         <span v-if="required">*</span></label>
-    <input type="text" class="form-control" v-model="form[column]" :placeholder="_placeholder" @keyup="emitEvent()">
+    <input
+            type="text"
+            class="form-control"
+            v-model="form[column]"
+            :placeholder="_placeholder"
+            @keyup="emitEvent()"
+            :readonly="readonly"
+    >
     <span class="help-block" v-html="_description"></span>
     <span v-for="error in form.error(column)" class="text-danger">{{ error }}</span>
     <translation-input-group type="text"></translation-input-group>

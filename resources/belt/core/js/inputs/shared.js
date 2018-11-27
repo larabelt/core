@@ -25,6 +25,7 @@ export default {
                 return '';
             }
         },
+        readonly: {default: null},
         required: {default: false},
         table: {
             default: function () {
