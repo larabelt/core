@@ -92,7 +92,7 @@ class ParamablesController extends ApiController
          */
         $owner = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $owner);
+        $this->authorize('update', $owner->owner ?: $owner);
 
         $input = $request->all();
 
@@ -120,7 +120,7 @@ class ParamablesController extends ApiController
     {
         $owner = $this->morphable($paramable_type, $paramable_id);
 
-        $this->authorize('update', $owner);
+        $this->authorize('update', $owner->owner ?: $owner);
 
         //$this->contains($paramable, $param);
         $param = $this->param($paramable_type, $paramable_id, $id);
