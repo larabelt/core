@@ -43,8 +43,6 @@
             Events.$on(this.parentUpdateEvent, this.update);
             this.eventBus.$on('updated', this.updated);
         },
-        mounted() {
-        },
         computed: {
             groupKey() {
                 return this.locale + '-' + this.type + '-' + this.key;
