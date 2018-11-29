@@ -1,6 +1,6 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Closure, Cookie;
+use Closure;
 use Belt\Core\Services\TranslateService;
 use Illuminate\Http\Request;
 
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
  * Class SetLocale
  * @package Belt\Core\Http\Middleware
  */
-class SetLocale
+class SetLocaleFromRequest
 {
 
     /**
@@ -33,6 +33,7 @@ class SetLocale
      */
     public function handle($request, Closure $next)
     {
+
         if (!$this->service()->isEnabled()) {
             return $next($request);
         }

@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
         IlluminateMiddleware\ValidatePostSize::class,
         BeltMiddleware\TrimStrings::class,
         IlluminateMiddleware\ConvertEmptyStringsToNull::class,
-        BeltMiddleware\SetLocale::class,
+        BeltMiddleware\SetLocaleFromRequest::class,
     ];
 
     /**
@@ -52,7 +52,6 @@ class Kernel extends HttpKernel
             'bindings',
         ],
         'web' => [
-            //BeltMiddleware\SetLocale::class,
             BeltMiddleware\EncryptCookies::class,
             Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             BeltMiddleware\SetGuidCookie::class,

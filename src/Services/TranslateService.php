@@ -53,8 +53,28 @@ class TranslateService
     {
         if ($this->isAvailableLocale($code)) {
             App::setLocale($code);
-            Cookie::queue(Cookie::make('locale', $code, 86400 * 365, null, null, false, false));
+            $this->setLocaleCookie($code);
         }
+    }
+
+    /**
+     * @param $lang
+     */
+    public function setLocaleCookie($code)
+    {
+        Cookie::queue(Cookie::make('locale', $code, 86400 * 365, null, null, false, false));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocaleCookie()
+    {
+        if ($cookie = Cookie::queued('locale')) {
+            return $cookie->getValue();
+        }
+
+        return Cookie::get('locale');
     }
 
     /**
