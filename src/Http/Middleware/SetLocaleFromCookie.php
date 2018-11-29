@@ -1,35 +1,23 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Closure, Cookie;
+use Belt, Closure, Cookie;
 use Belt\Core\Services\TranslateService;
 use Illuminate\Http\Request;
 
 /**
- * Class PersistLocaleViaCookie
+ * Class SetLocaleFromCookie
  * @package Belt\Core\Http\Middleware
  */
-class SetLocaleFromCookie
+class SetLocaleFromCookie extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
 {
-
-    /**
-     * @var TranslateService
-     */
-    public $service;
-
-    /**
-     * @return TranslateService
-     */
-    public function service()
-    {
-        return $this->service ?: $this->service = new TranslateService();
-    }
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param $request
+     * @param Closure $next
      * @return mixed
+     * @throws \Exception
      */
     public function handle($request, Closure $next)
     {

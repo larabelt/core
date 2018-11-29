@@ -1,39 +1,26 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Closure;
+use Belt, Closure;
 use Belt\Core\Services\TranslateService;
 use Illuminate\Http\Request;
 
 /**
- * Class SetLocale
+ * Class SetLocaleFromRequest
  * @package Belt\Core\Http\Middleware
  */
-class SetLocaleFromRequest
+class SetLocaleFromRequest extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
 {
-
-    /**
-     * @var TranslateService
-     */
-    public $service;
-
-    /**
-     * @return TranslateService
-     */
-    public function service()
-    {
-        return $this->service ?: $this->service = new TranslateService();
-    }
 
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param $request
+     * @param Closure $next
      * @return mixed
+     * @throws \Exception
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-
         if (!$this->service()->isEnabled()) {
             return $next($request);
         }
@@ -52,7 +39,7 @@ class SetLocaleFromRequest
 
                 $uri = $request->server->get('REQUEST_URI');
 
-                foreach (config('belt.core.translate.locales') as $locale) {
+                foreach ($this->service()->getAvailableLocales() as $locale) {
                     $prefix = sprintf('/%s', $locale['code']);
                     if (substr($uri, 0, strlen($prefix)) == $prefix) {
                         $newUri = substr($uri, strlen($prefix));
@@ -63,18 +50,19 @@ class SetLocaleFromRequest
 
                     $request->server->set('REQUEST_URI', $newUri);
 
-                    $newRequest = new Request();
-                    $newRequest->initialize(
+                    Belt\Core\Http\Middleware\RedirectToActiveLocale::disable();
+
+                    $newRequest = $request->duplicate(
                         $request->query->all(),
                         $request->request->all(),
                         $request->attributes->all(),
                         $request->cookies->all(),
                         $request->files->all(),
-                        $request->server->all(),
-                        $request->getContent()
+                        $request->server->all()
                     );
 
-                    return $next($newRequest);
+                    //return $next($newRequest);
+                    return \Route::dispatchToRoute($newRequest);
                 }
 
             }
