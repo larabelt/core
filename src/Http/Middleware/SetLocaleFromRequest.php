@@ -61,8 +61,8 @@ class SetLocaleFromRequest extends Belt\Core\Http\Middleware\BaseLocaleMiddlewar
                         $request->server->all()
                     );
 
-                    //return $next($newRequest);
-                    return \Route::dispatchToRoute($newRequest);
+                    return $next($newRequest);
+                    //return \Route::dispatchToRoute($newRequest);
                 }
 
             }
