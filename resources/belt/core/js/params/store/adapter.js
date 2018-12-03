@@ -21,6 +21,11 @@ export default {
             this.paramsLoad();
         }
     },
+    watch: {
+        'paramable.id': function () {
+            this.paramsLoad();
+        }
+    },
     computed: {
         params() {
             return this.$store.getters[this.paramStoreKey + '/data'];
@@ -38,6 +43,7 @@ export default {
             let params = _.get(this.paramable, 'params', []);
             if (params.length) {
                 this.$store.dispatch(this.paramStoreKey + '/config', _.get(this.paramable, 'config', {}));
+                this.$store.dispatch(this.paramStoreKey + '/data', []);
                 this.$store.dispatch(this.paramStoreKey + '/pushParams', params)
                     .then(() => {
                         this.paramsLoading = false;
@@ -48,11 +54,6 @@ export default {
                         this.paramsLoading = false;
                     });
             }
-            // this.paramsLoading = true;
-            // this.$store.dispatch(this.paramStoreKey + '/load')
-            //     .then(() => {
-            //         this.paramsLoading = false;
-            //     });
         },
     }
 }
