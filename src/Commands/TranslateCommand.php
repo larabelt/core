@@ -16,7 +16,7 @@ class TranslateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'belt-core:translate {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug} {--queue} {--force}';
+    protected $signature = 'belt-core:translate {action=items} {--limit=1} {--type=} {--id=} {--locale=} {--attribute=} {--debug} {--queue} {--force}';
 
     /**
      * The console command description.
@@ -33,6 +33,16 @@ class TranslateCommand extends Command
     public function handle()
     {
 
+        $action = $this->argument('action');
+
+        if ($action == 'items') {
+            $this->items();
+        }
+
+    }
+
+    public function items()
+    {
         foreach ($this->types() as $type) {
 
             $limit = $this->option('limit');
@@ -63,9 +73,12 @@ class TranslateCommand extends Command
                 }
             }
         }
-
     }
 
+    /**
+     * @param $item
+     * @param $attribute
+     */
     public function translate($item, $attribute)
     {
         if ($attributes = $this->attributes()) {
@@ -108,17 +121,25 @@ class TranslateCommand extends Command
 
     }
 
+    /**
+     * @return array
+     */
     public function attributes()
     {
         return array_filter(explode(',', $this->option('attribute', '')));
     }
 
-
+    /**
+     * @return array
+     */
     public function ids()
     {
         return array_filter(explode(',', $this->option('id', '')));
     }
 
+    /**
+     * @return array
+     */
     public function locales()
     {
         $locales = array_filter(explode(',', $this->option('locale', '')));
@@ -127,6 +148,9 @@ class TranslateCommand extends Command
         return $locales;
     }
 
+    /**
+     * @return array
+     */
     public function types()
     {
         return array_filter(explode(',', $this->option('type', '')));
