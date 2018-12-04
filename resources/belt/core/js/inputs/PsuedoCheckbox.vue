@@ -1,9 +1,10 @@
 <template>
     <span>
         <input type="hidden" v-model="form[column]"/>
-        <button class="btn btn-xs" :class="buttonClass" @click.prevent="toggle">
+        <button class="btn btn-xs" :class="buttonClass" @click.prevent="toggle" :style="style">
             <i class="fa" :class="iconClass"></i>
         </button>
+        <slot>{{ label }}</slot>
     </span>
 </template>
 <script>
@@ -11,6 +12,11 @@
 
     export default {
         mixins: [shared],
+        props: {
+            marginBottom: {
+                default: '0'
+            },
+        },
         computed: {
             isActive() {
                 return this.form[this.column];
@@ -20,6 +26,9 @@
             },
             iconClass() {
                 return this.isActive ? 'fa-check-square-o' : 'fa-square-o';
+            },
+            style() {
+                return 'margin-bottom: ' + this.marginBottom;
             }
         },
         methods: {
