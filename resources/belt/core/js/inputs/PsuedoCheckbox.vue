@@ -14,7 +14,7 @@
         mixins: [shared],
         props: {
             marginBottom: {
-                default: '0'
+                default: '10px'
             },
         },
         computed: {
