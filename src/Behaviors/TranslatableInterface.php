@@ -40,6 +40,9 @@ interface TranslatableInterface
      */
     public function translate($locale);
 
+    /**
+     * @return mixed
+     */
     public function untranslate();
 
 }

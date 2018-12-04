@@ -33,7 +33,6 @@ class TranslateCommand extends Command
     public function handle()
     {
 
-
         foreach ($this->types() as $type) {
 
             $limit = $this->option('limit');
@@ -47,14 +46,16 @@ class TranslateCommand extends Command
 
             $count = 1;
             foreach ($qb->get() as $item) {
-                foreach ((array) $item->config('translatable') as $attribute) {
+                foreach ((array) $item->getTranslatableAttributes() as $attribute) {
                     $this->translate($item, $attribute);
                 }
-                foreach ((array) $item->config('params') as $key => $config) {
-                    if (array_get($config, 'translatable')) {
-                        if ($param = $item->params->where('key', $key)->first()) {
-                            $this->translate($param, 'value');
-                        };
+                if (method_exists($item, 'config')) {
+                    foreach ((array) $item->config('params') as $key => $config) {
+                        if (array_get($config, 'translatable')) {
+                            if ($param = $item->params->where('key', $key)->first()) {
+                                $this->translate($param, 'value');
+                            };
+                        }
                     }
                 }
                 if ($count++ >= $limit) {
