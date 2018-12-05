@@ -32,6 +32,10 @@ class RedirectToActiveLocale extends Belt\Core\Http\Middleware\BaseLocaleMiddlew
             return $next($request);
         };
 
+        if ($request->method() != 'GET') {
+            return $next($request);
+        }
+
         if ($code = $this->service()->getLocaleFromRequest($request)) {
             return $next($request);
         }

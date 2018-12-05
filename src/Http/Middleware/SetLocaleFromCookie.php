@@ -27,8 +27,10 @@ class SetLocaleFromCookie extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
 
         if ($code = $this->service()->getLocaleCookie()) {
             if (!Cookie::queued('locale')) {
-                TranslateService::setTranslateObjects(true);
                 $this->service()->setLocale($code);
+                if ($this->service()->getAlternateLocale()) {
+                    TranslateService::setTranslateObjects(true);
+                }
             }
         }
 
