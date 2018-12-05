@@ -37,33 +37,33 @@ class SetLocaleFromRequest extends Belt\Core\Http\Middleware\BaseLocaleMiddlewar
 
             if ($this->service()->prefixUrls()) {
 
-                $uri = $request->server->get('REQUEST_URI');
-
-                foreach ($this->service()->getAvailableLocales() as $locale) {
-                    $prefix = sprintf('/%s', $locale['code']);
-                    if (substr($uri, 0, strlen($prefix)) == $prefix) {
-                        $newUri = substr($uri, strlen($prefix));
-                    }
-                }
-
-                if (isset($newUri)) {
-
-                    $request->server->set('REQUEST_URI', $newUri);
-
-                    Belt\Core\Http\Middleware\RedirectToActiveLocale::disable();
-
-                    $newRequest = $request->duplicate(
-                        $request->query->all(),
-                        $request->request->all(),
-                        $request->attributes->all(),
-                        $request->cookies->all(),
-                        $request->files->all(),
-                        $request->server->all()
-                    );
-
-                    return $next($newRequest);
-                    //return \Route::dispatchToRoute($newRequest);
-                }
+//                $uri = $request->server->get('REQUEST_URI');
+//
+//                foreach ($this->service()->getAvailableLocales() as $locale) {
+//                    $prefix = sprintf('/%s', $locale['code']);
+//                    if (substr($uri, 0, strlen($prefix)) == $prefix) {
+//                        $newUri = substr($uri, strlen($prefix));
+//                    }
+//                }
+//
+//                if (isset($newUri)) {
+//
+//                    $request->server->set('REQUEST_URI', $newUri);
+//
+//                    Belt\Core\Http\Middleware\RedirectToActiveLocale::disable();
+//
+//                    $newRequest = $request->duplicate(
+//                        $request->query->all(),
+//                        $request->request->all(),
+//                        $request->attributes->all(),
+//                        $request->cookies->all(),
+//                        $request->files->all(),
+//                        $request->server->all()
+//                    );
+//
+//                    return $next($newRequest);
+//                    //return \Route::dispatchToRoute($newRequest);
+//                }
 
             }
 
