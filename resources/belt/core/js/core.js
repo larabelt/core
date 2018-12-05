@@ -27,6 +27,7 @@ import History from 'belt/core/js/helpers/history';
 window.History = new History({});
 
 window.larabelt = _.get(window, 'larabelt', {});
+window.larabelt.hostname = _.get(process.env, 'MIX_SESSION_DOMAIN', window.location.hostname);
 window.larabelt.core = _.get(window, 'larabelt.core', {});
 
 export default class BeltCore {

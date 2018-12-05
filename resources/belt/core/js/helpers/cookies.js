@@ -1,11 +1,15 @@
 class Cookies {
 
     set(name, value, exdays) {
+
         let d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+
         let expires = "expires=" + d.toUTCString();
 
-        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        let domain = _.get(window, 'larabelt.hostname', window.location.hostname);
+
+        document.cookie = name + "=" + value + ";" + expires + ";path=/" + ";domain=" + domain;
     }
 
     get(name) {
