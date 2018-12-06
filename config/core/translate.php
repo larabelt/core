@@ -1,10 +1,12 @@
 <?php
 
 return [
+    'prefix-urls' => false,
+    'auto-translate' => [
+        'driver' => null,
+    ],
     'locales' => [
-        'de_DE',
-        'en_US',
-        'es_ES',
-        'fr_FR',
+        //['code' => 'en_US', 'label' => 'English'],
+        //['code' => 'es_ES', 'label' => 'Español'],
     ],
 ];

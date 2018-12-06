@@ -82,7 +82,7 @@ class TranslateService
      */
     public function prefixUrls(): bool
     {
-        return $this->config('prefix-urls');
+        return $this->config('prefix-urls') ? true : false;
     }
 
     /**

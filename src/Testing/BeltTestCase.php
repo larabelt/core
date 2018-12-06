@@ -110,4 +110,13 @@ abstract class BeltTestCase extends TestCase
     {
         return new Store($name, new NullSessionHandler());
     }
+
+    public function enableI18n()
+    {
+        app()['config']->set('app.fallback_locale', 'en_US');
+        app()['config']->set('belt.core.translate.locales', [
+            ['code' => 'en_US', 'label' => 'English'],
+            ['code' => 'es_ES', 'label' => 'Spanish'],
+        ]);
+    }
 }
