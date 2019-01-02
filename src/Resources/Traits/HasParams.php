@@ -81,7 +81,7 @@ trait HasParams
                     $prefixed_key = sprintf('%s_%s', $prefix, $_param->getKey());
                     $_param->setKey($prefixed_key);
                 }
-                $_param->setGroup($param->getKey());
+                $_param->setGroup($group->getKey());
                 $this->__makeParams($_param);
             }
         }

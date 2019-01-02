@@ -15,19 +15,16 @@ class BaseResourceTest extends BeltTestCase
      */
     public function test()
     {
-        $resource = new StubBaseResourceTest();
-
-        # construct
-
         # make
-
-        # setup
+        # construct
+        # setKey
+        $resource = StubBaseResourceTest::make('foo');
 
         # getKey
-
-        # setKey
+        $this->assertEquals('foo', $resource->getKey());
 
         # toArray
+        $this->assertEquals([], $resource->toArray());
     }
 
 }

@@ -33,7 +33,7 @@ abstract class BaseResource
     }
 
     /**
-     * @return mixed
+     * @return BaseResource
      */
     static function make($key = null)
     {
@@ -71,6 +71,6 @@ abstract class BaseResource
      */
     public function toArray()
     {
-
+        return [];
     }
 }
