@@ -3,7 +3,6 @@
 namespace Belt\Core\Jobs;
 
 use Belt, Translate;
-use Belt\Core\Services\TranslateService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,7 +14,13 @@ class TranslateValue implements
     Belt\Core\Events\ItemEventInterface
 {
     use Belt\Core\Events\ItemEventTrait;
+//    use Belt\Core\Behaviors\HasService;
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+//    /**
+//     * @var string
+//     */
+//    private $serviceClass = TranslateService::class;
 
     /**
      * The number of times the job may be attempted.
@@ -23,11 +28,6 @@ class TranslateValue implements
      * @var int
      */
     public $tries = 5;
-
-    /**
-     * @var Belt\Core\Behaviors\TranslatableInterface
-     */
-    public $zitem;
 
     /**
      * @var string
@@ -49,18 +49,18 @@ class TranslateValue implements
      */
     public $source_locale;
 
-    /**
-     * @var TranslateService
-     */
-    public $service;
-
-    /**
-     * @return TranslateService
-     */
-    public function service()
-    {
-        return $this->service = $this->service ?: new TranslateService();
-    }
+//    /**
+//     * @var TranslateService
+//     */
+//    public $service;
+//
+//    /**
+//     * @return TranslateService
+//     */
+//    public function service()
+//    {
+//        return $this->service = $this->service ?: new TranslateService();
+//    }
 
     /**
      * TranslateValue constructor.
