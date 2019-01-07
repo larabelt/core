@@ -1,14 +1,13 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Belt, Closure, Cookie;
-use Belt\Core\Services\TranslateService;
+use Belt, Closure, Cookie, Translate;
 use Illuminate\Http\Request;
 
 /**
  * Class SetLocaleFromCookie
  * @package Belt\Core\Http\Middleware
  */
-class SetLocaleFromCookie extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
+class SetLocaleFromCookie
 {
 
     /**
@@ -21,20 +20,35 @@ class SetLocaleFromCookie extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!$this->service()->isEnabled()) {
+        if (!Translate::isEnabled()) {
             return $next($request);
         }
 
-        if ($code = $this->service()->getLocaleCookie()) {
+        if ($code = Translate::getLocaleCookie()) {
             if (!Cookie::queued('locale')) {
-                $this->service()->setLocale($code);
-                if ($this->service()->getAlternateLocale()) {
-                    TranslateService::setTranslateObjects(true);
+                Translate::setLocale($code);
+                if (Translate::getAlternateLocale()) {
+                    Translate::setTranslateObjects(true);
                 }
             }
         }
 
         return $next($request);
+
+//        if (!Translate::isEnabled()) {
+//            return $next($request);
+//        }
+//
+//        if ($code = Translate::getLocaleCookie()) {
+//            if (!Cookie::queued('locale')) {
+//                Translate::setLocale($code);
+//                if (Translate::getAlternateLocale()) {
+//                    TranslateService::setTranslateObjects(true);
+//                }
+//            }
+//        }
+//
+//        return $next($request);
     }
 
 }
