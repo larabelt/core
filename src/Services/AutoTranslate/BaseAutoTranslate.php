@@ -10,15 +10,31 @@ use Belt;
  */
 abstract class BaseAutoTranslate
 {
-    public $service;
 
-    public function __construct($service)
-    {
-        $this->service = $service;
-    }
+//    public $service;
+//
+//    /**
+//     * BaseAutoTranslate constructor.
+//     * @param $service
+//     */
+//    public function __construct($service)
+//    {
+//        $this->service = $service;
+//    }
 
+    /**
+     * @param $text
+     * @param $target_locale
+     * @param $source_locale
+     * @return mixed
+     */
     abstract function translate($text, $target_locale, $source_locale);
 
+    /**
+     * @param $text
+     * @param int $size
+     * @return array
+     */
     public function split($text, $size = 1000)
     {
         $sections = [];

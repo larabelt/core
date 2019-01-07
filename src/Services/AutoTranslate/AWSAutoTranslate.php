@@ -12,6 +12,9 @@ class AWSAutoTranslate extends Belt\Core\Services\AutoTranslate\BaseAutoTranslat
 {
     public $client;
 
+    /**
+     * @return \Aws\Translate\TranslateClient
+     */
     public function client()
     {
         return $this->client ?: $this->client = new \Aws\Translate\TranslateClient([
