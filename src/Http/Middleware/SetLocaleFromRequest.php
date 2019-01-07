@@ -1,14 +1,13 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Belt, Closure;
-use Belt\Core\Services\TranslateService;
+use Belt, Closure, Translate;
 use Illuminate\Http\Request;
 
 /**
  * Class SetLocaleFromRequest
  * @package Belt\Core\Http\Middleware
  */
-class SetLocaleFromRequest extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
+class SetLocaleFromRequest
 {
 
     /**
@@ -21,55 +20,41 @@ class SetLocaleFromRequest extends Belt\Core\Http\Middleware\BaseLocaleMiddlewar
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->service()->isEnabled()) {
+        if (!Translate::isEnabled()) {
             return $next($request);
         }
 
-        $code = $this->service()->getLocaleFromRequest($request);
+        $code = Translate::getLocaleFromRequest($request);
 
         if ($code) {
 
-            $this->service()->setLocale($code);
+            Translate::setLocale($code);
 
-            if ($this->service()->getAlternateLocale()) {
-                TranslateService::setTranslateObjects(true);
-            }
-
-            if ($this->service()->prefixUrls()) {
-
-//                $uri = $request->server->get('REQUEST_URI');
-//
-//                foreach ($this->service()->getAvailableLocales() as $locale) {
-//                    $prefix = sprintf('/%s', $locale['code']);
-//                    if (substr($uri, 0, strlen($prefix)) == $prefix) {
-//                        $newUri = substr($uri, strlen($prefix));
-//                    }
-//                }
-//
-//                if (isset($newUri)) {
-//
-//                    $request->server->set('REQUEST_URI', $newUri);
-//
-//                    Belt\Core\Http\Middleware\RedirectToActiveLocale::disable();
-//
-//                    $newRequest = $request->duplicate(
-//                        $request->query->all(),
-//                        $request->request->all(),
-//                        $request->attributes->all(),
-//                        $request->cookies->all(),
-//                        $request->files->all(),
-//                        $request->server->all()
-//                    );
-//
-//                    return $next($newRequest);
-//                    //return \Route::dispatchToRoute($newRequest);
-//                }
-
+            if (Translate::getAlternateLocale()) {
+                Translate::setTranslateObjects(true);
             }
 
         }
 
         return $next($request);
+
+//        if (!Translate::isEnabled()) {
+//            return $next($request);
+//        }
+//
+//        $code = Translate::getLocaleFromRequest($request);
+//
+//        if ($code) {
+//
+//            Translate::setLocale($code);
+//
+//            if (Translate::getAlternateLocale()) {
+//                TranslateService::setTranslateObjects(true);
+//            }
+//
+//        }
+//
+//        return $next($request);
     }
 
 }
