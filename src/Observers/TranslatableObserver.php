@@ -29,18 +29,6 @@ class TranslatableObserver
      */
     public function saving(TranslatableInterface $item)
     {
-//        if ($locale = Translate::getAlternateLocale()) {
-//            if ($translatable = $item->getTranslatable()) {
-//                foreach ($item->getDirty() as $attribute => $newValue) {
-//                    $oldValue = $item->getOriginal($attribute);
-//                    //dump("$attribute: $oldValue --> $newValue");
-//                    $item->setAttribute($attribute, $oldValue ?: $newValue);
-//                    if (in_array($attribute, (array) $translatable)) {
-//                        $item->saveTranslation($attribute, $newValue, $locale);
-//                    }
-//                }
-//            }
-//        }
         $item->untranslate();
     }
 

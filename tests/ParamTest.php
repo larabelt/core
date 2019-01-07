@@ -2,21 +2,61 @@
 
 use Belt\Core\Testing\BeltTestCase;
 use Belt\Core\Param;
+use Belt\Core\Behaviors\Paramable;
+use Belt\Core\Behaviors\ParamableInterface;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ParamTest extends BeltTestCase
 {
     /**
+     * @covers \Belt\Core\Param::paramable
+     * @covers \Belt\Core\Param::getConfig
+     * @covers \Belt\Core\Param::config
      * @covers \Belt\Core\Param::setKeyAttribute
      * @covers \Belt\Core\Param::setValueAttribute
+     * @covers \Belt\Core\Param::getValueAttribute
+     * @covers \Belt\Core\Param::getTranslatableAttributes
      */
     public function test()
     {
-        $param = factory(Param::class)->make();
-        $param->setKeyAttribute('TEST');
-        $param->setValueAttribute('TEST');
+        $param = factory(Param::class)->make(['']);
 
-        $this->assertEquals('test', $param->key);
+        # paramable
+        $this->assertInstanceOf(MorphTo::class, $param->paramable());
+
+        # setKeyAttribute
+        $param->setKeyAttribute('FOO');
+        $this->assertEquals('foo', $param->key);
+
+        # setValueAttribute / getValueAttribute
+        $param->setValueAttribute('TEST');
         $this->assertEquals('TEST', $param->value);
+        $param->setValueAttribute('true');
+        $this->assertTrue($param->value);
+        $param->setValueAttribute('false');
+        $this->assertFalse($param->value);
+
+        # getConfig / config
+        $param->paramable = new StubParamTestParamable();
+        $this->assertEquals('square', $param->config('shape'));
+
+        # getTranslatableAttributes
+        $this->assertEquals('value', $param->getTranslatableAttributes());
     }
 
+}
+
+class StubParamTestParamable implements ParamableInterface
+{
+    use Paramable;
+
+    public function getParamConfig()
+    {
+        return [
+            'foo' => [
+                'translatable' => true,
+                'shape' => 'square',
+            ]
+        ];
+    }
 }
