@@ -1,6 +1,6 @@
 <?php namespace Belt\Core\Http\Middleware;
 
-use Belt, Closure;
+use Belt, Closure, Translate;
 use Belt\Core\Behaviors;
 use Illuminate\Http\Request;
 
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
  * Class RedirectToActiveLocale
  * @package Belt\Core\Http\Middleware
  */
-class RedirectToActiveLocale extends Belt\Core\Http\Middleware\BaseLocaleMiddleware
+class RedirectToActiveLocale
 {
     use Behaviors\CanEnable;
 
@@ -28,7 +28,7 @@ class RedirectToActiveLocale extends Belt\Core\Http\Middleware\BaseLocaleMiddlew
             return $next($request);
         };
 
-        if (!$this->service()->isEnabled()) {
+        if (!Translate::isEnabled()) {
             return $next($request);
         };
 
@@ -36,11 +36,11 @@ class RedirectToActiveLocale extends Belt\Core\Http\Middleware\BaseLocaleMiddlew
             return $next($request);
         }
 
-        if ($code = $this->service()->getLocaleFromRequest($request)) {
+        if ($code = Translate::getLocaleFromRequest($request)) {
             return $next($request);
         }
 
-        $code = $this->service()->getLocaleCookie() ?: $this->service()->getLocale();
+        $code = Translate::getLocaleCookie() ?: Translate::getLocale();
 
         $uri = $request->server->get('REQUEST_URI');
 
