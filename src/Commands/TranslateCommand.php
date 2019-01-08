@@ -99,7 +99,6 @@ class TranslateCommand extends Command
                 ->where('translatable_column', $attribute)
                 ->where('locale', $locale)
                 ->first();
-            //$this->info($existingTranslation->value);
 
             if (!$this->option('force') && $existingTranslation && $existingTranslation->value) {
                 continue;
@@ -112,8 +111,6 @@ class TranslateCommand extends Command
                     $item->saveTranslation($attribute, $newValue, $locale);
                     if ($this->option('debug')) {
                         $this->info("($locale) $attribute \r\n from: $sourceValue \r\n to: $newValue");
-                        //$this->info("($locale) $attribute to: \r\n $newValue");
-                        //$this->info("($locale) $attribute: $sourceValue --> $newValue");
                     }
                 }
             }
