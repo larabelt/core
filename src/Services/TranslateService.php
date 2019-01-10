@@ -33,10 +33,10 @@ class TranslateService
         return 'belt.core.translate';
     }
 
-    public static function active()
-    {
-        return static::active();
-    }
+//    public static function active()
+//    {
+//        return static::active();
+//    }
 
     /**
      * @return mixed
@@ -44,6 +44,25 @@ class TranslateService
     public function getLocale()
     {
         return App::getLocale();
+    }
+
+    /**
+     * @param $code
+     * @return bool
+     */
+    public function isAvailableLocale($code)
+    {
+        return array_first($this->getAvailableLocales(), function ($locale) use ($code) {
+            return array_get($locale, 'code') == $code;
+        });
+    }
+
+    /**
+     * @param $lang
+     */
+    public function setLocaleCookie($code)
+    {
+        Cookie::queue(Cookie::make('locale', $code, 86400 * 365, null, null, false, false));
     }
 
     /**
@@ -55,14 +74,6 @@ class TranslateService
             App::setLocale($code);
             $this->setLocaleCookie($code);
         }
-    }
-
-    /**
-     * @param $lang
-     */
-    public function setLocaleCookie($code)
-    {
-        Cookie::queue(Cookie::make('locale', $code, 86400 * 365, null, null, false, false));
     }
 
     /**
@@ -103,16 +114,7 @@ class TranslateService
         }
     }
 
-    /**
-     * @param $code
-     * @return bool
-     */
-    public function isAvailableLocale($code)
-    {
-        return array_first($this->getAvailableLocales(), function ($locale) use ($code) {
-            return array_get($locale, 'code') == $code;
-        });
-    }
+
 
     /**
      * @param $locale

@@ -1,17 +1,12 @@
 <?php
 
 use Mockery as m;
-
-use Belt\Core\Index;
-use Belt\Core\Services\IndexService;
+use Belt\Core\Services\TranslateService;
+use Belt\Core\Services\AutoTranslate\BaseAutoTranslate;
 use Belt\Core\Testing;
-use Belt\Core\Team;
-use Belt\Core\Facades\MorphFacade as Morph;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Cookie as CookieObject;
 
 class TranslateServiceTest extends Testing\BeltTestCase
 {
@@ -27,61 +22,122 @@ class TranslateServiceTest extends Testing\BeltTestCase
     }
 
     /**
-     * @covers \Belt\Core\Services\IndexService::__construct
-     * @covers \Belt\Core\Services\IndexService::configPath
-     * @covers \Belt\Core\Services\IndexService::active
-     * @covers \Belt\Core\Services\IndexService::getLocale
-     * @covers \Belt\Core\Services\IndexService::setLocale
-     * @covers \Belt\Core\Services\IndexService::setLocaleCookie
-     * @covers \Belt\Core\Services\IndexService::getLocaleCookie
-     * @covers \Belt\Core\Services\IndexService::prefixUrls
-     * @covers \Belt\Core\Services\IndexService::getLocaleFromRequest
-     * @covers \Belt\Core\Services\IndexService::isAvailableLocale
-     * @covers \Belt\Core\Services\IndexService::getAvailableLocales
-     * @covers \Belt\Core\Services\IndexService::getAlternateLocale
-     * @covers \Belt\Core\Services\IndexService::getAlternateLocales
-     * @covers \Belt\Core\Services\IndexService::setTranslateObjects
-     * @covers \Belt\Core\Services\IndexService::canTranslateObjects
-     * @covers \Belt\Core\Services\IndexService::translate
+     * @covers \Belt\Core\Services\TranslateService::__construct
+     * @covers \Belt\Core\Services\TranslateService::configPath
+     * @covers \Belt\Core\Services\TranslateService::getLocale
+     * @covers \Belt\Core\Services\TranslateService::setLocale
+     * @covers \Belt\Core\Services\TranslateService::setLocaleCookie
+     * @covers \Belt\Core\Services\TranslateService::getLocaleCookie
+     * @covers \Belt\Core\Services\TranslateService::prefixUrls
+     * @covers \Belt\Core\Services\TranslateService::getLocaleFromRequest
+     * @covers \Belt\Core\Services\TranslateService::isAvailableLocale
+     * @covers \Belt\Core\Services\TranslateService::getAvailableLocales
+     * @covers \Belt\Core\Services\TranslateService::getAlternateLocale
+     * @covers \Belt\Core\Services\TranslateService::getAlternateLocales
+     * @covers \Belt\Core\Services\TranslateService::setTranslateObjects
+     * @covers \Belt\Core\Services\TranslateService::canTranslateObjects
+     * @covers \Belt\Core\Services\TranslateService::translate
      */
     public function test()
     {
-        return;
+        $this->enableI18n();
 
-        # construct
-        $console = new Command();
-        $service = new IndexService(['console' => $console]);
-        $this->assertEquals($console, $service->getConsole());
+        $code = function ($locale) {
+            return array_get($locale, 'code');
+        };
 
-        # item
-        $team = factory(Team::class)->make(['id' => 123]);
-        $service->setItem($team);
-        $this->assertEquals($team, $service->getItem());
+        $service = new TranslateService();
 
-        # data
-        $team = factory(Team::class)->make(['id' => 123]);
-        $data = $service->setItem($team)->data();
-        $this->assertEquals($team->name, array_get($data, 'name'));
+        # configPath
+        $this->assertNotEmpty($service->configPath());
 
-        # getIndex
-        $team = factory(Team::class)->make(['id' => 123]);
-        $index = new Index(['indexable_type' => 'teams', 'indexable_id' => 123]);
-        $qb = m::mock(Builder::class);
-        $qb->shouldReceive('query')->andReturnSelf();
-        $qb->shouldReceive('firstOrCreate')->with([
-            'indexable_type' => $team->getMorphClass(),
-            'indexable_id' => $team->id,
-        ])->andReturn($index);
-        $service = m::mock(IndexService::class . '[instance]');
-        $service->shouldReceive('instance')->andReturn($qb);
-        $this->assertEquals($index, $service->setItem($team)->getIndex());
+        # getAvailableLocales
+        $locale = array_first($service->getAvailableLocales(), function ($locale) {
+            return array_get($locale, 'code') == 'es_ES';
+        });
+        $this->assertEquals('es_ES', $code($locale));
 
-        # columns
-        /* @todo mock Schema better so db isn't used */
-        $columns = Schema::getColumnListing('index');
-        Cache::shouldReceive('get')->with('index-columns')->andReturnNull();
-        Cache::shouldReceive('put')->with('index-columns', $columns, 24 * 60)->andReturnNull();
-        $this->assertEquals($columns, $service->columns());
+        # isAvailableLocale
+        $this->assertEquals('es_ES', $code($service->isAvailableLocale('es_ES')));
+        $this->assertNull($service->isAvailableLocale('foo'));
+
+        # setLocale / getLocale
+        $service->setLocale('es_ES');
+        $this->assertEquals('es_ES', $service->getLocale());
+        $service->setLocale('en_US');
+        $this->assertEquals('en_US', $service->getLocale());
+
+        # getLocaleFromRequest
+        app()['config']->set('belt.core.translate.prefix-urls', false);
+        $service = new TranslateService();
+        $this->assertEquals('es_ES', $service->getLocaleFromRequest(new Request(['locale' => 'es_ES'])));
+        $this->assertNull($service->getLocaleFromRequest(new Request(['locale' => 'foo'])));
+
+        app()['config']->set('belt.core.translate.prefix-urls', true);
+        $service = new TranslateService();
+        $request = new Request();
+        $request->server->set('REQUEST_URI', 'es_ES/foo/bar');
+        $this->assertEquals('es_ES', $service->getLocaleFromRequest($request));
+        $request = new Request();
+        $request->server->set('REQUEST_URI', 'foo/foo/bar');
+        $this->assertNull($service->getLocaleFromRequest($request));
+
+        # getAlternateLocale
+        $service->setLocale('es_ES');
+        $this->assertEquals('es_ES', $service->getAlternateLocale());
+        $service->setLocale('en_US');
+        $this->assertNull($service->getAlternateLocale());
+
+        # getAlternateLocales
+        $locales = array_where($service->getAvailableLocales(), function ($locale) {
+            return array_get($locale, 'code') == 'es_ES';
+        });
+        $this->assertEquals(array_values($locales), array_values($service->getAlternateLocales()));
+
+        # setTranslateObjects / canTranslateObjects
+        TranslateService::setTranslateObjects(false);
+        $this->assertFalse(TranslateService::canTranslateObjects());
+        TranslateService::setTranslateObjects(true);
+        $this->assertTrue(TranslateService::canTranslateObjects());
+
+        # setLocaleCookie
+        $cookie = m::mock(CookieObject::class);
+        Cookie::shouldReceive('make')->once()->with('locale', 'es_ES', 86400 * 365, null, null, false, false)->andReturn($cookie);
+        Cookie::shouldReceive('queue')->once()->with($cookie);
+        $service->setLocaleCookie('es_ES');
+
+        # getLocaleCookie
+        $cookie = m::mock(CookieObject::class);
+        $cookie->shouldReceive('getValue')->andReturn('es_ES');
+        Cookie::shouldReceive('queued')->once()->with('locale')->andReturn($cookie);
+        $this->assertEquals('es_ES', $service->getLocaleCookie());
+
+        Cookie::shouldReceive('queued')->once()->with('locale')->andReturnNull();
+        //Cookie::shouldReceive('get')->once()->with('locale')->andReturn('es_ES');
+        $this->app['request']->cookies->set('locale', 'es_ES');
+        $this->assertEquals('es_ES', $service->getLocaleCookie());
+
+        # translate
+        app()['config']->set('belt.core.translate.auto-translate.driver', StubTranslateServiceTestAutoTranslate::class);
+        $service = new TranslateService();
+        $this->assertEquals('translated foo from en_US to es_ES', $service->translate('foo', 'es_ES'));
+
+
     }
 
+}
+
+class StubTranslateServiceTestAutoTranslate extends BaseAutoTranslate
+{
+
+    /**
+     * @param $text
+     * @param $target_locale
+     * @param $source_locale
+     * @return \Aws\Result
+     */
+    public function translate($text, $target_locale, $source_locale)
+    {
+        return sprintf('translated %s from %s to %s', $text, $source_locale, $target_locale);
+    }
 }
