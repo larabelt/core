@@ -121,8 +121,6 @@ class TranslateServiceTest extends Testing\BeltTestCase
         app()['config']->set('belt.core.translate.auto-translate.driver', StubTranslateServiceTestAutoTranslate::class);
         $service = new TranslateService();
         $this->assertEquals('translated foo from en_US to es_ES', $service->translate('foo', 'es_ES'));
-
-
     }
 
 }
