@@ -3,6 +3,7 @@
 namespace Belt\Core\Services\AutoTranslate;
 
 use Belt;
+use Belt\Core\Services\AutoTranslate\Helpers;
 
 /**
  * Class BaseAutoTranslate
@@ -39,9 +40,9 @@ abstract class BaseAutoTranslate
     {
         $sections = [];
 
-        $helper = new Belt\Core\Services\AutoTranslate\Helpers\Sentence();
+        $helper = new Helpers\Sentence();
 
-        $elements = $helper->split($text);
+        $elements = $helper->split($text, Helpers\Sentence::SPLIT_TRIM);
 
         foreach ($elements as $n => $element) {
             $section = isset($section) ? $section : '';

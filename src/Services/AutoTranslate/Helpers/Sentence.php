@@ -1,9 +1,11 @@
 <?php
+
 namespace Belt\Core\Services\AutoTranslate\Helpers;
 
 /**
  *
  * @todo load equivalent via package
+ * @codeCoverageIgnore
  *
  * Segments sentences.
  * Clipping may not be perfect.
@@ -16,7 +18,8 @@ namespace Belt\Core\Services\AutoTranslate\Helpers;
  * @author Martijn van der Lee (@vanderlee)
  * @author @marktaw
  */
-class Sentence {
+class Sentence
+{
 
     /**
      * Specify this flag with the split method to trim whitespace.
@@ -99,7 +102,8 @@ class Sentence {
                 }
                 break;
             } elseif ((!$is_delimiter || ($flags & PREG_SPLIT_DELIM_CAPTURE && $is_captured)) && ($length[0] || ~$flags & PREG_SPLIT_NO_EMPTY)) {
-                $parts[] = $flags & PREG_SPLIT_OFFSET_CAPTURE ? array(mb_strcut($string, $position, $length[0]), $position) : mb_strcut($string, $position, $length[0]);
+                $parts[] = $flags & PREG_SPLIT_OFFSET_CAPTURE ? array(mb_strcut($string, $position, $length[0]), $position) : mb_strcut($string,
+                    $position, $length[0]);
             }
 
             $position += $length[0];
@@ -182,9 +186,9 @@ class Sentence {
      * Multibyte safe (atleast for UTF-8)
      *
      * For example:
-     * 	"There ... is. More!"
-     * 		... becomes ...
-     * 	[ "There ", "...", " is", ".", " More", "!" ]
+     *    "There ... is. More!"
+     *        ... becomes ...
+     *    [ "There ", "...", " is", ".", " More", "!" ]
      *
      * @param string $line
      * @return string[]
@@ -220,9 +224,9 @@ class Sentence {
      * Multibyte safe (atleast for UTF-8)
      *
      * For example:
-     * 	[ "There ", "...", " is", ".", " More", "!" ]
-     * 		... becomes ...
-     * 	[ "There ... is.", "More!" ]
+     *    [ "There ", "...", " is", ".", " More", "!" ]
+     *        ... becomes ...
+     *    [ "There ... is.", "More!" ]
      *
      * @param string[] $punctuations
      * @return string[]
@@ -262,9 +266,9 @@ class Sentence {
      * Looks for capitalized abbreviations & includes them with the following fragment.
      *
      * For example:
-     * 	[ "Last week, former director of the F.B.I. James B. Comey was fired. Mr. Comey was not available for comment." ]
-     * 		... becomes ...
-     * 	[ "Last week, former director of the F.B.I. James B. Comey was fired." ]
+     *    [ "Last week, former director of the F.B.I. James B. Comey was fired. Mr. Comey was not available for comment." ]
+     *        ... becomes ...
+     *    [ "Last week, former director of the F.B.I. James B. Comey was fired." ]
      *  [ "Mr. Comey was not available for comment." ]
      *
      * @param string[] $fragments
@@ -401,7 +405,7 @@ class Sentence {
     }
 
     /**
-     * Return the sentences sentences detected in the provided text.
+     * Return the sentences detected in the provided text.
      * Set the Sentence::SPLIT_TRIM flag to trim whitespace.
      * @param string $text
      * @param integer $flags

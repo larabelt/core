@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Services\AutoTranslate;
 
-use Belt;
+use Aws, Belt;
 
 /**
  * Class AWSAutoTranslate
@@ -10,6 +10,7 @@ use Belt;
  */
 class AWSAutoTranslate extends Belt\Core\Services\AutoTranslate\BaseAutoTranslate
 {
+
     public $client;
 
     /**
@@ -17,7 +18,7 @@ class AWSAutoTranslate extends Belt\Core\Services\AutoTranslate\BaseAutoTranslat
      */
     public function client()
     {
-        return $this->client ?: $this->client = new \Aws\Translate\TranslateClient([
+        return $this->client ?: $this->client = new Aws\Translate\TranslateClient([
             'version' => 'latest',
             'region' => 'us-east-2'
         ]);
@@ -36,10 +37,15 @@ class AWSAutoTranslate extends Belt\Core\Services\AutoTranslate\BaseAutoTranslat
 
         $sections = strlen($text) >= 5000 ? $this->split($text, 3000) : [$text];
 
-        $translated_text = '';
+        //$translated_text = '';
+        $translated_text = [];
         foreach ($sections as $section) {
-            $translated_text .= $this->__translate($section, $target_locale, $source_locale);
+            //$translated_text .= $this->__translate($section, $target_locale, $source_locale);
+            $translated_text[] = $this->__translate($section, $target_locale, $source_locale);
         }
+
+        $translated_text = implode(' ', $translated_text);
+        $translated_text = preg_replace('/\s+/', ' ', $translated_text);
 
         return $translated_text;
     }
