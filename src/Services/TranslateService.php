@@ -33,11 +33,6 @@ class TranslateService
         return 'belt.core.translate';
     }
 
-//    public static function active()
-//    {
-//        return static::active();
-//    }
-
     /**
      * @return mixed
      */
@@ -101,8 +96,6 @@ class TranslateService
      */
     public function getLocaleFromRequest($request)
     {
-        //$code = $request->get('locale') ?? $request->segment(1);
-
         $code = $request->get('locale');
 
         if (!$code && $this->prefixUrls()) {
@@ -115,7 +108,6 @@ class TranslateService
     }
 
 
-
     /**
      * @param $locale
      * @return bool
@@ -123,6 +115,15 @@ class TranslateService
     public function getAvailableLocales()
     {
         return $this->config('locales');
+    }
+
+    /**
+     * @param $locale
+     * @return bool
+     */
+    public function getDefaultLocale()
+    {
+        return config('app.fallback_locale');
     }
 
     /**
@@ -145,7 +146,7 @@ class TranslateService
         $locales = [];
 
         foreach ($this->getAvailableLocales() as $locale) {
-            if ($locale['code'] != config('app.fallback_locale')) {
+            if ($locale['code'] != $this->getDefaultLocale()) {
                 $locales[] = $locale;
             }
         }
