@@ -61,7 +61,7 @@ trait Paramable
     {
         $param = $this->params->where('key', $key)->first();
 
-        return $param ? $param->value : $default;
+        return $param ? $param->value : trim($default);
     }
 
     /**

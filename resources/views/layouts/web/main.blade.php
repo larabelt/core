@@ -21,11 +21,15 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    @include('belt-core::layouts.web.partials.object-head-links')
+
     @include('belt-core::layouts.admin.scripts.window-config')
 </head>
 <body class="web">
 
-@include('belt-core::layouts.web.partials.menu')
+<a name="top"></a>
+
+@include('belt-core::layouts.web.partials.nav')
 
 <div id="main" role="main">
     <div id="app">
@@ -34,6 +38,8 @@
         @yield('main')
     </div>
 </div>
+
+@include('belt-core::layouts.web.partials.footer')
 
 <script src="{{ static_url(mix('/js/manifest.js')) }}"></script>
 <script src="{{ static_url(mix('/js/vendor.js')) }}"></script>
