@@ -3,6 +3,7 @@
 namespace Belt\Core\Helpers;
 
 use Belt\Content\Adapters\AdapterFactory;
+use Belt\Content\Adapters\BaseAdapter;
 use Faker;
 use Illuminate\Http\UploadedFile;
 
@@ -21,74 +22,123 @@ class FactoryHelper
     /**
      * @var array
      */
-    public static $adapter;
-
-    /**
-     * @var array
-     */
     public static $images = [];
 
     /**
+     * @var BaseAdapter
+     */
+    public $adapter;
+
+    /**
+     * @var Faker\Generator
+     */
+    public $faker;
+
+    /**
      * @param $adapter
+     * @return $this
      */
-    public static function setAdapter($adapter)
+    public function setAdapter($adapter)
     {
-        static::$adapter = $adapter;
+        $this->adapter = $adapter;
+
+        return $this;
     }
 
     /**
-     * @return \Belt\Content\Adapters\BaseAdapter
+     * @return BaseAdapter
      * @throws \Exception
      */
-    public static function adapter()
+    public function getAdapter()
     {
-        $adapter = static::$adapter ?: AdapterFactory::up();
+        $adapter = $this->adapter ?: AdapterFactory::up();
 
-        return static::$adapter = $adapter;
+        return $this->adapter = $adapter;
     }
 
     /**
-     * @param null $images
-     * @return null
+     * @return \Illuminate\Contracts\Filesystem\Filesystem|\Illuminate\Filesystem\FilesystemAdapter
      * @throws \Exception
      */
-    public static function setImages($images = null, $limit = 2)
+    public function disk()
     {
-        if ($images) {
-            static::$images = $images;
-        }
+        return $this->getAdapter()->disk;
+    }
 
-        if (count(static::$images) < $limit) {
-            static::loadImages($limit);
-        }
+    /**
+     * @param $faker
+     * @return $this
+     */
+    public function setFaker($faker)
+    {
+        $this->faker = $faker;
+
+        return $this;
+    }
+
+    /**
+     * @return Faker\Generator
+     */
+    public function getFaker()
+    {
+        $faker = $this->faker ?: Faker\Factory::create();
+
+        return $this->faker = $faker;
+    }
+
+    /**
+     * @param array $images
+     * @return $this
+     */
+    public function setImages($images = [])
+    {
+        static::$images = $images;
+
+        return $this;
     }
 
     /**
      * @return array
      */
-    public static function getImages()
+    public function getImages()
     {
         return static::$images;
     }
 
     /**
-     * @return array
+     * @return string
+     */
+    public function getRandomImage()
+    {
+        shuffle(static::$images);
+
+        return head(static::$images);
+    }
+
+    /**
+     * @param bool $force
+     * @param int $limit
+     * @return $this
      * @throws \Exception
      */
-    public static function loadImages($limit = 10)
+    public function loadImages($force = false, $limit = 10)
     {
-        $adapter = static::adapter();
-        //$adapter->disk->delete('belt/database/images');
+        if (count(static::$images) < $limit || $force) {
 
-        foreach ($adapter->disk->allFiles('belt/database/images') as $path) {
-            static::$images[] = "storage/app/public/$path";
-        }
-
-        if (count(static::$images) < $limit) {
-            for ($i = 0; $i < $limit; $i++) {
-                static::$images[] = static::addImage();
+            foreach ($this->disk()->allFiles('belt/database/images') as $path) {
+                static::$images[] = "storage/app/public/$path";
             }
+
+            $count = count(static::$images);
+            if ($count < $limit) {
+                for ($i = $count; $i < $limit; $i++) {
+                    static::$images[] = $this->addImage();
+                }
+            }
+
         }
+
+        return $this;
     }
 
     /**
@@ -96,47 +146,42 @@ class FactoryHelper
      * @return string
      * @throws \Exception
      */
-    public static function addImage($params = [])
+    public function addImage($params = [])
     {
         $width = array_get($params, 'width', 640);
         $height = array_get($params, 'height', 480);
         $category = array_get($params, 'category', null);
 
-        $adapter = static::adapter();
-        $faker = Faker\Factory::create();
-        $filename = $faker->image('/tmp', $width, $height, $category, false);
-        $adapter->disk->put("belt/database/images/$filename", file_get_contents("/tmp/$filename"));
+        $filename = $this->getFaker()->image('/tmp', $width, $height, $category, false);
+        $this->disk()->put("belt/database/images/$filename", file_get_contents("/tmp/$filename"));
 
         return "storage/app/public/belt/database/images/$filename";
     }
 
-    public static function uploadImage($path, $filename = null, $upload = true)
+    /**
+     * @param $path
+     * @param null $filename
+     * @param bool $upload
+     * @return array|null
+     * @throws \Exception
+     */
+    public function uploadImage($path, $filename = null, $upload = true)
     {
-        $adapter = static::adapter();
-
         $filename = $filename ?: basename($path);
 
         $fileInfo = new UploadedFile(base_path($path), $filename);
 
         // copy file in new location
         if ($upload) {
-            $result = $adapter->upload('uploads', $fileInfo, $filename);
+            $result = $this->getAdapter()->upload('uploads', $fileInfo, $filename);
         } else {
-            $result = $adapter->__create($path, $fileInfo, $filename);
+            $result = $this->getAdapter()->__create($path, $fileInfo, $filename);
             $result['path'] = 'local/uploads';
         }
 
         return $result;
     }
 
-    /**
-     * @return string
-     */
-    public static function getRandomImage()
-    {
-        shuffle(static::$images);
 
-        return head(static::$images);
-    }
 
 }

@@ -2,7 +2,6 @@
 
 use Belt\Core\Helpers\BeltHelper;
 use Belt\Core\Testing\BeltTestCase;
-
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class BeltHelperTest extends BeltTestCase
