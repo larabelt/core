@@ -27,6 +27,7 @@ class FactoryHelperTest extends Testing\BeltTestCase
      * @covers \Belt\Core\Helpers\FactoryHelper::addImage
      * @covers \Belt\Core\Helpers\FactoryHelper::uploadImage
      * @covers \Belt\Core\Helpers\FactoryHelper::getRandomImage
+     * @covers \Belt\Core\Helpers\FactoryHelper::getUploadedFile
      */
     public function test()
     {
@@ -94,49 +95,42 @@ class FactoryHelperTest extends Testing\BeltTestCase
         $helper->setFaker($faker);
         $this->assertEquals("storage/app/public/belt/database/images/foo", $helper->addImage(['width' => 10, 'height' => 10, 'category' => 'foo']));
 
+        # getUploadedFile
+        $path = realpath(__DIR__ . '/../testing/test.jpg');
+        $fileInfo = new UploadedFile($path, 'foo.jpg');
+        $this->assertEquals($fileInfo, $helper->getUploadedFile($path, 'foo.jpg'));
+
         // fully upload image
-        $path = 'vendor/larabelt/content/tests/testing/test.jpg';
-        $fileInfo = new UploadedFile(base_path($path), 'foo.jpg');
+        $path = realpath(__DIR__ . '/../testing/test.jpg');
+        $fileInfo = new UploadedFile($path, 'foo.jpg');
         $adapter = m::mock(BaseAdapter::class);
-        $adapter->shouldReceive('upload')->once()->with('upload', $fileInfo, 'foo.jpg')->andReturn(['cool']);
+        $adapter->shouldReceive('upload')->once()->with('uploads', $fileInfo, 'foo.jpg')->andReturn(['cool']);
+        $helper = m::mock(FactoryHelper::class . '[getUploadedFile]');
+        $helper->shouldReceive('getUploadedFile')->andReturn($fileInfo);
         $helper->setAdapter($adapter);
         $this->assertEquals(['cool'], $helper->uploadImage($path, 'foo.jpg'));
 
+        // semi upload image
+        $path = realpath(__DIR__ . '/../testing/test.jpg');
+        $fileInfo = new UploadedFile($path, 'foo.jpg');
+        $adapter = m::mock(BaseAdapter::class);
+        $adapter->shouldReceive('__create')->once()->with($path, $fileInfo, 'foo.jpg')->andReturn(['foo' => 'bar']);
+        $helper = m::mock(FactoryHelper::class . '[getUploadedFile]');
+        $helper->shouldReceive('getUploadedFile')->andReturn($fileInfo);
+        $helper->setAdapter($adapter);
+        $this->assertEquals(['foo' => 'bar', 'path' => 'local/uploads'], $helper->uploadImage($path, 'foo.jpg', false));
 
-        return;
-
-        # get/set adapter
-        $helper->setAdapter('foo');
-        $this->assertEquals('foo', $helper->getAdapter());
-
-        # set/get images
-        $helper->setImages($images);
-        $this->assertEquals($images, $helper->getImages());
-
-        # load images already saved locally
+        // load images
         $disk = m::mock(Filesystem::class);
-        $disk->shouldReceive('allFiles')->once()->with('belt/database/images')->andReturn($images);
+        $disk->shouldReceive('allFiles')->once()->with('belt/database/images')->andReturn(['test1.jpg']);
         $adapter = m::mock(BaseAdapter::class);
         $adapter->disk = $disk;
-        $helper->setAdapter($adapter);
+        $helper = m::mock(FactoryHelper::class . '[addImage]');
         $helper->setImages([]);
-        $this->assertEquals([], $helper->getImages());
-        $helper->loadImages();
-        $this->assertEquals($imagesWithPath, $helper->getImages());
-
-        # get random image
-        $image = $helper->getRandomImage();
-        $this->assertTrue(in_array($image, $imagesWithPath));
-
-        # load images remotely and save/upload locally
-        $disk = m::mock(Filesystem::class);
-        $disk->shouldReceive('allFiles')->once()->with('belt/database/images')->andReturn([]);
-        $adapter = m::mock(BaseAdapter::class);
-        $adapter->disk = $disk;
+        $helper->shouldReceive('addImage')->times(9)->andReturn('test*.jpg');
         $helper->setAdapter($adapter);
-        $helper->setImages([]);
         $helper->loadImages();
-        $this->assertEquals($imagesWithPath, $helper->getImages());
+        $this->assertEquals(10, count($helper->getImages()));
 
     }
 }

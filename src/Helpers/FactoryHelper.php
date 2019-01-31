@@ -160,6 +160,16 @@ class FactoryHelper
 
     /**
      * @param $path
+     * @param $filename
+     * @return UploadedFile
+     */
+    public function getUploadedFile($path, $filename)
+    {
+        return new UploadedFile($path, $filename);
+    }
+
+    /**
+     * @param $path
      * @param null $filename
      * @param bool $upload
      * @return array|null
@@ -169,7 +179,7 @@ class FactoryHelper
     {
         $filename = $filename ?: basename($path);
 
-        $fileInfo = new UploadedFile(base_path($path), $filename);
+        $fileInfo = $this->getUploadedFile($path, $filename);
 
         // copy file in new location
         if ($upload) {
@@ -181,7 +191,6 @@ class FactoryHelper
 
         return $result;
     }
-
 
 
 }
