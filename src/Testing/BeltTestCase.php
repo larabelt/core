@@ -35,6 +35,8 @@ abstract class BeltTestCase extends TestCase
         parent::setUp();
 
         $this->refreshDB();
+
+        $this->disableI18n();
     }
 
     /**
@@ -111,9 +113,24 @@ abstract class BeltTestCase extends TestCase
         return new Store($name, new NullSessionHandler());
     }
 
+    /**
+     * Set config to disable internationalization
+     */
+    public function disableI18n()
+    {
+        app()['config']->set('app.locale', 'en');
+        app()['config']->set('app.fallback_locale', 'en');
+        app()['config']->set('belt.core.translate.locales', []);
+    }
+
+    /**
+     * Set config to enable internationalization
+     */
     public function enableI18n()
     {
+        app()['config']->set('app.locale', 'en_US');
         app()['config']->set('app.fallback_locale', 'en_US');
+        app()['config']->set('belt.core.translate.prefix-urls', true);
         app()['config']->set('belt.core.translate.locales', [
             ['code' => 'en_US', 'label' => 'English'],
             ['code' => 'es_ES', 'label' => 'Spanish'],

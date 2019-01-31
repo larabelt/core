@@ -65,6 +65,14 @@ class FactoryHelper
 
     /**
      * @return array
+     */
+    public static function getImages()
+    {
+        return static::$images;
+    }
+
+    /**
+     * @return array
      * @throws \Exception
      */
     public static function loadImages($limit = 10)

@@ -6,7 +6,8 @@ class FactoryHelperTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
-     * @covers \Belt\Core\Helpers\FactoryHelper::popImage
+     * @covers \Belt\Core\Helpers\FactoryHelper::loadImages
+     * @covers \Belt\Core\Helpers\FactoryHelper::getRandomImage
      */
     public function test()
     {
@@ -16,11 +17,11 @@ class FactoryHelperTest extends \PHPUnit\Framework\TestCase
             'three',
         ];
 
-        FactoryHelper::$images = $images;
+        FactoryHelper::setImages($images);
 
-        $image = FactoryHelper::popImage();
+        $image = FactoryHelper::getRandomImage();
 
         $this->assertTrue(in_array($image, $images));
-        $this->assertEquals(2, count(FactoryHelper::$images));
+        $this->assertEquals(count($images), count(FactoryHelper::getImages()));
     }
 }

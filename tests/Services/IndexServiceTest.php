@@ -129,11 +129,11 @@ class IndexServiceTest extends Testing\BeltTestCase
      */
     public function testUpsert()
     {
-        $data = ['foo' => 'bar'];
+        $data = ['slug' => 'foo'];
         $team = factory(Team::class)->make(['id' => 123]);
         $index = m::mock(Index::class);
         $index->shouldReceive('save')->andReturnSelf();
-        $index->shouldReceive('setAttribute')->with('foo', 'bar')->andReturnSelf();
+        $index->shouldReceive('setAttribute')->with('slug', 'foo')->andReturnSelf();
         $service = m::mock(IndexService::class . '[getIndex,data]');
         $service->shouldReceive('data')->andReturn($data);
         $service->shouldReceive('getIndex')->andReturn($index);
