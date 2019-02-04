@@ -114,7 +114,7 @@ class TranslateService
      */
     public function getAvailableLocales()
     {
-        return $this->config('locales');
+        return $this->config('locales', []);
     }
 
     /**
