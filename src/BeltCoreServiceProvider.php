@@ -66,7 +66,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
         $this->loadViewsFrom(__DIR__ . '/../resources/views/docs', 'belt-docs');
-        $this->loadViewsFrom(base_path('resources/docs'), 'belt-docs');
+        $this->loadViewsFrom(base_path('resources/docs/raw'), 'belt-docs');
 
         // set backup translation paths
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'belt-core');
