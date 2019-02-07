@@ -17,6 +17,7 @@ class WindowConfigHelper
         'auth' => [],
         'coords' => [],
         'access' => [],
+        'docs' => [],
     ];
 
     /**

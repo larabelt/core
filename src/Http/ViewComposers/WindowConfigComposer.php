@@ -80,6 +80,9 @@ class WindowConfigComposer
         // access
         WindowConfigHelper::put('access', (new AccessService())->map());
 
+        // docs
+        WindowConfigHelper::put('docs', config('belt.docs'));
+
         // locale / translate
         WindowConfigHelper::put('locale', Translate::getLocale());
         WindowConfigHelper::put('fallback_locale', config('app.fallback_locale'));

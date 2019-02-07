@@ -1,6 +1,7 @@
 <div>
     <heading>
         <span slot="title">User Editor</span>
+        <span slot="help"><link-help docKey="admin.core.users.editor" /></span>
         <li v-if="can('view', 'users')"><router-link :to="{ name: 'users' }">User Manager</router-link></li>
         <li>{{ form.email }}</li>
     </heading>

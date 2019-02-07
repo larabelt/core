@@ -1,6 +1,7 @@
 <div>
     <heading>
         <span slot="title">{{ trans('belt-core::teams.label') }} Editor</span>
+        <span slot="help"><link-help docKey="admin.core.teams.editor" /></span>
         <li><router-link :to="{ name: 'teams' }">{{ trans('belt-core::teams.label') }} Manager</router-link></li>
         <li>{{ team.name }}</li>
     </heading>

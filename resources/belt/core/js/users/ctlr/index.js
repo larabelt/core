@@ -27,6 +27,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">User Manager</span>
+                <span slot="help"><link-help docKey="admin.core.users.manager" /></span>
                 <li><router-link :to="{ name: 'users' }">User Manager</router-link></li>
             </heading>
             <section class="content">

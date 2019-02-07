@@ -45,6 +45,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         include __DIR__ . '/../routes/api.php';
         include __DIR__ . '/../routes/manage.php';
         include __DIR__ . '/../routes/web/base.php';
+        include __DIR__ . '/../routes/web/docs.php';
         include __DIR__ . '/../routes/localization.php';
 
         // beltable values for global belt command
@@ -64,6 +65,8 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/docs', 'belt-docs');
+        $this->loadViewsFrom(base_path('resources/docs'), 'belt-docs');
 
         // set backup translation paths
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'belt-core');
@@ -74,6 +77,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         // commands
         $this->commands(Belt\Core\Commands\BackupCommand::class);
         $this->commands(Belt\Core\Commands\BeltCommand::class);
+        $this->commands(Belt\Core\Commands\DocsCommand::class);
         $this->commands(Belt\Core\Commands\IndexCommand::class);
         $this->commands(Belt\Core\Commands\PublishCommand::class);
         $this->commands(Belt\Core\Commands\TestCommand::class);
@@ -118,6 +122,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         });
 
         // view composers
+        view()->composer(['belt-docs*'], Belt\Core\Http\ViewComposers\DocsComposer::class);
         view()->composer(['belt-core::layouts.admin.partials.includes-pre-main'], Belt\Core\Http\ViewComposers\PreMainAdminComposer::class);
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
         view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);

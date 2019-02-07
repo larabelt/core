@@ -80,4 +80,24 @@ class BeltSingleton
         }
     }
 
+    /**
+     * @param $key
+     * @return array
+     */
+    public function uses($key)
+    {
+        return $this->packages($key);
+    }
+
+    /**
+     * @param $class
+     * @return string
+     */
+    public function guessPackage($class)
+    {
+        $bits = explode("\\", $class);
+
+        return strtolower($bits[1]);
+    }
+
 }

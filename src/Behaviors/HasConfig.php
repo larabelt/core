@@ -14,17 +14,24 @@ trait HasConfig
      */
     public $config = [];
 
-    /**
-     * @var string
-     */
-    protected $configPath;
+//    /**
+//     * @var string
+//     */
+//    protected $configPath;
 
     /**
      * @return string
+     * @throws \Exception
      */
     public function configPath()
     {
-        return $this->configPath;
+        //return $this->configPath;
+
+        if (property_exists($this, 'configPath')) {
+            return $this->configPath;
+        }
+
+        throw new \Exception('configPath undefined');
     }
 
     /**

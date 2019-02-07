@@ -2,10 +2,10 @@
 
 namespace Belt\Core\Services;
 
-use Belt\Core\PublishHistory;
-use Belt\Core\Helpers\BeltHelper;
-use Illuminate\Database\Schema\Blueprint;
+use DB;
+use Belt\Core\Behaviors\HasDisk;
 use Illuminate\Support\Facades\Schema;
+use Matrix\Exception;
 
 /**
  * Class PublishService
@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Schema;
  */
 class PublishService
 {
+
+    use HasDisk;
+
+    /**
+     * @var string
+     */
+    protected $key;
+
+    /**
+     * @var string
+     */
+    protected $historyPath;
 
     /**
      * @var bool|mixed
@@ -55,14 +67,9 @@ class PublishService
     public $ignored = [];
 
     /**
-     * @var \Illuminate\Contracts\Filesystem\Filesystem
+     * @var array
      */
-    public $disk;
-
-    /**
-     * @var PublishHistory
-     */
-    public $publishHistory;
+    public $history = [];
 
     /**
      * PublishService constructor.
@@ -70,6 +77,7 @@ class PublishService
      */
     public function __construct($options = [])
     {
+        $this->key = array_get($options, 'key', '');
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
@@ -84,32 +92,41 @@ class PublishService
             $this->exclude[] = 'config/belt';
         }
 
-        $this->publishHistory = new PublishHistory();
+        $this->historyPath = config('belt.core.publish.history_path', 'database/history/publish/');
     }
 
     /**
-     * @return \Illuminate\Contracts\Filesystem\Filesystem
+     * Create one-time file with hashes from table. Future operations will only use text files.
      */
-    public function disk()
+    public function createHistoryFromTable()
     {
-        return $this->disk = $this->disk ?: BeltHelper::baseDisk();
-    }
-
-    /**
-     * Create "publish_history" table if it does not exist.
-     *
-     * @codeCoverageIgnore
-     */
-    public function setPublishHistoryTable()
-    {
-        if (!Schema::hasTable('publish_history')) {
-            Schema::create('publish_history', function (Blueprint $table) {
-                $table->increments('id');
-                $table->string('path')->unique();
-                $table->string('hash')->nullable();
-                $table->timestamps();
-            });
+        if (Schema::hasTable('publish_history')) {
+            foreach (DB::table('publish_history')->orderBy('path')->get() as $row) {
+                $this->addHistory($row->path, $row->hash, $row->updated_at);
+            };
+            $this->force = true;
+            $this->writeHistoryToFile();
         }
+    }
+
+    /**
+     * @param $path
+     * @param $hash
+     * @param null $timestamp
+     */
+    public function addHistory($path, $hash, $timestamp = null)
+    {
+//        $exempt = ['.DS_Store'];
+//
+//        if (in_array(basename($path), $exempt)) {
+//            return;
+//        }
+
+        $timestamp = $timestamp ?: date('Y-m-d H:i:s');
+        $hash = preg_match('/^[a-f0-9]{32}$/', $hash) ? $hash : md5($hash);
+
+        $this->history[$path]['timestamp'] = $timestamp;
+        $this->history[$path]['hash'] = $hash;
     }
 
     /**
@@ -119,31 +136,60 @@ class PublishService
      */
     public function publish()
     {
-        $this->setPublishHistoryTable();
+        $this->readHistoryFromFile();
 
         foreach ($this->dirs as $src_dir => $target_dir) {
             $this->publishDir($src_dir, $target_dir);
         }
+
+        $this->publishFiles($this->files);
+
+        $this->writeHistoryToFile();
     }
 
     /**
-     * Update history hashes
-     *
-     * @return mixed
+     * @return bool|string
+     * @throws Exception
      */
-    public function update()
+    public function getPreviousHistoryContents()
     {
-        $this->setPublishHistoryTable();
+        $path = sprintf("%s/%s", $this->historyPath, $this->key);
+        $historyFiles = $this->disk()->allFiles($path);
+        $historyFile = array_pop($historyFiles);
 
-        $histories = $this->publishHistory->all();
+        if (!$historyFile) {
+            $this->createHistoryFromTable();
+            $path = sprintf("%s/%s", $this->historyPath, $this->key);
+            $historyFiles = $this->disk()->allFiles($path);
+            $historyFile = array_pop($historyFiles);
+        }
 
-        foreach ($histories as $history) {
-            try {
-                $hash = md5($this->disk()->get($history->path));
-                $history->update(['hash' => $hash]);
-            } catch (\Exception $e) {
-                $history->delete();
+        if (!$historyFile) {
+            throw new Exception('missing history file for publish ' . $this->key);
+        }
+
+        return file_get_contents(base_path($historyFile));
+    }
+
+    /**
+     * Load previous publish history into publish array
+     */
+    public function readHistoryFromFile()
+    {
+        $contents = $this->getPreviousHistoryContents();
+
+        foreach (explode("\n", $contents) as $line) {
+
+            $bits = explode('|', $line);
+            if (!$line || count($bits) != 3) {
+                continue;
             }
+
+            $file = trim($bits[0]);
+            $timestamp = trim($bits[2]);
+            $hash = trim($bits[1]);
+
+            $this->addHistory($file, $hash, $timestamp);
         }
     }
 
@@ -153,14 +199,10 @@ class PublishService
      */
     public function publishDir($src_dir, $target_dir)
     {
-
-        //$include = $this->include ? explode(',', $this->include) : [];
-        //$exclude = $this->exclude ? explode(',', $this->exclude) : [];
+        $files = $this->disk()->allFiles($src_dir);
 
         $include = $this->include ?: [];
         $exclude = $this->exclude ?: [];
-
-        $files = $this->disk()->allFiles($src_dir);
 
         foreach ($files as $file) {
             $rel_src_path = str_replace($src_dir, '', $file);
@@ -175,6 +217,26 @@ class PublishService
     }
 
     /**
+     * @param array $files
+     */
+    public function publishFiles($files = [])
+    {
+        $files = $files ?: $this->files;
+
+        $include = $this->include ?: [];
+        $exclude = $this->exclude ?: [];
+
+        foreach ($files as $src_file => $target_file) {
+            if (!$include || str_contains($src_file, $include)) {
+                if ($exclude && str_contains($src_file, $exclude)) {
+                    continue;
+                }
+                $this->evalFile($src_file, $target_file);
+            }
+        }
+    }
+
+    /**
      * Consider copying file to target path
      *
      * @param $srcPath
@@ -184,17 +246,28 @@ class PublishService
      */
     public function evalFile($srcPath, $targetPath)
     {
+        $exempt = ['.DS_Store'];
+        if (str_contains($srcPath, $exempt)) {
+            return;
+        }
+
         $srcContents = $this->disk()->get($srcPath);
 
-        $history = $this->getFilePublishHistory($targetPath);
-
+        /**
+         * Target file hasn't been created yet, so go ahead.
+         */
         if (!$this->disk()->exists($targetPath)) {
-            return $this->createFile($targetPath, $srcContents, $history);
+            return $this->createFile($targetPath, $srcContents);
         }
 
+        /**
+         * We're forcing things, so go ahead.
+         */
         if ($this->force) {
-            return $this->replaceFile($targetPath, $srcContents, $history);
+            return $this->replaceFile($targetPath, $srcContents);
         }
+
+        $historyHash = $this->getHistoryHash($targetPath);
 
         $targetHash = md5($this->disk()->get($targetPath));
 
@@ -202,7 +275,7 @@ class PublishService
          * If the target file exists but the history is missing then we're going to
          * ignore it.
          */
-        if (!$history->hash) {
+        if (!$historyHash) {
             return $this->ignored[] = $targetPath;
         }
 
@@ -210,7 +283,7 @@ class PublishService
          * If saved hash does not match the current hash, then it appears
          * this file has been locally edited and should not be replaced.
          */
-        if ($history->hash != $targetHash) {
+        if ($historyHash != $targetHash) {
             return $this->ignored[] = $targetPath;
         }
 
@@ -219,7 +292,7 @@ class PublishService
          * looks to have been updated. We're going to replace it.
          */
         if (md5($srcContents) != $targetHash) {
-            return $this->replaceFile($targetPath, $srcContents, $history);
+            return $this->replaceFile($targetPath, $srcContents);
         }
 
         /**
@@ -228,17 +301,15 @@ class PublishService
          */
     }
 
+
     /**
      * @param $path
      * @param $contents
-     * @param $history
      * @return bool
      */
-    public function createFile($path, $contents, $history)
+    public function createFile($path, $contents)
     {
-        $result = $this->putFile($path, $contents, $history);
-
-        if ($result) {
+        if ($result = $this->putFile($path, $contents)) {
             $this->created[] = $path;
         }
 
@@ -251,11 +322,9 @@ class PublishService
      * @param $history
      * @return bool
      */
-    public function replaceFile($path, $contents, $history)
+    public function replaceFile($path, $contents)
     {
-        $result = $this->putFile($path, $contents, $history);
-
-        if ($result) {
+        if ($result = $this->putFile($path, $contents)) {
             $this->modified[] = $path;
         }
 
@@ -268,24 +337,54 @@ class PublishService
      * @param $history
      * @return bool
      */
-    public function putFile($path, $contents, $history)
+    public function putFile($path, $contents)
     {
-        $result = $this->disk()->put($path, $contents);
-
-        if ($result) {
-            $history->update(['hash' => md5($contents)]);
+        if ($result = $this->disk()->put($path, $contents)) {
+            $this->addHistory($path, $contents);
         }
 
         return $result;
     }
 
     /**
+     * Convert history array to text file
+     */
+    public function writeHistoryToFile()
+    {
+        try {
+            $maxlen = max(array_map('strlen', array_keys($this->history)));
+        } catch (\Exception $e) {
+            $maxlen = 100;
+        }
+
+        ksort($this->history);
+
+        $contents = '';
+        foreach ($this->history as $path => $row) {
+            $line = sprintf("%s|%s|%s", str_pad($path, $maxlen), $row['hash'], $row['timestamp']);
+            $contents = $contents ? "$contents\n$line" : $line;
+        }
+
+        $path = sprintf("%s/%s/%s.txt",
+            $this->historyPath,
+            $this->key,
+            date('YmdHis', strtotime('now')));
+
+        if ($this->force || $contents != $this->getPreviousHistoryContents()) {
+            $this->disk()->put($path, $contents);
+        }
+
+    }
+
+    /**
      * @param $path
      * @return mixed
      */
-    public function getFilePublishHistory($path)
+    public function getHistoryHash($path)
     {
-        return $this->publishHistory->firstOrCreate(['path' => $path]);
+        if ($history = array_get($this->history, $path)) {
+            return $history['hash'];
+        };
     }
 
 }

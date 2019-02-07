@@ -31,18 +31,19 @@ class PublishCommand extends Command
      */
     protected $dirs = [
         'vendor/larabelt/core/config' => 'config/belt',
-        //'vendor/larabelt/core/resources/js' => 'resources/belt/core/js',
-        //'vendor/larabelt/core/resources/sass' => 'resources/belt/core/sass',
         'vendor/larabelt/core/database/factories' => 'database/factories',
         'vendor/larabelt/core/database/migrations' => 'database/migrations',
         'vendor/larabelt/core/database/seeds' => 'database/seeds',
         'vendor/larabelt/core/database/testing' => 'database/testing',
+        'vendor/larabelt/core/docs' => 'resources/docs',
     ];
 
     /**
      * @var array
      */
-    protected $files = [];
+    protected $files = [
+
+    ];
 
     /**
      * @var PublishService
@@ -61,12 +62,12 @@ class PublishCommand extends Command
 
         $service = $this->service();
 
-        if ($action == 'update') {
-            $service->update();
-        }
-
         if ($action == 'publish') {
             $this->publish($service);
+        }
+
+        if ($action == 'create-history-from-table') {
+            $service->createHistoryFromTable();
         }
     }
 
@@ -107,6 +108,7 @@ class PublishCommand extends Command
     public function service()
     {
         $this->service = $this->service ?: new PublishService([
+            'key' => belt()->guessPackage(get_class($this)),
             'dirs' => $this->dirs,
             'files' => $this->files,
             'force' => $this->option('force'),

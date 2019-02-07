@@ -24,6 +24,7 @@ export default {
         <div>
             <heading>
                 <span slot="title">{{ trans('belt-core::teams.label') }} Manager</span>
+                <span slot="help"><link-help docKey="admin.core.teams.manager" /></span>
                 <li><router-link :to="{ name: 'teams' }">{{ trans('belt-core::teams.label') }} Manager</router-link></li>
             </heading>
             <section class="content">

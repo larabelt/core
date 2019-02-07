@@ -4,6 +4,11 @@
             <li><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <slot></slot>
         </ol>
-        <h1><slot name="title"></slot><small><slot name="subtitle"></slot></small></h1>
+        <h1>
+            <slot name="title"></slot>
+            <small>
+                <slot name="subtitle"></slot>
+            </small>
+            <span class="pull-right"><slot name="help"></slot></span></h1>
     </section>
 </div>

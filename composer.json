@@ -22,6 +22,7 @@
   "require": {
     "php": ">=7.1.3",
     "barryvdh/laravel-cors": "^0.11.0",
+    "binarytorch/larecipe": "^1.2",
     "doctrine/dbal": "^2.5",
     "guzzlehttp/guzzle": ">=6.2.0",
     "kalnoy/nestedset": "^4.3",

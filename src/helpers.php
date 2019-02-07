@@ -10,7 +10,8 @@ if (!function_exists('belt')) {
      */
     function belt()
     {
-        return new BeltHelper();
+        //return new BeltHelper();
+        return app()->get('belt');
     }
 }
 
