@@ -100,4 +100,15 @@ class BeltSingleton
         return strtolower($bits[1]);
     }
 
+    /**
+     * @param int $places
+     * @return array
+     */
+    public function version($places = 3)
+    {
+        $bits = explode('.', Belt\Core\BeltCoreServiceProvider::VERSION);
+
+        return implode('.', array_slice($bits, 0, $places));
+    }
+
 }

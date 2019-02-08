@@ -1,16 +1,11 @@
 @php
-    $src = $src ?? '';
-    $img = $img ?? new \Belt\Content\Attachment(['src' => $src]);
+    $alt = $alt ?? '';
+    $caption = $caption ?? '';
+    $src = $src ? "/storage/docs/$src" : '';
 @endphp
 
-![picture alt]({{ clip($img)->src() }} "")
+![picture alt]({{ $src }} "{{ $alt }}")
 
-![picture alt]({{ $src }} "")
-
-111
-
-{{ $src }}
-
-{{ clip($img)->src() }}
-
-222
+@if($caption)
+**{{ $caption }}**
+@endif

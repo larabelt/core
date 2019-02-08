@@ -10,7 +10,7 @@
 
 The Access area allows the creation of authenticated users into the {todo}.
 
-![picture alt]({{ $url_images }}/access-dropdown.png "")
+@include('belt-docs::partials.image', ['src' => '20/admin/core/assets/access-dropdown.png'])
 
 **Users** where users are created, managed, and deleted
 
@@ -22,10 +22,12 @@ are automatically granted admin status.
 
 The main dashboard allows for quick management of already existing users. You can create a user by selecting "Add User." "Modify" and "Delete" buttons sit to the right of the user within the action column.
 
-![picture alt]({{ $url_images }}/user-manager.png "")
+@include('belt-docs::partials.image', [
+    'src' => '20/admin/core/assets/user-manager.png',
+    'caption' => '(Above) User Manager Screen',
+])
 
-**(Above) User Manager Screen**
-
-![picture alt]({{ $url_images }}/user-editor.png "")
-
-**(Above) User Editor Screen**
+@include('belt-docs::partials.image', [
+    'src' => '20/admin/core/assets/user-editor.png',
+    'caption' => '(Above) User Editor Screen',
+])

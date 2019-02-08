@@ -22,6 +22,31 @@ class DocsService
     protected $version;
 
     /**
+     * @var string
+     */
+    protected $rawPath;
+
+    /**
+     * @var string
+     */
+    protected $publishedDocPath;
+
+    /**
+     * @var string
+     */
+    protected $publishedAssetPath;
+
+    /**
+     * DocsService constructor.
+     */
+    public function __construct()
+    {
+        $this->rawPath = $this->config('paths.raw', 'resources/docs/raw');
+        $this->publishedDocPath = $this->config('paths.doc_published', 'resources/docs/published');
+        $this->publishedAssetPath = $this->config('paths.asset_published', 'storage/app/public/docs');
+    }
+
+    /**
      * @param $version
      */
     public function setVersion($version)
@@ -39,10 +64,12 @@ class DocsService
     }
 
     /**
-     *
+     * @param $version
+     * @throws \Exception
      */
-    public function generate($version)
+    public function generate($version = null)
     {
+        $version = $version ?: belt()->version(2);
 
         $this->setVersion($version);
 
@@ -50,59 +77,61 @@ class DocsService
             throw new \Exception('version required');
         }
 
-        $raw_src_path = 'resources/docs/raw';
+        $this->disk()->deleteDirectory($this->publishedDocPath);
+        $this->disk()->deleteDirectory($this->publishedAssetPath);
 
-        $compiled_src_path = 'resources/docs/published';
-
-        $image_copy_path = 'public/images/docs';
-
-        $this->disk()->deleteDirectory($compiled_src_path);
-
-//        $files = $this->disk()->allFiles($raw_src_path . '/img');
-//
-//        foreach ($files as $raw_path) {
-//            $image_path = str_replace_first($raw_src_path . '/img', $image_copy_path, $raw_path);
-//            $this->disk()->put($image_path, $this->disk()->get($raw_path));
-//        }
-
-        $files = $this->disk()->allFiles($raw_src_path);
-
-        foreach ($files as $raw_path) {
-            $filename = basename($raw_path);
-            if (!str_contains($filename, '-md')) {
-                continue;
+        foreach ($this->disk()->allFiles($this->rawPath) as $raw_path) {
+            if (str_contains(basename($raw_path), '-md.blade.php')) {
+                $this->publishMDFile($raw_path);
+            } else {
+                $this->publishAsset($raw_path);
             }
-            $compiled_path = str_replace_first($raw_src_path, $compiled_src_path, $raw_path);
-            $compiled_path = str_replace(['.md.blade.php', '.blade.php'], '.md', $compiled_path);
-            $compiled_path = str_replace(['-md'], '', $compiled_path);
-            $compiled_path = str_replace($this->getVersion(true), $this->getVersion(), $compiled_path);
-            $this->disk()->put($compiled_path, $this->contents($raw_path));
         }
+    }
+
+    /**
+     * @param $src
+     */
+    public function publishMDFile($src)
+    {
+        $replacements = [
+            $this->rawPath => $this->publishedDocPath,
+            '-md.blade.php' => '.md',
+            $this->getVersion(true) => $this->getVersion(false),
+        ];
+
+        $target = str_replace(array_keys($replacements), array_values($replacements), $src);
+
+        $this->disk()->put($target, $this->renderMD($src));
+    }
+
+    /**
+     * @param $src
+     */
+    public function publishAsset($src)
+    {
+        $target = str_replace($this->rawPath, $this->publishedAssetPath, $src);
+
+        $this->disk()->copy($src, $target);
     }
 
     /**
      * @param $path
      * @return mixed|string
      */
-    public function contents($path)
+    public function renderMD($path)
     {
-        dump($path);
+        $replacements = [
+            "resources/docs/raw/{$this->getVersion(true)}/" => '',
+            '.blade.php' => '',
+            '/' => '.',
+            $this->getVersion(true) => $this->getVersion(false),
+        ];
 
-        //$contents = $this->disk()->get($path);
+        $view = str_replace(array_keys($replacements), array_values($replacements), $path);
+        $view = sprintf('belt-docs::%s.%s', $this->getVersion(true), $view);
 
-        $view_path = str_replace(["resources/docs/raw/{$this->getVersion(true)}/", '.md.blade.php', '.blade.php'], '', $path);
-        $view_path = str_replace(['/'], '.', $view_path);
-        $view_path = sprintf('belt-docs::%s.%s', $this->getVersion(true), $view_path);
-
-        dump($view_path);
-
-        $contents = View::make($view_path, ['version' => $this->getVersion()])->render();
-
-//        foreach ((array) $this->config('vars', []) as $key => $value) {
-//            $contents = str_replace(sprintf('{{%s}}', $key), $value, $contents);
-//        }
-
-        return $contents;
+        return View::make($view, ['version' => $this->getVersion()])->render();
     }
 
 }

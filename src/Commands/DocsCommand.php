@@ -45,8 +45,7 @@ class DocsCommand extends Command
         $service = $this->service();
 
         if ($action == 'generate') {
-            $version = $this->option('doc_version');
-            $service->generate($version);
+            $service->generate($this->option('doc_version'));
         }
     }
 

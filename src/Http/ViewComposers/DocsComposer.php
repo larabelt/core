@@ -25,8 +25,7 @@ class DocsComposer
     public function compose(View $view)
     {
         if (!array_get($view->getData(), 'version')) {
-            $bits = explode('.', Belt\Core\BeltCoreServiceProvider::VERSION);
-            $view->with('version', implode('.', [$bits[0], $bits[1]]));
+            $view->with('version', belt()->version(2));
         }
 
         foreach ($this->service()->config('vars') as $key => $value) {
