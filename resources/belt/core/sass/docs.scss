@@ -24,4 +24,11 @@
             }
         }
     }
+    table.table {
+        thead {
+            th:empty {
+                display: none;
+            }
+        }
+    }
 }
