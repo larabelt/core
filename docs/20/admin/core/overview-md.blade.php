@@ -3,8 +3,8 @@
 ---
 
 - [Intro](#intro)
-- [Left Hand Navigation](#sidebar)
-- [Managing Data](#managers)
+    - [Left Hand Navigation](#sidebar)
+    - [Managing Data](#managers)
 - [Editing Data](#editors)
 
 <a name="intro"></a>
