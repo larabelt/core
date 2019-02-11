@@ -17,12 +17,23 @@ export default {
             return this.$store.getters[this.translationsStoreKey + '/visible'];
         },
     },
+    watch: {
+        'form.id': function () {
+            if (this.translatable_type != 'params') {
+                this.loadTranslations();
+
+            }
+        }
+    },
     methods: {
         bootTranslationStore() {
             if (!this.$store.state[this.translationsStoreKey]) {
                 this.$store.registerModule(this.translationsStoreKey, store);
                 this.$store.dispatch(this.translationsStoreKey + '/set', {entity_type: this.translatable_type, entity_id: this.translatable_id});
                 this.loadTranslations();
+                if (History.get('translations', 'visible')) {
+                    this.setTranslationsVisibility(true);
+                }
             }
         },
         pushTranslation(values) {
