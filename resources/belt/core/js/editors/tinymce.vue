@@ -1,42 +1,36 @@
 <template>
-    <vue-mce v-model="content"
-             ref="editor"
-             :config="config"
-             @input="updateValue"
-             @change="handleChange"
-    />
+    <tinymce-editor
+            v-model="content"
+            :init="init"
+            :initial-value="initialValue"
+            @onChange="handleChange"
+    ></tinymce-editor>
 </template>
 
 <script>
-    import { component } from 'vue-mce';
+    import TinyMCEVue from '@tinymce/tinymce-vue';
     import editorMixins from 'belt/core/js/editors/mixins';
-    import example from 'belt/core/js/editors/tinymce/plugins/example';
 
     export default {
-        components: { 'vue-mce': component },
+        mixins: [editorMixins],
         data() {
             return {
-                config: {
-                    height: '300',
-                    plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table contextmenu paste code example',
-                    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code | example'
+                init: {
+                    height: '400px',
+                    plugins: 'advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste code wordcount',
+                    toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code'
                 }
             }
         },
         methods: {
             handleChange() {
                 this.$emit('change', this.content);
+                this.updateValue();
             },
-            setContent(value) {
-                /*
-                       For some reason both of these in combo work but sometimes don't load when only 1 of them is present.
-                       Could be on our end or in the plugin
-                    */
-                this.$refs['editor'].setContent(value);
-                this.content = value;
-            }
         },
-        mixins: [editorMixins]
+        components: {
+            'tinymce-editor': TinyMCEVue,
+        },
     }
 </script>
 
