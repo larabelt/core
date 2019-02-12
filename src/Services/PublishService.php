@@ -32,6 +32,11 @@ class PublishService
     public $force = false;
 
     /**
+     * @var bool|mixed
+     */
+    public $prune = false;
+
+    /**
      * @var string
      */
     public $include = '';
@@ -81,6 +86,7 @@ class PublishService
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
+        $this->prune = array_get($options, 'prune', false);
 
         $include = array_get($options, 'include', '');
         $exclude = array_get($options, 'exclude', '');
@@ -130,12 +136,53 @@ class PublishService
     }
 
     /**
+     * Prune excess history files
+     */
+    public function prune()
+    {
+        // go through folders...
+        // max 3 per day
+        // max 5 different days
+
+        $path = sprintf("%s/%s", $this->historyPath, $this->key);
+        $historyFiles = $this->disk()->allFiles($path);
+
+        rsort($historyFiles);
+
+        $tracker = [];
+
+        foreach ($historyFiles as $historyFile) {
+
+            $date = substr(basename($historyFile), 0, 8);
+
+            if (!isset($tracker[$date])) {
+                $tracker[$date] = 0;
+            }
+
+            $tracker[$date]++;
+
+            if ($tracker[$date] > 3) {
+                $this->disk()->delete($historyFile);
+            }
+
+            if (count($tracker) > 5) {
+                $this->disk()->delete($historyFile);
+            }
+        }
+
+    }
+
+    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function publish()
     {
+        if ($this->prune) {
+            $this->prune();
+        }
+
         $this->readHistoryFromFile();
 
         foreach ($this->dirs as $src_dir => $target_dir) {

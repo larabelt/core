@@ -2,6 +2,7 @@
 
 namespace Belt\Core\Commands;
 
+use Belt;
 use Belt\Core\Services\PublishService;
 use Illuminate\Console\Command;
 
@@ -12,12 +13,14 @@ use Illuminate\Console\Command;
 class PublishCommand extends Command
 {
 
+    use Belt\Core\Behaviors\HasService;
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'belt-core:publish {action=publish} {--force} {--include=} {--exclude=} {--config}';
+    protected $signature = 'belt-core:publish {action=publish} {--include=} {--exclude=} {--force} {--config} {--prune}';
 
     /**
      * The console command description.
@@ -25,6 +28,11 @@ class PublishCommand extends Command
      * @var string
      */
     protected $description = 'publish assets for belt core';
+
+    /**
+     * @var PublishService
+     */
+    protected $serviceClass = PublishService::class;
 
     /**
      * @var array
@@ -41,14 +49,7 @@ class PublishCommand extends Command
     /**
      * @var array
      */
-    protected $files = [
-
-    ];
-
-    /**
-     * @var PublishService
-     */
-    private $service;
+    protected $files = [];
 
     /**
      * Execute the console command.
@@ -111,10 +112,11 @@ class PublishCommand extends Command
             'key' => belt()->guessPackage(get_class($this)),
             'dirs' => $this->dirs,
             'files' => $this->files,
-            'force' => $this->option('force'),
             'include' => $this->option('include'),
             'exclude' => $this->option('exclude'),
+            'force' => $this->option('force'),
             'config' => $this->option('config'),
+            'prune' => $this->option('prune'),
         ]);
 
         return $this->service;
