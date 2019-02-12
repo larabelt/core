@@ -1,5 +1,12 @@
 <template>
-    <belt-editor v-if="translation" v-model="translation[column]" :form="translation" @input="emitEvent()" :key="key"></belt-editor>
+    <belt-editor
+            v-if="translation"
+            v-model="translation[column]"
+            :key="key"
+            :form="translation"
+            :initialValue="translation[column]"
+            @input="emitEvent()"
+    ></belt-editor>
 </template>
 
 <script>

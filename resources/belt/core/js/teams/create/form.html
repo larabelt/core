@@ -20,7 +20,7 @@
     </div>
     <div class="form-group" :class="{ 'has-error': form.error('body') }">
         <label for="body">Body</label>
-        <belt-editor v-model="form.body"></belt-editor>
+        <belt-editor :form="form" v-model="form.body" :initialValue="form.body" @input="emitEvent()"></belt-editor>
         <span v-for="error in form.error('body')" class="text-danger">{{ error }}</span>
     </div>
     <div class="text-right">

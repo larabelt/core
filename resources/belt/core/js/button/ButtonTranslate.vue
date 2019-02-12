@@ -59,13 +59,22 @@
                 this.setLocale(code);
             },
             toggle() {
-                let visible = !this.translationsVisible;
+
+                // toggle visibility
+                const visible = !this.translationsVisible;
                 this.setTranslationsVisibility(visible);
                 History.set('translations', 'visible', visible);
-                let paramsStoreKey = 'params/' + this.translatable_type + this.translatable_id;
-                let params = this.$store.getters[paramsStoreKey + '/data'];
+
+                // switch to first alt locale, if needed (since we don't translate for the fallback)
+                if (visible && this.locale == this.fallbackLocale) {
+                    const newLocale = _.first(this.altLocales);
+                    this.changeLocale(newLocale.code);
+                }
+
+                const paramsStoreKey = 'params/' + this.translatable_type + this.translatable_id;
+                const params = this.$store.getters[paramsStoreKey + '/data'];
                 _.each(params, (param) => {
-                    let paramTranslationStoreKey = 'translations/params' + param.id;
+                    const paramTranslationStoreKey = 'translations/params' + param.id;
                     if (this.$store.state[paramTranslationStoreKey]) {
                         this.$store.dispatch(paramTranslationStoreKey + '/setVisibility', visible);
                     }

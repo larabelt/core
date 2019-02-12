@@ -11,7 +11,6 @@ export default {
     actions: {
         data: (context, data) => context.commit('data', data),
         load: ({commit, state}) => {
-            console.log('load');
             let table = new Table();
             table.updateQuery({perPage: 0});
             return new Promise((resolve, reject) => {

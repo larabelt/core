@@ -1,34 +1,36 @@
+import * as child from 'belt/core/js/helpers/child';
+
 export default {
     created() {
-        this.content = !_.isEmpty(this.value) ? this.value : '';
+        this.content = !_.isEmpty(this.initialValue) ? this.initialValue : '';
+    },
+    props: {
+        ...child.propForm(),
+        initialValue: {
+            type: String
+        },
+    },
+    watch: {
+        initialValue() {
+            this.storeValue();
+        }
     },
     data() {
         return {
             content: '',
         }
     },
-    props: {
-        value: {
-            type: String
-        },
-    },
     methods: {
-        updateValue(value) {
+        updateValue() {
             this.$emit('input', String(this.content));
         },
         setContent(value) {
             this.content = value;
         },
         storeValue() {
-            if (this.value && !this.content) {
-                //this.watchForAsync = false;
-                this.setContent(this.value);
+            if (this.initialValue && !this.content) {
+                this.setContent(this.initialValue);
             }
         }
     },
-    watch: {
-        value() {
-            this.storeValue();
-        }
-    }
 }

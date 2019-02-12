@@ -3,7 +3,7 @@
             v-if="form.id"
             class="btn btn-sm btn-default"
             target="_blank"
-            :href="_href"
+            :href="href"
     >preview</a>
 </template>
 
@@ -15,16 +15,16 @@
     export default {
         mixins: [shared, LocalesStore, TranslatableStore],
         props: {
-            href: {
+            initial_href: {
                 type: String,
-                default: function () {
-                    return '/' + this.form.morph_class + '/' + this.form.id;
-                }
             },
         },
         computed: {
-            _href() {
-                let href = this.href;
+            href() {
+                return this.initial_href ? this.initial_href : this.auto_href;
+            },
+            auto_href() {
+                let href = '/' + this.form.morph_class + '/' + this.form.id;
                 if (this.translationsVisible && this.altLocale) {
                     href = href + '?locale=' + this.altLocale;
                 }
