@@ -3,10 +3,14 @@
 
 Here the user will find the main functional areas and pieces to construct, manage, and maintain the content within the website.
 
-@include('belt-docs::partials.image', [
-    'src' => '20/admin/core/assets/sidebar.png',
-    'caption' => '(Above) Top Level Admin Navigation',
-])
+{{--@include('belt-docs::partials.image', [--}}
+    {{--'src' => '20/admin/core/assets/sidebar.png',--}}
+    {{--'caption' => '(Above) Top Level Admin Navigation',--}}
+{{--])--}}
+
+@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/managers.sidebar'])
+
+**(Above) Top Level Admin Navigation**
 
 ### Dashboard
 

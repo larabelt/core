@@ -2,18 +2,18 @@
 
 return [
     'roles' => [
-        'manager' => '/tbd',
-        'creator' => '/tbd',
-        'editor' => '/tbd',
+        'manager' => '/docs/2.0/admin/core/access#roles',
+        'creator' => '/docs/2.0/admin/core/access#roles',
+        'editor' => '/docs/2.0/admin/core/access#roles',
     ],
     'teams' => [
-        'manager' => '/tbd',
-        'creator' => '/tbd',
-        'editor' => '/tbd',
+        'manager' => '/docs/2.0/admin/core/access#teams',
+        'creator' => '/docs/2.0/admin/core/access#teams',
+        'editor' => '/docs/2.0/admin/core/access#teams',
     ],
     'users' => [
-        'manager' => '/docs/2.0/admin/users#section-1',
-        'creator' => '/docs/2.0/admin/users#section-2',
-        'editor' => '/docs/2.0/admin/users#section-3',
+        'manager' => '/docs/2.0/admin/core/access#users',
+        'creator' => '/docs/2.0/admin/core/access#users',
+        'editor' => '/docs/2.0/admin/core/access#users',
     ],
 ];
