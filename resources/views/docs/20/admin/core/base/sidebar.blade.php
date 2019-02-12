@@ -18,24 +18,34 @@ Users and roles are managed here. Currently, set all users to "super." Admin and
 
 ### Content
 
-Where the items needed to create pages are managed, including:
-* Attachments: upload images to be used in pages and POIs
-* Blocks: create and manage parts or sections of pages
-* Handles: create and manage url handles for pages
-* Lists: create and manage lists including adventures and itineraries
-* Pages: create and update site pages
-* Posts: not used at this time
-* Terms: Used in the following situations:
-* Cruise: Items that are using the term Cruise, appear on the {{ $url }}/cruise-guests​ page
-* Landmark: Unique feature if a POI is a place like a waterfall. You want to reference the Term – Landmark – Waterfall under the POI terms section. This applies to waterfalls, beaches, hiking trails, must see, dive sites, gorge
+@include('belt-docs::partials.table', [
+    'rows' => [
+        ['Attachments', 'Upload images to be used in pages and POIs.'],
+        ['Blocks', 'Create and manage parts or sections of pages.'],
+        ['Handles', 'Create and manage url handles for pages.'],
+        ['Lists', 'Create and manage lists including adventures and itineraries.'],
+        ['Pages', 'Create and update site pages.'],
+        ['Posts', 'Not used at this time.'],
+        ['Terms', [
+            "Used in the following situations:",
+            "**Cruise:** Items that are using the term Cruise, appear on the $url/cruise-guests​ page.",
+            "**Landmark:** Unique feature if a POI is a place like a waterfall. You want to reference the Term – Landmark – Waterfall under the POI terms section. This applies to waterfalls, beaches, hiking trails, must see, dive sites, gorge.",
+        ]],
+    ],
+])
 
 ### POIs
 
 Where Points of Interests are managed, including:
-* Amenities: allows users to assign amenities to Places
-* Deals: not used at this time
-* Events: create and manage events
-* Places: create and manage places, which includes Accommodation, Landmark, Must See
+
+@include('belt-docs::partials.table', [
+    'rows' => [
+        ['Amenities', 'Allows users to assign amenities to Places.'],
+        ['Deals', 'Not used at this time'],
+        ['Events', 'Create and manage events'],
+        ['Places', 'Create and manage places, which includes Accommodation, Landmark, Must See'],
+    ],
+])
 
 ### Alerts
 
