@@ -12,6 +12,6 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
 
-        @include('belt-core::docs.20.admin.previews.managers.partials.header-user-dropdown')
+        @include('belt-core::docs.20.admin.previews.partials.header-user-dropdown')
     </nav>
 </header>

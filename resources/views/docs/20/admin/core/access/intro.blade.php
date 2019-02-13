@@ -1,11 +1,11 @@
 <a name="intro"></a>
 ## Intro
 
-The Access area allows the creation of authenticated users into the {todo}.
+The Access area allows the creation of authenticated users into the {{ env('APP_NAME') }} website.
 
 {{--@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/managers.default'])--}}
 
-@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/managers.sidebar?menu=access-expanded'])
+@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/screen?style=sidebar&sidebar=access'])
 
 {{--@include('belt-docs::partials.image', ['src' => '20/admin/core/assets/access-dropdown.png'])--}}
 

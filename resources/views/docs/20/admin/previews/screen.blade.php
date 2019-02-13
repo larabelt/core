@@ -1,11 +1,25 @@
 @php
-    $contents = $contents ?? 'default';
-    $contentViewPath = "belt-core::docs.20.admin.previews.managers.contents.$contents";
-    $menu = request()->query('menu', 'default');
 
+    $style = request()->query('style', 'default');
+    $styles = [
+        "belt-$package::docs.$version.$subtype.previews.styles.$style",
+        "belt-core::docs.$version.$subtype.previews.styles.$style",
+        "belt-$package::docs.$version.$subtype.previews.styles.default",
+        "belt-core::docs.$version.$subtype.previews.styles.default",
+    ];
+
+    $content = request()->query('content', 'default');
+    $contents = [
+        "belt-$package::docs.$version.$subtype.previews.contents.$content",
+        "belt-core::docs.$version.$subtype.previews.contents.$content",
+        "belt-$package::docs.$version.$subtype.previews.contents.default",
+        "belt-core::docs.$version.$subtype.previews.contents.default",
+    ];
+
+    $sidebar = request()->query('sidebar', 'default');
     $sidebars = [
-        "belt-$package::docs.$version.$subtype.previews.sidebars.$menu",
-        "belt-core::docs.$version.$subtype.previews.sidebars.$menu",
+        "belt-$package::docs.$version.$subtype.previews.sidebars.$sidebar",
+        "belt-core::docs.$version.$subtype.previews.sidebars.$sidebar",
         "belt-$package::docs.$version.$subtype.previews.sidebars.default",
         "belt-core::docs.$version.$subtype.previews.sidebars.default",
     ];
@@ -21,26 +35,15 @@
     <title>Admin</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    @include('belt-core::docs.20.admin.previews.managers.partials.window-config')
+    @include('belt-core::docs.20.admin.previews.partials.window-config')
     <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
-    <style>
-        header, footer, #belt-core {
-            display: none;
-        }
-        .main-sidebar {
-            padding-top: 0;
-        }
-        a {
-            pointer-events: none !important;
-            cursor: default !important;
-        }
-    </style>
+    @includeFirst($styles)
 </head>
 
-<body class="admin hold-transition skin-belt sidebar-mini">
+<body class="admin hold-transition skin-belt sidebar-mini {{ request()->has('sidebar-collapse') ? 'sidebar-collapse' : '' }}">
 <div class="wrapper">
 
-    @include('belt-core::docs.20.admin.previews.managers.partials.header')
+    @include('belt-core::docs.20.admin.previews.partials.header')
 
     <!-- Left side column. contains the logo and sidebar -->
     @includeFirst($sidebars)
@@ -52,7 +55,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div id="belt-core">
-
+                        @includeFirst($contents)
                     </div>
                 </div>
             </div>
@@ -60,7 +63,7 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    @include('belt-core::docs.20.admin.previews.managers.partials.footer')
+    @include('belt-core::docs.20.admin.previews.partials.footer')
 
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->

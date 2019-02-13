@@ -8,7 +8,7 @@ Here the user will find the main functional areas and pieces to construct, manag
     {{--'caption' => '(Above) Top Level Admin Navigation',--}}
 {{--])--}}
 
-@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/managers.sidebar'])
+@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/screen?style=sidebar'])
 
 **(Above) Top Level Admin Navigation**
 

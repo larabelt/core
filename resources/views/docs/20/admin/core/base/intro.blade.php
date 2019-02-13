@@ -14,6 +14,6 @@ Along the top is the User Identification and User Settings area. The left pane c
     {{--'caption' => '(Above) Main Administration Dashboard',--}}
 {{--])--}}
 
-@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/managers.default'])
+@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/screen'])
 
 **(Above) Main Administration Dashboard**
