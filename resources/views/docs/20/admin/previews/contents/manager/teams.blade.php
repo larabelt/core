@@ -3,7 +3,7 @@
         <section class="content-header">
             <ol class="breadcrumb">
                 <li><a href="/admin"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                <li><a href="/admin/belt/core/teams" class="router-link-exact-active router-link-active">Team Manager</a></li>
+                <li><a href="/admin/belt/core/teams" class="router-link-active">Team Manager</a></li>
             </ol>
             <h1><span>Team Manager</span>
                 <small></small>
@@ -197,166 +197,6 @@
                                     <a href="/admin/belt/core/teams/edit/10" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>11</td>
-                            <td>WILDERMAN-LANGOSH</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/11?team_id=11"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/11" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>12</td>
-                            <td>ROBEL INC</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/12?team_id=12"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/12" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>13</td>
-                            <td>HARRIS, DECKOW AND LINDGREN</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/13?team_id=13"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/13" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>14</td>
-                            <td>WEHNER, MEDHURST AND THOMPSON</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/14?team_id=14"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/14" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>COLLIER-LEUSCHKE</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/15?team_id=15"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/15" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>16</td>
-                            <td>TREMBLAY PLC</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/16?team_id=16"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/16" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>17</td>
-                            <td>HINTZ-STIEDEMANN</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/17?team_id=17"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/17" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>18</td>
-                            <td>NITZSCHE-WATERS</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/18?team_id=18"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/18" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>19</td>
-                            <td>HILPERT-HERMANN</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/19?team_id=19"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/19" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>20</td>
-                            <td>BUCKRIDGE AND SONS</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td>2019-01-31 19:48:24</td>
-                            <td class="text-right">
-                                <div class="btn-group">
-                                    <button type="button" data-toggle="dropdown" aria-expanded="false" title="options" class="btn btn-xs btn-default dropdown-toggle text-muted"><i class="fa fa-gear"></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/belt/core/teams/edit/20?team_id=20"><i class="fa fa-clone"></i> Admin as team</a></li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a class="modal-delete-trigger ''"><i class="fa fa-trash"></i> Remove</a></li>
-                                    </ul>
-                                    <a href="/admin/belt/core/teams/edit/20" class="btn btn-xs btn-default" title="edit item"><i class="fa fa-edit"></i></a></div>
-                            </td>
-                        </tr>
                         </tbody>
                         <tfoot>
                         <tr>
@@ -373,12 +213,12 @@
                     <div class="row belt-pagination">
                         <div class="col-md-4">
                             <div role="status" aria-live="polite" class="pagination">
-                                Showing 1 to 20 of 101 entries
+                                Showing 1 to 10 of 101 entries
                             </div>
                         </div>
                         <div class="col-md-8"><span class="pull-right"><ul class="pagination-sm pagination"><li class="disabled"><span><i title="first page" class="fa fa-step-backward"></i></span></li> <li class="disabled"><span><i title="previous page" class="fa fa-backward"></i></span></li> <li class="active"><a href="" title="page 1">1</a></li><li class=""><a href="" title="page 2">2</a></li><li
                                             class=""><a href="" title="page 3">3</a></li><li class=""><a href="" title="page 4">4</a></li><li class=""><a href="" title="page 5">5</a></li> <li><a href="" title="next page"><i class="fa fa-forward"></i></a></li> <li><a href="" title="last page"><i class="fa fa-step-forward"></i></a></li></ul></span> <span class="pull-right"><div class="form-inline"><div
-                                            class="form-group"><select title="items per page" class="form-control" style="height: 30px;"><option value="">show 20 items</option> <option value="10">10 items</option><option value="50">50 items</option><option value="100">100 items</option><option value="500">500 items</option><option value="1000">1000 items</option></select></div></div></span></div>
+                                            class="form-group"><select title="items per page" class="form-control" style="height: 30px;"><option value="10">show 10 items</option> <!----><option value="50">50 items</option><option value="100">100 items</option><option value="500">500 items</option><option value="1000">1000 items</option></select></div></div></span></div>
                     </div>
                 </div>
             </div>
