@@ -3,12 +3,17 @@
 
 Here the user will find the main functional areas and pieces to construct, manage, and maintain the content within the website.
 
-{{--@include('belt-docs::partials.image', [--}}
+{{--@include('belt-core::docs.partials.image', [--}}
     {{--'src' => '20/admin/core/assets/sidebar.png',--}}
     {{--'caption' => '(Above) Top Level Admin Navigation',--}}
 {{--])--}}
 
-@include('belt-docs::partials.iframe', ['src' => '/docs/preview/core/2.0/admin/screen?style=sidebar'])
+@include('belt-core::docs.partials.iframe', [
+    'src' => '/docs/preview/core/2.0/admin/screen?style=sidebar',
+    'fixed' => true,
+    'width' => 800,
+    'height' => 500,
+])
 
 **(Above) Top Level Admin Navigation**
 
@@ -22,7 +27,7 @@ Users and roles are managed here. Currently, set all users to "super." Admin and
 
 ### Content
 
-@include('belt-docs::partials.table', [
+@include('belt-core::docs.partials.table', [
     'rows' => [
         ['Attachments', 'Upload images to be used in pages and POIs.'],
         ['Blocks', 'Create and manage parts or sections of pages.'],
@@ -42,7 +47,7 @@ Users and roles are managed here. Currently, set all users to "super." Admin and
 
 Where Points of Interests are managed, including:
 
-@include('belt-docs::partials.table', [
+@include('belt-core::docs.partials.table', [
     'rows' => [
         ['Amenities', 'Allows users to assign amenities to Places.'],
         ['Deals', 'Not used at this time'],

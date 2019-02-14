@@ -65,7 +65,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
 
         // set backup view paths
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'belt-core');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/docs', 'belt-docs');
+        ////$this->loadViewsFrom(__DIR__ . '/../resources/views/docs', 'belt-docs');
         $this->loadViewsFrom(base_path('resources/docs/raw'), 'belt-docs');
 
         // set backup translation paths
@@ -122,7 +122,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         });
 
         // view composers
-        view()->composer(['belt-docs*'], Belt\Core\Http\ViewComposers\DocsComposer::class);
+        view()->composer(['belt-docs*', 'docs.*'], Belt\Core\Http\ViewComposers\DocsComposer::class);
         view()->composer(['belt-core::layouts.admin.partials.includes-pre-main'], Belt\Core\Http\ViewComposers\PreMainAdminComposer::class);
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
         view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);

@@ -7,7 +7,7 @@
 - [Managing Data](#managers)
 - [Editing Data](#editors)
 
-@include('belt-docs::20.admin.core.base.intro')
-@include('belt-docs::20.admin.core.base.sidebar')
-@include('belt-docs::20.admin.core.base.managers')
-@include('belt-docs::20.admin.core.base.editors')
+@include('belt-core::docs.20.admin.base.intro')
+@include('belt-core::docs.20.admin.base.sidebar')
+@include('belt-core::docs.20.admin.base.managers')
+@include('belt-core::docs.20.admin.base.editors')

@@ -1,14 +1,14 @@
 - ## Admin Panel
-    @include('belt-docs::20.admin.core.partials.index')
+    @include('belt-core::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.content.partials.index')
+    @include('belt-content::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.spot.partials.index')
+    @include('belt-spot::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.notify.partials.index')
+    @include('belt-notify::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.menu.partials.index')
+    @include('belt-menu::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.workflow.partials.index')
+    @include('belt-workflow::docs.20.admin.partials.index')
 
-    @include('belt-docs::20.admin.elastic.partials.index')
+    @include('belt-elastic::20.admin.elastic.partials.index')

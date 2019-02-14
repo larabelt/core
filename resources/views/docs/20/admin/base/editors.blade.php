@@ -3,7 +3,7 @@
 
 Data Editors are generally made up of the same elements to allow consistent behavior throughout the system. Within the right pane of page you have the following:
 
-@include('belt-docs::partials.table', [
+@include('belt-core::docs.partials.table', [
     'rows' => [
         ['Current Area Indicator​​', 'ex. Place Editor'],
         ['Attribute Tabs​​', 'This navigation allows you to manage additional attributes associated with specific data—it will change depending on the type of data being managed. A green bar indicates the current tab.'],
@@ -12,7 +12,7 @@ Data Editors are generally made up of the same elements to allow consistent beha
     ],
 ])
 
-@include('belt-docs::partials.image', [
+@include('belt-core::docs.partials.image', [
     'src' => '20/admin/core/assets/example-editor.png',
     'caption' => '(Above) Data Editor Screen',
 ])
