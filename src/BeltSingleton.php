@@ -97,7 +97,7 @@ class BeltSingleton
     {
         $bits = explode("\\", $class);
 
-        return strtolower($bits[1]);
+        return strtolower(array_get($bits, 1));
     }
 
     /**

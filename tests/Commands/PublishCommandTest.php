@@ -1,10 +1,11 @@
 <?php
 
 use Mockery as m;
+use Belt\Core\Testing;
 use Belt\Core\Commands\PublishCommand;
 use Belt\Core\Services\PublishService;
 
-class PublishCommandTest extends \PHPUnit\Framework\TestCase
+class PublishCommandTest extends Testing\BeltTestCase
 {
 
     public function tearDown()
@@ -58,6 +59,7 @@ class PublishCommandTest extends \PHPUnit\Framework\TestCase
     public function testService()
     {
         $cmd = m::mock(PublishCommand::class . '[option]');
+        $cmd->shouldReceive('option')->with('prune')->andReturn(false);
         $cmd->shouldReceive('option')->with('force')->andReturn(false);
         $cmd->shouldReceive('option')->with('include')->andReturn('test');
         $cmd->shouldReceive('option')->with('exclude')->andReturn('something-else');

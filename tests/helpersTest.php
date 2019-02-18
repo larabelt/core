@@ -1,12 +1,13 @@
 <?php
 
-use Belt\Core\Helpers\BeltHelper;
+use Belt\Core\BeltSingleton;
+use Belt\Core\Testing\BeltTestCase;
 
-class helpersTest extends \PHPUnit\Framework\TestCase
+class helpersTest extends BeltTestCase
 {
 
     public function test()
     {
-        $this->assertInstanceOf(BeltHelper::class, belt());
+        $this->assertInstanceOf(BeltSingleton::class, belt());
     }
 }

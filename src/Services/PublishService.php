@@ -2,7 +2,7 @@
 
 namespace Belt\Core\Services;
 
-use DB;
+use DB, Carbon\Carbon;
 use Belt\Core\Behaviors\HasDisk;
 use Illuminate\Support\Facades\Schema;
 use Matrix\Exception;
@@ -19,12 +19,12 @@ class PublishService
     /**
      * @var string
      */
-    protected $key;
+    public $key;
 
     /**
      * @var string
      */
-    protected $historyPath;
+    public $historyPath;
 
     /**
      * @var bool|mixed
@@ -39,12 +39,12 @@ class PublishService
     /**
      * @var string
      */
-    public $include = '';
+    public $include = [];
 
     /**
      * @var string
      */
-    public $exclude = '';
+    public $exclude = [];
 
     /**
      * @var array|mixed
@@ -82,7 +82,10 @@ class PublishService
      */
     public function __construct($options = [])
     {
+        //dump($options);
+
         $this->key = array_get($options, 'key', '');
+
         $this->dirs = array_get($options, 'dirs', []);
         $this->files = array_get($options, 'files', []);
         $this->force = array_get($options, 'force', false);
@@ -98,7 +101,7 @@ class PublishService
             $this->exclude[] = 'config/belt';
         }
 
-        $this->historyPath = config('belt.core.publish.history_path', 'database/history/publish/');
+        $this->historyPath = config('belt.core.publish.history_path', 'database/history/publish');
     }
 
     /**
@@ -144,8 +147,7 @@ class PublishService
         // max 3 per day
         // max 5 different days
 
-        $path = sprintf("%s/%s", $this->historyPath, $this->key);
-        $historyFiles = $this->disk()->allFiles($path);
+        $historyFiles = $this->getHistoryFiles();
 
         rsort($historyFiles);
 
@@ -163,6 +165,7 @@ class PublishService
 
             if ($tracker[$date] > 3) {
                 $this->disk()->delete($historyFile);
+                continue;
             }
 
             if (count($tracker) > 5) {
@@ -195,19 +198,25 @@ class PublishService
     }
 
     /**
+     * @return array
+     */
+    public function getHistoryFiles()
+    {
+        return $this->disk()->allFiles(sprintf("%s/%s", $this->historyPath, $this->key));
+    }
+
+    /**
      * @return bool|string
      * @throws Exception
      */
     public function getPreviousHistoryContents()
     {
-        $path = sprintf("%s/%s", $this->historyPath, $this->key);
-        $historyFiles = $this->disk()->allFiles($path);
+        $historyFiles = $this->getHistoryFiles();
         $historyFile = array_pop($historyFiles);
 
         if (!$historyFile) {
             $this->createHistoryFromTable();
-            $path = sprintf("%s/%s", $this->historyPath, $this->key);
-            $historyFiles = $this->disk()->allFiles($path);
+            $historyFiles = $this->getHistoryFiles();
             $historyFile = array_pop($historyFiles);
         }
 
@@ -215,7 +224,7 @@ class PublishService
             throw new Exception('missing history file for publish ' . $this->key);
         }
 
-        return file_get_contents(base_path($historyFile));
+        return $this->disk()->get($historyFile);
     }
 
     /**
@@ -415,7 +424,8 @@ class PublishService
         $path = sprintf("%s/%s/%s.txt",
             $this->historyPath,
             $this->key,
-            date('YmdHis', strtotime('now')));
+            Carbon::now()->format('YmdHis')
+        );
 
         if ($this->force || $contents != $this->getPreviousHistoryContents()) {
             $this->disk()->put($path, $contents);

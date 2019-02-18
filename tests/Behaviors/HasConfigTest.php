@@ -33,7 +33,7 @@ class HasConfigTest extends BeltTestCase
         $this->assertEquals([], $stub->configDefaults());
 
         # configPath
-        $this->assertEquals('', $stub->configPath());
+        $this->assertEquals('test', $stub->configPath());
 
         # configDefaults
         # setConfig
@@ -51,11 +51,23 @@ class HasConfigTest extends BeltTestCase
         $this->assertEquals('updated', $stub->config('foo'));
     }
 
+    /**
+     * @covers \Belt\Core\Behaviors\HasConfig::configPath
+     */
+    public function testConfigPath()
+    {
+        $this->expectExceptionMessage('configPath undefined');
+        $stub = new HasConfigTestStub3();
+        $stub->configPath();
+    }
+
 }
 
 class HasConfigTestStub extends Model
 {
     use HasConfig;
+
+    protected $configPath = 'test';
 }
 
 class HasConfigTestStub2 extends HasConfigTestStub
@@ -78,5 +90,11 @@ class HasConfigTestStub2 extends HasConfigTestStub
             'hello' => 'world',
         ];
     }
+
+}
+
+class HasConfigTestStub3 extends Model
+{
+    use HasConfig;
 
 }
