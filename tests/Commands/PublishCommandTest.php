@@ -34,6 +34,14 @@ class PublishCommandTest extends Testing\BeltTestCase
         $cmd->shouldReceive('service')->andReturn($service);
         $cmd->shouldReceive('publish')->andReturnNull();
         $cmd->handle();
+
+        # create-history-from-table
+        $service = m::mock(PublishService::class);
+        $service->shouldReceive('createHistoryFromTable')->once();
+        $cmd = m::mock(PublishCommand::class . '[argument, service]');
+        $cmd->shouldReceive('argument')->once()->with('action')->andReturn('create-history-from-table');
+        $cmd->shouldReceive('service')->once()->andReturn($service);
+        $cmd->handle();
     }
 
     /**

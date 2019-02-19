@@ -86,7 +86,7 @@ class BeltSingleton
      */
     public function uses($key)
     {
-        return $this->packages($key);
+        return $this->packages($key) ? true : false;
     }
 
     /**

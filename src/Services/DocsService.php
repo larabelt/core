@@ -69,13 +69,7 @@ class DocsService
      */
     public function generate($version = null)
     {
-        $version = $version ?: belt()->version(2);
-
-        $this->setVersion($version);
-
-        if (!$this->getVersion()) {
-            throw new \Exception('version required');
-        }
+        $this->setVersion($version ?: belt()->version(2));
 
         $this->disk()->deleteDirectory($this->publishedDocPath);
         $this->disk()->deleteDirectory($this->publishedAssetPath);
@@ -122,10 +116,10 @@ class DocsService
     public function renderMD($path)
     {
         $replacements = [
-            "resources/docs/raw/{$this->getVersion(true)}/" => '',
+            "{$this->rawPath}/{$this->getVersion(true)}/" => '',
             '.blade.php' => '',
             '/' => '.',
-            $this->getVersion(true) => $this->getVersion(false),
+            //$this->getVersion(true) => $this->getVersion(false),
         ];
 
         $view = str_replace(array_keys($replacements), array_values($replacements), $path);
