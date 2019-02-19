@@ -407,17 +407,13 @@ class PublishService
      */
     public function writeHistoryToFile()
     {
-        try {
-            $maxlen = max(array_map('strlen', array_keys($this->history)));
-        } catch (\Exception $e) {
-            $maxlen = 100;
-        }
+        $strlen = max(array_map('strlen', array_keys($this->history)));
 
         ksort($this->history);
 
         $contents = '';
         foreach ($this->history as $path => $row) {
-            $line = sprintf("%s|%s|%s", str_pad($path, $maxlen), $row['hash'], $row['timestamp']);
+            $line = sprintf("%s|%s|%s", str_pad($path, $strlen), $row['hash'], $row['timestamp']);
             $contents = $contents ? "$contents\n$line" : $line;
         }
 

@@ -3,13 +3,9 @@
 namespace Tests\Services;
 
 use Mockery as m;
-
 use Carbon\Carbon;
 use Belt\Core\Services\PublishService;
-use Belt\Core\PublishHistory;
 use Belt\Core\Testing\BeltTestCase;
-use Illuminate\Contracts\Filesystem\Filesystem;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -60,7 +56,6 @@ class PublishServiceTest extends BeltTestCase
      * @covers \Belt\Core\Services\PublishService::readHistoryFromFile
      * @covers \Belt\Core\Services\PublishService::publishDir
      * @covers \Belt\Core\Services\PublishService::publishFiles
-     * @covers \Belt\Core\Services\PublishService::evalFile
      * @covers \Belt\Core\Services\PublishService::createFile
      * @covers \Belt\Core\Services\PublishService::replaceFile
      * @covers \Belt\Core\Services\PublishService::putFile
@@ -173,7 +168,7 @@ class PublishServiceTest extends BeltTestCase
         $service->getPreviousHistoryContents();
 
         # readHistoryFromFile
-        $file_contents = file_get_contents(__DIR__ . '/../testing/publish-service.txt');
+        $file_contents = file_get_contents(__DIR__ . '/../testing/publish-service-1.txt');
         $service = m::mock(PublishService::class . '[getPreviousHistoryContents,addHistory]');
         $service->shouldReceive('getPreviousHistoryContents')->once()->andReturn($file_contents);
         $service->shouldReceive('addHistory')->once()->with('path/to/file1.php', 'hash1', '2019-02-01 00:00:01');
@@ -206,8 +201,6 @@ class PublishServiceTest extends BeltTestCase
         $service->shouldReceive('evalFile')->once()->with('path/to/src/included/file1.php', 'path/to/target/included/file1.php');
         $service->publishFiles();
 
-        # evalFile
-
         # createFile
         $service = m::mock(PublishService::class . '[putFile]');
         $service->shouldReceive('putFile')->once()->with('path/to/target/file.php', 'foo')->andReturn(true);
@@ -229,148 +222,111 @@ class PublishServiceTest extends BeltTestCase
         $this->assertEquals(true, $service->putFile('path/to/target/file.php', 'foo'));
 
         # writeHistoryToFile
+        $file_contents = file_get_contents(__DIR__ . '/../testing/publish-service-2.txt');
         $disk = m::mock(FilesystemAdapter::class);
-        $disk->shouldReceive('put')->once()->with('test/core/20190201000001.txt', 'foo')->andReturn(true);
+        $disk->shouldReceive('put')->once()->with('test/core/20190201000001.txt', $file_contents)->andReturn(true);
         $service = m::mock(PublishService::class . '[disk]');
         $service->key = 'core';
         $service->force = true;
-        $service->history = [];
+        $service->history = [
+            'path/to/file1.php' => ['hash' => 'hash1', 'timestamp' => '2019-01-01 00:00:01'],
+            'path/to/another/file2.php' => ['hash' => 'hash2', 'timestamp' => '2019-01-01 00:00:02'],
+        ];
         $service->shouldReceive('disk')->andReturn($disk);
-        $this->service = $service;
         Carbon::setTestNow(Carbon::create(2019, 2, 1, 0, 0, 1));
-        $this->service->writeHistoryToFile();
+        $service->writeHistoryToFile();
         Carbon::setTestNow(null);
 
         # getHistoryHash
+        $service = new PublishService($options);
+        $service->history = [
+            'path/to/file1.php' => ['hash' => 'hash1', 'timestamp' => '2019-01-01 00:00:01'],
+            'path/to/another/file2.php' => ['hash' => 'hash2', 'timestamp' => '2019-01-01 00:00:02'],
+        ];
+        $this->assertEquals('hash1', $service->getHistoryHash('path/to/file1.php'));
+        $this->assertNull($service->getHistoryHash('path/to/missing-file.php'));
+    }
 
-        return;
+    /**
+     * @covers \Belt\Core\Services\PublishService::evalFile
+     */
+    public function testEvalFile()
+    {
 
-        # __construct
-        # setPublishHistoryTable
-        $schemaClass = m::mock('overload:' . Schema::class);
-        $schemaClass->shouldReceive('hasTable')->andReturn(false);
-        $schemaClass->shouldReceive('create')->andReturn(true);
+        $disk = m::mock(FilesystemAdapter::class);
 
-        $force = true;
-        $dirs = [1, 2, 3];
-        $files = [4, 5, 6];
+        $service = m::mock(PublishService::class . '[disk,putFile]');
+        $service->shouldReceive('disk')->andReturn($disk);
 
-        $service = new PublishService([
-            'force' => $force,
-            'dirs' => $dirs,
-            'files' => $files,
-        ]);
+        # file is exempt
+        $this->assertNull($service->evalFile('path/to/.DS_Store', 'path/to/target/.DS_Store'));
 
-        $this->assertEquals($service->force, $force);
-        $this->assertEquals($service->dirs, $dirs);
-        $this->assertEquals($service->files, $files);
+        # file does not exist
+        $disk->shouldReceive('get')->once()->with('path/to/file1.php')->andReturn('foo');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file1.php')->andReturn(false);
+        $service->shouldReceive('putFile')->once()->with('path/to/target/file1.php', 'foo')->andReturn(true);
+        $this->assertTrue($service->evalFile('path/to/file1.php', 'path/to/target/file1.php'));
 
-        # disk
-        $this->assertInstanceOf(Filesystem::class, $service->disk());
-
-//        # getFilePublishHistory
-//        $publishHistory = m::mock(PublishHistory::class);
-//        $publishHistory->shouldReceive('firstOrCreate')->andReturn($this->mockHistory());
-//        $service->publishHistory = $publishHistory;
-//        $history = $service->getFilePublishHistory('/src');
-
-        # mock disk
-        $service->disk = $this->mockDisk();
-        $service->disk->shouldReceive('exists')->andReturn(false);
-
-        # putFile
-        $service->putFile('/src', '/target');
-
-        # createFile
-        $this->assertEquals(count($service->created), 0);
-        $service->createFile('/src', '/target');
-        $this->assertEquals(count($service->created), 1);
-
-        # replaceFile
-        $this->assertEquals(count($service->modified), 0);
-        $service->replaceFile('/src', '/target');
-        $this->assertEquals(count($service->modified), 1);
-
-        # evalFile (file does not exist)
-        $service->evalFile('/src', '/target');
-
-        # evalFile (force == true)
-        $history = $this->mockHistory();
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
+        # file does exist, but force it
         $service->force = true;
-        $this->assertEquals(count($service->modified), 0);
-        $service->evalFile('/src', '/existing-target');
-        $this->assertEquals(count($service->modified), 1);
+        $disk->shouldReceive('get')->once()->with('path/to/file2.php')->andReturn('foo');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file2.php')->andReturn(true);
+        $service->shouldReceive('putFile')->once()->with('path/to/target/file2.php', 'foo')->andReturn(true);
+        $this->assertTrue($service->evalFile('path/to/file2.php', 'path/to/target/file2.php'));
 
-        # evalFile (history->hash is null)
-        $history = $this->mockHistory(null);
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $this->assertEquals(count($service->ignored), 0);
-        $service->evalFile('/src', '/existing-target');
-        $this->assertEquals(count($service->ignored), 1);
+        # file exists but history hash is null
+        $service->force = false;
+        $disk->shouldReceive('get')->once()->with('path/to/file3.php')->andReturn('foo');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file3.php')->andReturn(true);
+        $disk->shouldReceive('get')->once()->with('path/to/target/file3.php')->andReturn('foo');
+        $service->evalFile('path/to/file3.php', 'path/to/target/file3.php');
+        $this->assertTrue(in_array('path/to/target/file3.php', $service->ignored));
 
-        # evalFile (history->hash != target hash)
-        $history = $this->mockHistory('different contents');
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $this->assertEquals(count($service->ignored), 0);
-        $service->evalFile('/src', '/existing-target');
-        $this->assertEquals(count($service->ignored), 1);
+        # file exists but history hash has changed (so don't overwrite it)
+        $service->force = false;
+        $service->history = ['path/to/target/file4.php' => ['hash' => md5('foo')]];
+        $service->ignored = [];
+        $disk->shouldReceive('get')->once()->with('path/to/file4.php')->andReturn('foo');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file4.php')->andReturn(true);
+        $disk->shouldReceive('get')->once()->with('path/to/target/file4.php')->andReturn('bar');
+        $service->evalFile('path/to/file4.php', 'path/to/target/file4.php');
+        $this->assertTrue(in_array('path/to/target/file4.php', $service->ignored));
 
-        # evalFile (source hash != target hash)
-        $history = $this->mockHistory('target contents');
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $this->assertEquals(count($service->modified), 0);
-        $service->evalFile('/updated-src', '/existing-target');
-        $this->assertEquals(count($service->modified), 1);
+        # file exists, history and target hash match, so it's okay to overwrite
+        $service->force = false;
+        $service->history = ['path/to/target/file5.php' => ['hash' => md5('foo')]];
+        $service->ignored = [];
+        $service->modified = [];
+        $disk->shouldReceive('get')->once()->with('path/to/file5.php')->andReturn('bar');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file5.php')->andReturn(true);
+        $disk->shouldReceive('get')->once()->with('path/to/target/file5.php')->andReturn('foo');
+        $service->shouldReceive('putFile')->once()->with('path/to/target/file5.php', 'bar')->andReturn(true);
+        $service->evalFile('path/to/file5.php', 'path/to/target/file5.php');
+        $this->assertTrue(in_array('path/to/target/file5.php', $service->modified));
 
-        # evalFile (source hash == target hash)
-        $history = $this->mockHistory('target contents');
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $this->assertEquals(count($service->modified), 0);
-        $service->evalFile('/unchanged-src', '/existing-target');
-        $this->assertEquals(count($service->modified), 0);
+        # file exists, history and target hash match, so it's okay to overwrite
+        $service->force = false;
+        $service->history = ['path/to/target/file5.php' => ['hash' => md5('foo')]];
+        $service->ignored = [];
+        $service->modified = [];
+        $disk->shouldReceive('get')->once()->with('path/to/file5.php')->andReturn('bar');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file5.php')->andReturn(true);
+        $disk->shouldReceive('get')->once()->with('path/to/target/file5.php')->andReturn('foo');
+        $service->shouldReceive('putFile')->once()->with('path/to/target/file5.php', 'bar')->andReturn(true);
+        $service->evalFile('path/to/file5.php', 'path/to/target/file5.php');
+        $this->assertTrue(in_array('path/to/target/file5.php', $service->modified));
 
-        # publishDir
-        $history = $this->mockHistory();
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $service->force = true;
-        $this->assertEquals(count($service->modified), 0);
-        $service->publishDir('/path/to/src', '/path/to/target');
-        $this->assertEquals(count($service->modified), 3);
-
-        # publishDir (include)
-        $history = $this->mockHistory();
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $service->force = true;
-        $service->include = ['one', 'two'];
-        $service->publishDir('/path/to/src', '/path/to/target');
-        $this->assertEquals(count($service->modified), 2);
-
-        # publishDir (exclude)
-        $history = $this->mockHistory();
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $service->force = true;
-        $service->exclude = ['two', 'three'];
-        $service->publishDir('/path/to/src', '/path/to/target');
-        $this->assertEquals(count($service->modified), 1);
-
-        # publish
-        $history = $this->mockHistory();
-        $service = $this->serviceMock($history);
-        $service->disk = $this->mockDisk();
-        $service->force = true;
-        $service->dirs = ['/path/to/src' => '/path/to/target'];
-        $this->assertEquals(count($service->modified), 0);
-        $service->publish();
-        $this->assertEquals(count($service->modified), 3);
+        # file exists, target and source are the same, nothing happens
+        $service->force = false;
+        $service->history = ['path/to/target/file6.php' => ['hash' => md5('foo')]];
+        $service->ignored = [];
+        $service->modified = [];
+        $disk->shouldReceive('get')->once()->with('path/to/file6.php')->andReturn('foo');
+        $disk->shouldReceive('exists')->once()->with('path/to/target/file6.php')->andReturn(true);
+        $disk->shouldReceive('get')->once()->with('path/to/target/file6.php')->andReturn('foo');
+        $service->evalFile('path/to/file6.php', 'path/to/target/file6.php');
+        $this->assertEmpty($service->ignored);
+        $this->assertEmpty($service->modified);
     }
 
     /**
@@ -385,66 +341,6 @@ class PublishServiceTest extends BeltTestCase
         $service->shouldReceive('getHistoryFiles')->twice()->andReturn([]);
         $service->shouldReceive('createHistoryFromTable')->once();
         $service->getPreviousHistoryContents();
-    }
-
-    private function mockDisk()
-    {
-        $disk = m::mock(FilesystemAdapter::class);
-        $disk->shouldReceive('put')->andReturn(true);
-        $disk->shouldReceive('get')->with('/src')->andReturn('source contents');
-        $disk->shouldReceive('get')->with('/unchanged-src')->andReturn('target contents');
-        $disk->shouldReceive('get')->with('/updated-src')->andReturn('updated contents');
-        $disk->shouldReceive('get')->with('/existing-target')->andReturn('target contents');
-        $disk->shouldReceive('exists')->with('/target')->andReturn(false);
-        $disk->shouldReceive('exists')->with('/existing-target')->andReturn(true);
-
-        $disk->shouldReceive('allFiles')->with('/path/to/src')->andReturn([
-            '/path/to/src/one',
-            '/path/to/src/two',
-            '/path/to/src/three',
-        ]);
-
-        $disk->shouldReceive('exists')->with('/path/to/src/one')->andReturn(true);
-        $disk->shouldReceive('exists')->with('/path/to/src/two')->andReturn(true);
-        $disk->shouldReceive('exists')->with('/path/to/src/three')->andReturn(true);
-        $disk->shouldReceive('get')->with('/path/to/src/one')->andReturn('source contents');
-        $disk->shouldReceive('get')->with('/path/to/src/two')->andReturn('source contents');
-        $disk->shouldReceive('get')->with('/path/to/src/three')->andReturn('source contents');
-
-        $disk->shouldReceive('exists')->with('/path/to/target/one')->andReturn(true);
-        $disk->shouldReceive('exists')->with('/path/to/target/two')->andReturn(true);
-        $disk->shouldReceive('exists')->with('/path/to/target/three')->andReturn(true);
-        $disk->shouldReceive('get')->with('/path/to/target/one')->andReturn('source contents');
-        $disk->shouldReceive('get')->with('/path/to/target/two')->andReturn('source contents');
-        $disk->shouldReceive('get')->with('/path/to/target/three')->andReturn('source contents');
-
-        return $disk;
-    }
-
-    private function mockHistory($contents = 'source contents')
-    {
-        $history = $this->getMockBuilder(PublishHistory::class)
-            ->setMethods(['update'])
-            ->getMock();
-
-        $history->expects($this->any())->method('update')->willReturn(true);
-
-        $history->hash = $contents ? md5($contents) : null;
-
-        return $history;
-    }
-
-    private function serviceMock($history = null)
-    {
-        $service = $this->getMockBuilder(PublishService::class)
-            ->setMethods(['getFilePublishHistory'])
-            ->getMock();
-
-        if ($history) {
-            $service->expects($this->any())->method('getFilePublishHistory')->willReturn($history);
-        }
-
-        return $service;
     }
 
 }
