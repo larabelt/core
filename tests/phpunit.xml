@@ -13,8 +13,14 @@
         <testsuite name="main">
             <directory suffix="Test.php">./</directory>
         </testsuite>
-        <testsuite name="functional">
-            <directory>Functional</directory>
+        <testsuite name="browser">
+            <directory>Browser</directory>
+        </testsuite>
+        <testsuite name="feature">
+            <directory>Feature</directory>
+        </testsuite>
+        <testsuite name="unit">
+            <directory>Unit</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -22,7 +28,7 @@
             <directory suffix=".php">../src</directory>
             <exclude>
                 <directory>../src/Services/Update/updates</directory>
-                <directory>../src/Testing</directory>
+                <directory>../src/Tests</directory>
                 <file>../src/BeltCoreServiceProvider.php</file>
             </exclude>
         </whitelist>

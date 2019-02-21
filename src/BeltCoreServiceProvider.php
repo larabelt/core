@@ -139,6 +139,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         $this->app->register(\Maatwebsite\Excel\ExcelServiceProvider::class);
         if (env('APP_DEBUG') === true) {
             $this->app->register(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(Laravel\Dusk\DuskServiceProvider::class);
             $this->app->register(Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class);
         }
 
