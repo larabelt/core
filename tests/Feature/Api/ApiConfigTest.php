@@ -1,5 +1,6 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
+use Route;
 use Belt\Core\Tests;
 use Belt\Core\Http\Controllers\Api\ConfigController;
 

@@ -103,7 +103,7 @@ class TestCommand extends Command
 
     public function buildTestingDB()
     {
-        Queue::fake();
+        \Queue::fake();
 
         putenv("APP_ENV=testing");
 

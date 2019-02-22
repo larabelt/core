@@ -8,7 +8,7 @@ class ApiUsersTest extends Tests\BeltTestCase
 
     public function test()
     {
-        Queue::fake();
+        \Queue::fake();
 
         $this->refreshDB();
         $this->actAsSuper();

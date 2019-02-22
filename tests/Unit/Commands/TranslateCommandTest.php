@@ -29,7 +29,7 @@ class TranslateCommandTest extends BeltTestCase
 
         $this->enableI18n();
 
-        Queue::fake();
+        \Queue::fake();
 
         StubTranslateCommandTest::unguard();
         StubTranslateCommandTestParam::unguard();

@@ -13,7 +13,7 @@ class IndexObserverTest extends Tests\BeltTestCase
     public function setUp()
     {
         parent::setUp();
-        Queue::fake();
+        \Queue::fake();
         IndexService::enable();
         IndexObserverStub::unguard();
     }

@@ -96,7 +96,7 @@ class BackupServiceTest extends Tests\BeltTestCase
         $this->assertEquals('foo', $service->getDatabaseConfig('missing', 'foo'));
 
         # run
-        Queue::fake();
+        \Queue::fake();
         $service->run();
         Queue::assertPushed(BackupDatabase::class, function ($job) {
             return $job->key == 'foo';
