@@ -1,10 +1,10 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Controllers\Auth\ForgotPasswordController;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\View\View;
 
-class ForgotPasswordControllerTest extends Tests\BeltTestCase
+class ForgotPasswordControllerTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     /**

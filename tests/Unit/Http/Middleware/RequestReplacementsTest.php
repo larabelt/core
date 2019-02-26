@@ -1,17 +1,17 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Middleware\RequestReplacements;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Mockery as m;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
-class RequestReplacementsTest extends Tests\BeltTestCase
+class RequestReplacementsTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

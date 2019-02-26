@@ -3,7 +3,7 @@
 use Belt\Core\Behaviors\Paramable;
 use Belt\Core\Behaviors\ParamableInterface;
 use Belt\Core\Param;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ParamTest extends BeltTestCase

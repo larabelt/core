@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Middleware\OptionalBasicAuth;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

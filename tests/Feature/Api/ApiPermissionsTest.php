@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Silber\Bouncer\BouncerFacade;
 
-class ApiPermissionsTest extends Tests\BeltTestCase
+class ApiPermissionsTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function test()

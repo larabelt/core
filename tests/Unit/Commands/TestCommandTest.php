@@ -2,7 +2,7 @@
 
 use Belt\Core\Commands\TestCommand;
 use Belt\Core\Facades\MorphFacade;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\FilesystemAdapter;

@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Team;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

@@ -3,12 +3,12 @@
 use Belt\Core\Events\ItemEventInterface;
 use Belt\Core\Events\ItemEventTrait;
 use Belt\Core\Facades\MorphFacade as Morph;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Support\Facades\Auth;
 use Mockery as m;
 
-class ItemEventTraitTest extends Tests\BeltTestCase
+class ItemEventTraitTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -63,7 +63,7 @@ class ItemEventTraitTest extends Tests\BeltTestCase
 
 }
 
-class ItemEventTraitStub extends Tests\BaseModelStub
+class ItemEventTraitStub extends \Tests\Belt\Core\Base\BaseModelStub
     implements ItemEventInterface
 {
     use ItemEventTrait;

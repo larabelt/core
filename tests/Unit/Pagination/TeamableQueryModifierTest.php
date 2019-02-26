@@ -2,14 +2,14 @@
 
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\TeamableQueryModifier;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class TeamableQueryModifierTest extends Tests\BeltTestCase
+class TeamableQueryModifierTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

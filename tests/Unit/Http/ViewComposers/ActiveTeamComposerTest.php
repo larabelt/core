@@ -3,7 +3,7 @@
 use Belt\Core\Http\ViewComposers\ActiveTeamComposer;
 use Belt\Core\Services\ActiveTeamService;
 use Belt\Core\Team;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Contracts\View\View;
 use Mockery as m;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Core\Tests;
+namespace Tests\Belt\Core\Base;
 
 use Mockery as m;
 use Belt\Core\Http\Requests\PaginateRequest;
@@ -15,7 +15,7 @@ use GuzzleHttp;
 
 /**
  * Class CommonMocks
- * @package Belt\Core\Tests
+ * @package Tests\Belt\Core
  */
 trait CommonMocks
 {

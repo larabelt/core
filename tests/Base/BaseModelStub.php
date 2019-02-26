@@ -1,12 +1,12 @@
 <?php
-namespace Belt\Core\Tests;
+namespace Tests\Belt\Core\Base;
 
 use Mockery as m;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BaseModelStub
- * @package Belt\Core\Tests
+ * @package Tests\Belt\Core
  */
 class BaseModelStub extends Model
 {

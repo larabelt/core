@@ -2,7 +2,7 @@
 
 use Belt\Core\Form;
 use Belt\Core\Forms\Contact\Notification;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class FormsContactNotificationTest extends BeltTestCase
 {

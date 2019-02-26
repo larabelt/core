@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Middleware\RedirectIfAuthenticated;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

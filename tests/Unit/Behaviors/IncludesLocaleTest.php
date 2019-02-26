@@ -1,10 +1,10 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\IncludesLocale;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Model;
 
-class IncludesLocaleTest extends Tests\BeltTestCase
+class IncludesLocaleTest extends \Tests\Belt\Core\BeltTestCase
 {
     /**
      * @covers \Belt\Core\Behaviors\IncludesLocale::bootIncludesLocale

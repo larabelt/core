@@ -4,10 +4,10 @@ use Belt\Core\Behaviors\Translatable;
 use Belt\Core\Behaviors\TranslatableInterface;
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Observers\TranslatableObserver;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class TranslatableObserverTest extends Tests\BeltTestCase
+class TranslatableObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -45,7 +45,7 @@ class TranslatableObserverTest extends Tests\BeltTestCase
 
 }
 
-class TranslatableObserverStub extends Tests\BaseModelStub implements TranslatableInterface
+class TranslatableObserverStub extends \Tests\Belt\Core\Base\BaseModelStub implements TranslatableInterface
 {
     use Translatable;
 }

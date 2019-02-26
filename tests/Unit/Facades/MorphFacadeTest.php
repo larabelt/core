@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Facades;
 
 use Belt\Core\Facades\MorphFacade;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class MorphFacadeTest extends BeltTestCase
 {

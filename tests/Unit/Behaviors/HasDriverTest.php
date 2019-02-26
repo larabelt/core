@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\HasDriver;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Database\Eloquent\Model;
 
 class HasDriverTest extends BeltTestCase

@@ -2,12 +2,12 @@
 
 use Belt\Content\Adapters\BaseAdapter;
 use Belt\Core\Helpers\FactoryHelper;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Mockery as m;
 
-class FactoryHelperTest extends Tests\BeltTestCase
+class FactoryHelperTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

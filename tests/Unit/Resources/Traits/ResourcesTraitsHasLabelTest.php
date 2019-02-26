@@ -2,7 +2,7 @@
 
 use Belt\Core\Resources\BaseResource;
 use Belt\Core\Resources\Traits\HasLabel;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class ResourcesTraitsHasLabelTest extends BeltTestCase
 {

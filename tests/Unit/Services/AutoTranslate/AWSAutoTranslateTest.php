@@ -3,10 +3,10 @@
 use Aws\Result;
 use Aws\Translate\TranslateClient;
 use Belt\Core\Services\AutoTranslate\AWSAutoTranslate;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class AWSAutoTranslateTest extends Tests\BeltTestCase
+class AWSAutoTranslateTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

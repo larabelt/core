@@ -1,12 +1,12 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Requests\PaginateRequest;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class PaginateRequestTest extends Tests\BeltTestCase
+class PaginateRequestTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

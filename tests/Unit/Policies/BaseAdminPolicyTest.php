@@ -4,17 +4,17 @@ use Belt\Core\Behaviors\Teamable;
 use Belt\Core\Behaviors\TeamableInterface;
 use Belt\Core\Policies\BaseAdminPolicy;
 use Belt\Core\Services\ActiveTeamService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class BaseAdminPolicyTest extends Tests\BeltTestCase
+class BaseAdminPolicyTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {
         m::close();
     }
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     /**
      * @covers \Belt\Core\Policies\BaseAdminPolicy::teamService
@@ -70,12 +70,12 @@ class BaseAdminPolicyTest extends Tests\BeltTestCase
 
 }
 
-class BaseAdminPolicyStub extends Tests\BaseModelStub
+class BaseAdminPolicyStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
 
 }
 
-class BaseAdminPolicyTeamableStub extends Tests\BaseModelStub implements
+class BaseAdminPolicyTeamableStub extends \Tests\Belt\Core\Base\BaseModelStub implements
     TeamableInterface
 {
     use Teamable;

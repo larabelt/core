@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Commands;
 
 use Belt\Core\Commands\BeltCommand;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Mockery as m;
 
 class BeltCommandTest extends BeltTestCase

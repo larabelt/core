@@ -2,14 +2,14 @@
 
 use Belt\Core\Jobs\BackupDatabase;
 use Belt\Core\Services\BackupService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Mockery as m;
 use Spatie\DbDumper\DbDumper;
 
-class BackupServiceTest extends Tests\BeltTestCase
+class BackupServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

@@ -3,7 +3,7 @@
 use Belt\Core\Form;
 use Belt\Core\Http\Requests\StoreForm;
 use Belt\Core\Services\FormService;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class StoreFormTest extends BeltTestCase
 {

@@ -2,15 +2,15 @@
 
 use Belt\Core\Services\ActiveTeamService;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Mockery as m;
 
-class ActiveTeamServiceTest extends Tests\BeltTestCase
+class ActiveTeamServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

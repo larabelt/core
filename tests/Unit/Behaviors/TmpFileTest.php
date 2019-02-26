@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\TmpFile;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Mockery as m;
 
 class TmpFileTest extends BeltTestCase

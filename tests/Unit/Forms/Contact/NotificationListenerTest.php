@@ -4,7 +4,7 @@ use Belt\Core\Events;
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Form;
 use Belt\Core\Forms\Contact\NotificationListener;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Support\Facades\Mail;
 
 class FormsContactNotificationListenerTest extends BeltTestCase

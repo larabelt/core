@@ -2,10 +2,10 @@
 
 use Belt\Core\Jobs\BackupDatabase;
 use Belt\Core\Services\BackupService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class BackupDatabaseTest extends Tests\BeltTestCase
+class BackupDatabaseTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

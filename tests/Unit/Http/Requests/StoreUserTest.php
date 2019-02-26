@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Requests\StoreUser;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class StoreUserTest extends BeltTestCase
 {

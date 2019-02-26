@@ -7,7 +7,7 @@ use Belt\Core\Commands\TranslateCommand;
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Jobs\TranslateValue;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\Translation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

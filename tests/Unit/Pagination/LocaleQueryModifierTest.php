@@ -2,14 +2,14 @@
 
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\LocaleQueryModifier;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class LocaleQueryModifierTest extends Tests\BeltTestCase
+class LocaleQueryModifierTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

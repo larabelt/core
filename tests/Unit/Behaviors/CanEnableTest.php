@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\CanEnable;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class CanEnableTest extends BeltTestCase
 {

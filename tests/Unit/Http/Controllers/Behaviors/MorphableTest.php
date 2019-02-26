@@ -2,7 +2,7 @@
 
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Http\Controllers\Behaviors\Morphable;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Routing\Controller;
 use Mockery as m;
 

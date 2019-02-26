@@ -4,10 +4,10 @@ use Belt\Core\Behaviors\IncludesSubtypes;
 use Belt\Core\Behaviors\IncludesSubtypesInterface;
 use Belt\Core\Builders\BaseBuilder;
 use Belt\Core\Observers\IncludesSubtypesObserver;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class IncludesSubtypesObserverTest extends Tests\BeltTestCase
+class IncludesSubtypesObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -47,7 +47,7 @@ class IncludesSubtypesObserverBuilder extends BaseBuilder
 
 }
 
-class IncludesSubtypesObserverStub extends Tests\BaseModelStub implements IncludesSubtypesInterface
+class IncludesSubtypesObserverStub extends \Tests\Belt\Core\Base\BaseModelStub implements IncludesSubtypesInterface
 {
     use IncludesSubtypes;
 

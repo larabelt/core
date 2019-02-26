@@ -1,11 +1,11 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\HasGuzzle;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 
-class HasGuzzleTest extends Tests\BeltTestCase
+class HasGuzzleTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

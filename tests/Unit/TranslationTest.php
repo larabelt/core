@@ -1,6 +1,6 @@
 <?php namespace Tests\Belt\Core\Unit;
 
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\Translation;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

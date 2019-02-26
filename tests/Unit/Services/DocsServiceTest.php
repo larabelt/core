@@ -3,7 +3,7 @@
 namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\DocsService;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\View;
 use Mockery as m;

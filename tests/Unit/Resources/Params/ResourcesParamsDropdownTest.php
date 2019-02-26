@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Resources;
 
 use Belt\Core\Resources\Params\DropDown;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class ResourcesParamsDropdownTest extends BeltTestCase
 {

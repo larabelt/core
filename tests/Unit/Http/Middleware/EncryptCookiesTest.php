@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Middleware\EncryptCookies;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Encryption\Encrypter;
 use Mockery as m;
 

@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Controllers\Auth\LoginController;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Mockery as m;
 
-class LoginControllerTest extends Tests\BeltTestCase
+class LoginControllerTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

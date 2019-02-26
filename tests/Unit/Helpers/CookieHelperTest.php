@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Helpers;
 
 use Belt\Core\Helpers\CookieHelper;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class CookieHelperTest extends BeltTestCase
 {

@@ -2,14 +2,14 @@
 
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Http\Middleware\SetLocaleFromRequest;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Http\Request;
 use Mockery as m;
 
-class SetLocaleFromRequestTest extends Tests\BeltTestCase
+class SetLocaleFromRequestTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

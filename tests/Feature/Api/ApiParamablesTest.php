@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\Param;
 
-class ApiParamablesTest extends Tests\BeltTestCase
+class ApiParamablesTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function test()

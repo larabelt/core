@@ -3,10 +3,10 @@
 use Belt\Core\Behaviors\IncludesLocale;
 use Belt\Core\Behaviors\IncludesLocaleInterface;
 use Belt\Core\Observers\IncludesLocaleObserver;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class IncludesLocaleObserverTest extends Tests\BeltTestCase
+class IncludesLocaleObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -30,7 +30,7 @@ class IncludesLocaleObserverTest extends Tests\BeltTestCase
 
 }
 
-class IncludesLocaleObserverStub extends Tests\BaseModelStub implements IncludesLocaleInterface
+class IncludesLocaleObserverStub extends \Tests\Belt\Core\Base\BaseModelStub implements IncludesLocaleInterface
 {
     use IncludesLocale;
 

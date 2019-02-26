@@ -2,7 +2,7 @@
 
 use Belt\Core\Form;
 use Belt\Core\Http\Requests\UpdateForm;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Mockery as m;
 
 class UpdateFormTest extends BeltTestCase

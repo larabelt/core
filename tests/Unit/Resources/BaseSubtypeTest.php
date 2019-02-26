@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Resources;
 
 use Belt\Core\Resources\BaseSubtype;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class BaseSubtypeTest extends BeltTestCase
 {

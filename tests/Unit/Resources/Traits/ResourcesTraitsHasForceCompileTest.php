@@ -2,7 +2,7 @@
 
 use Belt\Core\Resources\BaseResource;
 use Belt\Core\Resources\Traits\HasForceCompile;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class ResourcesTraitsHasForceCompileTest extends BeltTestCase
 {

@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit;
 
 use Belt\Core\Index;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class IndexTest extends BeltTestCase

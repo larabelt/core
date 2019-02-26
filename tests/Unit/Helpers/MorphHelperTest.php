@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Helpers;
 
 use Belt\Core\Helpers\MorphHelper;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;

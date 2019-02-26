@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\StrHelper;
 use Belt\Core\Helpers\WindowConfigHelper;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class WindowConfigHelperTest extends BeltTestCase
 {

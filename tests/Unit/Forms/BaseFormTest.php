@@ -2,7 +2,7 @@
 
 use Belt\Core\Form;
 use Belt\Core\Forms\BaseForm;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class BaseFormTest extends BeltTestCase
 {

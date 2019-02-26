@@ -2,10 +2,10 @@
 
 use Belt\Core\Jobs\DeleteIndexRecord;
 use Belt\Core\Services\IndexService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class DeleteIndexRecordTest extends Tests\BeltTestCase
+class DeleteIndexRecordTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function setUp()
@@ -37,7 +37,7 @@ class DeleteIndexRecordTest extends Tests\BeltTestCase
 
 }
 
-class DeleteIndexRecordStub extends Tests\BaseModelStub
+class DeleteIndexRecordStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     public function getMorphClass()
     {

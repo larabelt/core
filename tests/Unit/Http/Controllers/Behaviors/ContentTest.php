@@ -2,7 +2,7 @@
 
 use Belt\Content\Page;
 use Belt\Core\Http\Controllers\Behaviors\Content;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Routing\Controller;
 use Mockery as m;

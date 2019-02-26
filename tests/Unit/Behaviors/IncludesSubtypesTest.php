@@ -3,12 +3,12 @@
 use Belt\Core\Behaviors\IncludesSubtypes;
 use Belt\Core\Behaviors\ParamableInterface;
 use Belt\Core\Param;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 
-class IncludesSubtypesTest extends Tests\BeltTestCase
+class IncludesSubtypesTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     /**

@@ -2,7 +2,7 @@
 
 use Belt\Core\Resources\BaseResource;
 use Belt\Core\Resources\Traits\HasGroup;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class ResourcesTraitsHasGroupTest extends BeltTestCase
 {

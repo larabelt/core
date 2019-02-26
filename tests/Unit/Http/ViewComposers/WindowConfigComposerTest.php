@@ -2,7 +2,7 @@
 
 use Belt\Core\Helpers\WindowConfigHelper;
 use Belt\Core\Http\ViewComposers\WindowConfigComposer;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;

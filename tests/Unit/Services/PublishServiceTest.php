@@ -3,7 +3,7 @@
 namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\PublishService;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Carbon\Carbon;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\DB;

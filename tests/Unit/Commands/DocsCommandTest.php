@@ -2,10 +2,10 @@
 
 use Belt\Core\Commands\DocsCommand;
 use Belt\Core\Services\DocsService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class DocsCommandTest extends Tests\BeltTestCase
+class DocsCommandTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

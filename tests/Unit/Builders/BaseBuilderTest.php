@@ -2,7 +2,7 @@
 
 use Belt\Core\Behaviors;
 use Belt\Core\Builders\BaseBuilder;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Mockery as m;
 
 class BaseBuilderTest extends BeltTestCase

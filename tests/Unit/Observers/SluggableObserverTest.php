@@ -3,10 +3,10 @@
 use Belt\Core\Behaviors\Sluggable;
 use Belt\Core\Behaviors\SluggableInterface;
 use Belt\Core\Observers\SluggableObserver;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class SluggableObserverTest extends Tests\BeltTestCase
+class SluggableObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -29,7 +29,7 @@ class SluggableObserverTest extends Tests\BeltTestCase
 
 }
 
-class SluggableObserverStub extends Tests\BaseModelStub implements SluggableInterface
+class SluggableObserverStub extends \Tests\Belt\Core\Base\BaseModelStub implements SluggableInterface
 {
     use Sluggable;
 }

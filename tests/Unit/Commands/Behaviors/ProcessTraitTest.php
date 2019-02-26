@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Commands;
 
 use Belt\Core\Commands\Behaviors\ProcessTrait;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Console\Command;
 use Mockery as m;
 

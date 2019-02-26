@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Support\Facades\Queue;
 
-class ApiUsersTest extends Tests\BeltTestCase
+class ApiUsersTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function test()

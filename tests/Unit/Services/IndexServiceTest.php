@@ -4,7 +4,7 @@ use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Index;
 use Belt\Core\Services\IndexService;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
 use Mockery as m;
 
-class IndexServiceTest extends Tests\BeltTestCase
+class IndexServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function setUp()
     {

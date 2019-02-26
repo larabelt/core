@@ -1,12 +1,12 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Controllers\Auth\ResetPasswordController;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class ResetPasswordControllerTest extends Tests\BeltTestCase
+class ResetPasswordControllerTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     /**

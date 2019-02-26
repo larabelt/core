@@ -3,11 +3,11 @@
 use Belt\Core\Behaviors\Paramable;
 use Belt\Core\Behaviors\ParamableInterface;
 use Belt\Core\Observers\ParamableObserver;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Mockery as m;
 
-class ParamableObserverTest extends Tests\BeltTestCase
+class ParamableObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -33,7 +33,7 @@ class ParamableObserverTest extends Tests\BeltTestCase
 
 }
 
-class ParamableObserverStub extends Tests\BaseModelStub implements ParamableInterface
+class ParamableObserverStub extends \Tests\Belt\Core\Base\BaseModelStub implements ParamableInterface
 {
     use Paramable;
 }

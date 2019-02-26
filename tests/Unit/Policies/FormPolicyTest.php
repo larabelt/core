@@ -2,12 +2,12 @@
 
 use Belt\Core\Form;
 use Belt\Core\Policies\FormPolicy;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 
-class FormPolicyTest extends Tests\BeltTestCase
+class FormPolicyTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     /**
      * @covers \Belt\Core\Policies\FormPolicy::guidMatches

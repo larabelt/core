@@ -1,11 +1,11 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\IsSearchable;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Mockery as m;
 
-class IsSearchableTest extends Tests\BeltTestCase
+class IsSearchableTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -34,7 +34,7 @@ class IsSearchableTest extends Tests\BeltTestCase
 
 }
 
-class IsSearchableStub extends Tests\BaseModelStub
+class IsSearchableStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     use IsSearchable;
 

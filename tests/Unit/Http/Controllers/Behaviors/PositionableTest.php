@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Controllers\Behaviors\Positionable;
-use Belt\Core\Tests\CommonMocks;
+use Tests\Belt\Core\Base\CommonMocks;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;

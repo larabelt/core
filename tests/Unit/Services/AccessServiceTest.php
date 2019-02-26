@@ -1,13 +1,13 @@
 <?php namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\AccessService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Mockery as m;
 
-class AccessServiceTest extends Tests\BeltTestCase
+class AccessServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

@@ -4,11 +4,11 @@ use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\DefaultLengthAwarePaginator;
 use Belt\Core\Pagination\IsActiveQueryModifier;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 
-class DefaultLengthAwarePaginatorTest extends Tests\BeltTestCase
+class DefaultLengthAwarePaginatorTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

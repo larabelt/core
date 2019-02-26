@@ -1,10 +1,10 @@
 <?php namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\FormService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class FormServiceTest extends Tests\BeltTestCase
+class FormServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

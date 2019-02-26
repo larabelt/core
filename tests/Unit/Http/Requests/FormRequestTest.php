@@ -1,13 +1,13 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Requests\FormRequest;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Routing\Route;
 use Illuminate\Validation\Rules;
 use Mockery as m;
 
-class FormRequestTest extends Tests\BeltTestCase
+class FormRequestTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

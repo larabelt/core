@@ -2,13 +2,13 @@
 
 use Belt\Core\Policies\TeamPolicy;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Collection;
 
-class TeamPolicyTest extends Tests\BeltTestCase
+class TeamPolicyTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     /**
      * @covers \Belt\Core\Policies\TeamPolicy::view

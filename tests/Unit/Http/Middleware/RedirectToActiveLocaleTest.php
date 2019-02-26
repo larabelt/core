@@ -2,7 +2,7 @@
 
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Http\Middleware\RedirectToActiveLocale;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Mockery as m;

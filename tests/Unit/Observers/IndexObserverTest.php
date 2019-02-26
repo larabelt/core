@@ -3,11 +3,11 @@
 use Belt\Core\Jobs\UpdateIndexRecord;
 use Belt\Core\Observers\IndexObserver;
 use Belt\Core\Services\IndexService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Support\Facades\Queue;
 use Mockery as m;
 
-class IndexObserverTest extends Tests\BeltTestCase
+class IndexObserverTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function setUp()
@@ -50,7 +50,7 @@ class IndexObserverTest extends Tests\BeltTestCase
 
 }
 
-class IndexObserverStub extends Tests\BaseModelStub
+class IndexObserverStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
 
 }

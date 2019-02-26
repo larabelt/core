@@ -4,12 +4,12 @@ use Belt\Core\Events;
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Listeners;
 use Belt\Core\Mail\UserWelcomeEmail;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\User;
 use Illuminate\Support\Facades\Mail;
 use Mockery as m;
 
-class SendUserWelcomeEmailTest extends Tests\BeltTestCase
+class SendUserWelcomeEmailTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

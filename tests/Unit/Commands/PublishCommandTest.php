@@ -2,10 +2,10 @@
 
 use Belt\Core\Commands\PublishCommand;
 use Belt\Core\Services\PublishService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class PublishCommandTest extends Tests\BeltTestCase
+class PublishCommandTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

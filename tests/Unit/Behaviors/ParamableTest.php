@@ -4,13 +4,13 @@ use Belt\Core\Behaviors\Paramable;
 use Belt\Core\Facades\MorphFacade;
 use Belt\Core\Param;
 use Belt\Core\Team;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Mockery as m;
 
-class ParamableTest extends Tests\BeltTestCase
+class ParamableTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -151,7 +151,7 @@ class ParamableTest extends Tests\BeltTestCase
 
 }
 
-class ParamableStub extends Tests\BaseModelStub
+class ParamableStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     use Paramable;
 

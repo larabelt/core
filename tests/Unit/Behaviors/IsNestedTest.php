@@ -2,11 +2,11 @@
 
 use Belt\Core\Behaviors\IsNested;
 use Belt\Core\Behaviors\IsNestedInterface;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 
-class IsNestedTest extends Tests\BeltTestCase
+class IsNestedTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

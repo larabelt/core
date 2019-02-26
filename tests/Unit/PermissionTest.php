@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit;
 
 use Belt\Core\Permission;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Mockery as m;
 

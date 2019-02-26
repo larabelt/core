@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Controllers\Behaviors\SpreadSheet;
 use Belt\Core\Team;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
 use Maatwebsite\Excel\Facades\Excel;

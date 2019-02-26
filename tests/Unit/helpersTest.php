@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit;
 
 use Belt\Core\BeltSingleton;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class helpersTest extends BeltTestCase
 {

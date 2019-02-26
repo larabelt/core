@@ -5,7 +5,7 @@ use Belt\Core\Resources\BaseResource;
 use Belt\Core\Resources\Params\Text;
 use Belt\Core\Resources\Traits\HasParamGroups;
 use Belt\Core\Resources\Traits\HasParams;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Support\Collection;
 
 class ResourcesTraitsHasParamGroupsTest extends BeltTestCase

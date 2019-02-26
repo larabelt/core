@@ -3,11 +3,11 @@
 use Belt;
 use Belt\Core\Ability;
 use Belt\Core\Behaviors\Permissible;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class PermissibleTest extends Tests\BeltTestCase
+class PermissibleTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()
@@ -66,7 +66,7 @@ class PermissibleTest extends Tests\BeltTestCase
 
 }
 
-class PermissibleStub //extends Tests\BaseModelStub
+class PermissibleStub //extends \Tests\Belt\Core\Base\BaseModelStub
 {
     use Permissible;
 

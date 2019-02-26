@@ -1,6 +1,6 @@
 <?php
 
-namespace Belt\Core\Tests;
+namespace Tests\Belt\Core;
 
 use Belt\Core\User;
 use Belt\Core\Helpers\BeltHelper;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 
 /**
  * Class BeltTestCase
- * @package Belt\Core\Tests
+ * @package Tests\Belt\Core
  */
 abstract class BeltTestCase extends TestCase
 {

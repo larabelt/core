@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Controllers\Behaviors\XMLFeed;
 use Belt\Core\Team;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Mockery as m;

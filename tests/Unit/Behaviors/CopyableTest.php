@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\Copyable;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 
-class CopyableTest extends Tests\BeltTestCase
+class CopyableTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     /**
@@ -25,7 +25,7 @@ class CopyableTest extends Tests\BeltTestCase
 
 }
 
-class CopyableTestStub extends Tests\BaseModelStub
+class CopyableTestStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     use Copyable;
 

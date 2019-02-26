@@ -3,10 +3,10 @@
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Jobs\UpdateIndexRecord;
 use Belt\Core\Services\IndexService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class UpdateIndexRecordTest extends Tests\BeltTestCase
+class UpdateIndexRecordTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function setUp()
@@ -44,7 +44,7 @@ class UpdateIndexRecordTest extends Tests\BeltTestCase
 
 }
 
-class UpdateIndexRecordStub extends Tests\BaseModelStub
+class UpdateIndexRecordStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     public function getMorphClass()
     {

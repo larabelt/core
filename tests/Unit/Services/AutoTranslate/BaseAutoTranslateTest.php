@@ -1,10 +1,10 @@
 <?php namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\AutoTranslate\BaseAutoTranslate;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class BaseAutoTranslateTest extends Tests\BeltTestCase
+class BaseAutoTranslateTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Helpers;
 
 use Belt\Core\Helpers\BeltHelper;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class BeltHelperTest extends BeltTestCase

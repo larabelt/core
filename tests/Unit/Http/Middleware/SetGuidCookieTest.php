@@ -1,14 +1,14 @@
 <?php namespace Tests\Belt\Core\Unit\Http;
 
 use Belt\Core\Http\Middleware\SetGuidCookie;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Http\Request;
 use Mockery as m;
 
-class SetGuidCookieTest extends Tests\BeltTestCase
+class SetGuidCookieTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

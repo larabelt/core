@@ -1,12 +1,12 @@
 <?php namespace Tests\Belt\Core\Unit\Behaviors;
 
 use Belt\Core\Behaviors\HasDisk;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 
-class HasDiskTest extends Tests\BeltTestCase
+class HasDiskTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function tearDown()

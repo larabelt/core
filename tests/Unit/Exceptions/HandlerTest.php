@@ -2,7 +2,7 @@
 
 use Belt\Core\Exceptions\Handler;
 use Belt\Core\Http\Exceptions\ApiNotFoundHttpException;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Illuminate;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;

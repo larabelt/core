@@ -2,7 +2,7 @@
 
 use Belt\Core\Commands\UpdateCommand;
 use Belt\Core\Services\Update\UpdateService;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Mockery as m;
 
 class UpdateCommandTest extends BeltTestCase

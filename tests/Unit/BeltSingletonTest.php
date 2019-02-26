@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Unit;
 
 use Belt\Core\BeltSingleton;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 
-class BeltSingletonTest extends Tests\BeltTestCase
+class BeltSingletonTest extends \Tests\Belt\Core\BeltTestCase
 {
     /**
      * @covers \Belt\Core\BeltSingleton::publish

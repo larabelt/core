@@ -3,10 +3,10 @@
 use Belt\Core\Facades\MorphFacade as Morph;
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Jobs\TranslateValue;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Mockery as m;
 
-class TranslateValueTest extends Tests\BeltTestCase
+class TranslateValueTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {
@@ -38,7 +38,7 @@ class TranslateValueTest extends Tests\BeltTestCase
 
 }
 
-class TranslateValueStub extends Tests\BaseModelStub
+class TranslateValueStub extends \Tests\Belt\Core\Base\BaseModelStub
 {
     public $id = 1;
 

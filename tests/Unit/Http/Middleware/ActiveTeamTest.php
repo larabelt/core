@@ -2,7 +2,7 @@
 
 use Belt\Core\Http\Middleware\ActiveTeam;
 use Belt\Core\Services\ActiveTeamService;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 use Belt\Core\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;

@@ -1,10 +1,10 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
 use Route;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\Http\Controllers\Api\ConfigController;
 
-class ApiConfigTest extends Tests\BeltTestCase
+class ApiConfigTest extends \Tests\Belt\Core\BeltTestCase
 {
 
     public function test()

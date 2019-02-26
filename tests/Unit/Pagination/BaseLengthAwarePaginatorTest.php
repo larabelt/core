@@ -2,12 +2,12 @@
 
 use Belt\Core\Http\Requests\PaginateRequest;
 use Belt\Core\Pagination\BaseLengthAwarePaginator;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mockery as m;
 
-class BaseLengthAwarePaginatorTest extends Tests\BeltTestCase
+class BaseLengthAwarePaginatorTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function tearDown()
     {

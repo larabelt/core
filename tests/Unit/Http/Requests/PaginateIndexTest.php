@@ -2,14 +2,14 @@
 
 use Belt\Core\Http\Requests\PaginateIndex;
 use Belt\Core\Services\IndexService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class PaginateIndexTest extends Tests\BeltTestCase
+class PaginateIndexTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

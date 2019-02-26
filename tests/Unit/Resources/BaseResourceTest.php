@@ -1,7 +1,7 @@
 <?php namespace Tests\Belt\Core\Unit\Resources;
 
 use Belt\Core\Resources\BaseResource;
-use Belt\Core\Tests\BeltTestCase;
+use Tests\Belt\Core\BeltTestCase;
 
 class BaseResourceTest extends BeltTestCase
 {

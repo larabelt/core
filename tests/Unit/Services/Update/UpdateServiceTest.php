@@ -1,9 +1,9 @@
 <?php namespace Tests\Belt\Core\Unit\Services;
 
 use Belt\Core\Services\Update\UpdateService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 
-class UpdateServiceTest extends Tests\BeltTestCase
+class UpdateServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     /**
      * @covers \Belt\Core\Services\Update\UpdateService::__construct

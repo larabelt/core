@@ -1,11 +1,11 @@
 <?php namespace Tests\Belt\Core\Feature\Api;
 
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Belt\Core\Param;
 use Belt\Core\Translation;
 use Belt\Core\Facades\TranslateFacade as Translate;
 
-class ApiTranslatablesTest extends Tests\BeltTestCase
+class ApiTranslatablesTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function setUp()
     {

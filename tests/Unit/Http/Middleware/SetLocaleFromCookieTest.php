@@ -2,14 +2,14 @@
 
 use Belt\Core\Facades\TranslateFacade as Translate;
 use Belt\Core\Http\Middleware\SetLocaleFromCookie;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Http\Request;
 use Mockery as m;
 
-class SetLocaleFromCookieTest extends Tests\BeltTestCase
+class SetLocaleFromCookieTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {

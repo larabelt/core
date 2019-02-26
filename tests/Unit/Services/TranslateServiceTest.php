@@ -2,13 +2,13 @@
 
 use Belt\Core\Services\AutoTranslate\BaseAutoTranslate;
 use Belt\Core\Services\TranslateService;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Mockery as m;
 use Symfony\Component\HttpFoundation\Cookie as CookieObject;
 
-class TranslateServiceTest extends Tests\BeltTestCase
+class TranslateServiceTest extends \Tests\Belt\Core\BeltTestCase
 {
     public function setUp()
     {

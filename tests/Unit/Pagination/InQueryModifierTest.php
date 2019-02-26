@@ -2,14 +2,14 @@
 
 use Belt\Core\Http\Requests\PaginateUsers;
 use Belt\Core\Pagination\InQueryModifier;
-use Belt\Core\Tests;
+use Tests\Belt\Core;
 use Illuminate\Database\Eloquent\Builder;
 use Mockery as m;
 
-class InQueryModifierTest extends Tests\BeltTestCase
+class InQueryModifierTest extends \Tests\Belt\Core\BeltTestCase
 {
 
-    use Tests\CommonMocks;
+    use \Tests\Belt\Core\Base\CommonMocks;
 
     public function tearDown()
     {
