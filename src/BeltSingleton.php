@@ -93,11 +93,11 @@ class BeltSingleton
      * @param $class
      * @return string
      */
-    public function guessPackage($class)
+    public function guessPackage($class, $position = 1)
     {
         $bits = explode("\\", $class);
 
-        return strtolower(array_get($bits, 1));
+        return strtolower(array_get($bits, $position));
     }
 
     /**

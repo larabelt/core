@@ -3,7 +3,7 @@
 namespace Tests\Belt\Core;
 
 use Belt\Core\User;
-use Belt\Core\Helpers\BeltHelper;
+use Tests\Belt\Core\Base\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Session\Store;
 use Tests\CreatesApplication;
@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\Handler\NullSessionHandler;
 abstract class BeltTestCase extends TestCase
 {
     use CreatesApplication;
+    use RefreshDatabase;
 
     /**
      * The base URL to use while testing the application.
@@ -56,29 +57,7 @@ abstract class BeltTestCase extends TestCase
         $this->actingAs($super);
     }
 
-    /**
-     * Copy and paste testDB stub over actual testDB
-     *
-     * Called frequently during testing to quickly reset
-     * the databases values. This prevents changes to the testDB
-     * during one test affecting the outcome of another test.
-     *
-     * @codeCoverageIgnore
-     */
-    public function refreshDB()
-    {
 
-        app()['config']->set('database.default', 'sqlite');
-        app()['config']->set('database.connections.sqlite.database', 'database/testing/stub.sqlite');
-
-        $disk = BeltHelper::baseDisk();
-
-        $path = 'database/testing';
-
-        # create stub DB for unit testing
-        $disk->delete("$path/stub.sqlite");
-        $disk->copy("$path/database.sqlite", "$path/stub.sqlite");
-    }
 
     /**
      * Flushes the event listeners for Eloquent models

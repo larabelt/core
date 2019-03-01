@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-4">
                 <h2>Login</h2>
-                {!! Form::open(['url'=>'login']) !!}
+                {!! Form::open(['url'=>'login', 'class'=> 'login']) !!}
                 <div class="form-group">
                     {{ Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email Address']) }}
                 </div>

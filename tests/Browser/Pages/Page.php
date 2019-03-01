@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Pages;
+namespace Tests\Belt\Core\Browser\Pages;
 
 use Laravel\Dusk\Page as BasePage;
 
@@ -14,7 +14,7 @@ abstract class Page extends BasePage
     public static function siteElements()
     {
         return [
-            '@element' => '#selector',
+            //'@element' => '#selector',
         ];
     }
 }
