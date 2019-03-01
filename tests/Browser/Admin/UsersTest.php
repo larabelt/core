@@ -18,10 +18,10 @@ class UsersTest extends DuskTestCase
     public function testManager()
     {
         // manager
-        // -- ManagerRow elements
-        // verify sorting...
+        // BaseManager Row/Head with dynamic selectors...
+        // verify sorting... with macros
         // verify filter
-        // table row counts?
+        // verify pagination
 
         // manager sorting
         // manager filters
@@ -47,18 +47,31 @@ class UsersTest extends DuskTestCase
                 });
             });
 
+            # sort by -users.id
             $browser->whenAvailable('@head', function (Browser $head) {
                 $head->within(new Pages\Users\ManagerHead, function (Browser $cells) {
                     $cells->click('@id-sort');
                 });
             });
-
             $browser->waitUntilMissing('@spinner');
-
             $browser->within('@row1', function (Browser $row) {
                 $row->within(new Pages\Users\ManagerRow, function (Browser $cells) {
                     $user = User::orderBy('id', 'desc')->first();
                     $cells->assertSeeIn('@id', $user->id);
+                });
+            });
+
+            # sort by users.email
+            $browser->whenAvailable('@head', function (Browser $head) {
+                $head->within(new Pages\Users\ManagerHead, function (Browser $cells) {
+                    $cells->click('@email-sort');
+                });
+            });
+            $browser->waitUntilMissing('@spinner');
+            $browser->within('@row1', function (Browser $row) {
+                $row->within(new Pages\Users\ManagerRow, function (Browser $cells) {
+                    $user = User::orderBy('email')->first();
+                    $cells->assertSeeIn('@email', $user->email);
                 });
             });
 
