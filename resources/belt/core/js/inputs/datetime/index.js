@@ -40,7 +40,11 @@ export default {
 
         if (this.form) {
 
-            if (this.default_date) {
+            if (this.form[this.column]) {
+                this.setDatetimeFromStr(this.form[this.column]);
+            }
+
+            if (this.default_date && !this.form[this.column]) {
                 // set default date
                 let values = this.default_date.split(',');
                 let datetime = moment();
@@ -56,7 +60,6 @@ export default {
             this.$watch('form.' + this.column, function (newValue) {
                 this.setDatetimeFromStr(newValue);
             });
-
 
         }
 
