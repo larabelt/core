@@ -33,7 +33,7 @@ export default {
             return this.paramable_type + ':' + this.paramable_id + ':updating';
         },
         groups() {
-            return _.get(this.paramConfigs, 'groups', []);
+            return _.get(this.paramConfigs, 'param_groups', _.get(this.paramConfigs, 'groups', []));
         },
         sortedParams() {
             let configs = _.get(this.paramConfigs, 'params');
