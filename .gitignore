@@ -7,3 +7,4 @@ vendor
 node_modules
 .babelrc
 tests/xdebug-filter.php
+composer.lock

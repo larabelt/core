@@ -1,5 +1,12 @@
 @php
     $collapsed = \Belt\Core\Helpers\CookieHelper::getJson('adminlte', 'collapsed', false);
+    $roles = '';
+
+    if( isset($user_role_names) ) {
+        foreach($user_role_names as $name => $title) {
+            $roles .= "role_$name ";
+        }
+    }
 @endphp
 
 <!DOCTYPE html>
@@ -12,7 +19,7 @@
     <link rel="stylesheet" href="{{ static_url(mix('/css/belt.css')) }}">
 </head>
 
-<body class="admin hold-transition skin-belt sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }} {{ Translate::getAlternateLocale() ? 'alt-locale' : '' }}">
+<body class="{{ $roles }}admin hold-transition skin-belt sidebar-mini {{ $team ? 'team' : '' }} {{ $collapsed ? 'sidebar-collapse' : '' }} {{ Translate::getAlternateLocale() ? 'alt-locale' : '' }}">
 @include('belt-core::layouts.admin.scripts.body-open')
 <div class="wrapper">
 

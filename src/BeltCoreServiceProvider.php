@@ -126,6 +126,7 @@ class BeltCoreServiceProvider extends Belt\Core\BeltServiceProvider
         view()->composer(['belt-core::layouts.admin.partials.includes-pre-main'], Belt\Core\Http\ViewComposers\PreMainAdminComposer::class);
         view()->composer(['*layouts.admin.*'], Belt\Core\Http\ViewComposers\ActiveTeamComposer::class);
         view()->composer(['*window-config'], Belt\Core\Http\ViewComposers\WindowConfigComposer::class);
+        view()->composer(['*'], Belt\Core\Http\ViewComposers\UserRolesComposer::class);
 
         // load bouncer package
         $this->app->register(Silber\Bouncer\BouncerServiceProvider::class);

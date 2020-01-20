@@ -190,4 +190,13 @@ class User extends Authenticatable
         return trim($fullname);
     }
 
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole($role = ''): bool
+    {
+        return $this->isAn($role);
+    }
 }
