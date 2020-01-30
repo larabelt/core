@@ -11,7 +11,10 @@ export default {
             return this.$parent.entity_id;
         },
         translationsStoreKey() {
-            return 'translations/' + this.translatable_type + this.translatable_id;
+            if( this.translatable_type && this.translatable_id ) {
+                return 'translations/' + this.translatable_type + this.translatable_id;
+            }
+            return null
         },
         translationsVisible() {
             return this.$store.getters[this.translationsStoreKey + '/visible'];
@@ -51,7 +54,9 @@ export default {
             this.$store.dispatch(this.translationsStoreKey + '/toggleVisibility');
         },
         setTranslationsVisibility(value) {
-            this.$store.dispatch(this.translationsStoreKey + '/setVisibility', value);
+            if( this.translationsStoreKey ) {
+                this.$store.dispatch(this.translationsStoreKey + '/setVisibility', value);
+            }
         },
     }
 }
