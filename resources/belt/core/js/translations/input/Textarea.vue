@@ -1,5 +1,5 @@
 <template>
-    <textarea class="form-control" rows="10" v-model="translation.value"></textarea>
+    <textarea class="form-control" rows="10" v-if="translation" v-model="translation.value"></textarea>
 </template>
 
 <script>

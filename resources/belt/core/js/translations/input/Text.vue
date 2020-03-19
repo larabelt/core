@@ -1,5 +1,5 @@
 <template>
-    <input type="text" class="form-control" v-model="translation.value"/>
+    <input type="text" class="form-control" v-if="translation" v-model="translation.value"/>
 </template>
 
 <script>
